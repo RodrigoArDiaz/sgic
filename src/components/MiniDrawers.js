@@ -20,7 +20,7 @@ import MenuResponsive from './MenuResponsive.js';
 
 
 // 
-import {Link} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 import { Routes,Route } from 'react-router-dom';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
@@ -29,15 +29,15 @@ import PaginaCatedras from '../pages/PaginaCatedras.js';
 import PaginaDocentes from '../pages/PaginaDocentes.js';
 import PaginaAlumnos from '../pages/PaginaAlumnos.js';
 import BreadCrumbs from './BreadCrumbs.js';
-
+import PaginaInicioSesion from '../pages/PaginaInicioSesion.js';
 
 const drawerWidth = 240;
 
 const informacionUsuario ={
-  nombre: "Pedro",
-  apellido: "Gomez",
-  tipo: "Docente",
-  email: "diazrodrigoredes@gmail.com"
+  nombre: "Juan",
+  apellido: "Perez",
+  tipo: "Superadministrador",
+  email: "perez_juan@gmail.com"
 }
 
 //********* */
@@ -198,7 +198,7 @@ export default function MiniDrawer(props) {
                 key="catedras" 
                 sx={{paddingLeft: 3.1}}
                 component={Link} 
-                to="/"
+                to="catedras"
             >
               <ListItemIcon>
                 <AccountBalanceIcon />
@@ -211,7 +211,7 @@ export default function MiniDrawer(props) {
                 key="docentes" 
                 sx={{paddingLeft: 3.1}}
                 component={Link} 
-                to="/docentes"
+                to="docentes"
             >
               <ListItemIcon>
                 <CoPresentIcon />
@@ -224,7 +224,7 @@ export default function MiniDrawer(props) {
                 key="alumnos" 
                 sx={{paddingLeft: 3.1, borderLeftWidth:"6px"}}
                 component={Link} 
-                to="/alumnos"
+                to="alumnos"
             >
               <ListItemIcon>
                 <SchoolIcon />
@@ -238,12 +238,13 @@ export default function MiniDrawer(props) {
         </Drawer>
 
         {/* Aqui van las paginas ******** */}
-        <Routes>
+        {/* <Routes>             
+            
               <Route
                   path="/"
                   element={<PaginaCatedras/>}
               />
-                  
+              
               <Route
                   path="/docentes"
                   element={<PaginaDocentes/>}
@@ -258,8 +259,10 @@ export default function MiniDrawer(props) {
                   path="*"
                   element={<PaginaCatedras/>}
               />  
-        </Routes>
+        </Routes> */}
         {/* **** */}
+
+        <Outlet/>
 
       </ThemeProvider>
     </Box>

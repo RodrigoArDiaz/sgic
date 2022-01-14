@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { helpHttp } from '../helpers/helpHttp';
 
 export const useForm = (initialForm, validateForm) => {
     const [form, setForm] = useState(initialForm);
@@ -7,11 +9,6 @@ export const useForm = (initialForm, validateForm) => {
     const [response, setResponse] = useState(null);
 
     //handles de eventos
-
-    /**
-     * 
-     * @param {*} e 
-     */
     const handleChange = (e) => {
         const {name, value} = e.target;
         setForm({
@@ -21,9 +18,8 @@ export const useForm = (initialForm, validateForm) => {
     };
 
     /**
-     * 
-     * @param {*} e 
-     */
+    * @param {*} e
+    */
     const handleBlur = (e) => {
         // //Actualiza el estado
         // handleChange(e);
@@ -32,17 +28,67 @@ export const useForm = (initialForm, validateForm) => {
         // setErrors(validateForm(form ));
     };
 
-    /**
-     * 
-     * @param {*} e 
-     */
-    const handleSubmit = (e) => {
+
+    const handleSubmit = (e , url) => {
         e.preventDefault();
         //Actualiza el estado
         handleChange(e);
 
         //Actualiza los errores
-        setErrors(validateForm(form ));
+        let auxError = validateForm(form );
+        setErrors(auxError);
+    };
+
+
+    /**
+     * @param {*} e 
+     * @param {endpoint para la peticion} url 
+     */
+    const handleLogin = (e , url) => {
+        e.preventDefault();
+        //Actualiza el estado
+        handleChange(e);
+
+        //Actualiza los errores
+        let auxError = validateForm(form );
+        setErrors(auxError);
+        
+        //Peticion
+        if(Object.keys(auxError).length === 0){
+            console.log("enviando");
+            console.log(auxError);
+            setLoading(true);
+        
+            // console.log(form);
+            helpHttp()
+                .post("http://127.0.0.1:8000/api/auth/login", {
+                    body: {email: 'rodogomez@gmail.com', password:'87654321'},
+                    // body: form,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    }
+                })
+                .then((res) => {
+                  
+                    setLoading(false);
+                    setResponse(true);
+                    console.log(res);
+                    setTimeout(() => {
+                        setResponse(false);
+                    }, 5000);
+
+                    console.log(res.access_token);
+
+                    window.localStorage.setItem('dataUser', JSON.stringify(res));
+                    
+                });
+        }else{
+            console.log("no se puede enviar");
+            console.log(auxError);
+
+        }
+       
     };
 
     return{
@@ -52,6 +98,7 @@ export const useForm = (initialForm, validateForm) => {
         response: response,
         handleChange: handleChange,
         handleBlur: handleBlur,
-        handleSubmit: handleSubmit,    
+        handleSubmit: handleSubmit,
+        handleLogin: handleLogin,    
     }
 }

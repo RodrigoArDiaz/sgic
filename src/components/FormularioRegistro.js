@@ -8,6 +8,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from '../hooks/useForm';
 import { FormHelperText } from '@mui/material';
+import { Link as LinkRouter } from 'react-router-dom';
 
 /**
  * Estilos.
@@ -46,11 +47,7 @@ const estiloContent= {
    padding: "5px 40px 40px 40px ",
 }
 
-const estiloIconoUsuario = {
-    width: "50px",
-    height: "50px",
-    bgcolor: "#000",
-}
+
 
 /**
  * Campos del formulario.
@@ -178,7 +175,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.nombres}
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.nombres}
                             </FormHelperText>
                         </FormControl>
@@ -196,7 +193,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.apellidos}
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.apellidos}
                             </FormHelperText>
                         </FormControl>
@@ -214,7 +211,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.usuario}
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.usuario}
                             </FormHelperText>
                         </FormControl>
@@ -231,7 +228,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.email}
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.email}
                             </FormHelperText>
                         </FormControl>
@@ -248,7 +245,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.dni}  
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.dni}
                             </FormHelperText>
                         </FormControl>
@@ -265,7 +262,7 @@ function FormularioRegistro() {
                                 onBlur = {handleBlur}
                                 value={form.libreta}   
                                 />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.libreta}
                             </FormHelperText>
                         </FormControl>
@@ -292,7 +289,7 @@ function FormularioRegistro() {
                                     </InputAdornment>
                                 }
                             />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.contrasenia}
                             </FormHelperText>
                         </FormControl>
@@ -319,7 +316,7 @@ function FormularioRegistro() {
                                     </InputAdornment>
                                 }
                             />
-                            <FormHelperText  fullWidth>
+                            <FormHelperText  >
                                 {errors.repetirContrasenia}
                             </FormHelperText>
                         </FormControl>
@@ -336,13 +333,15 @@ function FormularioRegistro() {
 
 
                         <Box textAlign="center" sx={estiloLink}>
-                           <Link 
-                                href="#" 
-                                underline="hover" 
-                                color="secondary"
-                            >
-                               ¿Ya tenes una cuenta? Inicia sesion. 
-                            </Link> 
+                            <Link 
+                                    href="#" 
+                                    underline="hover" 
+                                    color="secondary"
+                                    to="/iniciar_sesion_alumno"
+                                    component={LinkRouter}
+                                >
+                                    ¿Ya tenes una cuenta? Inicia sesion. 
+                            </Link>
                         </Box>
                     </Grid>
                 </Paper>

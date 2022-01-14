@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FormControl, InputLabel, Input, Button, Grid, Paper, Typography, Icon, Avatar, FormHelperText } from '@mui/material';
+import React from 'react';
+import { FormControl, InputLabel, Input, Button, Grid, Paper, Typography, FormHelperText } from '@mui/material';
 import {Box } from '@mui/system';
 import EmailIcon from '@mui/icons-material/Email';
 import { useForm } from '../hooks/useForm';
-import Alert from '@mui/material/Alert';
+
 
 // // Estilos
 const estiloPaper = {
@@ -143,7 +143,7 @@ function FormularioRecuperarContrasenia() {
                                     </FormControl>
                                     
                             </Box>
-                            <FormHelperText sx= {{ml: "35px"}}error fullWidth>
+                            <FormHelperText sx= {{ml: "35px"}} error>
                                 {errors.email}
                             </FormHelperText>
                         </Box> 
