@@ -16,6 +16,7 @@ import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
 import Menu from "./components/Menu.js";
+import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
 
 const listaItemsMenuSuper = [
   {
@@ -94,7 +95,7 @@ export default function App() {
                 )
               }
             >
-              <Route path="mi_perfil" element={<PaginaAlumnos />} />
+              <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
               {/* <Route path="catedras" element={<PaginaCatedras />} />
 
               <Route path="docentes" element={<PaginaDocentes />} />
