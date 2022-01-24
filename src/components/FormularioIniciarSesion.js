@@ -32,9 +32,14 @@ import {
   loginSuccess,
   loginFail,
 } from "../store/slices/loginSlice";
+import { getUserSuccess } from "../store/slices/userSlice";
 import { useNavigate } from "react-router";
 //sgicApi
-import { loginAlumno, loginDocente } from "../api/sgicApi";
+import {
+  loginAlumno,
+  loginDocente,
+  requestGetDataUsuario,
+} from "../api/sgicApi";
 
 //
 import {
@@ -98,7 +103,8 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
     try {
       const res = await loginAlumno(values);
       dispatch(loginSuccess(res.data.token));
-
+      const respData = await requestGetDataUsuario(res.data.token);
+      dispatch(getUserSuccess(respData.Usuario));
       navigate("/inicio");
     } catch (error) {
       // console.log(error.response);
@@ -117,8 +123,9 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
     try {
       const res = await loginDocente(values);
       dispatch(loginSuccess(res.data.token));
-
-      navigate("/inicio");
+      const respData = await requestGetDataUsuario(res.data.token);
+      dispatch(getUserSuccess(respData.Usuario));
+      navigate("/inicio_docente");
     } catch (error) {
       console.log(error.response.data.error);
       dispatch(loginFail(error.response.data.error));
