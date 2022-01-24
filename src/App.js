@@ -17,6 +17,36 @@ import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
 import Menu from "./components/Menu.js";
 
+const listaItemsMenuSuper = [
+  {
+    key: "catedras",
+    itemText: "Catedras",
+    to: "catedras",
+    icon: "account_balance",
+  },
+  {
+    key: "docentes",
+    itemText: "Docentes",
+    to: "docentes",
+    icon: "co_present",
+  },
+  {
+    key: "alumnos",
+    itemText: "Alumnos",
+    to: "alumnos",
+    icon: "school",
+  },
+];
+
+const listaItemsMenuAlumno = [
+  {
+    key: "perfil",
+    itemText: "Mi perfil",
+    to: "mi_perfil",
+    icon: "manage_accounts",
+  },
+];
+
 export default function App() {
   const login = useSelector((state) => state.login);
   const { isAuth } = login;
@@ -56,8 +86,15 @@ export default function App() {
             {/* Rutas privada: rol alumno*/}
             <Route
               path="/inicio/*"
-              element={isAuth ? <Menu /> : <Navigate to="/acceso_alumno" />}
+              element={
+                isAuth ? (
+                  <Menu listaItemsMenu={listaItemsMenuAlumno} />
+                ) : (
+                  <Navigate to="/acceso_alumno" />
+                )
+              }
             >
+              <Route path="mi_perfil" element={<PaginaAlumnos />} />
               {/* <Route path="catedras" element={<PaginaCatedras />} />
 
               <Route path="docentes" element={<PaginaDocentes />} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -18,10 +18,33 @@ import { Link, Outlet } from "react-router-dom";
 import MenuUsuario from "./MenuUsuario.js";
 import { DrawerHeader, AppBar, Drawer } from "../styles/EstilosMenu.js";
 import MenuResponsive from "./MenuResponsive.js";
+import { Button, Icon } from "@mui/material";
+
+// const listaItemsMenu = [
+//   {
+//     key: "catedras",
+//     itemText: "Catedras",
+//     to: "catedras",
+//     icon: "account_balance",
+//   },
+//   {
+//     key: "docentes",
+//     itemText: "Docentes",
+//     to: "docentes",
+//     icon: "co_present",
+//   },
+//   {
+//     key: "alumnos",
+//     itemText: "Alumnos",
+//     to: "alumnos",
+//     icon: "school",
+//   },
+// ];
 
 /** */
-export default function Menu(props) {
+export default function Menu({ listaItemsMenu }) {
   const [open, setOpen] = React.useState(false);
+  const [listaItems, setListaItems] = useState(listaItemsMenu);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -30,6 +53,20 @@ export default function Menu(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  // const handleCambiarMenu = () => {
+  //   console.log("ando");
+  //   const nuevalistaItemsMenu = [
+  //     {
+  //       key: "configuracion",
+  //       itemText: "Configuration",
+  //       to: "configuracion",
+  //       icon: "settings",
+  //     },
+  //   ];
+
+  //   setListaItems(nuevalistaItemsMenu);
+  // };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -78,7 +115,26 @@ export default function Menu(props) {
         <Divider />
         <List>
           {/*Link de React-Dom*/}
-          <ListItem
+          {listaItems.map((ele, index) => {
+            return (
+              <ListItem
+                button
+                key={ele.key}
+                sx={{ paddingLeft: 3.1 }}
+                component={Link}
+                to={ele.to}
+              >
+                <ListItemIcon>
+                  <Icon>{ele.icon}</Icon>
+                </ListItemIcon>
+                <ListItemText primary={ele.itemText} />
+              </ListItem>
+            );
+          })}
+
+          {/* <Button onClick={handleCambiarMenu}>Cambiar menu</Button> */}
+
+          {/* <ListItem
             button
             key="catedras"
             sx={{ paddingLeft: 3.1 }}
@@ -89,9 +145,9 @@ export default function Menu(props) {
               <AccountBalanceIcon />
             </ListItemIcon>
             <ListItemText primary="Catedras" />
-          </ListItem>
+          </ListItem> */}
 
-          <ListItem
+          {/*  <ListItem
             button
             key="docentes"
             sx={{ paddingLeft: 3.1 }}
@@ -115,7 +171,7 @@ export default function Menu(props) {
               <SchoolIcon />
             </ListItemIcon>
             <ListItemText primary="Alumnos" />
-          </ListItem>
+          </ListItem> */}
         </List>
         {/* <Divider /> */}
       </Drawer>
