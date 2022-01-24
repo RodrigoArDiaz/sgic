@@ -3,11 +3,13 @@ import { Button } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import TarjetaPerfilUsuario from "./TarjetaPerfilUsuario";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
 import CerrarSesion from "./CerrarSesion";
+import { useSelector } from "react-redux";
 
-function MenuUsuario({ informacionUsuario }) {
+function MenuUsuario() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user } = useSelector((state) => state.user);
+  const { Usuario } = user;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +33,7 @@ function MenuUsuario({ informacionUsuario }) {
         aria-describedby={id}
         onClick={handleClick}
       >
-        {informacionUsuario.apellido + " " + informacionUsuario.nombre}
+        {Usuario}
       </Button>
 
       <CerrarSesion responsive={false} />
@@ -43,7 +45,6 @@ function MenuUsuario({ informacionUsuario }) {
         handleClose={handleClose}
         responsive={false}
         sx={{ display: { xs: "none", sm: "flex" } }}
-        informacionUsuario={informacionUsuario}
       />
     </>
   );

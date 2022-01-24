@@ -9,9 +9,10 @@ import { ThemeProvider } from "@mui/material";
 import theme from "../temaConfig";
 import { Divider } from "@mui/material";
 import { Popover } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { blue } from "@mui/material/colors";
 import CerrarSesion from "./CerrarSesion";
+
+import { useSelector } from "react-redux";
 
 function TarjetaPerfilUsuario({
   id,
@@ -20,12 +21,11 @@ function TarjetaPerfilUsuario({
   handleClose,
   responsive,
   sx,
-  informacionUsuario,
 }) {
-  // const handleClickModificar  = (handleCloseContenedor) => {
-  //     handleCloseContenedor();
-  // }
+  const { user } = useSelector((state) => state.user);
+  const { Apellidos, Email, Nombres, Usuario } = user;
 
+  console.log(Apellidos);
   return (
     <Popover
       id={id}
@@ -46,21 +46,25 @@ function TarjetaPerfilUsuario({
       <Card sx={{ maxWidth: 345 }} elevation={4}>
         <Grid container justifyContent="center" marginTop={2}>
           <Avatar sx={{ width: 56, height: 56, bgcolor: blue[500] }}>
-            {informacionUsuario.apellido.toString().charAt(0) +
-              "" +
-              informacionUsuario.nombre.toString().charAt(0)}
+            {Apellidos &&
+              Nombres &&
+              Apellidos.toString().charAt(0) +
+                "" +
+                Nombres.toString().charAt(0)}
           </Avatar>
         </Grid>
 
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" align="center">
-            {informacionUsuario.apellido + " " + informacionUsuario.nombre}
+            {Apellidos + " " + Nombres}
           </Typography>
-          <Typography variant="body1" color="text.secondary" align="center">
-            {informacionUsuario.tipo}
-          </Typography>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            align="center"
+          ></Typography>
           <Typography variant="body2" color="text.secondary" align="center">
-            {informacionUsuario.email}
+            {Email}
           </Typography>
         </CardContent>
 

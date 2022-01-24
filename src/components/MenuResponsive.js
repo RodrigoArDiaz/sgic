@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import TarjetaPerfilUsuario from "./TarjetaPerfilUsuario";
 import IconButton from "@mui/material/IconButton";
 
-export default function BasicPopover({ informacionUsuario }) {
+export default function BasicPopover() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -37,7 +37,6 @@ export default function BasicPopover({ informacionUsuario }) {
         handleClose={handleClose}
         responsive={true}
         sx={{ display: { xs: "block", sm: "none", md: "none" } }}
-        informacionUsuario={informacionUsuario}
       />
     </Box>
   );

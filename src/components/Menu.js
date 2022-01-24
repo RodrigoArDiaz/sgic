@@ -19,13 +19,6 @@ import MenuUsuario from "./MenuUsuario.js";
 import { DrawerHeader, AppBar, Drawer } from "../styles/EstilosMenu.js";
 import MenuResponsive from "./MenuResponsive.js";
 
-const informacionUsuario = {
-  nombre: "Juan",
-  apellido: "Perez",
-  tipo: "Superadministrador",
-  email: "perez_juan@gmail.com",
-};
-
 /** */
 export default function Menu(props) {
   const [open, setOpen] = React.useState(false);
@@ -70,9 +63,9 @@ export default function Menu(props) {
             Gestion Catedras
           </Typography>
 
-          <MenuUsuario informacionUsuario={informacionUsuario} />
+          <MenuUsuario />
 
-          <MenuResponsive informacionUsuario={informacionUsuario} />
+          <MenuResponsive />
         </Toolbar>
       </AppBar>
 
