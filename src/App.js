@@ -15,6 +15,7 @@ import PaginaInicioSesion from "./pages/PaginaInicioSesion.js";
 import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
+import Menu from "./components/Menu.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -55,13 +56,7 @@ export default function App() {
             {/* Rutas privada: rol alumno*/}
             <Route
               path="/inicio/*"
-              element={
-                isAuth ? (
-                  <MiniDrawers></MiniDrawers>
-                ) : (
-                  <Navigate to="/acceso_alumno" />
-                )
-              }
+              element={isAuth ? <Menu /> : <Navigate to="/acceso_alumno" />}
             >
               {/* <Route path="catedras" element={<PaginaCatedras />} />
 
