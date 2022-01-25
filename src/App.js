@@ -17,6 +17,7 @@ import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
 import Menu from "./components/Menu.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
+import { SnackbarProvider } from "notistack";
 
 const listaItemsMenuSuper = [
   {
@@ -56,89 +57,91 @@ export default function App() {
     <>
       <Router>
         <ThemeProvider theme={temaConfig}>
-          <Routes>
-            {/* Rutas publicas */}
-            <Route
-              path="/"
-              element={
-                !isAuth ? <PaginaInicioSesion /> : <Navigate to="/inicio" />
-              }
-            />
+          <SnackbarProvider maxSnack={3}>
+            <Routes>
+              {/* Rutas publicas */}
+              <Route
+                path="/"
+                element={
+                  !isAuth ? <PaginaInicioSesion /> : <Navigate to="/inicio" />
+                }
+              />
 
-            <Route path="/acceso_alumno" element={<PaginaInicioSesion />} />
+              <Route path="/acceso_alumno" element={<PaginaInicioSesion />} />
 
-            <Route
-              path="/acceso_docente"
-              element={<PaginaInicioSesion mostrarRegistrarse={false} />}
-            />
+              <Route
+                path="/acceso_docente"
+                element={<PaginaInicioSesion mostrarRegistrarse={false} />}
+              />
 
-            <Route
-              path="/acceso_superadministrador"
-              element={<PaginaInicioSesion mostrarRegistrarse={false} />}
-            />
+              <Route
+                path="/acceso_superadministrador"
+                element={<PaginaInicioSesion mostrarRegistrarse={false} />}
+              />
 
-            <Route path="/registrarse" element={<PaginaRegistrarse />} />
+              <Route path="/registrarse" element={<PaginaRegistrarse />} />
 
-            <Route
-              path="/recuperar_contrasenia"
-              element={<PaginaRecuperarContrasenia />}
-            />
+              <Route
+                path="/recuperar_contrasenia"
+                element={<PaginaRecuperarContrasenia />}
+              />
 
-            {/* Rutas privada: rol alumno*/}
-            <Route
-              path="/inicio/*"
-              element={
-                isAuth ? (
-                  <Menu listaItemsMenu={listaItemsMenuAlumno} />
-                ) : (
-                  <Navigate to="/acceso_alumno" />
-                )
-              }
-            >
-              <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
-              {/* <Route path="catedras" element={<PaginaCatedras />} />
-
-              <Route path="docentes" element={<PaginaDocentes />} />
-
-              <Route path="alumnos" element={<PaginaAlumnos />} /> */}
-            </Route>
-
-            {/* Rutas privada: rol docente*/}
-            <Route
-              path="/inicio_docente/*"
-              element={
-                isAuth ? (
-                  <MiniDrawers></MiniDrawers>
-                ) : (
-                  <Navigate to="/acceso_docente" />
-                )
-              }
-            >
-              {/* <Route path="catedras" element={<PaginaCatedras />} />
+              {/* Rutas privada: rol alumno*/}
+              <Route
+                path="/inicio/*"
+                element={
+                  isAuth ? (
+                    <Menu listaItemsMenu={listaItemsMenuAlumno} />
+                  ) : (
+                    <Navigate to="/acceso_alumno" />
+                  )
+                }
+              >
+                <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
+                {/* <Route path="catedras" element={<PaginaCatedras />} />
 
               <Route path="docentes" element={<PaginaDocentes />} />
 
               <Route path="alumnos" element={<PaginaAlumnos />} /> */}
-            </Route>
+              </Route>
 
-            {/* Rutas privada: rol supervisor*/}
-            <Route
-              path="/inicio_superadministrador/*"
-              element={
-                isAuth ? (
-                  <MiniDrawers></MiniDrawers>
-                ) : (
-                  <Navigate to="/acceso_superadministrador" />
-                )
-              }
-            >
-              <Route path="catedras" element={<PaginaCatedras />} />
+              {/* Rutas privada: rol docente*/}
+              <Route
+                path="/inicio_docente/*"
+                element={
+                  isAuth ? (
+                    <MiniDrawers></MiniDrawers>
+                  ) : (
+                    <Navigate to="/acceso_docente" />
+                  )
+                }
+              >
+                {/* <Route path="catedras" element={<PaginaCatedras />} />
 
               <Route path="docentes" element={<PaginaDocentes />} />
 
-              <Route path="alumnos" element={<PaginaAlumnos />} />
-            </Route>
-          </Routes>
+              <Route path="alumnos" element={<PaginaAlumnos />} /> */}
+              </Route>
+
+              {/* Rutas privada: rol supervisor*/}
+              <Route
+                path="/inicio_superadministrador/*"
+                element={
+                  isAuth ? (
+                    <MiniDrawers></MiniDrawers>
+                  ) : (
+                    <Navigate to="/acceso_superadministrador" />
+                  )
+                }
+              >
+                <Route path="catedras" element={<PaginaCatedras />} />
+
+                <Route path="docentes" element={<PaginaDocentes />} />
+
+                <Route path="alumnos" element={<PaginaAlumnos />} />
+              </Route>
+            </Routes>
+          </SnackbarProvider>
         </ThemeProvider>
       </Router>
     </>
