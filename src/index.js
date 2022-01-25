@@ -8,6 +8,9 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { ThemeProvider } from "@mui/styles";
+import { SnackbarProvider } from "notistack";
+import temaConfig from "./temaConfig.js";
 
 let persistor = persistStore(store);
 
@@ -15,7 +18,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        {/* <ThemeProvider theme={temaConfig}> */}
+        {/* <SnackbarProvider maxSnack={3}> */}
         <App />
+        {/* </SnackbarProvider> */}
+        {/* </ThemeProvider> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>,
