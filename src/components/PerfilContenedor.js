@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import MiPerfil from "./MiPerfil";
+import InformacionUsuario from "./InformacionUsuario";
 import InformacionDeContactos from "./InformacionDeContactos";
 
 export default function PerfilContenedor() {
@@ -27,7 +27,7 @@ export default function PerfilContenedor() {
         </Grid>
 
         <Grid container pt={2}>
-          <MiPerfil></MiPerfil>
+          <InformacionUsuario />
         </Grid>
       </Paper>
 

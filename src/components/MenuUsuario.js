@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 function MenuUsuario() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user } = useSelector((state) => state.user);
-  const { Usuario } = user;
+  // const { Usuario } = user;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +33,7 @@ function MenuUsuario() {
         aria-describedby={id}
         onClick={handleClick}
       >
-        {Usuario}
+        {user.Usuario}
       </Button>
 
       <CerrarSesion responsive={false} />

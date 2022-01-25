@@ -13,13 +13,14 @@ import { Edit, Lock } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 
+import ModificarPerfilUsuario from "./ModificarPerfilUsuario.js";
+
 const estiloLabel = {
   fontSize: "1.3rem",
 };
 
-export default function MiPerfil() {
+export default function InformacionUsuario() {
   const { user } = useSelector((state) => state.user);
-  const { Usuario, Email, Documento, Nombres, Apellidos } = user;
 
   return (
     <>
@@ -38,13 +39,15 @@ export default function MiPerfil() {
               margin: "auto",
             }}
           >
-            {Apellidos &&
-              Nombres &&
-              Apellidos.toString().charAt(0) +
+            {user.Apellidos &&
+              user.Nombres &&
+              user.Apellidos.toString().charAt(0) +
                 "" +
-                Nombres.toString().charAt(0)}
+                user.Nombres.toString().charAt(0)}
           </Avatar>
-          <Typography variant="h5">{Apellidos + " " + Nombres}</Typography>
+          <Typography variant="h5">
+            {user.Apellidos + " " + user.Nombres}
+          </Typography>
         </Grid>
       </Grid>
 
@@ -54,7 +57,7 @@ export default function MiPerfil() {
             <InputLabel htmlFor="usuario" sx={estiloLabel}>
               Usuario
             </InputLabel>
-            <Input id="usuario" readOnly={true} defaultValue={Usuario} />
+            <Input id="usuario" readOnly={true} value={user.Usuario} />
           </FormControl>
         </Grid>
 
@@ -63,12 +66,7 @@ export default function MiPerfil() {
             <InputLabel htmlFor="email" sx={estiloLabel}>
               Email
             </InputLabel>
-            <Input
-              id="email"
-              readOnly={true}
-              defaultValue={Email}
-              size="medium"
-            />
+            <Input id="email" readOnly={true} value={user.Email} />
           </FormControl>
         </Grid>
 
@@ -77,7 +75,7 @@ export default function MiPerfil() {
             <InputLabel htmlFor="documento" sx={estiloLabel}>
               Documento
             </InputLabel>
-            <Input id="documento" readOnly={true} defaultValue={Documento} />
+            <Input id="documento" readOnly={true} value={user.Documento} />
           </FormControl>
         </Grid>
 
@@ -97,9 +95,7 @@ export default function MiPerfil() {
 
       <Grid container spacing={3} mb="3rem" justifyContent="space-evenly">
         <Grid item xs={11} sm={5} md={4} lg={2.5} sx={{ textAlign: "center" }}>
-          <Button variant="contained" startIcon={<Edit />} fullWidth>
-            Modificar perfil
-          </Button>
+          <ModificarPerfilUsuario />
         </Grid>
         <Grid item xs={11} sm={5} md={4} lg={2.5} sx={{ textAlign: "center" }}>
           <Button variant="contained" startIcon={<Lock />} fullWidth>
