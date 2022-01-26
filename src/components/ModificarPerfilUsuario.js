@@ -1,3 +1,4 @@
+import React from "react";
 import { Edit } from "@mui/icons-material";
 import {
   Button,
@@ -7,13 +8,13 @@ import {
   TextField,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
-import React from "react";
-import { useSelector } from "react-redux";
-import { useModal } from "../hooks/useModal";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getUserSuccess } from "../store/slices/userSlice";
+import { useSnackbar } from "notistack";
+import { useModal } from "../hooks/useModal";
 
 const regexSoloNumeros = /^\d+$/;
 
@@ -35,19 +36,20 @@ const validaciones = yup.object({
 const ModificarPerfilUsuario = () => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { user } = useSelector((state) => state.user);
-  const { Usuario, Email, Documento, Nombres, Apellidos } = user;
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const valoresInicialesForm = {
-    nombres: Nombres,
-    apellidos: Apellidos,
-    usuario: Usuario,
-    email: Email,
-    dni: Documento,
-    libreta: "",
+    nombres: user.Nombres,
+    apellidos: user.Apellidos,
+    usuario: user.Usuario,
+    email: user.Email,
+    dni: user.Documento,
+    libreta: "1410972",
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
     onSubmit: (values) => {
@@ -67,10 +69,18 @@ const ModificarPerfilUsuario = () => {
     console.log(values);
 
     //Hago la peticion ...
-    disptch(getUserSuccess(nuevosDatos)); //Esta es una prueba local, se debe hacer la peticion
+    dispatch(getUserSuccess(nuevosDatos)); //Esta es una prueba local, se debe hacer la peticion
 
     //Cierro ventana modal
     handleClose();
+
+    // setModificacionExitosa(true);
+
+    //Muestro mensaje
+    enqueueSnackbar("Se modifico el perfil con exito", {
+      variant: "success",
+      // TransitionComponent: Collapse,
+    });
   };
 
   return (
@@ -193,7 +203,14 @@ const ModificarPerfilUsuario = () => {
           >
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => {
+              formik.resetForm();
+              handleClose();
+            }}
+          >
             Cancelar
           </Button>
         </DialogActions>
