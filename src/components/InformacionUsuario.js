@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Avatar,
-  Button,
   Divider,
   FormControl,
   Grid,
@@ -9,11 +8,11 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-import { Edit, Lock } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 
 import ModificarPerfilUsuario from "./ModificarPerfilUsuario.js";
+import ModificarContrasenia from "./ModificarContrasenia.js";
 
 const estiloLabel = {
   fontSize: "1.3rem",
@@ -98,9 +97,7 @@ export default function InformacionUsuario() {
           <ModificarPerfilUsuario />
         </Grid>
         <Grid item xs={11} sm={5} md={4} lg={2.5} sx={{ textAlign: "center" }}>
-          <Button variant="contained" startIcon={<Lock />} fullWidth>
-            Modificar contraseña
-          </Button>
+          <ModificarContrasenia />
         </Grid>
       </Grid>
     </>
