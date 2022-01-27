@@ -47,7 +47,7 @@ export default function PerfilContenedor() {
       >
         <Grid container pt={1}>
           <Grid item xs={12}>
-            <Typography variant="h5">Informacion De Contactos</Typography>
+            <Typography variant="h6">Informacion De Contactos</Typography>
           </Grid>
         </Grid>
 
