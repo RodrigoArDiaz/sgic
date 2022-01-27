@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import {
+  Alert,
   Avatar,
   Button,
   Chip,
@@ -30,6 +31,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector } from "react-redux";
 import { CrearContacto } from "./CrearContacto";
+import { BorrarContacto } from "./BorrarContacto";
 
 const contactosPrueba = [
   {
@@ -42,7 +44,7 @@ const contactosPrueba = [
   },
   {
     // tipo: "whatsapp",
-    link: "+549381510010",
+    link: "+5",
   },
 ];
 
@@ -53,6 +55,13 @@ export default function InformacionDeContactos() {
   const aniadirContacto = (nuevoContacto) => {
     setContactos([...contactos, nuevoContacto]);
     console.log(contactos);
+  };
+
+  //Prueba
+  const borrarContacto = (idContacto) => {
+    console.log(idContacto);
+    const result = contactos.filter((contacto, indice) => indice != idContacto);
+    setContactos(result);
   };
 
   return (
@@ -76,9 +85,22 @@ export default function InformacionDeContactos() {
           lg={8}
         >
           <List>
+            {contactos.length == 0 && (
+              <>
+                <ListItem key="0">
+                  <ListItemText>
+                    <Alert severity="info">
+                      Aún no añadió informacion de contacto. Añada nueva
+                      informacion de contacto con el boton 'Añadir Contacto'.
+                    </Alert>
+                  </ListItemText>
+                </ListItem>
+              </>
+            )}
             {contactos.map((contacto, indice) => {
               return (
                 <>
+                  {indice == 0 && <Divider variant="inset" component="li" />}
                   <ListItem
                     key={indice}
                     secondaryAction={
@@ -91,13 +113,17 @@ export default function InformacionDeContactos() {
                         >
                           <EditIcon />
                         </IconButton>
-                        <IconButton
+                        <BorrarContacto
+                          idContacto={indice}
+                          borrarContacto={borrarContacto}
+                        />
+                        {/* <IconButton
                           edge="end"
                           aria-label="delete"
                           color="secondary"
                         >
                           <DeleteIcon />
-                        </IconButton>
+                        </IconButton> */}
                       </>
                     }
                   >
