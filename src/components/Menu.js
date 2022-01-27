@@ -19,6 +19,7 @@ import MenuUsuario from "./MenuUsuario.js";
 import { DrawerHeader, AppBar, Drawer } from "../styles/EstilosMenu.js";
 import MenuResponsive from "./MenuResponsive.js";
 import { Button, Icon } from "@mui/material";
+import MenuUsuarioDesplegable from "./MenuUsuarioDesplegable.js";
 
 // const listaItemsMenu = [
 //   {
@@ -100,9 +101,7 @@ export default function Menu({ listaItemsMenu }) {
             Gestion Catedras
           </Typography>
 
-          <MenuUsuario />
-
-          <MenuResponsive />
+          <MenuUsuarioDesplegable />
         </Toolbar>
       </AppBar>
 

@@ -11,19 +11,13 @@ import { Divider } from "@mui/material";
 import { Popover } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import CerrarSesion from "./CerrarSesion";
-
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function TarjetaPerfilUsuario({
-  id,
-  open,
-  anchorEl,
-  handleClose,
-  responsive,
-  sx,
-}) {
+function TarjetaPerfilUsuario({ id, open, anchorEl, handleClose }) {
   const { user } = useSelector((state) => state.user);
   const { Apellidos, Email, Nombres, Usuario } = user;
+  const navigate = useNavigate();
 
   console.log(Apellidos);
   return (
@@ -41,7 +35,7 @@ function TarjetaPerfilUsuario({
         vertical: "top",
         horizontal: "center",
       }}
-      sx={sx}
+      disableRestoreFocus
     >
       <Card sx={{ maxWidth: 345 }} elevation={4}>
         <Grid container justifyContent="center" marginTop={2}>
@@ -84,16 +78,18 @@ function TarjetaPerfilUsuario({
                 size="large"
                 variant="contained"
                 startIcon={<RemoveRedEyeIcon />}
+                onClick={() => {
+                  navigate("mi_perfil");
+                  handleClose();
+                }}
               >
                 Mi perfil
               </Button>
             </Grid>
 
-            {responsive && (
-              <Grid item xs={12}>
-                <CerrarSesion responsive={true} />
-              </Grid>
-            )}
+            <Grid item xs={12}>
+              <CerrarSesion handleCloseMenu={handleClose} />
+            </Grid>
           </ThemeProvider>
         </Grid>
       </Card>

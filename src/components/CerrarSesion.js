@@ -13,7 +13,7 @@ import { loginReset } from "../store/slices/loginSlice";
 import { logoutUsuario } from "../api/sgicApi";
 import { useSelector } from "react-redux";
 
-export default function CerrarSesion({ responsive }) {
+export default function CerrarSesion({ handleCloseMenu }) {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const dispatch = useDispatch();
@@ -35,29 +35,19 @@ export default function CerrarSesion({ responsive }) {
 
   return (
     <>
-      {responsive ? (
-        <Button
-          size="large"
-          variant="outlined"
-          color="secondary"
-          endIcon={<LogoutIcon />}
-          elevation={12}
-          onClick={handleOpen}
-        >
-          Cerrar Sesion
-        </Button>
-      ) : (
-        <Button
-          sx={{ display: { xs: "none", sm: "flex" } }}
-          variant="contained"
-          color="primary"
-          disableElevation
-          endIcon={<LogoutIcon />}
-          onClick={handleOpen}
-        >
-          Cerrar Sesion
-        </Button>
-      )}
+      <Button
+        size="medium"
+        variant="outlined"
+        color="secondary"
+        endIcon={<LogoutIcon />}
+        elevation={12}
+        onClick={() => {
+          handleCloseMenu();
+          handleOpen();
+        }}
+      >
+        Cerrar Sesion
+      </Button>
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
