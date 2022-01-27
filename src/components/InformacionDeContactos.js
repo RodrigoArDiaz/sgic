@@ -32,6 +32,9 @@ import AddIcon from "@mui/icons-material/Add";
 import { useSelector } from "react-redux";
 import { CrearContacto } from "./CrearContacto";
 import { BorrarContacto } from "./BorrarContacto";
+import { ModificarContacto } from "./ModificarContacto";
+import { TransitionGroup } from "react-transition-group";
+import Collapse from "@mui/material/Collapse";
 
 const contactosPrueba = [
   {
@@ -53,37 +56,35 @@ export default function InformacionDeContactos() {
 
   //Prueba
   const aniadirContacto = (nuevoContacto) => {
-    setContactos([...contactos, nuevoContacto]);
-    console.log(contactos);
+    // setContactos([...contactos, nuevoContacto]);
+    setContactos((prev) => [...prev, nuevoContacto]);
   };
 
   //Prueba
   const borrarContacto = (idContacto) => {
-    console.log(idContacto);
-    const result = contactos.filter((contacto, indice) => indice != idContacto);
+    // const result = contactos.filter((contacto, indice) => indice != idContacto);
+    // setContactos(result);
+    setContactos((prev) => [
+      ...prev.filter((contacto, indice) => indice !== idContacto),
+    ]);
+  };
+
+  //Prueba
+  const modificarContacto = (idContacto, contactoModificado) => {
+    const result = contactos.slice();
+    result[idContacto].link = contactoModificado;
     setContactos(result);
   };
 
   return (
     <>
       <Grid container pt={2}>
-        <Grid
-          item
-          xs={12}
-          //  sm={12} md={8}
-          lg={8}
-          textAlign="end"
-        >
+        <Grid item xs={12} lg={8} textAlign="end">
           <CrearContacto aniadirContacto={aniadirContacto} />
         </Grid>
       </Grid>
       <Grid container>
-        <Grid
-          item
-          xs={12}
-          //  sm={12} md={8}
-          lg={8}
-        >
+        <Grid item xs={12} lg={8}>
           <List>
             {contactos.length == 0 && (
               <>
@@ -97,6 +98,7 @@ export default function InformacionDeContactos() {
                 </ListItem>
               </>
             )}
+
             {contactos.map((contacto, indice) => {
               return (
                 <>
@@ -105,25 +107,15 @@ export default function InformacionDeContactos() {
                     key={indice}
                     secondaryAction={
                       <>
-                        <IconButton
-                          edge="end"
-                          aria-label="delete"
-                          sx={{ mr: "1rem" }}
-                          color="secondary"
-                        >
-                          <EditIcon />
-                        </IconButton>
+                        <ModificarContacto
+                          idContacto={indice}
+                          modificarContacto={modificarContacto}
+                          contacto={contacto.link}
+                        />
                         <BorrarContacto
                           idContacto={indice}
                           borrarContacto={borrarContacto}
                         />
-                        {/* <IconButton
-                          edge="end"
-                          aria-label="delete"
-                          color="secondary"
-                        >
-                          <DeleteIcon />
-                        </IconButton> */}
                       </>
                     }
                   >
