@@ -1,16 +1,11 @@
 import React from "react";
 import { Button, IconButton, Tooltip, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useModal } from "../hooks/useModal";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import { useSnackbar } from "notistack";
 
 export const BorrarContacto = ({ idContacto, borrarContacto }) => {

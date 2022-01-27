@@ -1,21 +1,19 @@
 import React from "react";
-import { Button, IconButton, Tooltip, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import { useModal } from "../hooks/useModal";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
 
 const validaciones = yup.object({
-  contactoModificado: yup.string().required("Este campo es obligatorio"),
+  perfil: yup.string().required("Este campo es obligatorio"),
+  redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
 export const ModificarContacto = ({
@@ -27,7 +25,8 @@ export const ModificarContacto = ({
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const valoresInicialesForm = {
-    contactoModificado: contacto,
+    perfil: contacto.perfil,
+    redSocial: contacto.redSocial,
   };
 
   const formik = useFormik({
@@ -40,11 +39,10 @@ export const ModificarContacto = ({
   });
 
   const handleModificarContacto = (values) => {
-    // console.log(values.contactoModificado);
-    // borrarContacto(idContacto);
-    modificarContacto(idContacto, values.contactoModificado);
+    // console.log(values);
+    modificarContacto(idContacto, values);
 
-    //Si se realizo con exito
+    // //Si se realizo con exito
     handleClose();
     enqueueSnackbar("Se modifico el contacto con exito", {
       variant: "success",
@@ -73,23 +71,32 @@ export const ModificarContacto = ({
             <TextField
               autoFocus
               margin="dense"
-              id="contactoModificado"
-              name="contactoModificado"
-              label="Informacion de contacto"
+              id="redSocial"
+              name="redSocial"
+              label="Red Social"
               type="text"
               fullWidth
               variant="standard"
-              value={formik.values.contactoModificado}
+              value={formik.values.redSocial}
               onChange={formik.handleChange}
-              //   onBlur={formik.handleBlur}
               error={
-                formik.touched.contactoModificado &&
-                Boolean(formik.errors.contactoModificado)
+                formik.touched.redSocial && Boolean(formik.errors.redSocial)
               }
-              helperText={
-                formik.touched.contactoModificado &&
-                formik.errors.contactoModificado
-              }
+              helperText={formik.touched.redSocial && formik.errors.redSocial}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="perfil"
+              name="perfil"
+              label="Perfil"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={formik.values.perfil}
+              onChange={formik.handleChange}
+              error={formik.touched.perfil && Boolean(formik.errors.perfil)}
+              helperText={formik.touched.perfil && formik.errors.perfil}
             />
           </form>
         </DialogContent>

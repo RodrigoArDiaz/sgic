@@ -1,35 +1,10 @@
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import {
-  Alert,
-  Avatar,
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { Edit, EditAttributes, Lock } from "@mui/icons-material";
-import { blue } from "@mui/material/colors";
-
+import { Alert, Avatar, Divider, Grid } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import IconButton from "@mui/material/IconButton";
-import FolderIcon from "@mui/icons-material/Folder";
-import DeleteIcon from "@mui/icons-material/Delete";
 import ContactsIcon from "@mui/icons-material/Contacts";
-import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
-import { useSelector } from "react-redux";
 import { CrearContacto } from "./CrearContacto";
 import { BorrarContacto } from "./BorrarContacto";
 import { ModificarContacto } from "./ModificarContacto";
@@ -39,15 +14,19 @@ import Collapse from "@mui/material/Collapse";
 const contactosPrueba = [
   {
     // tipo: "facebook",
-    link: "https://www.facebook.com/...",
+    idContacto: "0",
+    redSocial: "Facebook",
+    perfil: "https://www.facebook.com/alumno10",
   },
   {
-    // tipo: "github",
-    link: "https://github.com/...",
+    idContacto: "1",
+    redSocial: "Github",
+    perfil: "https://github.com/Alumno10",
   },
   {
-    // tipo: "whatsapp",
-    link: "+5",
+    idContacto: "2",
+    redSocial: "WhatsApp",
+    perfil: "+549381200100",
   },
 ];
 
@@ -56,8 +35,15 @@ export default function InformacionDeContactos() {
 
   //Prueba
   const aniadirContacto = (nuevoContacto) => {
-    // setContactos([...contactos, nuevoContacto]);
-    setContactos((prev) => [...prev, nuevoContacto]);
+    //Se debe hacer la peticion
+
+    //Simulacion del caso exitoso
+    const nuevoContactoGuardado = {
+      id: Math.random(),
+      redSocial: nuevoContacto.redSocial,
+      perfil: nuevoContacto.perfil,
+    };
+    setContactos((prev) => [...prev, nuevoContactoGuardado]);
   };
 
   //Prueba
@@ -65,14 +51,23 @@ export default function InformacionDeContactos() {
     // const result = contactos.filter((contacto, indice) => indice != idContacto);
     // setContactos(result);
     setContactos((prev) => [
-      ...prev.filter((contacto, indice) => indice !== idContacto),
+      ...prev.filter((contacto, indice) => contacto.idContacto !== idContacto),
     ]);
   };
 
   //Prueba
   const modificarContacto = (idContacto, contactoModificado) => {
+    console.log(idContacto);
+
+    //Simulacion caso exitoso
     const result = contactos.slice();
-    result[idContacto].link = contactoModificado;
+    result.map((contacto, indice) => {
+      if (contacto.idContacto == idContacto) {
+        contacto.perfil = contactoModificado.perfil;
+        contacto.redSocial = contactoModificado.redSocial;
+      }
+    });
+    //Se guardaria el resultado de la peticion
     setContactos(result);
   };
 
@@ -99,21 +94,23 @@ export default function InformacionDeContactos() {
               </>
             )}
 
+            {/* <TransitionGroup> */}
             {contactos.map((contacto, indice) => {
               return (
                 <>
+                  {/* <Collapse key={contacto.id}> */}
                   {indice == 0 && <Divider variant="inset" component="li" />}
                   <ListItem
                     key={indice}
                     secondaryAction={
                       <>
                         <ModificarContacto
-                          idContacto={indice}
+                          idContacto={contacto.idContacto}
                           modificarContacto={modificarContacto}
-                          contacto={contacto.link}
+                          contacto={contacto}
                         />
                         <BorrarContacto
-                          idContacto={indice}
+                          idContacto={contacto.idContacto}
                           borrarContacto={borrarContacto}
                         />
                       </>
@@ -124,12 +121,16 @@ export default function InformacionDeContactos() {
                         <ContactsIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={contacto.link} />
+                    <ListItemText
+                      primary={contacto.redSocial + ": " + contacto.perfil}
+                    />
                   </ListItem>
                   <Divider variant="inset" component="li" />
+                  {/* </Collapse> */}
                 </>
               );
             })}
+            {/* </TransitionGroup> */}
           </List>
         </Grid>
       </Grid>

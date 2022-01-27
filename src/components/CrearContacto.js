@@ -6,14 +6,14 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
 
 const validaciones = yup.object({
-  contacto: yup.string().required("Este campo es obligatorio"),
+  perfil: yup.string().required("Este campo es obligatorio"),
+  redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
 export const CrearContacto = ({ aniadirContacto }) => {
@@ -21,7 +21,8 @@ export const CrearContacto = ({ aniadirContacto }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const valoresInicialesForm = {
-    contacto: "",
+    perfil: "",
+    redSocial: "",
   };
 
   const formik = useFormik({
@@ -34,14 +35,19 @@ export const CrearContacto = ({ aniadirContacto }) => {
   });
 
   const handleAniadirContacto = (values) => {
-    // console.log(values);
+    const nuevoContacto = {
+      perfil: values.perfil,
+      redSocial: values.redSocial,
+    };
 
-    //Hago la peticion
-    const nuevo = { link: values.contacto };
-    aniadirContacto(nuevo);
+    //Envio a funcion padre para que haga la peticion
+    //Esta esta debe ser una funcion asincron (asyn - await)
+    //const res = await aniadirContacto(nuevoContacto);
+    aniadirContacto(nuevoContacto);
 
     //Si se realizo con exito
     handleClose();
+    formik.resetForm();
     enqueueSnackbar("Se añadio el contacto con con exito", {
       variant: "success",
     });
@@ -61,17 +67,33 @@ export const CrearContacto = ({ aniadirContacto }) => {
             <TextField
               autoFocus
               margin="dense"
-              id="contacto"
-              name="contacto"
-              label="Ingrese el nuevo contacto"
+              id="redSocial"
+              name="redSocial"
+              label="Red Social"
               type="text"
+              placeholder="Ej. Facebook, Github"
               fullWidth
               variant="standard"
-              value={formik.values.contacto}
+              value={formik.values.redSocial}
               onChange={formik.handleChange}
-              //   onBlur={formik.handleBlur}
-              error={formik.touched.contacto && Boolean(formik.errors.contacto)}
-              helperText={formik.touched.contacto && formik.errors.contacto}
+              error={
+                formik.touched.redSocial && Boolean(formik.errors.redSocial)
+              }
+              helperText={formik.touched.redSocial && formik.errors.redSocial}
+            />
+            <TextField
+              margin="dense"
+              id="perfil"
+              name="perfil"
+              label="Perfil"
+              type="text"
+              placeholder="Ej. https://www.facebook.com/user_name"
+              fullWidth
+              variant="standard"
+              value={formik.values.perfil}
+              onChange={formik.handleChange}
+              error={formik.touched.perfil && Boolean(formik.errors.perfil)}
+              helperText={formik.touched.perfil && formik.errors.perfil}
             />
           </form>
         </DialogContent>
