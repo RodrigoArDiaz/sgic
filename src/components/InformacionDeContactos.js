@@ -13,7 +13,6 @@ import Collapse from "@mui/material/Collapse";
 
 const contactosPrueba = [
   {
-    // tipo: "facebook",
     idContacto: "0",
     redSocial: "Facebook",
     perfil: "https://www.facebook.com/alumno10",
@@ -39,7 +38,7 @@ export default function InformacionDeContactos() {
 
     //Simulacion del caso exitoso
     const nuevoContactoGuardado = {
-      id: Math.random(),
+      idContacto: Math.random(),
       redSocial: nuevoContacto.redSocial,
       perfil: nuevoContacto.perfil,
     };
@@ -74,12 +73,21 @@ export default function InformacionDeContactos() {
   return (
     <>
       <Grid container pt={2}>
-        <Grid item xs={12} lg={8} textAlign="end">
+        <Grid
+          item
+          xs={12}
+          // lg={8}
+          textAlign="end"
+        >
           <CrearContacto aniadirContacto={aniadirContacto} />
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={12} lg={8}>
+        <Grid
+          item
+          xs={12}
+          // lg={8}
+        >
           <List>
             {contactos.length == 0 && (
               <>
