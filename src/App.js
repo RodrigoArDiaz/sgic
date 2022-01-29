@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import Menu from "./components/Menu.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
 import { SnackbarProvider } from "notistack";
+import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
 
 const listaItemsMenuSuper = [
   {
@@ -47,7 +48,15 @@ const listaItemsMenuAlumno = [
     to: "mi_perfil",
     icon: "manage_accounts",
   },
+  {
+    key: "inscripciones_cursadas",
+    itemText: "Inscripciones",
+    to: "inscripciones_cursadas",
+    icon: "drive_file_rename_outline",
+  },
 ];
+
+// import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -98,9 +107,12 @@ export default function App() {
                 }
               >
                 <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
-                {/* <Route path="catedras" element={<PaginaCatedras />} />
+                <Route
+                  path="inscripciones_cursadas"
+                  element={<PaginaInscripcionesCursadas />}
+                />
 
-              <Route path="docentes" element={<PaginaDocentes />} />
+                {/* <Route path="docentes" element={<PaginaDocentes />} />
 
               <Route path="alumnos" element={<PaginaAlumnos />} /> */}
               </Route>

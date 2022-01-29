@@ -18,7 +18,7 @@ import { Link, Outlet } from "react-router-dom";
 import MenuUsuario from "./MenuUsuario.js";
 import { DrawerHeader, AppBar, Drawer } from "../styles/EstilosMenu.js";
 import MenuResponsive from "./MenuResponsive.js";
-import { Button, Icon } from "@mui/material";
+import { Button, Icon, Tooltip } from "@mui/material";
 import MenuUsuarioDesplegable from "./MenuUsuarioDesplegable.js";
 
 // const listaItemsMenu = [
@@ -124,7 +124,9 @@ export default function Menu({ listaItemsMenu }) {
                 to={ele.to}
               >
                 <ListItemIcon>
-                  <Icon>{ele.icon}</Icon>
+                  <Tooltip title={ele.itemText} placement="right">
+                    <Icon>{ele.icon}</Icon>
+                  </Tooltip>
                 </ListItemIcon>
                 <ListItemText primary={ele.itemText} />
               </ListItem>
