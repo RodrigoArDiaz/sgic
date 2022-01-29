@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import InscripcionesCard from "./InscripcionesCard";
+import SkeletonInscripcionesCard from "./SkeletonInscripcionesCard";
 
 const cursadasPrueba = [
   {
@@ -45,15 +46,38 @@ const cursadasPrueba = [
 
 const ListaCursadasInscripcion = () => {
   const [cursadas, setCursadas] = useState(cursadasPrueba);
+  //In
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
   return (
     <>
-      {cursadas.map((cursada, indice) => {
-        return (
+      {isLoading ? (
+        <>
           <Grid item lg={3} md={6} sm={12} xs={12}>
-            <InscripcionesCard cursada={cursada} />
+            <SkeletonInscripcionesCard />
           </Grid>
-        );
-      })}
+          <Grid item lg={3} md={6} sm={12} xs={12}>
+            <SkeletonInscripcionesCard />
+          </Grid>
+          <Grid item lg={3} md={6} sm={12} xs={12}>
+            <SkeletonInscripcionesCard />
+          </Grid>
+        </>
+      ) : (
+        cursadas.map((cursada, indice) => {
+          return (
+            <Grid item lg={3} md={6} sm={12} xs={12}>
+              <InscripcionesCard cursada={cursada} />
+            </Grid>
+          );
+        })
+      )}
     </>
   );
 };

@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { styled } from "@mui/material/styles";
 import { blue, orange } from "@mui/material/colors";
+import { CardList, DivInfo } from "./Material UI - Componentes Modificados";
 
 const estilosCardInscripciones = {
   height: "100%",
@@ -17,31 +18,6 @@ const estilosCardInscripciones = {
   flexDirection: "column",
   justifyContent: "flex-end",
 };
-
-const CardList = styled(Card)(({ theme }) => ({
-  boxShadow: "none",
-  //   color: theme.palette.primary.main,
-  border: "1.5px solid rgb(227, 242, 253)",
-  //   border: `1.5px solid ${theme.palette.secondary.light}`,
-  //   border: "1px solid rgb(33, 1'50, 243)",
-  border: `1px solid ${blue["100"]}`,
-  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-
-  "&:hover": {
-    // boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-    // boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 15px 0px",
-    boxShadow:
-      "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-    // boxShadow:
-    //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;rgba(0, 0, 0, 0.16) 0px 1px 4px",
-  },
-}));
-
-const DivInfo = styled("div")(({ theme }) => ({
-  background: orange["50"],
-  borderRadius: "10px",
-  padding: "0.3rem 1rem",
-}));
 
 const InscripcionesCard = ({ cursada }) => {
   const { catedra, materia, anio, fechaInicio } = cursada;
