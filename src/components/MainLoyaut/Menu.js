@@ -22,29 +22,29 @@ import {
 } from "../../components/Material UI - Componentes Modificados/ComponenteMenu/ComponentesMenu";
 import MenuUsuarioDesplegable from "../MenuUsuarioDesplegable.js";
 
-const listaItemsMenu = [
-  {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "catedras",
-    icon: "account_balance",
-  },
-  {
-    key: "docentes",
-    itemText: "Docentes",
-    to: "docentes",
-    icon: "co_present",
-  },
-  {
-    key: "alumnos",
-    itemText: "Alumnos",
-    to: "alumnos",
-    icon: "school",
-  },
-];
+// const listaItemsMenu = [
+//   {
+//     key: "catedras",
+//     itemText: "Catedras",
+//     to: "catedras",
+//     icon: "account_balance",
+//   },
+//   {
+//     key: "docentes",
+//     itemText: "Docentes",
+//     to: "docentes",
+//     icon: "co_present",
+//   },
+//   {
+//     key: "alumnos",
+//     itemText: "Alumnos",
+//     to: "alumnos",
+//     icon: "school",
+//   },
+// ];
 
 /** */
-export default function Menu() {
+export default function Menu({ listaItemsMenu }) {
   const [open, setOpen] = React.useState(false);
   const [listaItems, setListaItems] = useState(listaItemsMenu);
 

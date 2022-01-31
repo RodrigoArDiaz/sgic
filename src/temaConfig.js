@@ -5,10 +5,12 @@ import { blueGrey } from "@mui/material/colors";
 const theme = createTheme({
   palette: {
     primary: {
-      main: teal[600],
+      // main: teal[600],
+      main: teal[400],
       light: teal[500],
       dark: teal[900],
       light50: teal[50],
+      main400: teal[400],
     },
 
     secondary: {

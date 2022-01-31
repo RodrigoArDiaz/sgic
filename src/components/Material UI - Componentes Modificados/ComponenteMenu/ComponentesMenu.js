@@ -5,7 +5,9 @@ import { IconButton, List, ListItem } from "@mui/material";
 
 export const drawerWidth = 250;
 
-//********* */
+/**************************************************
+ * Estilos para la apertura del drawer
+ */
 export const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -15,7 +17,9 @@ export const openedMixin = (theme) => ({
   overflowX: "hidden",
 });
 
-//********* */
+/**************************************************
+ * Estilos para el cierre del drawer
+ */
 export const closedMixin = (theme) => ({
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -61,6 +65,10 @@ export const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+
+  //agregados
+  background: theme.palette.primary.main400,
+  boxShadow: "-9px 1px 10px 2px rgb(0 0 0 / 12%)",
 }));
 
 //********* Setea la propiedad open de MuiDrawer*/
@@ -103,14 +111,14 @@ export const ButtonMenu = styled(IconButton)(({ theme }) => ({
 }));
 
 /*******************************************
- * Componente personalizado del boton de menu
+ * Componente personalizado List para menu
  */
 export const ListMenu = styled(List)(({ theme }) => ({
   padding: "0.4rem",
 }));
 
 /*******************************************
- * Componente personalizado del boton de menu
+ * Componente personalizado ListItem para menu
  */
 export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   boxSizing: "border-box",
