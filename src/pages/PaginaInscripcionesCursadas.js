@@ -1,31 +1,34 @@
 import React from "react";
-import { Grid } from "@mui/material";
-import BreadCrumbs from "../components/BreadCrumbs";
-import BuscarCatedras from "../components/BuscarCatedras";
-import CatedrasContenedor from "../components/CatedrasContenedor";
-import LsitaCursadasInscripcion from "../components/ListaCursadasInscripcion";
+import { Grid, Paper } from "@mui/material";
 import ListaCursadasInscripcion from "../components/ListaCursadasInscripcion";
-import InscripcionesCard from "../components/InscripcionesCard";
+import BuscarCursadasInscripciones from "../components/BuscarCursadasInscripcion";
+import { styled } from "@mui/material/styles";
+
+// const GridCont = styled(Grid)(({ theme }) => ({
+//   marginLeft: "0",
+//   height: "50px",
+// }));
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  // padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 const gridSpacing = 3;
 export default function PaginaInscripcionesCursadas() {
   return (
-    <Grid
-      container
-      spacing={gridSpacing}
-      sx={{
-        ml: { xs: "0", sm: "1rem" },
-        mr: { xs: "0", sm: "1rem" },
-        mt: "80px",
-        background: "#fff",
-        paddingBottom: "2rem",
-        paddingRight: "1.5rem",
-        borderRadius: "4px",
-        boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-      }}
-    >
+    <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
+        <Grid
+          container
+          sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
+        ></Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Grid container sx={{ backgroundColor: "#fff", borderRadius: "10px" }}>
           <ListaCursadasInscripcion />
         </Grid>
       </Grid>

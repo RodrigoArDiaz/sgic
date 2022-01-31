@@ -1,16 +1,10 @@
 import React from "react";
-
 // material-ui
-import { CardHeader, Divider, IconButton, Skeleton } from "@mui/material";
-import Card from "@mui/material/Card";
+import { CardHeader, Divider, Skeleton } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { styled } from "@mui/material/styles";
-import { blue, orange } from "@mui/material/colors";
-import { CardList, DivInfo } from "./Material UI - Componentes Modificados";
+import { CardList } from "./Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
 
 const estilosCardInscripciones = {
   height: "100%",
@@ -25,7 +19,7 @@ const SkeletonInscripcionesCard = () => {
       <CardHeader
         sx={{ marginBottom: "auto", paddingBottom: "0" }}
         textAlign="center"
-        title={<Skeleton variant="rectangular" />}
+        title={<Skeleton variant="rectangular" height={50} />}
       />
       <CardContent
         sx={{

@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import InscripcionesCard from "./InscripcionesCard";
 import SkeletonInscripcionesCard from "./SkeletonInscripcionesCard";
@@ -52,27 +46,30 @@ const ListaCursadasInscripcion = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 2000);
   }, []);
 
   return (
     <>
       {isLoading ? (
         <>
-          <Grid item lg={3} md={6} sm={12} xs={12}>
+          <Grid item xl={3} lg={4} md={6} sm={12} xs={12} padding={2}>
             <SkeletonInscripcionesCard />
           </Grid>
-          <Grid item lg={3} md={6} sm={12} xs={12}>
+          <Grid item xl={3} lg={4} md={6} sm={12} xs={12} padding={2}>
             <SkeletonInscripcionesCard />
           </Grid>
-          <Grid item lg={3} md={6} sm={12} xs={12}>
+          <Grid item xl={3} lg={4} md={6} sm={12} xs={12} padding={2}>
+            <SkeletonInscripcionesCard />
+          </Grid>
+          <Grid item xl={3} lg={4} md={6} sm={12} xs={12} padding={2}>
             <SkeletonInscripcionesCard />
           </Grid>
         </>
       ) : (
         cursadas.map((cursada, indice) => {
           return (
-            <Grid item lg={3} md={6} sm={12} xs={12}>
+            <Grid item xl={3} lg={4} md={6} sm={12} xs={12} padding={2}>
               <InscripcionesCard cursada={cursada} />
             </Grid>
           );

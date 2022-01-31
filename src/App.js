@@ -16,11 +16,11 @@ import PaginaInicioSesion from "./pages/PaginaInicioSesion.js";
 import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
-import Menu from "./components/Menu.js";
+// import Menu from "./components/Menu.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
 import { SnackbarProvider } from "notistack";
 import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
-import MainLoyaut from "./components/MainLoyaut/Menu.js";
+import Menu from "./components/MainLoyaut/Menu.js";
 
 const listaItemsMenuSuper = [
   {
@@ -158,7 +158,10 @@ export default function App() {
 
               {/* <Route path="prueba" element={<PaginaInscripcionesCursadas />} /> */}
 
-              <Route path="menu_prueba" element={<MainLoyaut />} />
+              {/* <Route
+                path="menu_prueba"
+                element={<MainLoyaut listaItemsMenu={listaItemsMenuAlumno} />}
+              /> */}
             </Routes>
           </SnackbarProvider>
         </ThemeProvider>

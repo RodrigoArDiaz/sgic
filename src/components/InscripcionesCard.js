@@ -1,16 +1,15 @@
 import React from "react";
-
 // material-ui
-import { CardHeader, Divider, IconButton } from "@mui/material";
-import Card from "@mui/material/Card";
+import { CardHeader, Divider } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { styled } from "@mui/material/styles";
-import { blue, orange } from "@mui/material/colors";
-import { CardList, DivInfo } from "./Material UI - Componentes Modificados";
+//Componentes propios
+import {
+  CardList,
+  DivInfo,
+} from "./Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones.js";
+import InscribirseEnCursada from "./InscribirseEnCursada";
 
 const estilosCardInscripciones = {
   height: "100%",
@@ -20,12 +19,12 @@ const estilosCardInscripciones = {
 };
 
 const InscripcionesCard = ({ cursada }) => {
-  const { catedra, materia, anio, fechaInicio } = cursada;
+  const { catedra, materia, anio, fechaInicio, idCursada } = cursada;
+
   return (
     <CardList sx={estilosCardInscripciones}>
       <CardHeader
         sx={{ marginBottom: "auto", paddingBottom: "0" }}
-        textAlign="center"
         title={
           <Typography
             variant="h5"
@@ -68,20 +67,7 @@ const InscripcionesCard = ({ cursada }) => {
           <Typography textAlign="center">{fechaInicio}</Typography>
         </DivInfo>
         <Divider orientation="vertical" />
-        <Button
-          size="medium"
-          variant="contained"
-          color="primary"
-          textAlign="center"
-          endIcon={<ArrowUpwardIcon />}
-          ////Alinear con css
-          //   sx={{
-          //     display: "block",
-          //     margin: "0 auto",
-          //   }}
-        >
-          Inscribirme
-        </Button>
+        <InscribirseEnCursada cursada={cursada} />
       </CardActions>
     </CardList>
   );

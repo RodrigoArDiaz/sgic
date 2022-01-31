@@ -6,7 +6,7 @@ const CardList = styled(Card)(({ theme }) => ({
   boxShadow: "none",
   border: "1.5px solid rgb(227, 242, 253)",
   border: `1px solid ${blue["100"]}`,
-  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+  // boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
 
   "&:hover": {
     boxShadow:
