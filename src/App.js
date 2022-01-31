@@ -1,5 +1,6 @@
 import React from "react";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -19,6 +20,7 @@ import Menu from "./components/Menu.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
 import { SnackbarProvider } from "notistack";
 import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
+import MainLoyaut from "./components/MainLoyaut/Menu.js";
 
 const listaItemsMenuSuper = [
   {
@@ -66,6 +68,7 @@ export default function App() {
     <>
       <Router>
         <ThemeProvider theme={temaConfig}>
+          <CssBaseline />
           <SnackbarProvider maxSnack={3}>
             <Routes>
               {/* Rutas publicas */}
@@ -152,6 +155,10 @@ export default function App() {
 
                 <Route path="alumnos" element={<PaginaAlumnos />} />
               </Route>
+
+              {/* <Route path="prueba" element={<PaginaInscripcionesCursadas />} /> */}
+
+              <Route path="menu_prueba" element={<MainLoyaut />} />
             </Routes>
           </SnackbarProvider>
         </ThemeProvider>
