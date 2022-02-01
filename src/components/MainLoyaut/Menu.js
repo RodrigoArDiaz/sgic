@@ -164,6 +164,7 @@ export default function Menu({ listaItemsMenu }) {
                 component={NavLink}
                 to={ele.to}
                 className={(navData) => (navData.isActive ? "active" : "")}
+                onClick={handleDrawerToggle}
               >
                 <ListItemIcon>
                   <Tooltip title={ele.itemText} placement="right">
