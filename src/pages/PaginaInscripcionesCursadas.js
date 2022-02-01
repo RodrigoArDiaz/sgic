@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Grid } from "@mui/material";
 import Breadcrumbs from "../components/BreadCrumbs";
 import ListaCursadasInscripcion from "../components/ListaCursadasInscripcion";
-import BuscarCursadasInscripciones from "../components/BuscarCursadasInscripcion";
 
 export default function PaginaInscripcionesCursadas() {
   return (
