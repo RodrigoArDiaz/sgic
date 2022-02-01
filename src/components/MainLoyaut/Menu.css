@@ -1,0 +1,11 @@
+/* Clases para el componente ListItem (MUI) en combinacion con 
+NavLink (React-Router) usados en Menu, cuando se selecciono el link */
+.active {
+  /* color: #fff !important; */
+  background-color: #26a69a !important;
+  box-shadow: #0e1e251f 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.active span {
+  color: #fff;
+}

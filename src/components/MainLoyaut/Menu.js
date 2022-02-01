@@ -10,7 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon, Tooltip } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, NavLink } from "react-router-dom";
 import {
   DrawerHeader,
   AppBar,
@@ -21,6 +21,8 @@ import {
   ListItemMenu,
 } from "../../components/Material UI - Componentes Modificados/ComponenteMenu/ComponentesMenu";
 import MenuUsuarioDesplegable from "../MenuUsuarioDesplegable.js";
+
+import "./Menu.css";
 
 // const listaItemsMenu = [
 //   {
@@ -114,8 +116,11 @@ export default function Menu({ listaItemsMenu }) {
                 button
                 key={ele.key}
                 sx={{ paddingLeft: 3.1 }}
-                component={Link}
+                // component={Link}
+                // to={ele.to}
+                component={NavLink}
                 to={ele.to}
+                className={(navData) => (navData.isActive ? "active" : "")}
               >
                 <ListItemIcon>
                   <Tooltip title={ele.itemText} placement="right">
@@ -156,8 +161,9 @@ export default function Menu({ listaItemsMenu }) {
                 button
                 key={ele.key}
                 sx={{ paddingLeft: 3.1 }}
-                component={Link}
+                component={NavLink}
                 to={ele.to}
+                className={(navData) => (navData.isActive ? "active" : "")}
               >
                 <ListItemIcon>
                   <Tooltip title={ele.itemText} placement="right">
