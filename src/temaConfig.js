@@ -17,6 +17,10 @@ const theme = createTheme({
       main: blueGrey[500],
       light: blueGrey[300],
       dark: blueGrey[700],
+      light400: blueGrey[400],
+      light200: blueGrey[200],
+      light100: blueGrey[100],
+      light50: blueGrey[50],
     },
     tertiary: {
       main: "#fff",

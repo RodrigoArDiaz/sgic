@@ -1,17 +1,15 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import BreadCrumbs from "../components/BreadCrumbs";
-import DocentesContenedor from "../components/DocentesContenedor";
-import BuscarDocentes from "../components/BuscarDocentes";
-import AlumnosContenedor from "../components/AlumnosContenedor";
-import BuscarAlumnos from "../components/BuscarAlumnos";
-import PerfilContenedor from "../components/PerfilContenedor";
+import Breadcrumbs from "../components/BreadCrumbs";
+import PerfilContenedor from "../components/PerfilUsuario/PerfilContenedor";
 
 export default function PaginaPerfilUsuario() {
   return (
-    <Grid container sx={{ ml: { xs: "0", sm: "20px" }, mt: "80px" }}>
+    <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        {/* <BreadCrumbs/> */}
+        <Grid container sx={{ backgroundColor: "#fff", borderRadius: "10px" }}>
+          <Breadcrumbs />
+        </Grid>
       </Grid>
 
       <Grid item xs={12}>

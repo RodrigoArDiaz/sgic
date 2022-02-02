@@ -13,8 +13,8 @@ import DialogContent from "@mui/material/DialogContent";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
-import { useModal } from "../hooks/useModal";
-import { regexContrasenia } from "../helpers/regex";
+import { useModal } from "../../hooks/useModal";
+import { regexContrasenia } from "../../helpers/regex";
 
 const validaciones = yup.object({
   contraseniaActual: yup.string().required("Este campo es obligatorio"),
@@ -78,12 +78,7 @@ const ModificarContrasenia = () => {
 
   return (
     <>
-      <Button
-        variant="contained"
-        startIcon={<Lock />}
-        fullWidth
-        onClick={handleOpen}
-      >
+      <Button variant="contained" startIcon={<Lock />} onClick={handleOpen}>
         Modificar Contraseña
       </Button>
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>

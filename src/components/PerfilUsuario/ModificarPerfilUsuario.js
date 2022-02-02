@@ -12,9 +12,9 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getUserSuccess } from "../store/slices/userSlice";
+import { getUserSuccess } from "../../store/slices/userSlice";
 import { useSnackbar } from "notistack";
-import { useModal } from "../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
 
 const regexSoloNumeros = /^\d+$/;
 
@@ -88,7 +88,7 @@ const ModificarPerfilUsuario = () => {
       <Button
         variant="contained"
         startIcon={<Edit />}
-        fullWidth
+        // fullWidth
         onClick={handleOpen}
       >
         Modificar perfil

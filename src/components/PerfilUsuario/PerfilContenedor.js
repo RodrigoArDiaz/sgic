@@ -1,13 +1,45 @@
-import React from "react";
-import { Paper, Typography } from "@mui/material";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import {
+  CardContent,
+  CardHeader,
+  Divider,
+  Paper,
+  Tab,
+  TabPanelUnstyled,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/material";
-import InformacionUsuario from "./InformacionUsuario";
-import InformacionDeContactos from "./InformacionDeContactos";
+import InformacionUsuario from "../InformacionUsuario";
+import InformacionDeContactos from "../InformacionDeContactos";
+import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { Box } from "@mui/system";
+import TabsInformacionUsuario from "./TabsInformacionUsuario";
 
 export default function PerfilContenedor() {
   return (
     <>
-      <Paper
+      <CardMain>
+        <CardHeader
+          title={<Typography variant="h5">Mi perfil</Typography>}
+        ></CardHeader>
+        <Divider></Divider>
+
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12}>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <TabsInformacionUsuario />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </CardMain>
+
+      {/* <Paper
         component="div"
         sx={{
           p: "4px 4px",
@@ -54,7 +86,7 @@ export default function PerfilContenedor() {
         <Grid container pt={2}>
           <InformacionDeContactos />
         </Grid>
-      </Paper>
+      </Paper> */}
     </>
   );
 }

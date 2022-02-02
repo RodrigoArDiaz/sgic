@@ -11,8 +11,8 @@ import {
 import { blue } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 
-import ModificarPerfilUsuario from "./ModificarPerfilUsuario.js";
-import ModificarContrasenia from "./ModificarContrasenia.js";
+// import ModificarPerfilUsuario from "./ModificarPerfilUsuario.js";
+// import ModificarContrasenia from "./ModificarContrasenia.js";
 
 const estiloLabel = {
   fontSize: "1.3rem",
@@ -91,7 +91,7 @@ export default function InformacionUsuario() {
           </FormControl>
         </Grid>
       </Grid>
-
+      {/* 
       <Grid container spacing={3} mb="3rem" justifyContent="space-evenly">
         <Grid item xs={11} sm={5} md={4} lg={2.5} sx={{ textAlign: "center" }}>
           <ModificarPerfilUsuario />
@@ -99,7 +99,7 @@ export default function InformacionUsuario() {
         <Grid item xs={11} sm={5} md={4} lg={2.5} sx={{ textAlign: "center" }}>
           <ModificarContrasenia />
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   );
 }
