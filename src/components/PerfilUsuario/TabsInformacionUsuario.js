@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import InformacionUsuario from "./InformacionUsuario";
+import InformacionDeContactos from "./InformacionContactos";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +63,7 @@ export default function TabsInformacionUsuario() {
           <InformacionUsuario />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <InformacionDeContactos />
         </TabPanel>
       </Grid>
     </Grid>
