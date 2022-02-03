@@ -1,12 +1,14 @@
 import React from "react";
+//MUI
 import { Button, IconButton, Tooltip, Typography } from "@mui/material";
-import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
+//hooks personalizados
+import { useModal } from "../../hooks/useModal";
 
 export const BorrarContacto = ({ idContacto, borrarContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);

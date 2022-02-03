@@ -1,15 +1,18 @@
 import React from "react";
+//MUI
 import { Button, IconButton, Tooltip } from "@mui/material";
-import { useModal } from "../../hooks/useModal";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import EditIcon from "@mui/icons-material/Edit";
+//Formik, yup
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
+//hooks personalizados
+import { useModal } from "../../hooks/useModal";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
@@ -39,7 +42,6 @@ export const ModificarContacto = ({
   });
 
   const handleModificarContacto = (values) => {
-    // console.log(values);
     modificarContacto(idContacto, values);
 
     // //Si se realizo con exito

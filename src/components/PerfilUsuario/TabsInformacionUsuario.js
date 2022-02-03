@@ -1,10 +1,11 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+//MUI
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
+//
 import InformacionUsuario from "./InformacionUsuario";
 import InformacionDeContactos from "./InformacionContactos";
 
@@ -51,13 +52,13 @@ export default function TabsInformacionUsuario() {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          // variant="fullWidth"
         >
           <Tab label="Datos personales" {...a11yProps(0)} />
           <Tab label="Informacion de contacto" {...a11yProps(1)} />
         </Tabs>
       </Grid>
 
+      {/* Paneles */}
       <Grid item xs={12}>
         <TabPanel value={value} index={0}>
           <InformacionUsuario />

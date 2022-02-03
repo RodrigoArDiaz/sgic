@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  Button,
-  Fab,
-  IconButton,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { useTheme } from "@emotion/react";
+//MUI
+import { Button, Fab, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModal } from "../../hooks/useModal";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,8 +11,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
-import { useTheme } from "@emotion/react";
-import { Box } from "@mui/system";
+
+//hooks personalizados
+import { useModal } from "../../hooks/useModal";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
