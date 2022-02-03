@@ -7,22 +7,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Grid } from "@mui/material";
-import { ModificarAlumno } from "./ModificarAlumno";
-import { AltaAlumno } from "./AltaAlumno";
-import { BajaAlumno } from "./BajaAlumno";
-import { BorrarAlumno } from "./BorrarAlumno";
+// import { AltaCatedra } from "../AltaCatedra";
+// import { BajaCatedra } from "../BajaCatedra";
+// import { BorrarCatedra } from "../BorrarCatedra";
+// import { ModificarCatedra } from "../ModificarCatedra";
+// import { ListarUsuarios } from "../ListarUsuarios";
+// import { AgregarMaterias } from "../AgregarMaterias";
+// import { AgregarUsuarios } from "../AgregarUsuarios";
+import { ModificarDocente } from "./ModificarDocente";
+import { AltaDocente } from "./AltaDocente";
+import { BajaDocente } from "./BajaDocente";
+import { BorrarDocente } from "./BorrarDocente";
 
 //Datos de prueba
-function crearDatosPrueba(
-  apellidos,
-  nombres,
-  dni,
-  email,
-  estado,
-  usuario,
-  libreta
-) {
-  return { apellidos, nombres, dni, email, estado, usuario, libreta };
+function crearDatosPrueba(apellidos, nombres, dni, email, estado, usuario) {
+  return { apellidos, nombres, dni, email, estado, usuario };
 }
 
 const rows = [
@@ -32,8 +31,7 @@ const rows = [
     "39359920",
     "diazrodrigoar@gmail.com",
     "A",
-    "diazrod",
-    "1410972"
+    "diazrod"
   ),
   crearDatosPrueba(
     "Luchesse",
@@ -41,12 +39,11 @@ const rows = [
     "20300100",
     "gustavo@gmail.com",
     "B",
-    "lucheseaug",
-    "1410100"
+    "lucheseaug"
   ),
 ];
 
-export default function AlumnosLista() {
+export default function DocentesLista() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="Lista de Catedras">
@@ -54,7 +51,6 @@ export default function AlumnosLista() {
           <TableRow>
             <TableCell>Apellidos</TableCell>
             <TableCell>Nombres</TableCell>
-            <TableCell>Libreta</TableCell>
             <TableCell>DNI</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Estado</TableCell>
@@ -77,10 +73,6 @@ export default function AlumnosLista() {
               </TableCell>
 
               <TableCell component="th" scope="row">
-                {row.libreta}
-              </TableCell>
-
-              <TableCell component="th" scope="row">
                 {row.dni}
               </TableCell>
 
@@ -95,19 +87,19 @@ export default function AlumnosLista() {
               <TableCell align="center">
                 <Grid container justifyContent="space-between">
                   <Grid item item xs={12} sm="auto">
-                    <ModificarAlumno alumno={row} />
+                    <ModificarDocente docente={row} />
                   </Grid>
 
                   <Grid item item xs={12} sm="auto">
-                    <AltaAlumno />
+                    <AltaDocente />
                   </Grid>
 
                   <Grid item item xs={12} sm="auto">
-                    <BajaAlumno />
+                    <BajaDocente />
                   </Grid>
 
                   <Grid item item xs={12} sm="auto">
-                    <BorrarAlumno />
+                    <BorrarDocente />
                   </Grid>
                 </Grid>
               </TableCell>

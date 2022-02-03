@@ -1,10 +1,11 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+import CatedraLista from "../CatedraLista";
+import { CrearDocente } from "./CrearDocente";
+import DocentesLista from "./DocentesLista";
 
-import AlumnosLista from "./AlumnosLista";
-
-export default function AlumnosContenedor() {
+export default function DocentesContenedor() {
   return (
     <Paper
       component="div"
@@ -22,12 +23,18 @@ export default function AlumnosContenedor() {
     >
       <Grid container pt={1}>
         <Grid item xs={12}>
-          <Typography variant="h5">Alumnos</Typography>
+          <Typography variant="h5">Docentes</Typography>
+        </Grid>
+      </Grid>
+
+      <Grid container pt={2} justifyContent="flex-end">
+        <Grid item xs={6} sm={4} md={3} lg={2}>
+          <CrearDocente />
         </Grid>
       </Grid>
 
       <Grid container pt={2}>
-        <AlumnosLista />
+        <DocentesLista />
       </Grid>
     </Paper>
   );
