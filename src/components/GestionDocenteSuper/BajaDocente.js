@@ -1,4 +1,5 @@
 import React from "react";
+//Mui
 import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -8,15 +9,33 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+//Hooks personalizados
 import { useModal } from "../../hooks/useModal";
+//
+import { useSnackbar } from "notistack";
 
-export const BajaDocente = () => {
+export const BajaDocente = ({ estado }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const handleBajaDocente = () => {
+    //Realizo peticon
+
+    //Si petiocion ok
+    handleClose();
+    enqueueSnackbar("Se dio de baja al docente con exito.", {
+      variant: "success",
+    });
+  };
 
   return (
     <>
       <Tooltip title="Baja">
-        <IconButton color="secondary" onClick={handleOpen}>
+        <IconButton
+          color="secondary"
+          onClick={handleOpen}
+          disabled={estado == "B" ? true : false}
+        >
           <CancelIcon />
         </IconButton>
       </Tooltip>
@@ -30,7 +49,7 @@ export const BajaDocente = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained" onClick={handleBajaDocente}>
             Aceptar
           </Button>
           <Button variant="outlined" color="secondary" onClick={handleClose}>

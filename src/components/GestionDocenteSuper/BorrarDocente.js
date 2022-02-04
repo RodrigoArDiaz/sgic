@@ -9,9 +9,21 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useModal } from "../../hooks/useModal";
+//
+import { useSnackbar } from "notistack";
 
 export const BorrarDocente = () => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const handleBorrarDocente = () => {
+    //Realizo peticon
+
+    //Si petiocion ok
+    handleClose();
+    enqueueSnackbar("Se borro al docente con exito.", {
+      variant: "success",
+    });
+  };
 
   return (
     <>
@@ -30,7 +42,7 @@ export const BorrarDocente = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained" onClick={handleBorrarDocente}>
             Aceptar
           </Button>
           <Button variant="outlined" color="secondary" onClick={handleClose}>
