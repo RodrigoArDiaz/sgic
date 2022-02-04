@@ -33,7 +33,7 @@ const OutlinedInputSearch = styled(OutlinedInput)(({ theme }) => ({
   border: "none",
   backgroundColor: "rgba(0, 0, 0, 0.04)",
   "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgba(0,0,0,0)",
+    borderColor: "rgba(0,0,0,0.10)",
   },
   "&:hover .MuiOutlinedInput-notchedOutline": {
     borderColor: theme.palette.secondary.main,

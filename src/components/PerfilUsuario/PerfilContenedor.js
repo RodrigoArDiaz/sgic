@@ -1,6 +1,8 @@
 import React from "react";
+//MUI
 import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+//
 import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
 import TabsInformacionUsuario from "./TabsInformacionUsuario";
 
