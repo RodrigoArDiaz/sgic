@@ -25,6 +25,7 @@ const DivInfo = styled("div")(({ theme }) => ({
 const CardMain = styled(Card)(({ theme }) => ({
   borderRadius: "10px",
   boxShadow: "none",
+  border: `1px solid ${theme.palette.secondary.light100}`,
 }));
 
 // /**Componente Busqueda*/

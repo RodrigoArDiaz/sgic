@@ -35,32 +35,43 @@ const InformacionUsuario = () => {
             },
           }}
         >
-          <CardHeader
+          {/* <CardHeader
             title={
               <Typography variant="h5" textAlign="center">
                 {user.Apellidos + " " + user.Nombres}
               </Typography>
             }
-          />
-          <Divider />
+          /> 
+          
+          <Divider/>
+          */}{" "}
           <CardContent>
-            <Avatar
-              sx={{
-                width: "6rem",
-                height: "6rem",
-                bgcolor: blue[500],
-                display: "flex",
-                margin: "auto",
-              }}
+            <Divider sx={{ marginY: "2rem" }}>
+              <Avatar
+                sx={{
+                  width: "5rem",
+                  height: "5rem",
+                  bgcolor: blue[500],
+                  // display: "flex",
+                  // margin: "auto",
+                }}
+              >
+                {user.Apellidos &&
+                  user.Nombres &&
+                  user.Apellidos.toString().charAt(0) +
+                    "" +
+                    user.Nombres.toString().charAt(0)}
+              </Avatar>
+            </Divider>
+            <Box
+              display="flex"
+              justifyContent="center"
+              flexDirection="column"
+              mb="1rem"
             >
-              {user.Apellidos &&
-                user.Nombres &&
-                user.Apellidos.toString().charAt(0) +
-                  "" +
-                  user.Nombres.toString().charAt(0)}
-            </Avatar>
-
-            <Box display="flex" justifyContent="center">
+              <Typography variant="h5" textAlign="center">
+                {user.Apellidos + " " + user.Nombres}
+              </Typography>
               {/* <Typography
                 variant="p"
                 color="text.secondary"
@@ -70,7 +81,7 @@ const InformacionUsuario = () => {
                 Docente
               </Typography> */}
             </Box>
-          </CardContent>
+          </CardContent>{" "}
         </CardMain>
       </Grid>
 
