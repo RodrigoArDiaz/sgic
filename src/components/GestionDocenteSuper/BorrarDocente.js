@@ -12,7 +12,7 @@ import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
 
-export const BorrarDocente = () => {
+export const BorrarDocente = ({ docente }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
   const handleBorrarDocente = () => {

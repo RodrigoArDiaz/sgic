@@ -14,7 +14,7 @@ import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
 
-export const AltaDocente = ({ estado }) => {
+export const AltaDocente = ({ docente }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -32,13 +32,16 @@ export const AltaDocente = ({ estado }) => {
   return (
     <>
       <Tooltip title="Alta">
-        <IconButton
-          color="secondary"
-          onClick={handleOpen}
-          disabled={estado == "A" ? true : false}
-        >
-          <CheckCircle />
-        </IconButton>
+        <span>
+          {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
+          <IconButton
+            color="secondary"
+            onClick={handleOpen}
+            disabled={docente.Estado == "A" ? true : false}
+          >
+            <CheckCircle />
+          </IconButton>
+        </span>
       </Tooltip>
 
       {/* Ventana modal */}

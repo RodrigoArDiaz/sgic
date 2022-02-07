@@ -96,7 +96,7 @@ export const CrearDocente = () => {
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          fullWidth
+          // fullWidth
           onClick={handleOpen}
         >
           Crear docente
@@ -125,7 +125,6 @@ export const CrearDocente = () => {
             helperText={formik.touched.Apellidos && formik.errors.Apellidos}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="Nombres"
             name="Nombres"
@@ -139,7 +138,6 @@ export const CrearDocente = () => {
             helperText={formik.touched.Nombres && formik.errors.Nombres}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="Usuario"
             name="Usuario"
@@ -153,7 +151,6 @@ export const CrearDocente = () => {
             helperText={formik.touched.Usuario && formik.errors.Usuario}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="Email"
             name="Email"
@@ -168,7 +165,6 @@ export const CrearDocente = () => {
           />
 
           <TextField
-            autoFocus
             margin="dense"
             id="Documento"
             name="Documento"
@@ -183,7 +179,6 @@ export const CrearDocente = () => {
           />
 
           <TextField
-            autoFocus
             margin="dense"
             id="Contrasenia"
             name="Contrasenia"
