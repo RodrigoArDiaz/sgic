@@ -36,7 +36,8 @@ const theme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          borderRadius: 20,
+          // borderRadius: 20,
+          borderRadius: "10px",
         },
       },
     },
