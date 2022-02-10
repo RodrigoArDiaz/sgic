@@ -23,6 +23,7 @@ import {
 import MenuUsuarioDesplegable from "../MenuUsuarioDesplegable.js";
 
 import "./Menu.css";
+import FullScreen from "../FullScreen";
 
 // const listaItemsMenu = [
 //   {
@@ -87,6 +88,7 @@ export default function Menu({ listaItemsMenu }) {
             Gestion Catedras
           </Typography>
 
+          <FullScreen />
           <MenuUsuarioDesplegable />
         </Toolbar>
       </AppBar>
