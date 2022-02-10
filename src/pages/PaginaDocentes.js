@@ -1,20 +1,26 @@
 import React from "react";
+//mui
 import { Grid } from "@mui/material";
+//
 import BreadCrumbs from "../components/BreadCrumbs";
 import DocentesContenedor from "../components/GestionDocenteSuper/DocentesContenedor";
-import BuscarDocentes from "../components/GestionDocenteSuper/BuscarDocentes";
 
 export default function PaginaDocentes() {
   return (
-    <Grid container sx={{ ml: { xs: "0", sm: "20px" }, mt: "80px" }}>
+    <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        {/* <BreadCrumbs/> */}
+        <Grid
+          container
+          sx={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            border: "1px solid",
+            borderColor: "secondary.light100",
+          }}
+        >
+          <BreadCrumbs />
+        </Grid>
       </Grid>
-
-      <Grid item xs={12} sm={12} md={10} lg={10}>
-        <BuscarDocentes />
-      </Grid>
-
       <Grid item xs={12}>
         <DocentesContenedor />
       </Grid>

@@ -1,207 +1,235 @@
-import React, { useState, useEffect } from 'react';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import { Grid } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import CloseIcon from '@mui/icons-material/Close';
-import { Button } from '@mui/material';
+import React from "react";
+import { Grid } from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+//
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { Search } from "@mui/icons-material";
+//
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-//Valor inicial 
-const formInicial = {
-  apellidos: "",
-  nombres: "",
-  dni: "",
-  email: "",
-  bajas: false,
-}
+// **********************
 
+const docentesPrueba = [
+  {
+    Apellidos: "Diaz",
+    Nombres: "Rodrigo",
+    Documento: "39359920",
+    Email: "diazrodrigoar@gmail.com",
+    Estado: "A",
+    Usuario: "diazrod",
+  },
+  {
+    Apellidos: "Luchesse",
+    Nombres: "Augusto Gustavo",
+    Documento: "20300100",
+    Email: "gustavo@gmail.com",
+    Estado: "B",
+    Usuario: "lucheseaug",
+  },
+  {
+    Apellidos: "Gomez",
+    Nombres: "Juan Pedro",
+    Documento: "20300100",
+    Email: "gomez@gmail.com",
+    Estado: "B",
+    Usuario: "gomezjuan",
+  },
+  {
+    Apellidos: "Diaz",
+    Nombres: "Rodrigo",
+    Documento: "39359920",
+    Email: "diazrodrigoar@gmail.com",
+    Estado: "A",
+    Usuario: "diazrod",
+  },
+  {
+    Apellidos: "Luchesse",
+    Nombres: "Augusto Gustavo",
+    Documento: "20300100",
+    Email: "gustavo@gmail.com",
+    Estado: "B",
+    Usuario: "lucheseaug",
+  },
+  {
+    Apellidos: "Gomez",
+    Nombres: "Juan Pedro",
+    Documento: "20300100",
+    Email: "gomez@gmail.com",
+    Estado: "B",
+    Usuario: "gomezjuan",
+  },
+  {
+    Apellidos: "Diaz",
+    Nombres: "Rodrigo",
+    Documento: "39359920",
+    Email: "diazrodrigoar@gmail.com",
+    Estado: "A",
+    Usuario: "diazrod",
+  },
+  {
+    Apellidos: "Luchesse",
+    Nombres: "Augusto Gustavo",
+    Documento: "20300100",
+    Email: "gustavo@gmail.com",
+    Estado: "B",
+    Usuario: "lucheseaug",
+  },
+  {
+    Apellidos: "Gomez",
+    Nombres: "Juan Pedro",
+    Documento: "20300100",
+    Email: "gomez@gmail.com",
+    Estado: "B",
+    Usuario: "gomezjuan",
+  },
+];
+// **********************
 
-export default function BuscarDocentes() {
-  //variable de 
-  const [form, setForm] = useState(formInicial);
+//Valor inicial
+const valoresInicialesForm = {
+  Apellidos: "",
+  Nombres: "",
+  Documento: "",
+  Email: "",
+  Bajas: false,
+};
 
-  //handle para campo 'catedra'
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setForm({
-       ...form,
-       [name]: value, 
-    });
+const validaciones = yup.object({
+  Apellidos: yup.string(),
+  Nombres: yup.string(),
+  Documento: yup.string(),
+  Email: yup.string(),
+  Bajas: yup.bool(),
+});
+
+export default function BuscarDocentes({
+  resultadoBusqueda,
+  peticionIniciada,
+  peticionFinalizada,
+  modificarDatosBusqueda,
+}) {
+  const formik = useFormik({
+    initialValues: valoresInicialesForm,
+    validationSchema: validaciones,
+    onSubmit: (values) => {
+      modificarDatosBusqueda(values);
+      handleBuscarDocentes(values);
+      console.log(values);
+    },
+  });
+
+  const handleBuscarDocentes = (values) => {
+    //Realizo peticion
+    peticionIniciada();
+    //....
+
+    //
+    const respuesta = {
+      docentes: docentesPrueba.slice(0, 4),
+      // totalFilas: 2,
+      totalPaginas: 5,
+    };
+
+    // console.log(respuesta.docentes);
+
+    //Devuelvo resultado
+    setTimeout(() => {
+      resultadoBusqueda(respuesta);
+      peticionFinalizada();
+    }, 1000);
   };
-
-  //handle para campo 'bajas'
-  const handleChecked = (e) => {
-    // const {name, value} = e.target;
-    setForm({
-       ...form,
-       [e.target.name]: e.target.checked, 
-    });
-  };
-
-  //handle para boton 'limpiar'
-  const handleClickLimpiar = (inputName) => {   
-    setForm({
-        ...form,
-        [inputName]: "", 
-    });
-  }
-
-
 
   return (
-  <Paper
-      // component="form"
-      sx={{ 
-            p: '2px 4px', 
-            display: 'flex',
-            alignItems: 'center',
-            // width: "100%",
-            mt: "10px",
-            px: 2,
-        }}
-      elevation={3}
-    >
-
-      <Grid 
-        container 
-        spacing={2}
-        justifyContent='space-between'
-        alignItems="flex-center"
-        
-      >
-       
-        <Grid item>
-            <FormControl sx={{ m: 0.4 }} variant="standard">
-                <Input
-                    id="apellidos"
-                    type='text'
-                    placeholder='Apellidos'
-                
-                    endAdornment={
-                        <InputAdornment 
-                            position="end"
-                        >
-                            <IconButton
-                                aria-label="Limpiar campo apellidos"
-                                onClick={() => {
-                                    handleClickLimpiar("apellidos");
-                                }}
-                                
-                            >
-                                <CloseIcon/>
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    onChange={handleChange}
-                    value={form.apellidos}
-                    name='apellidos'
-                />
-            </FormControl>
+    <Grid item xs={12} paddingY={1} paddingX={2}>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={6} lg={2.5} xl={3}>
+          <FormControl fullWidth>
+            <OutlinedInputSearch
+              id="Apellidos"
+              name="Apellidos"
+              placeholder="Apellidos"
+              size="small"
+              value={formik.values.Apellidos}
+              onChange={formik.handleChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  formik.handleSubmit();
+                }
+              }}
+              startAdornment={
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
         </Grid>
-            
-        <Grid item>
-            <FormControl sx={{ m: 0.4 }} variant="standard">
-                <Input
-                    id="nombres"
-                    type='text'
-                    placeholder='Nombres'
-                    endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="Limpiar campo nombres"
-                            onClick={() => {
-                                handleClickLimpiar("nombres");
-                            }}
-                        >
-                            <CloseIcon/>
-                        </IconButton>
-                    </InputAdornment>
-                    }
-                    onChange={handleChange}
-                    value={form.nombres}
-                    name='nombres'
-                />
-            </FormControl> 
+        <Grid item xs={12} sm={6} lg={2.5} xl={2}>
+          <FormControl fullWidth>
+            <OutlinedInputSearch
+              id="Nombres"
+              name="Nombres"
+              placeholder="Nombres"
+              size="small"
+              value={formik.values.Nombres}
+              onChange={formik.handleChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  formik.handleSubmit();
+                }
+              }}
+            />
+          </FormControl>
         </Grid>
-
-        <Grid item>
-            <FormControl sx={{ m: 0.4 }} variant="standard">
-                <Input
-                    id="dni"
-                    type='text'
-                    placeholder='DNI'
-                    endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="Limpiar campo dni"
-                            onClick={() => {
-                                handleClickLimpiar("dni");
-                            }}
-                        >
-                            <CloseIcon/>
-                        </IconButton>
-                    </InputAdornment>
-                    }
-                    onChange={handleChange}
-                    value={form.dni}
-                    name='dni'
-                />
-            </FormControl> 
+        <Grid item xs={12} sm={6} lg={2} xl={2}>
+          <FormControl fullWidth>
+            <OutlinedInputSearch
+              id="Documento"
+              name="Documento"
+              placeholder="Documento"
+              size="small"
+              value={formik.values.Documento}
+              onChange={formik.handleChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  formik.handleSubmit();
+                }
+              }}
+            />
+          </FormControl>
         </Grid>
-
-        <Grid item>
-            <FormControl sx={{ m: 0.4 }} variant="standard">
-                <Input
-                    id="email"
-                    type='text'
-                    placeholder='Email'
-                    endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="Limpiar campo email"
-                            onClick={() => {
-                                handleClickLimpiar("email");
-                            }}
-                        >
-                            <CloseIcon/>
-                        </IconButton>
-                    </InputAdornment>
-                    }
-                    onChange={handleChange}
-                    value={form.email}
-                    name='email'
-                />
-            </FormControl> 
+        <Grid item xs={12} sm={6} lg={3} xl={3}>
+          <FormControl fullWidth>
+            <OutlinedInputSearch
+              id="Email"
+              name="Email"
+              placeholder="Email"
+              size="small"
+              value={formik.values.Email}
+              onChange={formik.handleChange}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  formik.handleSubmit();
+                }
+              }}
+            />
+          </FormControl>
         </Grid>
-
-        <Grid item>
-            <FormGroup>
-              <FormControlLabel 
-                  control={
-                    <Checkbox 
-                      defaultChecked 
-                      name='bajas'
-                      onChange={handleChecked}  
-                    />
-                  } 
-                  label="Incluir bajas" />
-            </FormGroup>   
-        </Grid>  
-          
-        <Grid item xs="auto" sm="auto" alignSelf="center">
-          <Button startIcon={ <SearchIcon/>} color='secondary'
-          >
-            Buscar
-          </Button>
+        <Grid item xs={12} lg={2} xl={2}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox onChange={formik.handleChange} name="Bajas" />}
+              label="Incluir bajas"
+              id="Bajas"
+            />
+          </FormGroup>
         </Grid>
-        
       </Grid>
-    </Paper>
+    </Grid>
   );
 }

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useTheme } from "@emotion/react";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,107 +8,272 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Grid } from "@mui/material";
-// import { AltaCatedra } from "../AltaCatedra";
-// import { BajaCatedra } from "../BajaCatedra";
-// import { BorrarCatedra } from "../BorrarCatedra";
-// import { ModificarCatedra } from "../ModificarCatedra";
-// import { ListarUsuarios } from "../ListarUsuarios";
-// import { AgregarMaterias } from "../AgregarMaterias";
-// import { AgregarUsuarios } from "../AgregarUsuarios";
+import {
+  Chip,
+  Collapse,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import CoPresent from "@mui/icons-material/CoPresent";
+//Componentes
 import { ModificarDocente } from "./ModificarDocente";
 import { AltaDocente } from "./AltaDocente";
 import { BajaDocente } from "./BajaDocente";
 import { BorrarDocente } from "./BorrarDocente";
 
-//Datos de prueba
-function crearDatosPrueba(apellidos, nombres, dni, email, estado, usuario) {
-  return { apellidos, nombres, dni, email, estado, usuario };
-}
+import Paginacion from "./Paginacion";
 
-const rows = [
-  crearDatosPrueba(
-    "Diaz",
-    "Rodrigo",
-    "39359920",
-    "diazrodrigoar@gmail.com",
-    "A",
-    "diazrod"
-  ),
-  crearDatosPrueba(
-    "Luchesse",
-    "Augusto Gustavo",
-    "20300100",
-    "gustavo@gmail.com",
-    "B",
-    "lucheseaug"
-  ),
-];
+export default function DocentesLista({
+  docentes,
+  paginacion,
+  actualizaDatosPaginacion,
+}) {
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("md"));
+  //Para la paginacion
 
-export default function DocentesLista() {
+  //Control de collapse de cada item (lista solo visible en screen xs)
+  const [open, setOpen] = useState({});
+  const handleClick = (id) => {
+    setOpen((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+  };
+
+  //
+
+  const decidirEstado = (estado) => {
+    switch (estado) {
+      case "A":
+        return "Activo";
+
+      case "B":
+        return "Baja";
+    }
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="Lista de Catedras">
-        <TableHead>
-          <TableRow>
-            <TableCell>Apellidos</TableCell>
-            <TableCell>Nombres</TableCell>
-            <TableCell>DNI</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Estado</TableCell>
-            <TableCell align="center">Acciones</TableCell>
-          </TableRow>
-        </TableHead>
+    <>
+      {docentes.length == 0 ? (
+        <></>
+      ) : (
+        <>
+          {!esXs ? (
+            <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+              <Table aria-label="Lista de Catedras">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Apellidos</TableCell>
+                    <TableCell>Nombres</TableCell>
+                    <TableCell>Documento</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell align="center">Estado</TableCell>
+                    <TableCell align="center">Acciones</TableCell>
+                  </TableRow>
+                </TableHead>
 
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.catedra}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                <TableBody>
+                  {docentes.map((docente, indice) => (
+                    <TableRow
+                      key={indice}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {docente.Apellidos}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row">
+                        {docente.Nombres}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row">
+                        {docente.Documento}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row">
+                        {docente.Email}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row" align="center">
+                        {/* {docente.Estado} */}
+                        <Chip
+                          variant="outlined"
+                          color={docente.Estado == "A" ? "success" : "error"}
+                          label={decidirEstado(docente.Estado)}
+                        />
+                      </TableCell>
+
+                      <TableCell align="center">
+                        <Grid container justifyContent="space-between">
+                          <Grid item item xs={12} sm="auto">
+                            <ModificarDocente docente={docente} />
+                          </Grid>
+
+                          <Grid item item xs={12} sm="auto">
+                            <AltaDocente docente={docente} />
+                          </Grid>
+
+                          <Grid item item xs={12} sm="auto">
+                            <BajaDocente docente={docente} />
+                          </Grid>
+
+                          <Grid item item xs={12} sm="auto">
+                            <BorrarDocente docente={docente} />
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+
+              <Paginacion
+                paginacion={paginacion}
+                actualizaDatosPaginacion={actualizaDatosPaginacion}
+              />
+            </TableContainer>
+          ) : (
+            <List
+              sx={{ width: "100%", bgcolor: "background.paper" }}
+              component="nav"
+              aria-labelledby="nested-list-subheader"
+              subheader={
+                <ListSubheader component="div" id="nested-list-subheader">
+                  Docentes
+                </ListSubheader>
+              }
             >
-              <TableCell component="th" scope="row">
-                {row.apellidos}
-              </TableCell>
+              <Divider />
+              {docentes.map((docente, indice) => (
+                <Box
+                  component="div"
+                  key={indice}
+                  sx={{
+                    marginY: "1rem",
+                    border: "1px solid",
+                    borderRadius: "10px",
+                    borderColor: "secondary.light100",
+                    "&:hover": {
+                      // borderColor: "secondary.main",
+                      boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
+                      "& .MuiListItemIcon-root": {
+                        color: "primary.main",
+                      },
+                    },
+                  }}
+                >
+                  <ListItemButton
+                    sx={{ borderRadius: "10px" }}
+                    onClick={() => handleClick(indice)}
+                  >
+                    <ListItemIcon>
+                      <CoPresent
+                        sx={{
+                          "&:hover": {
+                            color: "primary.main",
+                          },
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={docente.Apellidos + " " + docente.Nombres}
+                    />
+                    {/* {selectIndex == indice ? <ExpandLess /> : <ExpandMore />} */}
+                    {open[indice] ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
 
-              <TableCell component="th" scope="row">
-                {row.nombres}
-              </TableCell>
+                  <Collapse
+                    // in={selectIndex == indice}
+                    in={open[indice]}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <List
+                      component="div"
+                      disablePadding
+                      sx={{
+                        borderTop: "1px solid",
+                        borderColor: "primary.light50",
+                      }}
+                    >
+                      <ListItem
+                        sx={{
+                          pl: 4,
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Typography variant="subtitle2">
+                          <b>Apellidos:</b>
+                        </Typography>
+                        <Typography>{docente.Apellidos}</Typography>
+                      </ListItem>
 
-              <TableCell component="th" scope="row">
-                {row.dni}
-              </TableCell>
+                      <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
+                        <Typography variant="subtitle2">
+                          <b>Nombres:</b>
+                        </Typography>
+                        <Typography>{docente.Nombres}</Typography>
+                      </ListItem>
 
-              <TableCell component="th" scope="row">
-                {row.email}
-              </TableCell>
+                      <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
+                        <Typography variant="subtitle2">
+                          <b>Documento:</b>
+                        </Typography>
+                        <Typography>{docente.Documento}</Typography>
+                      </ListItem>
 
-              <TableCell component="th" scope="row">
-                {row.estado}
-              </TableCell>
+                      <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
+                        <Typography variant="subtitle2">
+                          <b>Email:</b>
+                        </Typography>
+                        <Typography>{docente.Email}</Typography>
+                      </ListItem>
 
-              <TableCell align="center">
-                <Grid container justifyContent="space-between">
-                  <Grid item item xs={12} sm="auto">
-                    <ModificarDocente docente={row} />
-                  </Grid>
+                      <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
+                        <Typography variant="subtitle2">
+                          <b>Estado:</b>
+                        </Typography>
+                        {/* <Typography>{docente.Estado}</Typography> */}
+                        <Chip
+                          variant="outlined"
+                          color={docente.Estado == "A" ? "success" : "error"}
+                          label={decidirEstado(docente.Estado)}
+                        />
+                      </ListItem>
 
-                  <Grid item item xs={12} sm="auto">
-                    <AltaDocente />
-                  </Grid>
-
-                  <Grid item item xs={12} sm="auto">
-                    <BajaDocente />
-                  </Grid>
-
-                  <Grid item item xs={12} sm="auto">
-                    <BorrarDocente />
-                  </Grid>
-                </Grid>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                      <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
+                        <ModificarDocente docente={docente} />
+                        <AltaDocente docente={docente} />
+                        <BajaDocente docente={docente} />
+                        <BorrarDocente docente={docente} />
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                  {/* <Divider /> */}
+                </Box>
+              ))}
+              <ListItem
+              // sx={{ paddingX: { xs: "0" } }}
+              >
+                <Paginacion
+                  paginacion={paginacion}
+                  actualizaDatosPaginacion={actualizaDatosPaginacion}
+                />
+              </ListItem>
+            </List>
+          )}
+        </>
+      )}
+    </>
   );
 }

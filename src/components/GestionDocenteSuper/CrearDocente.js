@@ -96,7 +96,7 @@ export const CrearDocente = () => {
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          // fullWidth
+          fullWidth
           onClick={handleOpen}
         >
           Crear docente
