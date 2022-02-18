@@ -4,6 +4,7 @@ import axios from "axios";
 const rootUrl = "http://127.0.0.1:8000/api";
 const loginAlumnoUrl = rootUrl + "/acceso/alumnos";
 const loginDocenteUrl = rootUrl + "/acceso/docentes";
+const loginSuperUrl = rootUrl + "/acceso/super";
 const logoutUsuarioUrl = rootUrl + "/logout";
 const getDataUsuarioUrl = rootUrl + "/me2";
 const registrarUsuarioUrl = rootUrl + "/registro";
@@ -49,6 +50,32 @@ export const loginDocente = (frmData) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(loginDocenteUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para el logueo de usuario tipos super
+ * @param {*} frmData
+ * @returns
+ */
+export const loginSuper = (frmData) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    Usuario: frmData.email,
+    Contrasena: frmData.password,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(loginSuperUrl, credenciales, {
         headers: {
           Accept: "application/json",
         },

@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //MUI
-import { Button, Fab, useMediaQuery } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Collapse,
+  Fab,
+  LinearProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -16,6 +24,11 @@ import * as yup from "yup";
 import { useSnackbar } from "notistack";
 //Hooks personalizados
 import { useModal } from "../../hooks/useModal";
+import { peticionCrearDocente } from "../../api/super/gestionDocentesApi";
+import { Box } from "@mui/system";
+//
+import { regexContrasenia, regexSoloNumeros } from "../../helpers/regex";
+import { useDispatch, useSelector } from "react-redux";
 
 const valoresInicialesForm = {
   Apellidos: "",
@@ -25,9 +38,6 @@ const valoresInicialesForm = {
   Documento: "",
   Contrasenia: "",
 };
-
-const regexSoloNumeros = /^\d+$/;
-const regexContrasenia = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,10}$/;
 
 const validaciones = yup.object({
   Apellidos: yup.string().required("Este campo es obligatorio"),
@@ -49,15 +59,23 @@ const validaciones = yup.object({
     )
     .required("Este campo es obligatorio"),
 });
+
 export const CrearDocente = () => {
   //Variable de estado y handles de eventos para la ventana modal
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
-  //
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  //Variable de estado para manejo de snackbar
+  const { enqueueSnackbar } = useSnackbar();
+  //Indica si se esta realizando la peticion
+  const [isLoading, setIsLoading] = useState(false);
+  //Manejo de errors de la peticion
+  const [errors, setErrors] = useState([]);
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
+  //Formik
   const formik = useFormik({
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
@@ -66,15 +84,30 @@ export const CrearDocente = () => {
     },
   });
 
-  const handleCrearDocente = (values) => {
-    //Realizo peticion
+  /*******************************
+   * Maneja la peticion a la api
+   * @param {*} values: valores del formulario
+   */
+  const handleCrearDocente = async (values) => {
+    setIsLoading(true);
+    setErrors([]);
 
-    //Si sale bien
-    handleClose();
-    formik.resetForm();
-    enqueueSnackbar("Se creo el docente con exito.", {
-      variant: "success",
-    });
+    //Realizo peticion
+    try {
+      const respuesta = await peticionCrearDocente(values, token);
+      //Respuesta OK
+      handleClose();
+      formik.resetForm();
+      enqueueSnackbar("Se creo el docente con exito.", {
+        variant: "success",
+      });
+    } catch (error) {
+      //Ocurrio un error
+      const response = error.response.data;
+      setErrors(response.data);
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -104,7 +137,18 @@ export const CrearDocente = () => {
       )}
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={(event, reason) => {
+          // Evita el cierre de la ventana modal al hacer clik fuera de la misma
+          if (reason && reason == "backdropClick") return;
+          handleClose();
+        }}
+        disableEscapeKeyDown //Evita que se cierre la ventana con la tecla ESC
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Crear docente</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -193,15 +237,41 @@ export const CrearDocente = () => {
             }
             helperText={formik.touched.Contrasenia && formik.errors.Contrasenia}
           />
+
+          <Box width="100%" paddingY={1}>
+            <LinearProgress sx={isLoading ? { opacity: 1 } : { opacity: 0 }} />
+          </Box>
+
+          <Collapse in={errors.length !== 0}>
+            <Alert severity="error">
+              {errors.map((error, indice) => {
+                return (
+                  <>
+                    <Typography variant="p" key={indice}>
+                      {error}
+                    </Typography>
+                    <br />
+                  </>
+                );
+              })}
+            </Alert>
+          </Collapse>
         </DialogContent>
+
         <DialogActions>
-          <Button variant="contained" onClick={formik.handleSubmit}>
+          <Button
+            variant="contained"
+            onClick={formik.handleSubmit}
+            disabled={isLoading ? true : false}
+          >
             Crear
           </Button>
           <Button
+            variant="outlined"
             onClick={() => {
               handleClose();
               formik.resetForm();
+              setErrors([]);
             }}
           >
             Cancelar
