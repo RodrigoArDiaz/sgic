@@ -31,7 +31,7 @@ import { AltaDocente } from "./AltaDocente";
 import { BajaDocente } from "./BajaDocente";
 import { BorrarDocente } from "./BorrarDocente";
 
-import Paginacion from "./Paginacion";
+import Paginacion from "../Paginacion";
 
 export default function DocentesLista({
   docentes,
@@ -40,7 +40,6 @@ export default function DocentesLista({
 }) {
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("md"));
-  //Para la paginacion
 
   //Control de collapse de cada item (lista solo visible en screen xs)
   const [open, setOpen] = useState({});
@@ -49,7 +48,6 @@ export default function DocentesLista({
   };
 
   //
-
   const decidirEstado = (estado) => {
     switch (estado) {
       case "A":

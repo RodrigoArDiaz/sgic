@@ -11,86 +11,10 @@ import { Search } from "@mui/icons-material";
 //
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useSelector } from "react-redux";
+import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
 
-// **********************
-
-const docentesPrueba = [
-  {
-    Apellidos: "Diaz",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Luchesse",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-  {
-    Apellidos: "Diaz",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Luchesse",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-  {
-    Apellidos: "Diaz",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Luchesse",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-];
-// **********************
-
-//Valor inicial
+//Valor inicial del formulario de busqueda
 const valoresInicialesForm = {
   Apellidos: "",
   Nombres: "",
@@ -99,6 +23,7 @@ const valoresInicialesForm = {
   Bajas: false,
 };
 
+//Reglas de validaciones de los campos
 const validaciones = yup.object({
   Apellidos: yup.string(),
   Nombres: yup.string(),
@@ -112,36 +37,62 @@ export default function BuscarDocentes({
   peticionIniciada,
   peticionFinalizada,
   modificarDatosBusqueda,
+  paginacion,
 }) {
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+
+  //Configuracion de Formik
   const formik = useFormik({
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
     onSubmit: (values) => {
       modificarDatosBusqueda(values);
       handleBuscarDocentes(values);
-      console.log(values);
     },
   });
 
-  const handleBuscarDocentes = (values) => {
-    //Realizo peticion
-    peticionIniciada();
-    //....
+  //Funcion manejo de busqueda
+  const handleBuscarDocentes = async (values) => {
+    //Reseteo los valores del resultado de la busqueda anterior
+    resultadoBusqueda({
+      docentes: [],
+      totalPaginas: 0,
+    });
 
-    //
-    const respuesta = {
-      docentes: docentesPrueba.slice(0, 4),
-      // totalFilas: 2,
-      totalPaginas: 5,
+    //Acondiciono valores
+    const pag = {
+      Offset: paginacion.paginaActual - 1,
+      Limite: paginacion.filasPorPagina,
     };
+    //Concateno los valores de busqueda y los de paginacion
+    const datosAEnviar = Object.assign(values, pag);
+    //Muesto loader o spinner
+    peticionIniciada();
+    try {
+      const respuesta = await peticionBuscarDocente(datosAEnviar, token);
+      //Respuesta OK
+      const resultados = respuesta.data.data.resultados;
+      const totalFilas = respuesta.data.data.filas;
+      //Calculo del numero total de paginas
+      const totalPaginas = Math.ceil(totalFilas / paginacion.filasPorPagina);
 
-    // console.log(respuesta.docentes);
-
-    //Devuelvo resultado
-    setTimeout(() => {
-      resultadoBusqueda(respuesta);
-      peticionFinalizada();
-    }, 1000);
+      //Acondiciono resultado
+      const resultadoBusq = {
+        docentes: resultados,
+        totalPaginas: totalPaginas,
+      };
+      //Actualizo resultado
+      resultadoBusqueda(resultadoBusq);
+    } catch (error) {
+      //Ocurrio un error
+      resultadoBusqueda({
+        docentes: [],
+        totalPaginas: 0,
+      });
+    }
+    //
+    peticionFinalizada();
   };
 
   return (

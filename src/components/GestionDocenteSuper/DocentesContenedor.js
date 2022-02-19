@@ -14,82 +14,8 @@ import { CrearDocente } from "./CrearDocente";
 import DocentesLista from "./DocentesLista";
 import BuscarDocentes from "./BuscarDocentes";
 import { Box } from "@mui/system";
-
-///
-const docentesPrueba = [
-  {
-    Apellidos: "Diaz",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Luchesse",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-  {
-    Apellidos: "Gutierrez",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Palermo",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-  {
-    Apellidos: "Diaz",
-    Nombres: "Rodrigo",
-    Documento: "39359920",
-    Email: "diazrodrigoar@gmail.com",
-    Estado: "A",
-    Usuario: "diazrod",
-  },
-  {
-    Apellidos: "Luchesse",
-    Nombres: "Augusto Gustavo",
-    Documento: "20300100",
-    Email: "gustavo@gmail.com",
-    Estado: "B",
-    Usuario: "lucheseaug",
-  },
-  {
-    Apellidos: "Gomez",
-    Nombres: "Juan Pedro",
-    Documento: "20300100",
-    Email: "gomez@gmail.com",
-    Estado: "B",
-    Usuario: "gomezjuan",
-  },
-];
+import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
+import { useSelector } from "react-redux";
 
 //Valor inicial de la paginacion
 const paginacionInicial = {
@@ -118,22 +44,28 @@ export default function DocentesContenedor() {
     //Realizo peticion
     buscarDocentePaginado(datos.paginaActual);
   };
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
   //
-  const buscarDocentePaginado = (paginaActual) => {
-    //Realizo peticion
-    setDocentes(
-      docentesPrueba.slice(
-        paginaActual,
-        paginaActual + paginacion.filasPorPagina
-      )
-    );
+  const buscarDocentePaginado = async (paginaActual) => {
+    //Acondiciono valores
+    const pag = {
+      Offset: (paginaActual - 1) * paginacion.filasPorPagina,
+      Limite: paginacion.filasPorPagina,
+    };
+    //Concateno los valores de busqueda y los de paginacions
+    const datosAEnviar = Object.assign(datosBusqueda, pag);
+    try {
+      const respuesta = await peticionBuscarDocente(datosAEnviar, token);
+      //Respuesta OK
+      const resultados = respuesta.data.data.resultados;
+      //Actualizo valor de busqueda
+      setDocentes(resultados);
+    } catch (error) {
+      //Ocurrio un error
+    }
   };
-
-  //Solo para pruebas
-  useEffect(() => {
-    // console.log(paginacion);
-  }, [paginacion]);
 
   //
   const resultadoBusqueda = (resultadoBusq) => {
@@ -174,6 +106,7 @@ export default function DocentesContenedor() {
             peticionIniciada={peticionIniciada}
             peticionFinalizada={peticionFinalizada}
             modificarDatosBusqueda={modificarDatosBusqueda}
+            paginacion={paginacion}
           />
 
           {isLoading ? (
