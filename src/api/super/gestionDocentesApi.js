@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 const rootUrl = "http://127.0.0.1:8000/api";
 const crearDocenteUrl = rootUrl + "/crear_docente";
 const buscarDocenteUrl = rootUrl + "/buscar_docente";
+const altaDocenteUrl = rootUrl + "/alta_docente";
 
 /****************************************************
  * Peticion para la creacion de docentes
@@ -59,6 +60,32 @@ export const peticionBuscarDocente = (frmData, token) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(buscarDocenteUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para el alta de un docente
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionAltaDocente = (IdUsuario, token) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    IdUsuario: IdUsuario,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(altaDocenteUrl, credenciales, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

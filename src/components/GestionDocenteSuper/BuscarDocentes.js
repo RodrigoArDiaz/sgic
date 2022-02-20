@@ -20,7 +20,7 @@ const valoresInicialesForm = {
   Nombres: "",
   Documento: "",
   Email: "",
-  Bajas: false,
+  Bajas: true,
 };
 
 //Reglas de validaciones de los campos
@@ -62,7 +62,7 @@ export default function BuscarDocentes({
 
     //Acondiciono valores
     const pag = {
-      Offset: paginacion.paginaActual - 1,
+      Offset: 0,
       Limite: paginacion.filasPorPagina,
     };
     //Concateno los valores de busqueda y los de paginacion
@@ -81,6 +81,7 @@ export default function BuscarDocentes({
       const resultadoBusq = {
         docentes: resultados,
         totalPaginas: totalPaginas,
+        paginaActual: 1,
       };
       //Actualizo resultado
       resultadoBusqueda(resultadoBusq);
@@ -89,6 +90,7 @@ export default function BuscarDocentes({
       resultadoBusqueda({
         docentes: [],
         totalPaginas: 0,
+        paginaActual: 1,
       });
     }
     //
@@ -174,7 +176,13 @@ export default function BuscarDocentes({
         <Grid item xs={12} lg={2} xl={2}>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox onChange={formik.handleChange} name="Bajas" />}
+              control={
+                <Checkbox
+                  onChange={formik.handleChange}
+                  name="Bajas"
+                  defaultChecked
+                />
+              }
               label="Incluir bajas"
               id="Bajas"
             />

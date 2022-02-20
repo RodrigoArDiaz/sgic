@@ -37,6 +37,7 @@ export default function DocentesLista({
   docentes,
   paginacion,
   actualizaDatosPaginacion,
+  handleRefrescarPagina,
 }) {
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("md"));
@@ -118,7 +119,10 @@ export default function DocentesLista({
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
-                            <AltaDocente docente={docente} />
+                            <AltaDocente
+                              docente={docente}
+                              handleRefrescarPagina={handleRefrescarPagina}
+                            />
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
@@ -251,7 +255,10 @@ export default function DocentesLista({
 
                       <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
                         <ModificarDocente docente={docente} />
-                        <AltaDocente docente={docente} />
+                        <AltaDocente
+                          docente={docente}
+                          handleRefrescarPagina={handleRefrescarPagina}
+                        />
                         <BajaDocente docente={docente} />
                         <BorrarDocente docente={docente} />
                       </ListItem>

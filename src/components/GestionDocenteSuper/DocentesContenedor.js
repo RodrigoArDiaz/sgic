@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 
 //Valor inicial de la paginacion
 const paginacionInicial = {
-  filasPorPagina: 4,
+  filasPorPagina: 6,
   totalPaginas: 0,
   paginaActual: 1,
 };
@@ -30,22 +30,44 @@ export default function DocentesContenedor() {
   //Indica si mostrar el loader (o spinner)
   const [isLoading, setIsLoading] = useState(false);
   //Datos ingresados en la busqueda (necesarios para la paginacion)
-  const [datosBusqueda, setDatosBusqueda] = useState({});
-
-  //Funcion para pasar a componentes hijos
-  const modificarDatosBusqueda = (datos) => setDatosBusqueda(datos);
-
+  const [datosBusqueda, setDatosBusqueda] = useState({
+    Apellidos: "",
+    Nombres: "",
+    Documento: "",
+    Email: "",
+    Bajas: true,
+  });
+  //Indica si refrescar la pagina (para acciones de alta, baja , borrar)
+  const [refrescarPagina, setRefrescarPagina] = useState(false);
   //Para la paginacion
   const [paginacion, setPaginacion] = useState(paginacionInicial);
-  //Actualiza
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+
+  //
+  useEffect(() => {
+    //Refresca la pagina actual, para reflejar los cambios
+    buscarDocentePaginado(paginacion.paginaActual);
+  }, [refrescarPagina]);
+
+  useEffect(() => {
+    console.log(paginacion);
+  }, [paginacion]);
+
+  //Funcion para pasar a los hijos. Indica que se refresque la pagina
+  const handleRefrescarPagina = () => setRefrescarPagina(!refrescarPagina);
+
+  //Funcion para pasar a componentes hijos. Actualiza los datos de busqueda
+  const modificarDatosBusqueda = (datos) => setDatosBusqueda(datos);
+
+  //Actualiza datos de paginacion
   const actualizaDatosPaginacion = (datos) => {
     //Actualizo dato de paginacion
     setPaginacion({ ...paginacion, ...datos });
+
     //Realizo peticion
     buscarDocentePaginado(datos.paginaActual);
   };
-  //Recupero token
-  const { token } = useSelector((state) => state.login);
 
   //
   const buscarDocentePaginado = async (paginaActual) => {
@@ -67,12 +89,15 @@ export default function DocentesContenedor() {
     }
   };
 
-  //
+  //Actualiza las variables de estado con los resultado de las busquedas
   const resultadoBusqueda = (resultadoBusq) => {
     setDocentes(resultadoBusq.docentes);
     setPaginacion({
       ...paginacion,
-      totalPaginas: resultadoBusq.totalPaginas,
+      ...{
+        totalPaginas: resultadoBusq.totalPaginas,
+        paginaActual: resultadoBusq.paginaActual,
+      },
     });
   };
 
@@ -123,6 +148,7 @@ export default function DocentesContenedor() {
                     docentes={docentes}
                     paginacion={paginacion}
                     actualizaDatosPaginacion={actualizaDatosPaginacion}
+                    handleRefrescarPagina={handleRefrescarPagina}
                   />
                 </Grid>
               </Grid>

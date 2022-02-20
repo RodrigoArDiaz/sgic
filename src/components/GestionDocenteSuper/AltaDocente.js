@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //MUI
 import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
@@ -13,20 +13,40 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
+import { peticionAltaDocente } from "../../api/super/gestionDocentesApi";
+import { useSelector } from "react-redux";
 
-export const AltaDocente = ({ docente }) => {
+export const AltaDocente = ({ docente, handleRefrescarPagina }) => {
+  //
+  const [infoDocente, setInfoDocente] = useState(docente);
+  //
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
-  const handleAltaDocente = () => {
+  //
+
+  //
+  const handleAltaDocente = async () => {
     //Realizo peticon
-
-    //Si petiocion ok
-    handleClose();
-    enqueueSnackbar("Se dio de alta al docente con exito.", {
-      variant: "success",
-    });
+    try {
+      const respuesta = await peticionAltaDocente(docente.IdUsuario, token);
+      //Si petiocion ok
+      handleClose();
+      enqueueSnackbar("Se dio de alta al docente con exito.", {
+        variant: "success",
+      });
+      //
+      handleRefrescarPagina();
+    } catch (error) {
+      const mensaje = error.response.data.data.mensaje;
+      handleClose();
+      enqueueSnackbar(`Error: ${mensaje}`, {
+        variant: "error",
+      });
+    }
   };
 
   return (
