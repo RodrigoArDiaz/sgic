@@ -19,8 +19,8 @@ export const peticionCrearDocente = (frmData, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     Usuario: frmData.Usuario,
-    Contrasena: frmData.Contrasenia,
-    Contrasena_confirmation: frmData.Contrasenia,
+    // Contrasena: frmData.Contrasenia,
+    // Contrasena_confirmation: frmData.Contrasenia,
     Documento: frmData.Documento,
     Apellidos: frmData.Apellidos,
     Nombres: frmData.Nombres,

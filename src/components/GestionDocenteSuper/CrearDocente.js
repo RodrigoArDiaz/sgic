@@ -36,7 +36,7 @@ const valoresInicialesForm = {
   Usuario: "",
   Email: "",
   Documento: "",
-  Contrasenia: "",
+  // Contrasenia: "",
 };
 
 const validaciones = yup.object({
@@ -51,13 +51,13 @@ const validaciones = yup.object({
     .string()
     .matches(regexSoloNumeros, "Este campo solo admite valores numericos.")
     .required("Este campo es obligatorio"),
-  Contrasenia: yup
-    .string()
-    .matches(
-      regexContrasenia,
-      "La contraseña debe tener un minimo de 8 caracteres y un maximo de 10. Debe contener al menos un numero, una letra en minuscula y una letra en mayuscula."
-    )
-    .required("Este campo es obligatorio"),
+  // Contrasenia: yup
+  //   .string()
+  //   .matches(
+  //     regexContrasenia,
+  //     "La contraseña debe tener un minimo de 8 caracteres y un maximo de 10. Debe contener al menos un numero, una letra en minuscula y una letra en mayuscula."
+  //   )
+  //   .required("Este campo es obligatorio"),
 });
 
 export const CrearDocente = () => {
@@ -222,7 +222,7 @@ export const CrearDocente = () => {
             helperText={formik.touched.Documento && formik.errors.Documento}
           />
 
-          <TextField
+          {/* <TextField
             margin="dense"
             id="Contrasenia"
             name="Contrasenia"
@@ -236,7 +236,7 @@ export const CrearDocente = () => {
               formik.touched.Contrasenia && Boolean(formik.errors.Contrasenia)
             }
             helperText={formik.touched.Contrasenia && formik.errors.Contrasenia}
-          />
+          /> */}
 
           <Box width="100%" paddingY={1}>
             <LinearProgress sx={isLoading ? { opacity: 1 } : { opacity: 0 }} />
