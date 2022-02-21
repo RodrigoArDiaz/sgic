@@ -6,6 +6,9 @@ const rootUrl = "http://127.0.0.1:8000/api";
 const crearDocenteUrl = rootUrl + "/crear_docente";
 const buscarDocenteUrl = rootUrl + "/buscar_docente";
 const altaDocenteUrl = rootUrl + "/alta_docente";
+const bajaDocenteUrl = rootUrl + "/baja_docente";
+const borrarDocenteUrl = rootUrl + "/borrar_docente";
+const modificarDocenteUrl = rootUrl + "/modificar_docente";
 
 /****************************************************
  * Peticion para la creacion de docentes
@@ -73,7 +76,7 @@ export const peticionBuscarDocente = (frmData, token) => {
 };
 
 /****************************************************
- * Peticion para el alta de un docente
+ * Peticion para la baja de un docente
  * @param {*} frmData
  * @returns
  */
@@ -86,6 +89,79 @@ export const peticionAltaDocente = (IdUsuario, token) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(altaDocenteUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para el alta de un docente
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionBajaDocente = (IdUsuario, token) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    IdUsuario: IdUsuario,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(bajaDocenteUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para borrar un docente
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionBorrarDocente = (IdUsuario, token) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    IdUsuario: IdUsuario,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(borrarDocenteUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para modificar un docente
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionModificarDocente = (formData, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(modificarDocenteUrl, formData, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

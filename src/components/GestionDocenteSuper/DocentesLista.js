@@ -115,7 +115,10 @@ export default function DocentesLista({
                       <TableCell align="center">
                         <Grid container justifyContent="space-between">
                           <Grid item item xs={12} sm="auto">
-                            <ModificarDocente docente={docente} />
+                            <ModificarDocente
+                              docente={docente}
+                              handleRefrescarPagina={handleRefrescarPagina}
+                            />
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
@@ -126,11 +129,17 @@ export default function DocentesLista({
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
-                            <BajaDocente docente={docente} />
+                            <BajaDocente
+                              docente={docente}
+                              handleRefrescarPagina={handleRefrescarPagina}
+                            />
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
-                            <BorrarDocente docente={docente} />
+                            <BorrarDocente
+                              docente={docente}
+                              handleRefrescarPagina={handleRefrescarPagina}
+                            />
                           </Grid>
                         </Grid>
                       </TableCell>
@@ -254,13 +263,22 @@ export default function DocentesLista({
                       </ListItem>
 
                       <ListItem sx={{ pl: 4, justifyContent: "space-between" }}>
-                        <ModificarDocente docente={docente} />
+                        <ModificarDocente
+                          docente={docente}
+                          handleRefrescarPagina={handleRefrescarPagina}
+                        />
                         <AltaDocente
                           docente={docente}
                           handleRefrescarPagina={handleRefrescarPagina}
                         />
-                        <BajaDocente docente={docente} />
-                        <BorrarDocente docente={docente} />
+                        <BajaDocente
+                          docente={docente}
+                          handleRefrescarPagina={handleRefrescarPagina}
+                        />
+                        <BorrarDocente
+                          docente={docente}
+                          handleRefrescarPagina={handleRefrescarPagina}
+                        />
                       </ListItem>
                     </List>
                   </Collapse>

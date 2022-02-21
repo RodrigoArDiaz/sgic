@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -11,26 +11,55 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
+import { peticionBorrarDocente } from "../../api/super/gestionDocentesApi";
+import { useSelector } from "react-redux";
 
-export const BorrarDocente = ({ docente }) => {
+export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
-  const handleBorrarDocente = () => {
+  //
+  const [isLoading, setIsLoading] = useState(false);
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+
+  //
+  const handleBorrarDocente = async () => {
+    setIsLoading(true);
     //Realizo peticon
 
-    //Si petiocion ok
-    handleClose();
-    enqueueSnackbar("Se borro al docente con exito.", {
-      variant: "success",
-    });
+    try {
+      const respuesta = await peticionBorrarDocente(docente.IdUsuario, token);
+      //Si petiocion ok
+
+      handleClose();
+      enqueueSnackbar("Se dio borró al docente con exito.", {
+        variant: "success",
+      });
+      //
+      handleRefrescarPagina();
+    } catch (error) {
+      const mensaje = error.response.data.data.mensaje;
+      handleClose();
+      enqueueSnackbar(`Error: ${mensaje}`, {
+        variant: "error",
+      });
+    }
+    setIsLoading(false);
   };
 
   return (
     <>
       <Tooltip title="Alta">
-        <IconButton color="secondary" onClick={handleOpen}>
-          <DeleteIcon />
-        </IconButton>
+        <span>
+          {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
+          <IconButton
+            color="secondary"
+            onClick={handleOpen}
+            disabled={isLoading ? true : false} //Deshabilito boton al hacer la peticion
+          >
+            <DeleteIcon />
+          </IconButton>
+        </span>
       </Tooltip>
 
       {/* Ventana modal */}

@@ -13,19 +13,36 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
+import { useSelector } from "react-redux";
+import { peticionBajaDocente } from "../../api/super/gestionDocentesApi";
 
-export const BajaDocente = ({ docente }) => {
+export const BajaDocente = ({ docente, handleRefrescarPagina }) => {
+  //
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  //
+  const { enqueueSnackbar } = useSnackbar();
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
-  const handleBajaDocente = () => {
+  //
+  const handleBajaDocente = async () => {
     //Realizo peticon
-
-    //Si petiocion ok
-    handleClose();
-    enqueueSnackbar("Se dio de baja al docente con exito.", {
-      variant: "success",
-    });
+    try {
+      const respuesta = await peticionBajaDocente(docente.IdUsuario, token);
+      //Si petiocion ok
+      handleClose();
+      enqueueSnackbar("Se dio de baja al docente con exito.", {
+        variant: "success",
+      });
+      //
+      handleRefrescarPagina();
+    } catch (error) {
+      const mensaje = error.response.data.data.mensaje;
+      handleClose();
+      enqueueSnackbar(`Error: ${mensaje}`, {
+        variant: "error",
+      });
+    }
   };
 
   return (

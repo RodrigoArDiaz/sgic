@@ -18,15 +18,11 @@ import { useSelector } from "react-redux";
 
 export const AltaDocente = ({ docente, handleRefrescarPagina }) => {
   //
-  const [infoDocente, setInfoDocente] = useState(docente);
-  //
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //
   const { enqueueSnackbar } = useSnackbar();
   //Recupero token
   const { token } = useSelector((state) => state.login);
-
-  //
 
   //
   const handleAltaDocente = async () => {

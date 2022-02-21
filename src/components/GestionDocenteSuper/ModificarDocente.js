@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -15,6 +15,12 @@ import * as yup from "yup";
 //Hooks personalizados
 import { useModal } from "../../hooks/useModal";
 import { useSnackbar } from "notistack";
+import { useSelector } from "react-redux";
+import {
+  peticionBajaDocente,
+  peticionModificarDocente,
+} from "../../api/super/gestionDocentesApi";
+import { useTheme } from "@emotion/react";
 
 const regexSoloNumeros = /^\d+$/;
 
@@ -32,10 +38,15 @@ const validaciones = yup.object({
     .required("Este campo es obligatorio"),
 });
 
-export const ModificarDocente = ({ docente }) => {
+export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  //
+  //Para estilos segun tamaño screen
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+  //Manejo del snack
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
   const valoresInicialesForm = {
     Apellidos: docente.Apellidos,
@@ -49,17 +60,30 @@ export const ModificarDocente = ({ docente }) => {
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
     onSubmit: (values) => {
-      handleModificarContacto(values);
+      handleModificarDocente(values);
     },
   });
 
-  const handleModificarContacto = (values) => {
-    //Realizo peticion...
-    //Si se realizo la modificacion con exito
-    handleClose();
-    enqueueSnackbar("Se modifico al docente con exito.", {
-      variant: "success",
-    });
+  const handleModificarDocente = async (values) => {
+    const formData = { ...values, ...{ IdUsuario: docente.IdUsuario } };
+    console.log(formData);
+    //Realizo peticon
+    try {
+      const respuesta = await peticionModificarDocente(formData, token);
+      //Si petiocion ok
+      handleClose();
+      enqueueSnackbar("Se modificó al docente con exito.", {
+        variant: "success",
+      });
+      //
+      handleRefrescarPagina();
+    } catch (error) {
+      const mensaje = error.response.data.data.mensaje;
+      // handleClose();
+      enqueueSnackbar(`Error: ${mensaje}`, {
+        variant: "error",
+      });
+    }
   };
 
   return (
@@ -71,7 +95,17 @@ export const ModificarDocente = ({ docente }) => {
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={(event, reason) => {
+          // Evita el cierre de la ventana modal al hacer clik fuera de la misma
+          if (reason && reason == "backdropClick") return;
+          handleClose();
+        }}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Modificar Docente</DialogTitle>
         <DialogContent>
           <TextField
