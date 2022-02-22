@@ -5,6 +5,7 @@ import {
   CardHeader,
   Divider,
   LinearProgress,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -28,7 +29,7 @@ export default function DocentesContenedor() {
   //Guarda el resultado de la busqueda(por pagina)
   const [docentes, setDocentes] = useState([]);
   //Indica si mostrar el loader (o spinner)
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   //Datos ingresados en la busqueda (necesarios para la paginacion)
   const [datosBusqueda, setDatosBusqueda] = useState({
     Apellidos: "",
@@ -49,10 +50,6 @@ export default function DocentesContenedor() {
     //Refresca la pagina actual, para reflejar los cambios
     buscarDocentePaginado(paginacion.paginaActual);
   }, [refrescarPagina]);
-
-  useEffect(() => {
-    console.log(paginacion);
-  }, [paginacion]);
 
   //Funcion para pasar a los hijos. Indica que se refresque la pagina
   const handleRefrescarPagina = () => setRefrescarPagina(!refrescarPagina);
@@ -87,6 +84,8 @@ export default function DocentesContenedor() {
     } catch (error) {
       //Ocurrio un error
     }
+
+    setIsLoading(false);
   };
 
   //Actualiza las variables de estado con los resultado de las busquedas
@@ -138,6 +137,40 @@ export default function DocentesContenedor() {
             <Grid item xs={12} paddingX={1}>
               <Box sx={{ width: "100%" }} padding={2}>
                 <LinearProgress />
+                {/* <Typography component="div" paddingBottom={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider />
+
+                <Typography component="div" paddingY={3}>
+                  <Skeleton />
+                </Typography>
+                <Divider /> */}
               </Box>
             </Grid>
           ) : (
