@@ -49,7 +49,7 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Alta">
+      <Tooltip title="Borrar">
         <span>
           {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
           <IconButton
