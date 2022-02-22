@@ -5,7 +5,10 @@ import {
   Button,
   Collapse,
   Fab,
+  IconButton,
+  InputAdornment,
   LinearProgress,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -17,6 +20,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useTheme } from "@mui/styles";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 // Formik y yup
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -29,6 +33,7 @@ import { Box } from "@mui/system";
 //
 import { regexContrasenia, regexSoloNumeros } from "../../helpers/regex";
 import { useDispatch, useSelector } from "react-redux";
+import { LightbulbOutlined, LightbulbSharp } from "@mui/icons-material";
 
 const valoresInicialesForm = {
   Apellidos: "",
@@ -75,6 +80,7 @@ export const CrearDocente = () => {
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
     onSubmit: (values) => {
+      console.log(values);
       handleCrearDocente(values);
     },
   });
@@ -93,12 +99,9 @@ export const CrearDocente = () => {
       //Respuesta OK
       handleClose();
       formik.resetForm();
-      enqueueSnackbar(
-        "Se creo el docente con exito.</br> Las credenciales de acceso fueron enviadas por mail.",
-        {
-          variant: "success",
-        }
-      );
+      enqueueSnackbar("Se creo el docente con exito.", {
+        variant: "success",
+      });
     } catch (error) {
       //Ocurrio un error
       const response = error.response.data;
@@ -153,7 +156,7 @@ export const CrearDocente = () => {
         <DialogTitle>Crear docente</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Ingrese los datos para crear el docente.
+            Las credenciales de acceso seran enviadas al email del docente.
           </DialogContentText>
           <TextField
             autoFocus
@@ -182,19 +185,7 @@ export const CrearDocente = () => {
             error={formik.touched.Nombres && Boolean(formik.errors.Nombres)}
             helperText={formik.touched.Nombres && formik.errors.Nombres}
           />
-          <TextField
-            margin="dense"
-            id="Usuario"
-            name="Usuario"
-            label="Usuario"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={formik.values.Usuario}
-            onChange={formik.handleChange}
-            error={formik.touched.Usuario && Boolean(formik.errors.Usuario)}
-            helperText={formik.touched.Usuario && formik.errors.Usuario}
-          />
+
           <TextField
             margin="dense"
             id="Email"
@@ -211,6 +202,44 @@ export const CrearDocente = () => {
 
           <TextField
             margin="dense"
+            id="Usuario"
+            name="Usuario"
+            label="Usuario"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={formik.values.Usuario}
+            onChange={formik.handleChange}
+            error={formik.touched.Usuario && Boolean(formik.errors.Usuario)}
+            helperText={formik.touched.Usuario && formik.errors.Usuario}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Sugerencia">
+                    <IconButton
+                      onClick={
+                        // Sugiere un nombre de usuario segun el email ingresado
+                        () => {
+                          let email = formik.values.Email;
+                          if (email.length != 0) {
+                            formik.setFieldValue(
+                              "Usuario",
+                              email.split("@")[0]
+                            );
+                          }
+                        }
+                      }
+                    >
+                      <LightbulbOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <TextField
+            margin="dense"
             id="Documento"
             name="Documento"
             label="Documento"
@@ -222,22 +251,6 @@ export const CrearDocente = () => {
             error={formik.touched.Documento && Boolean(formik.errors.Documento)}
             helperText={formik.touched.Documento && formik.errors.Documento}
           />
-
-          {/* <TextField
-            margin="dense"
-            id="Contrasenia"
-            name="Contrasenia"
-            label="Contraseña"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={formik.values.Contrasenia}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.Contrasenia && Boolean(formik.errors.Contrasenia)
-            }
-            helperText={formik.touched.Contrasenia && formik.errors.Contrasenia}
-          /> */}
 
           <Box width="100%" paddingY={1}>
             <LinearProgress sx={isLoading ? { opacity: 1 } : { opacity: 0 }} />
