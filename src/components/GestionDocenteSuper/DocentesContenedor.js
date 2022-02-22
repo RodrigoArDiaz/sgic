@@ -141,7 +141,7 @@ export default function DocentesContenedor() {
               </Box>
             </Grid>
           ) : (
-            <Grid item xs={12} paddingX={1} sx={{ overflowX: "auto" }}>
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
               <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
                 <Grid item xs={12} sx={{ overflowX: "auto" }}>
                   <DocentesLista

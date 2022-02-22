@@ -22,7 +22,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, textAlign } from "@mui/system";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import CoPresent from "@mui/icons-material/CoPresent";
 //Componentes
@@ -62,7 +62,20 @@ export default function DocentesLista({
   return (
     <>
       {docentes.length == 0 ? (
-        <></>
+        <>
+          <Box
+            sx={{
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+              border: "1px solid",
+              borderColor: "secondary.light100",
+              textAlign: "center",
+              paddingY: "1rem",
+            }}
+          >
+            No se encontraron resultados
+          </Box>
+        </>
       ) : (
         <>
           {!esXs ? (
