@@ -80,7 +80,7 @@ export default function DocentesLista({
         <>
           {!esXs ? (
             <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
-              <Table aria-label="Lista de Catedras">
+              <Table aria-label="Lista de Catedras" sx={{ mb: "1rem" }}>
                 <TableHead>
                   <TableRow>
                     <TableCell>Apellidos</TableCell>
@@ -98,6 +98,9 @@ export default function DocentesLista({
                       key={indice}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
+                        "&:hover": {
+                          boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px;",
+                        },
                       }}
                     >
                       <TableCell component="th" scope="row">
