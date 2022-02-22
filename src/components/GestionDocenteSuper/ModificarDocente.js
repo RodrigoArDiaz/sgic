@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 //MUI
-import { Button, useMediaQuery } from "@mui/material";
+
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,6 +9,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Button, useMediaQuery } from "@mui/material";
 //
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -16,14 +17,11 @@ import * as yup from "yup";
 import { useModal } from "../../hooks/useModal";
 import { useSnackbar } from "notistack";
 import { useSelector } from "react-redux";
-import {
-  peticionBajaDocente,
-  peticionModificarDocente,
-} from "../../api/super/gestionDocentesApi";
+import { peticionModificarDocente } from "../../api/super/gestionDocentesApi";
 import { useTheme } from "@emotion/react";
+import { regexSoloNumeros } from "../../helpers/regex";
 
-const regexSoloNumeros = /^\d+$/;
-
+//Validaciones usadas por Formik
 const validaciones = yup.object({
   Apellidos: yup.string().required("Este campo es obligatorio"),
   Nombres: yup.string().required("Este campo es obligatorio"),
@@ -35,9 +33,14 @@ const validaciones = yup.object({
   Documento: yup
     .string()
     .matches(regexSoloNumeros, "Este campo solo admite valores numericos.")
-    .required("Este campo es obligatorio"),
+    .required("Este campo es obligatorio")
+    .min(8, "Este campo debe tener un minimo de 8 caracteres")
+    .max(16, "Este campo debe tener un maximo de 16 caracteres"),
 });
 
+/************
+ * COMPONENTE ModificarDocente
+ */
 export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen
@@ -64,9 +67,20 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
     },
   });
 
+  /*El objeto de formik actualiza los valores de los campos 
+  cada vez que se produce un cambio en el objeto docente.
+  Soluciona bug de carga erronea de datos al cambiar pagina 
+  de resultados de busqueda*/
+  useEffect(() => {
+    formik.setFieldValue("Apellidos", valoresInicialesForm.Apellidos);
+    formik.setFieldValue("Nombres", valoresInicialesForm.Nombres);
+    formik.setFieldValue("Usuario", valoresInicialesForm.Usuario);
+    formik.setFieldValue("Email", valoresInicialesForm.Email);
+    formik.setFieldValue("Documento", valoresInicialesForm.Documento);
+  }, [docente]);
+
   const handleModificarDocente = async (values) => {
     const formData = { ...values, ...{ IdUsuario: docente.IdUsuario } };
-    console.log(formData);
     //Realizo peticon
     try {
       const respuesta = await peticionModificarDocente(formData, token);
@@ -78,9 +92,14 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
       //
       handleRefrescarPagina();
     } catch (error) {
-      const mensaje = error.response.data.data.mensaje;
-      // handleClose();
-      enqueueSnackbar(`Error: ${mensaje}`, {
+      let mensajeSnack = "";
+      const data = error.response.data.data;
+      if ("mensaje" in data) {
+        mensajeSnack = data.mensaje;
+      } else {
+        mensajeSnack = data[0];
+      }
+      enqueueSnackbar(`Error: ${mensajeSnack}`, {
         variant: "error",
       });
     }
@@ -93,6 +112,13 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
           <EditIcon />
         </IconButton>
       </Tooltip>
+      {/* 
+      <ModificarDocenteModal
+        isOpen={isOpen}
+        handleClose={handleClose}
+        docente={docente}
+        handleModificarDocente={handleModificarDocente}
+      /> */}
 
       {/* Ventana modal */}
       <Dialog
@@ -106,7 +132,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
         fullWidth
         fullScreen={esXs ? true : false}
       >
-        <DialogTitle>Modificar Docente</DialogTitle>
+        <DialogTitle>Modificar Docente {docente.Apellidos}</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
