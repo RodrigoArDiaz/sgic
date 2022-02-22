@@ -50,14 +50,9 @@ const validaciones = yup.object({
   Documento: yup
     .string()
     .matches(regexSoloNumeros, "Este campo solo admite valores numericos.")
-    .required("Este campo es obligatorio"),
-  // Contrasenia: yup
-  //   .string()
-  //   .matches(
-  //     regexContrasenia,
-  //     "La contraseña debe tener un minimo de 8 caracteres y un maximo de 10. Debe contener al menos un numero, una letra en minuscula y una letra en mayuscula."
-  //   )
-  //   .required("Este campo es obligatorio"),
+    .required("Este campo es obligatorio")
+    .min(8, "Este campo debe tener un minimo de 8 caracteres")
+    .max(16, "Este campo debe tener un maximo de 16 caracteres"),
 });
 
 export const CrearDocente = () => {
@@ -98,9 +93,12 @@ export const CrearDocente = () => {
       //Respuesta OK
       handleClose();
       formik.resetForm();
-      enqueueSnackbar("Se creo el docente con exito.", {
-        variant: "success",
-      });
+      enqueueSnackbar(
+        "Se creo el docente con exito.</br> Las credenciales de acceso fueron enviadas por mail.",
+        {
+          variant: "success",
+        }
+      );
     } catch (error) {
       //Ocurrio un error
       const response = error.response.data;
@@ -148,6 +146,9 @@ export const CrearDocente = () => {
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
+        // sx={{
+        //   backdropFilter: "blur(0.8px)",
+        // }}
       >
         <DialogTitle>Crear docente</DialogTitle>
         <DialogContent>
