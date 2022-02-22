@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -7,7 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 //
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
-import { Search } from "@mui/icons-material";
+import { Clear, Search } from "@mui/icons-material";
 //
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -97,6 +97,11 @@ export default function BuscarDocentes({
     peticionFinalizada();
   };
 
+  //Limpiar campo
+  const limpiarCampo = (nombre, valor) => {
+    formik.setFieldValue(nombre, valor);
+  };
+
   return (
     <Grid item xs={12} paddingY={1} paddingX={2}>
       <Grid container spacing={1}>
@@ -119,6 +124,23 @@ export default function BuscarDocentes({
                   <Search />
                 </InputAdornment>
               }
+              endAdornment={
+                formik.values.Apellidos ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        limpiarCampo(
+                          "Apellidos",
+                          valoresInicialesForm.Apellidos
+                        )
+                      }
+                    >
+                      <Clear />
+                    </IconButton>
+                  </InputAdornment>
+                ) : undefined
+              }
+              sx={{ paddingRight: 0 }}
             />
           </FormControl>
         </Grid>
@@ -136,6 +158,20 @@ export default function BuscarDocentes({
                   formik.handleSubmit();
                 }
               }}
+              endAdornment={
+                formik.values.Nombres ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        limpiarCampo("Nombres", valoresInicialesForm.Nombres)
+                      }
+                    >
+                      <Clear />
+                    </IconButton>
+                  </InputAdornment>
+                ) : undefined
+              }
+              sx={{ paddingRight: 0 }}
             />
           </FormControl>
         </Grid>
@@ -153,6 +189,23 @@ export default function BuscarDocentes({
                   formik.handleSubmit();
                 }
               }}
+              endAdornment={
+                formik.values.Documento ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        limpiarCampo(
+                          "Documento",
+                          valoresInicialesForm.Documento
+                        )
+                      }
+                    >
+                      <Clear />
+                    </IconButton>
+                  </InputAdornment>
+                ) : undefined
+              }
+              sx={{ paddingRight: 0 }}
             />
           </FormControl>
         </Grid>
@@ -170,6 +223,20 @@ export default function BuscarDocentes({
                   formik.handleSubmit();
                 }
               }}
+              endAdornment={
+                formik.values.Email ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        limpiarCampo("Email", valoresInicialesForm.Email)
+                      }
+                    >
+                      <Clear />
+                    </IconButton>
+                  </InputAdornment>
+                ) : undefined
+              }
+              sx={{ paddingRight: 0 }}
             />
           </FormControl>
         </Grid>
