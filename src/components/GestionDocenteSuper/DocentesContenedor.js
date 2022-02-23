@@ -117,21 +117,38 @@ export default function DocentesContenedor() {
       <Divider />
       <CardContent>
         <Grid container>
-          <Grid item xs={12}>
-            <Grid container justifyContent="end" paddingX={2} paddingY={1}>
-              <Grid item xs={2.5} sm={4.5} md={3} lg={2.2} xl={1.8}>
-                <CrearDocente />
+          <Grid container direction="row-reverse">
+            <Grid item xs={12} sm={6} md={3.5} lg={2.5} xl={2}>
+              <Grid
+                container
+                paddingX={2}
+                paddingY={1}
+                justifyContent="flex-end"
+              >
+                <Grid item xs={12}>
+                  <CrearDocente />
+                </Grid>
               </Grid>
             </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8.5}
+              lg={9.5}
+              xl={10}
+              paddingY={1}
+              paddingX={2}
+            >
+              <BuscarDocentes
+                resultadoBusqueda={resultadoBusqueda}
+                peticionIniciada={peticionIniciada}
+                peticionFinalizada={peticionFinalizada}
+                modificarDatosBusqueda={modificarDatosBusqueda}
+                paginacion={paginacion}
+              />
+            </Grid>
           </Grid>
-
-          <BuscarDocentes
-            resultadoBusqueda={resultadoBusqueda}
-            peticionIniciada={peticionIniciada}
-            peticionFinalizada={peticionFinalizada}
-            modificarDatosBusqueda={modificarDatosBusqueda}
-            paginacion={paginacion}
-          />
 
           {isLoading ? (
             <Grid item xs={12} paddingX={1}>

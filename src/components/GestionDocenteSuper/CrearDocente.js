@@ -11,6 +11,7 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
+  Zoom,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
@@ -113,7 +114,7 @@ export const CrearDocente = () => {
 
   return (
     <>
-      {esXs ? (
+      {/* {esXs ? (
         <Fab
           size="medium"
           color="primary"
@@ -126,16 +127,16 @@ export const CrearDocente = () => {
         >
           <AddIcon />
         </Fab>
-      ) : (
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          fullWidth
-          onClick={handleOpen}
-        >
-          Crear docente
-        </Button>
-      )}
+      ) : ( */}
+      <Button
+        variant="contained"
+        startIcon={<AddIcon />}
+        fullWidth
+        onClick={handleOpen}
+      >
+        Crear docente
+      </Button>
+      {/* )} */}
 
       {/* Ventana modal */}
       <Dialog
@@ -215,7 +216,7 @@ export const CrearDocente = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Tooltip title="Sugerencia">
+                  <Tooltip title="Sugerencia" TransitionComponent={Zoom}>
                     <IconButton
                       onClick={
                         // Sugiere un nombre de usuario segun el email ingresado

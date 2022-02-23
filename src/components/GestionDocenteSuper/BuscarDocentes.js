@@ -1,5 +1,12 @@
 import React from "react";
-import { Grid, IconButton } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  Zoom,
+} from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -13,6 +20,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
 import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
+import { useTheme } from "@emotion/react";
 
 //Valor inicial del formulario de busqueda
 const valoresInicialesForm = {
@@ -41,6 +49,10 @@ export default function BuscarDocentes({
 }) {
   //Recupero token
   const { token } = useSelector((state) => state.login);
+
+  //Para estilos
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   //Configuracion de Formik
   const formik = useFormik({
@@ -103,159 +115,162 @@ export default function BuscarDocentes({
   };
 
   return (
-    <Grid item xs={12} paddingY={1} paddingX={2}>
-      <Grid container spacing={1}>
-        <Grid item xs={12} sm={6} lg={2.5} xl={3}>
-          <FormControl fullWidth>
-            <OutlinedInputSearch
-              id="Apellidos"
-              name="Apellidos"
-              placeholder="Apellidos"
-              size="small"
-              value={formik.values.Apellidos}
-              onChange={formik.handleChange}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  formik.handleSubmit();
-                }
-              }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Search />
+    // <Grid item xs={12} paddingY={1} paddingX={2}>
+    <Grid container spacing={1}>
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="Apellidos"
+            name="Apellidos"
+            placeholder="Apellidos"
+            size="small"
+            value={formik.values.Apellidos}
+            onChange={formik.handleChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
+              }
+            }}
+            startAdornment={
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            }
+            endAdornment={
+              formik.values.Apellidos ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      limpiarCampo("Apellidos", valoresInicialesForm.Apellidos)
+                    }
+                  >
+                    <Clear />
+                  </IconButton>
                 </InputAdornment>
+              ) : undefined
+            }
+            sx={{ paddingRight: 0 }}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="Nombres"
+            name="Nombres"
+            placeholder="Nombres"
+            size="small"
+            value={formik.values.Nombres}
+            onChange={formik.handleChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
               }
-              endAdornment={
-                formik.values.Apellidos ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() =>
-                        limpiarCampo(
-                          "Apellidos",
-                          valoresInicialesForm.Apellidos
-                        )
-                      }
-                    >
-                      <Clear />
-                    </IconButton>
-                  </InputAdornment>
-                ) : undefined
+            }}
+            endAdornment={
+              formik.values.Nombres ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      limpiarCampo("Nombres", valoresInicialesForm.Nombres)
+                    }
+                  >
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              ) : undefined
+            }
+            sx={{ paddingRight: 0 }}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={2.5} xl={2.5}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="Documento"
+            name="Documento"
+            placeholder="Documento"
+            size="small"
+            value={formik.values.Documento}
+            onChange={formik.handleChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
               }
-              sx={{ paddingRight: 0 }}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={2.5} xl={2}>
-          <FormControl fullWidth>
-            <OutlinedInputSearch
-              id="Nombres"
-              name="Nombres"
-              placeholder="Nombres"
-              size="small"
-              value={formik.values.Nombres}
-              onChange={formik.handleChange}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  formik.handleSubmit();
-                }
-              }}
-              endAdornment={
-                formik.values.Nombres ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() =>
-                        limpiarCampo("Nombres", valoresInicialesForm.Nombres)
-                      }
-                    >
-                      <Clear />
-                    </IconButton>
-                  </InputAdornment>
-                ) : undefined
+            }}
+            endAdornment={
+              formik.values.Documento ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      limpiarCampo("Documento", valoresInicialesForm.Documento)
+                    }
+                  >
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              ) : undefined
+            }
+            sx={{ paddingRight: 0 }}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={5.5} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="Email"
+            name="Email"
+            placeholder="Email"
+            size="small"
+            value={formik.values.Email}
+            onChange={formik.handleChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
               }
-              sx={{ paddingRight: 0 }}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={2} xl={2}>
-          <FormControl fullWidth>
-            <OutlinedInputSearch
-              id="Documento"
-              name="Documento"
-              placeholder="Documento"
-              size="small"
-              value={formik.values.Documento}
-              onChange={formik.handleChange}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  formik.handleSubmit();
-                }
-              }}
-              endAdornment={
-                formik.values.Documento ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() =>
-                        limpiarCampo(
-                          "Documento",
-                          valoresInicialesForm.Documento
-                        )
-                      }
-                    >
-                      <Clear />
-                    </IconButton>
-                  </InputAdornment>
-                ) : undefined
-              }
-              sx={{ paddingRight: 0 }}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3} xl={3}>
-          <FormControl fullWidth>
-            <OutlinedInputSearch
-              id="Email"
-              name="Email"
-              placeholder="Email"
-              size="small"
-              value={formik.values.Email}
-              onChange={formik.handleChange}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  formik.handleSubmit();
-                }
-              }}
-              endAdornment={
-                formik.values.Email ? (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() =>
-                        limpiarCampo("Email", valoresInicialesForm.Email)
-                      }
-                    >
-                      <Clear />
-                    </IconButton>
-                  </InputAdornment>
-                ) : undefined
-              }
-              sx={{ paddingRight: 0 }}
-            />
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} lg={2} xl={2}>
-          <FormGroup>
-            <FormControlLabel
-              control={
+            }}
+            endAdornment={
+              formik.values.Email ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() =>
+                      limpiarCampo("Email", valoresInicialesForm.Email)
+                    }
+                  >
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              ) : undefined
+            }
+            sx={{ paddingRight: 0 }}
+          />
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={0.5} lg={0.5} xl={0.5}>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Tooltip title="Incluir bajas" TransitionComponent={Zoom}>
                 <Checkbox
                   onChange={formik.handleChange}
                   name="Bajas"
                   defaultChecked
                 />
-              }
-              label="Incluir bajas"
-              id="Bajas"
-            />
-          </FormGroup>
-        </Grid>
+              </Tooltip>
+            }
+            label={
+              esXs ? (
+                <Typography variant="subtitle1">Incluir bajas</Typography>
+              ) : (
+                ""
+              )
+            }
+            id="Bajas"
+            labelPlacement={esXs ? "start" : "end"}
+          />
+        </FormGroup>
       </Grid>
     </Grid>
+    // </Grid>
   );
 }
