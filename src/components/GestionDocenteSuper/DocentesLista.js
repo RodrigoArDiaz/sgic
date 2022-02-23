@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {
+  Alert,
   Chip,
   Collapse,
   Divider,
@@ -32,6 +33,7 @@ import { BajaDocente } from "./BajaDocente";
 import { BorrarDocente } from "./BorrarDocente";
 
 import Paginacion from "../Paginacion";
+import { AltaBajaDocente } from "./AltaBajaDocente";
 
 export default function DocentesLista({
   docentes,
@@ -70,10 +72,10 @@ export default function DocentesLista({
               border: "1px solid",
               borderColor: "secondary.light100",
               textAlign: "center",
-              paddingY: "1rem",
+              padding: "1rem",
             }}
           >
-            No se encontraron resultados
+            <Alert severity="info">No se obtuvieron resultados.</Alert>
           </Box>
         </>
       ) : (
@@ -119,7 +121,12 @@ export default function DocentesLista({
                         {docente.Email}
                       </TableCell>
 
-                      <TableCell component="th" scope="row" align="center">
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        align="center"
+                        paddingY={1}
+                      >
                         {/* {docente.Estado} */}
                         <Chip
                           variant="outlined"
@@ -129,7 +136,7 @@ export default function DocentesLista({
                       </TableCell>
 
                       <TableCell align="center">
-                        <Grid container justifyContent="space-between">
+                        <Grid container justifyContent="space-evenly">
                           <Grid item item xs={12} sm="auto">
                             <ModificarDocente
                               docente={docente}
@@ -138,14 +145,7 @@ export default function DocentesLista({
                           </Grid>
 
                           <Grid item item xs={12} sm="auto">
-                            <AltaDocente
-                              docente={docente}
-                              handleRefrescarPagina={handleRefrescarPagina}
-                            />
-                          </Grid>
-
-                          <Grid item item xs={12} sm="auto">
-                            <BajaDocente
+                            <AltaBajaDocente
                               docente={docente}
                               handleRefrescarPagina={handleRefrescarPagina}
                             />
@@ -283,11 +283,7 @@ export default function DocentesLista({
                           docente={docente}
                           handleRefrescarPagina={handleRefrescarPagina}
                         />
-                        <AltaDocente
-                          docente={docente}
-                          handleRefrescarPagina={handleRefrescarPagina}
-                        />
-                        <BajaDocente
+                        <AltaBajaDocente
                           docente={docente}
                           handleRefrescarPagina={handleRefrescarPagina}
                         />

@@ -1,6 +1,6 @@
 import React from "react";
 //Mui
-import { Button } from "@mui/material";
+import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -47,7 +47,7 @@ export const BajaDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Baja">
+      <Tooltip title="Baja" TransitionComponent={Zoom}>
         <span>
           {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
           <IconButton
