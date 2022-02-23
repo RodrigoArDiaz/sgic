@@ -14,6 +14,8 @@ import {
   Typography,
   useMediaQuery,
   Button,
+  Zoom,
+  Fade,
 } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
@@ -78,6 +80,9 @@ const MenuUsuarioDesplegable = () => {
           vertical: "top",
           horizontal: "center",
         }}
+        // TransitionComponent={Zoom}
+        TransitionComponent={Fade}
+        TransitionProps={{ timeout: 300 }}
       >
         <Grid container justifyContent="center" marginTop={2}>
           <Avatar
