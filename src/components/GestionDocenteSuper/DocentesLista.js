@@ -35,6 +35,9 @@ import { BorrarDocente } from "./BorrarDocente";
 import Paginacion from "../Paginacion";
 import { AltaBajaDocente } from "./AltaBajaDocente";
 
+//Estilos para filas de la tabla
+const estilosCell = { fontSize: "1em" };
+
 export default function DocentesLista({
   docentes,
   paginacion,
@@ -82,7 +85,11 @@ export default function DocentesLista({
         <>
           {!esXs ? (
             <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
-              <Table aria-label="Lista de Catedras" sx={{ mb: "1rem" }}>
+              <Table
+                aria-label="Lista de Catedras"
+                sx={{ mb: "1rem" }}
+                size="small"
+              >
                 <TableHead>
                   <TableRow>
                     <TableCell>Apellidos</TableCell>
@@ -105,19 +112,19 @@ export default function DocentesLista({
                         },
                       }}
                     >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" sx={estilosCell}>
                         {docente.Apellidos}
                       </TableCell>
 
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" sx={estilosCell}>
                         {docente.Nombres}
                       </TableCell>
 
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" sx={estilosCell}>
                         {docente.Documento}
                       </TableCell>
 
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" sx={estilosCell}>
                         {docente.Email}
                       </TableCell>
 
@@ -131,6 +138,7 @@ export default function DocentesLista({
                         <Chip
                           variant="outlined"
                           color={docente.Estado == "A" ? "success" : "error"}
+                          size="medium"
                           label={decidirEstado(docente.Estado)}
                         />
                       </TableCell>

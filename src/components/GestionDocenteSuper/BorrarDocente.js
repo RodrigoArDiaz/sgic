@@ -13,6 +13,7 @@ import { useModal } from "../../hooks/useModal";
 import { useSnackbar } from "notistack";
 import { peticionBorrarDocente } from "../../api/super/gestionDocentesApi";
 import { useSelector } from "react-redux";
+import { DeleteOutlined } from "@mui/icons-material";
 
 export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -55,9 +56,11 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
           <IconButton
             color="secondary"
             onClick={handleOpen}
+            size="large"
             disabled={isLoading ? true : false} //Deshabilito boton al hacer la peticion
           >
-            <DeleteIcon />
+            {/* <DeleteIcon /> */}
+            <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>

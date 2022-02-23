@@ -93,18 +93,20 @@ export const AltaBajaDocente = ({ docente, handleRefrescarPagina }) => {
       >
         <span>
           {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
-          <IconButton
-            color="secondary"
-            onClick={handleOpen}
-            // disabled={docente.Estado == "A" ? true : false}
-          >
+          <IconButton color="secondary" onClick={handleOpen} size="large">
             {(docente.Estado == "A" && (
               // <CancelIcon />
-              <CancelOutlinedIcon sx={{ color: "error.light" }} />
+              <CancelOutlinedIcon
+              //color="error"
+              // sx={{ color: "error.light" }}
+              />
             )) ||
               (docente.Estado == "B" && (
                 //<CheckCircle />
-                <CheckCircleOutlinedIcon sx={{ color: "success.light" }} />
+                <CheckCircleOutlinedIcon
+                //color="success"
+                // sx={{ color: "success.light" }}
+                />
               ))}
           </IconButton>
         </span>

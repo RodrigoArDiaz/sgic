@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 //MUI
 
-import { Tooltip } from "@mui/material";
+import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { TextField } from "@mui/material";
@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button, useMediaQuery } from "@mui/material";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 //
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -107,18 +108,14 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Modificar">
-        <IconButton color="secondary" onClick={handleOpen}>
-          <EditIcon />
-        </IconButton>
+      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+        <span>
+          <IconButton color="secondary" size="large" onClick={handleOpen}>
+            {/* <EditIcon /> */}
+            <ModeEditOutlinedIcon />
+          </IconButton>
+        </span>
       </Tooltip>
-      {/* 
-      <ModificarDocenteModal
-        isOpen={isOpen}
-        handleClose={handleClose}
-        docente={docente}
-        handleModificarDocente={handleModificarDocente}
-      /> */}
 
       {/* Ventana modal */}
       <Dialog
