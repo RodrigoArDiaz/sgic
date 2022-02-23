@@ -34,6 +34,7 @@ import { BorrarDocente } from "./BorrarDocente";
 
 import Paginacion from "../Paginacion";
 import { AltaBajaDocente } from "./AltaBajaDocente";
+import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -103,15 +104,7 @@ export default function DocentesLista({
 
                 <TableBody>
                   {docentes.map((docente, indice) => (
-                    <TableRow
-                      key={indice}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                        "&:hover": {
-                          boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px;",
-                        },
-                      }}
-                    >
+                    <TableRowElevacion key={indice}>
                       <TableCell component="th" scope="row" sx={estilosCell}>
                         {docente.Apellidos}
                       </TableCell>
@@ -128,12 +121,7 @@ export default function DocentesLista({
                         {docente.Email}
                       </TableCell>
 
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        align="center"
-                        paddingY={1}
-                      >
+                      <TableCell component="th" scope="row" align="center">
                         {/* {docente.Estado} */}
                         <Chip
                           variant="outlined"
@@ -167,7 +155,7 @@ export default function DocentesLista({
                           </Grid>
                         </Grid>
                       </TableCell>
-                    </TableRow>
+                    </TableRowElevacion>
                   ))}
                 </TableBody>
               </Table>
@@ -201,6 +189,7 @@ export default function DocentesLista({
                     "&:hover": {
                       // borderColor: "secondary.main",
                       boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
+
                       "& .MuiListItemIcon-root": {
                         color: "primary.main",
                       },

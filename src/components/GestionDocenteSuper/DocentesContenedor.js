@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 
 //Valor inicial de la paginacion
 const paginacionInicial = {
-  filasPorPagina: 6,
+  filasPorPagina: 10,
   totalPaginas: 0,
   paginaActual: 1,
 };
