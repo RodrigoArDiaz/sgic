@@ -16,17 +16,19 @@ const Paginacion = ({ paginacion, actualizaDatosPaginacion }) => {
       alignItems="center"
       // sx={{ paddingX: { xs: "0" } }}
     >
-      {/* {pagina} */}
-      <Pagination
-        size="large"
-        variant="outlined"
-        count={paginacion.totalPaginas}
-        page={paginacion.paginaActual}
-        siblingCount={0}
-        color="info"
-        sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-        onChange={handleChangePaginacion}
-      />
+      {/* Paginacion se muestra solo si el total de paginas es mayor a 1*/}
+      {paginacion.totalPaginas > 1 && (
+        <Pagination
+          size="large"
+          variant="outlined"
+          count={paginacion.totalPaginas}
+          page={paginacion.paginaActual}
+          siblingCount={0}
+          color="info"
+          sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
+          onChange={handleChangePaginacion}
+        />
+      )}
     </Box>
   );
 };
