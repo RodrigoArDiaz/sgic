@@ -150,9 +150,9 @@ export const CrearDocente = () => {
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
-        // sx={{
-        //   backdropFilter: "blur(0.8px)",
-        // }}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
       >
         <DialogTitle>Crear docente</DialogTitle>
         <DialogContent>
@@ -217,22 +217,25 @@ export const CrearDocente = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <Tooltip title="Sugerencia" TransitionComponent={Zoom}>
-                    <IconButton
-                      onClick={
-                        // Sugiere un nombre de usuario segun el email ingresado
-                        () => {
-                          let email = formik.values.Email;
-                          if (email.length != 0) {
-                            formik.setFieldValue(
-                              "Usuario",
-                              email.split("@")[0]
-                            );
+                    <span>
+                      <IconButton
+                        color="secondary"
+                        onClick={
+                          // Sugiere un nombre de usuario segun el email ingresado
+                          () => {
+                            let email = formik.values.Email;
+                            if (email.length != 0) {
+                              formik.setFieldValue(
+                                "Usuario",
+                                email.split("@")[0]
+                              );
+                            }
                           }
                         }
-                      }
-                    >
-                      <LightbulbOutlinedIcon />
-                    </IconButton>
+                      >
+                        <LightbulbOutlinedIcon />
+                      </IconButton>
+                    </span>
                   </Tooltip>
                 </InputAdornment>
               ),
