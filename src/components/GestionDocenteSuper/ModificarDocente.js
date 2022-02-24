@@ -128,8 +128,11 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
       >
-        <DialogTitle>Modificar Docente {docente.Apellidos}</DialogTitle>
+        <DialogTitle>Modificar Docente </DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
@@ -157,19 +160,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
             error={formik.touched.Nombres && Boolean(formik.errors.Nombres)}
             helperText={formik.touched.Nombres && formik.errors.Nombres}
           />
-          <TextField
-            margin="dense"
-            id="Usuario"
-            name="Usuario"
-            label="Usuario"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={formik.values.Usuario}
-            onChange={formik.handleChange}
-            error={formik.touched.Usuario && Boolean(formik.errors.Usuario)}
-            helperText={formik.touched.Usuario && formik.errors.Usuario}
-          />
+
           <TextField
             margin="dense"
             id="Email"
@@ -182,6 +173,20 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
             onChange={formik.handleChange}
             error={formik.touched.Email && Boolean(formik.errors.Email)}
             helperText={formik.touched.Email && formik.errors.Email}
+          />
+
+          <TextField
+            margin="dense"
+            id="Usuario"
+            name="Usuario"
+            label="Usuario"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={formik.values.Usuario}
+            onChange={formik.handleChange}
+            error={formik.touched.Usuario && Boolean(formik.errors.Usuario)}
+            helperText={formik.touched.Usuario && formik.errors.Usuario}
           />
 
           <TextField

@@ -66,7 +66,15 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
+      >
         <DialogTitle>Borrar docente</DialogTitle>
         <DialogContent>
           <DialogContentText>
