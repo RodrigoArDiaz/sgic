@@ -14,18 +14,22 @@ import {
   Collapse,
   Divider,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Tooltip,
   Typography,
   useMediaQuery,
+  Zoom,
 } from "@mui/material";
 import { Box, textAlign } from "@mui/system";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ContentCopy, ExpandLess, ExpandMore } from "@mui/icons-material";
 import CoPresent from "@mui/icons-material/CoPresent";
+
 //Componentes
 import { ModificarDocente } from "./ModificarDocente";
 import { AltaDocente } from "./AltaDocente";
@@ -35,6 +39,7 @@ import { BorrarDocente } from "./BorrarDocente";
 import Paginacion from "../Paginacion";
 import { AltaBajaDocente } from "./AltaBajaDocente";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import CopiarButton from "../CopiarButton";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -79,7 +84,9 @@ export default function DocentesLista({
               padding: "1rem",
             }}
           >
-            <Alert severity="info">No se obtuvieron resultados.</Alert>
+            <Alert severity="info">
+              <Typography>No se obtuvieron resultados.</Typography>
+            </Alert>
           </Box>
         </>
       ) : (
@@ -118,6 +125,7 @@ export default function DocentesLista({
                       </TableCell>
 
                       <TableCell component="th" scope="row" sx={estilosCell}>
+                        <CopiarButton textoCopiar={docente.Email} />
                         {docente.Email}
                       </TableCell>
 
