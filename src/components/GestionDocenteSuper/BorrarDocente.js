@@ -8,6 +8,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Zoom } from "@mui/material";
+//
 import { useModal } from "../../hooks/useModal";
 //
 import { useSnackbar } from "notistack";
@@ -50,7 +52,7 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Borrar">
+      <Tooltip title="Borrar" TransitionComponent={Zoom}>
         <span>
           {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
           <IconButton
