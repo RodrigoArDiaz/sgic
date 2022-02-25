@@ -5,6 +5,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 //
 import InformacionUsuario from "./InformacionUsuario";
 import InformacionDeContactos from "./InformacionContactos";
@@ -51,10 +53,23 @@ export default function TabsInformacionUsuario() {
         <Tabs
           value={value}
           onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile
           aria-label="basic tabs example"
         >
-          <Tab label="Datos personales" {...a11yProps(0)} />
-          <Tab label="Informacion de contacto" {...a11yProps(1)} />
+          <Tab
+            icon={<InfoOutlinedIcon />}
+            iconPosition="start"
+            label="Datos personales"
+            {...a11yProps(0)}
+          />
+          <Tab
+            icon={<PermContactCalendarOutlinedIcon />}
+            iconPosition="start"
+            label="Informacion de contacto"
+            {...a11yProps(1)}
+          />
         </Tabs>
       </Grid>
 
@@ -65,6 +80,7 @@ export default function TabsInformacionUsuario() {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <InformacionDeContactos />
+          {/* <InformacionUsuario /> */}
         </TabPanel>
       </Grid>
     </Grid>

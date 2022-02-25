@@ -6,12 +6,11 @@ import {
   Divider,
   FormControl,
   Grid,
-  Input,
   InputLabel,
-  OutlinedInput,
-  TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useSelector } from "react-redux";
 import { blue } from "@mui/material/colors";
 import { Box } from "@mui/system";
@@ -20,9 +19,14 @@ import { CardMain } from "../Material UI - Componentes Modificados/Componentes I
 import { OutlinedInputOnlyRead } from "../Material UI - Componentes Modificados/TextfieldVariantes";
 import ModificarContrasenia from "./ModificarContrasenia";
 import ModificarPerfilUsuario from "./ModificarPerfilUsuario";
+import { useTheme } from "@emotion/react";
 
 const InformacionUsuario = () => {
   const { user } = useSelector((state) => state.user);
+  //
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5} lg={4} xl={3}>
@@ -35,16 +39,6 @@ const InformacionUsuario = () => {
             },
           }}
         >
-          {/* <CardHeader
-            title={
-              <Typography variant="h5" textAlign="center">
-                {user.Apellidos + " " + user.Nombres}
-              </Typography>
-            }
-          /> 
-          
-          <Divider/>
-          */}{" "}
           <CardContent>
             <Divider sx={{ marginY: "2rem" }}>
               <Avatar
@@ -72,16 +66,8 @@ const InformacionUsuario = () => {
               <Typography variant="h5" textAlign="center">
                 {user.Apellidos + " " + user.Nombres}
               </Typography>
-              {/* <Typography
-                variant="p"
-                color="text.secondary"
-                textAlign="center"
-                py={2}
-              >
-                Docente
-              </Typography> */}
             </Box>
-          </CardContent>{" "}
+          </CardContent>
         </CardMain>
       </Grid>
 
@@ -97,12 +83,14 @@ const InformacionUsuario = () => {
           }}
         >
           <CardHeader
+            avatar={<InfoOutlinedIcon />}
             title={<Typography variant="p">Datos Personales</Typography>}
           />
+
           <Divider />
           <CardContent>
             <Grid container spacing={2}>
-              <Grid item xs={12} xl={6}>
+              <Grid item xs={12} md={6} xl={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Apellidos">Apellidos</InputLabel>
                   <OutlinedInputOnlyRead
@@ -115,7 +103,7 @@ const InformacionUsuario = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} xl={6}>
+              <Grid item xs={12} md={6} xl={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Nombres">Nombres</InputLabel>
                   <OutlinedInputOnlyRead
@@ -128,7 +116,7 @@ const InformacionUsuario = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6} xl={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Email">Email</InputLabel>
                   <OutlinedInputOnlyRead
@@ -140,7 +128,7 @@ const InformacionUsuario = () => {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={6} lg={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Usuario">Usuario</InputLabel>
                   <OutlinedInputOnlyRead
@@ -152,7 +140,7 @@ const InformacionUsuario = () => {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Documento">Documento</InputLabel>
                   <OutlinedInputOnlyRead
@@ -165,18 +153,24 @@ const InformacionUsuario = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Libreta">Libreta</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Libreta"
-                    value="Falta"
-                    label="Libreta"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+              {() => {
+                if ("Libreta" in user) {
+                  return (
+                    <Grid item xs={12} md={6}>
+                      <FormControl fullWidth>
+                        <InputLabel htmlFor="Libreta">Libreta</InputLabel>
+                        <OutlinedInputOnlyRead
+                          id="Libreta"
+                          value="Falta"
+                          label="Libreta"
+                          readOnly
+                          disabled
+                        />
+                      </FormControl>
+                    </Grid>
+                  );
+                }
+              }}
             </Grid>
           </CardContent>
           <Divider />

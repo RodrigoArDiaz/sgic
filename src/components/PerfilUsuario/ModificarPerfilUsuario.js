@@ -1,11 +1,12 @@
 import React from "react";
-import { Edit } from "@mui/icons-material";
+import { Edit, Fullscreen } from "@mui/icons-material";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogTitle,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import * as yup from "yup";
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 import { getUserSuccess } from "../../store/slices/userSlice";
 import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
+import { useTheme } from "@emotion/react";
 
 const regexSoloNumeros = /^\d+$/;
 
@@ -38,6 +40,8 @@ const ModificarPerfilUsuario = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const valoresInicialesForm = {
     nombres: user.Nombres,
@@ -93,12 +97,17 @@ const ModificarPerfilUsuario = () => {
       >
         Modificar perfil
       </Button>
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Modificar perfil</DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
             <TextField
-              autoFocus
               margin="dense"
               id="apellidos"
               name="apellidos"
@@ -115,7 +124,6 @@ const ModificarPerfilUsuario = () => {
               helperText={formik.touched.apellidos && formik.errors.apellidos}
             />
             <TextField
-              autoFocus
               margin="dense"
               id="nombres"
               name="nombres"
@@ -130,7 +138,6 @@ const ModificarPerfilUsuario = () => {
               helperText={formik.touched.nombres && formik.errors.nombres}
             />
             <TextField
-              autoFocus
               margin="dense"
               id="usuario"
               name="usuario"
@@ -145,7 +152,6 @@ const ModificarPerfilUsuario = () => {
               helperText={formik.touched.nombres && formik.errors.usuario}
             />
             <TextField
-              autoFocus
               margin="dense"
               id="email"
               name="email"
@@ -163,7 +169,6 @@ const ModificarPerfilUsuario = () => {
             />
 
             <TextField
-              autoFocus
               margin="dense"
               id="dni"
               name="dni"
@@ -179,7 +184,6 @@ const ModificarPerfilUsuario = () => {
             />
 
             <TextField
-              autoFocus
               margin="dense"
               id="libreta"
               name="libreta"

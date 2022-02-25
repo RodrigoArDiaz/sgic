@@ -86,7 +86,13 @@ export const CrearContacto = ({ aniadirContacto }) => {
       )}
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Crear nuevo contacto</DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>

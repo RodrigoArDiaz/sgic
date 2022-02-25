@@ -8,6 +8,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import * as yup from "yup";
@@ -15,6 +16,7 @@ import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
 import { regexContrasenia } from "../../helpers/regex";
+import { useTheme } from "@emotion/react";
 
 const validaciones = yup.object({
   contraseniaActual: yup.string().required("Este campo es obligatorio"),
@@ -41,6 +43,8 @@ const ModificarContrasenia = () => {
   const [mostrarContraseniaNueva, setMostrarContraseniaNueva] = useState(false);
   const [mostrarRepetirContrasenia, setMostrarRepetirContrasenia] =
     useState(false);
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const valoresInicialesForm = {
     contraseniaActual: "",
@@ -81,12 +85,17 @@ const ModificarContrasenia = () => {
       <Button variant="contained" startIcon={<Lock />} onClick={handleOpen}>
         Modificar Contraseña
       </Button>
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Modificar contraseña</DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
             <TextField
-              autoFocus
               margin="dense"
               id="contraseniaActual"
               name="contraseniaActual"
@@ -120,7 +129,6 @@ const ModificarContrasenia = () => {
             />
 
             <TextField
-              autoFocus
               margin="dense"
               id="contraseniaNueva"
               name="contraseniaNueva"
@@ -160,7 +168,6 @@ const ModificarContrasenia = () => {
             />
 
             <TextField
-              autoFocus
               margin="dense"
               id="repetirContrasenia"
               name="repetirContrasenia"

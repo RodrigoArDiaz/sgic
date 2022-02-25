@@ -1,18 +1,21 @@
 import React from "react";
 //MUI
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import EditIcon from "@mui/icons-material/Edit";
+import { Zoom } from "@mui/material";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 //Formik, yup
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
 //hooks personalizados
 import { useModal } from "../../hooks/useModal";
+import { useTheme } from "@emotion/react";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
@@ -26,6 +29,8 @@ export const ModificarContacto = ({
 }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const valoresInicialesForm = {
     perfil: contacto.perfil,
@@ -53,7 +58,7 @@ export const ModificarContacto = ({
 
   return (
     <>
-      <Tooltip title="Modificar">
+      <Tooltip title="Modificar" TransitionComponent={Zoom}>
         <IconButton
           edge="end"
           aria-label="modificar"
@@ -61,12 +66,18 @@ export const ModificarContacto = ({
           onClick={handleOpen}
           sx={{ mr: "1rem" }}
         >
-          <EditIcon />
+          <ModeEditOutlinedIcon />
         </IconButton>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+      >
         <DialogTitle>Modificar contacto</DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>

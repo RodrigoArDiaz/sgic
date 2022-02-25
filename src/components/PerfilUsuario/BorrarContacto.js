@@ -7,6 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSnackbar } from "notistack";
+import { Zoom } from "@mui/material";
+import { DeleteOutlined } from "@mui/icons-material";
 //hooks personalizados
 import { useModal } from "../../hooks/useModal";
 
@@ -26,14 +28,14 @@ export const BorrarContacto = ({ idContacto, borrarContacto }) => {
 
   return (
     <>
-      <Tooltip title="Borrar">
+      <Tooltip title="Borrar" TransitionComponent={Zoom}>
         <IconButton
           edge="end"
           aria-label="delete"
           color="secondary"
           onClick={handleOpen}
         >
-          <DeleteIcon />
+          <DeleteOutlined />
         </IconButton>
       </Tooltip>
 

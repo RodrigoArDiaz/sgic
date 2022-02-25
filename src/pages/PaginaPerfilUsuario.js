@@ -7,7 +7,15 @@ export default function PaginaPerfilUsuario() {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Grid container sx={{ backgroundColor: "#fff", borderRadius: "10px" }}>
+        <Grid
+          container
+          sx={{
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            border: "1px solid",
+            borderColor: "secondary.light100",
+          }}
+        >
           <Breadcrumbs />
         </Grid>
       </Grid>
