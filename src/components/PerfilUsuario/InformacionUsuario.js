@@ -27,6 +27,9 @@ const InformacionUsuario = () => {
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
+  //
+  const esAlumno = "Libreta" in user ? true : false;
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5} lg={4} xl={3}>
@@ -178,7 +181,7 @@ const InformacionUsuario = () => {
           <CardActions>
             <Grid container spacing={3} justifyContent="space-evenly">
               <Grid item xs={12} sm={6} sx={{ textAlign: "center" }}>
-                <ModificarPerfilUsuario />
+                <ModificarPerfilUsuario esAlumno={esAlumno} user={user} />
               </Grid>
               <Grid item xs={12} sm={6} sx={{ textAlign: "center" }}>
                 <ModificarContrasenia />
