@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
 //MUI
 import { Button, Fab, useMediaQuery } from "@mui/material";
@@ -14,18 +14,26 @@ import { useSnackbar } from "notistack";
 
 //hooks personalizados
 import { useModal } from "../../hooks/useModal";
+import { useSelector } from "react-redux";
+import { peticionAgregarContacto } from "../../api/alumnos/gestionContactosApi";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
   redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
-export const CrearContacto = ({ aniadirContacto }) => {
+export const CrearContacto = ({ crearContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  //
+  const [isLoading, setIsLoading] = useState(false);
   //Para estilos segun tamaño screen
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+  //Recupero informacion del usuario
+  const { user } = useSelector((state) => state.user);
 
   const valoresInicialesForm = {
     perfil: "",
@@ -41,23 +49,49 @@ export const CrearContacto = ({ aniadirContacto }) => {
     },
   });
 
-  const handleAniadirContacto = (values) => {
-    const nuevoContacto = {
-      perfil: values.perfil,
-      redSocial: values.redSocial,
-    };
+  /**
+   *
+   */
+  const handleAniadirContacto = async (values) => {
+    setIsLoading(true);
+    //Realizo peticion
+    try {
+      const respuesta = await peticionAgregarContacto(
+        user.IdUsuario,
+        values,
+        token
+      );
 
-    //Envio a funcion padre para que haga la peticion
-    //Esta esta debe ser una funcion asincron (asyn - await)
-    //const res = await aniadirContacto(nuevoContacto);
-    aniadirContacto(nuevoContacto);
+      //Objeto con el nuevo contacto
+      const nuevoContacto = {
+        IdContacto: respuesta.data.data.id,
+        IdUsuario: user.IdUsuario,
+        Perfil: values.perfil,
+        Nombre: values.redSocial,
+      };
 
-    //Si se realizo con exito
-    handleClose();
-    formik.resetForm();
-    enqueueSnackbar("Se añadio el contacto con con exito", {
-      variant: "success",
-    });
+      crearContacto(nuevoContacto);
+
+      handleClose();
+      formik.resetForm();
+      enqueueSnackbar("Se agregó el contacto con exito", {
+        variant: "success",
+      });
+    } catch (error) {
+      try {
+        let mensajeSnack = "";
+        const data = error.response.data.data;
+        if ("mensaje" in data) {
+          mensajeSnack = data.mensaje;
+        } else {
+          mensajeSnack = data[0];
+        }
+        enqueueSnackbar(`Error: ${mensajeSnack}`, {
+          variant: "error",
+        });
+      } catch (e) {}
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -80,6 +114,7 @@ export const CrearContacto = ({ aniadirContacto }) => {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={handleOpen}
+          disabled={isLoading ? true : false}
         >
           Crear contacto
         </Button>
@@ -92,6 +127,9 @@ export const CrearContacto = ({ aniadirContacto }) => {
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
       >
         <DialogTitle>Crear nuevo contacto</DialogTitle>
         <DialogContent>
@@ -130,7 +168,11 @@ export const CrearContacto = ({ aniadirContacto }) => {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={formik.handleSubmit}>
+          <Button
+            variant="contained"
+            onClick={formik.handleSubmit}
+            disabled={isLoading ? true : false}
+          >
             Crear
           </Button>
           <Button

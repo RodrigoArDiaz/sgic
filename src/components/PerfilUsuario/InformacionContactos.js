@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+//Redux
+import { useSelector } from "react-redux";
+//
 import { useTheme } from "@emotion/react";
 //MUI
 import { Box } from "@mui/system";
 import {
   Alert,
-  Avatar,
-  CardActions,
   CardContent,
   CardHeader,
   Divider,
   Grid,
   IconButton,
-  Paper,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -23,7 +24,6 @@ import {
 } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ContactsIcon from "@mui/icons-material/Contacts";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 //
 import { CrearContacto } from "./CrearContacto";
@@ -32,69 +32,78 @@ import { ModificarContacto } from "./ModificarContacto";
 import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
-const contactosPrueba = [
-  // {
-  //   idContacto: "0",
-  //   redSocial: "Facebook",
-  //   perfil: "https://www.facebook.com/alumno10",
-  // },
-  // {
-  //   idContacto: "1",
-  //   redSocial: "Github",
-  //   perfil: "https://github.com/Alumno10",
-  // },
-  // {
-  //   idContacto: "2",
-  //   redSocial: "WhatsApp",
-  //   perfil: "+549381200100",
-  // },
-];
+import { peticionListarContactos } from "../../api/alumnos/gestionContactosApi";
+
+const contactosPrueba = [];
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
 
 export default function InformacionDeContactos() {
   const [contactos, setContactos] = useState(contactosPrueba);
-  //
+  //Varible para mostrar el spinner o progress
+  const [isLoading, setIsLoading] = useState(true);
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+  //Recupero informacion del usuario
+  const { user } = useSelector((state) => state.user);
+  //Para estilos reponsives
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
-  //Prueba
-  const aniadirContacto = (nuevoContacto) => {
-    //Se debe hacer la peticion
+  //Carga de la lista de contactos del usuario
+  useEffect(() => {
+    listarContactos();
+  }, []);
 
-    //Simulacion del caso exitoso
-    const nuevoContactoGuardado = {
-      idContacto: Math.random(),
-      redSocial: nuevoContacto.redSocial,
-      perfil: nuevoContacto.perfil,
-    };
-    setContactos((prev) => [...prev, nuevoContactoGuardado]);
+  /******************************************
+   * Funcion para cargar los contactos del usuario
+   */
+  const listarContactos = async () => {
+    setIsLoading(true);
+    //Realizo peticion
+    try {
+      const respuesta = await peticionListarContactos(user.IdUsuario, token);
+      setContactos(respuesta.data.data.contactos);
+    } catch (error) {
+      //Ocurrio un error
+      // const response = error.response.data;
+      // setErrors(response.data);
+    }
+    setIsLoading(false);
   };
 
-  //Prueba
-  const borrarContacto = (idContacto) => {
-    // const result = contactos.filter((contacto, indice) => indice != idContacto);
-    // setContactos(result);
-    setContactos((prev) => [
-      ...prev.filter((contacto, indice) => contacto.idContacto !== idContacto),
-    ]);
+  //Refresca la lista de contacto (realiza nuevamente la peticion)
+  const refrescarListaContactos = () => {
+    listarContactos();
   };
 
-  //Prueba
-  const modificarContacto = (idContacto, contactoModificado) => {
-    console.log(idContacto);
+  //Crear usuario
+  const crearContacto = (nuevoContacto) => {
+    setContactos([...contactos, nuevoContacto]);
+  };
 
-    //Simulacion caso exitoso
+  //ModificarContacto
+  const modificarContacto = (nuevoContacto) => {
+    //Actualizo los datos del contacto modificado
+    //No se utiliza refrescarListarContactos para ahorrar el tiempo de la peticion
     const result = contactos.slice();
     result.map((contacto, indice) => {
-      if (contacto.idContacto == idContacto) {
-        contacto.perfil = contactoModificado.perfil;
-        contacto.redSocial = contactoModificado.redSocial;
+      if (contacto.IdContacto == nuevoContacto.IdContacto) {
+        contacto.Perfil = nuevoContacto.Perfil;
+        contacto.Nombre = nuevoContacto.Nombre;
       }
     });
-    //Se guardaria el resultado de la peticion
+    //Se guardan
     setContactos(result);
+  };
+
+  //Elimina contacto de la lista de contacto luego de la confirmacion de la peticion de borrardo
+  //No se utiliza refrescarListarContactos para ahorrar el tiempo de la peticion
+  const borrarContacto = (IdContacto) => {
+    setContactos((prev) => [
+      ...prev.filter((contacto, indice) => contacto.IdContacto !== IdContacto),
+    ]);
   };
 
   return (
@@ -109,220 +118,151 @@ export default function InformacionDeContactos() {
             },
           }}
         >
-          {/* <CardActions>
-            <Grid container justifyContent="end">
-              <Grid item xs={12} md={6} textAlign="end">
-                <CrearContacto aniadirContacto={aniadirContacto} />
-              </Grid>
-            </Grid>
-          </CardActions> */}
           <CardHeader
             avatar={<PermContactCalendarOutlinedIcon size="large" />}
             title={<Typography variant="p">Informacion de contacto</Typography>}
-            action={<CrearContacto aniadirContacto={aniadirContacto} />}
+            action={<CrearContacto crearContacto={crearContacto} />}
           />
           <Divider />
           <CardContent>
-            <Grid container>
-              {contactos.length == 0 ? (
-                <>
-                  <ListItem key="0">
-                    <ListItemText>
-                      <Alert severity="info">
-                        Aún no añadió informacion de contacto. .
-                      </Alert>
-                    </ListItemText>
-                  </ListItem>
-                </>
-              ) : esXs ? (
-                contactos.map((contacto, indice) => {
-                  return (
-                    <>
-                      <Grid item xs={12} key={indice}>
-                        <Grid
-                          container
-                          columnSpacing={2}
-                          justifyContent="space-between"
-                        >
-                          <Grid item xs={12} sm={9} md={10}>
-                            <Box
-                              display="flex"
-                              gap={1}
-                              flexWrap="wrap"
-                              flexDirection={esXs ? "column" : "row"}
-                              alignItems={esXs ? "center" : "start"}
-                              paddingY={1}
-                            >
-                              {/* <Avatar
+            {isLoading ? (
+              <Grid container>
+                <Grid item xs={12}>
+                  <LinearProgress />
+                </Grid>
+              </Grid>
+            ) : (
+              <Grid container>
+                {contactos.length == 0 ? (
+                  <>
+                    <ListItem key="0">
+                      <ListItemText>
+                        <Alert severity="info">
+                          Aún no añadió informacion de contacto. .
+                        </Alert>
+                      </ListItemText>
+                    </ListItem>
+                  </>
+                ) : esXs ? (
+                  contactos.map((contacto, indice) => {
+                    return (
+                      <>
+                        <Grid item xs={12} key={indice}>
+                          <Grid
+                            container
+                            columnSpacing={2}
+                            justifyContent="space-between"
+                            key={indice}
+                          >
+                            <Grid item xs={12} sm={9} md={10}>
+                              <Box
+                                display="flex"
+                                gap={1}
+                                flexWrap="wrap"
+                                flexDirection={esXs ? "column" : "row"}
+                                alignItems={esXs ? "center" : "start"}
+                                paddingY={1}
+                              >
+                                <PermContactCalendarOutlinedIcon color="secondary" />
+                                <Typography pt={1}>
+                                  {contacto.Nombre + ": " + contacto.Perfil}
+                                </Typography>
+                              </Box>
+                            </Grid>
+
+                            <Grid item xs={12} sm={3} md={2} textAlign="center">
+                              <Box
+                                display="flex"
+                                justifyContent="space-evenly"
+                                padding={1}
+                                backgroundColor="primary"
                                 sx={{
-                                  bgcolor: "secondary.main",
-                                  color: "#fff",
+                                  "&:hover": {
+                                    background: "primary.main",
+                                  },
                                 }}
-                              > */}
-                              <PermContactCalendarOutlinedIcon color="secondary" />
-                              {/* </Avatar> */}
-                              <Typography pt={1}>
-                                {contacto.redSocial + ": " + contacto.perfil}
-                              </Typography>
-                            </Box>
-                          </Grid>
-
-                          <Grid item xs={12} sm={3} md={2} textAlign="center">
-                            <Box
-                              display="flex"
-                              justifyContent="space-evenly"
-                              padding={1}
-                              backgroundColor="primary"
-                              sx={{
-                                "&:hover": {
-                                  background: "primary.main",
-                                },
-                              }}
-                            >
-                              <ModificarContacto
-                                idContacto={contacto.idContacto}
-                                modificarContacto={modificarContacto}
-                                contacto={contacto}
-                              />
-                              <BorrarContacto
-                                idContacto={contacto.idContacto}
-                                borrarContacto={borrarContacto}
-                              />
-                            </Box>
-                          </Grid>
-                        </Grid>
-                        <Divider sx={{ mt: "0.5rem" }} />
-                      </Grid>
-                    </>
-                  );
-                })
-              ) : (
-                <TableContainer component={Box} sx={{ overflowX: "auto" }}>
-                  <Table
-                    aria-label="Lista de Catedras"
-                    sx={{ mb: "1rem" }}
-                    size="small"
-                  >
-                    {" "}
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Red social</TableCell>
-                        <TableCell>Perfil</TableCell>
-                        <TableCell align="center">Acciones</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {contactos.map((contacto, indice) => (
-                        <TableRowElevacion key={indice}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={estilosCell}
-                          >
-                            <IconButton>
-                              <PermContactCalendarOutlinedIcon color="secondary" />
-                            </IconButton>
-
-                            {contacto.redSocial}
-                          </TableCell>
-
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={estilosCell}
-                          >
-                            {contacto.perfil}
-                          </TableCell>
-
-                          <TableCell align="center">
-                            <Grid container justifyContent="space-evenly">
-                              <Grid item item xs={12} sm="auto">
+                              >
                                 <ModificarContacto
-                                  idContacto={contacto.idContacto}
-                                  modificarContacto={modificarContacto}
                                   contacto={contacto}
+                                  modificarContacto={modificarContacto}
                                 />
-                              </Grid>
-
-                              <Grid item item xs={12} sm="auto">
                                 <BorrarContacto
-                                  idContacto={contacto.idContacto}
+                                  contacto={contacto}
                                   borrarContacto={borrarContacto}
                                 />
-                              </Grid>
+                              </Box>
                             </Grid>
-                          </TableCell>
-                        </TableRowElevacion>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            </Grid>
+                          </Grid>
+                          <Divider sx={{ mt: "0.5rem" }} />
+                        </Grid>
+                      </>
+                    );
+                  })
+                ) : (
+                  <TableContainer component={Box} sx={{ overflowX: "auto" }}>
+                    <Table
+                      aria-label="Lista de Catedras"
+                      sx={{ mb: "1rem" }}
+                      size="small"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Red social</TableCell>
+                          <TableCell>Perfil</TableCell>
+                          <TableCell align="center">Acciones</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {contactos.map((contacto, indice) => (
+                          <TableRowElevacion key={indice}>
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              sx={estilosCell}
+                            >
+                              <IconButton>
+                                <PermContactCalendarOutlinedIcon color="secondary" />
+                              </IconButton>
+
+                              {contacto.Nombre}
+                            </TableCell>
+
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              sx={estilosCell}
+                            >
+                              {contacto.Perfil}
+                            </TableCell>
+
+                            <TableCell align="center">
+                              <Grid container justifyContent="space-evenly">
+                                <Grid item item xs={12} sm="auto">
+                                  <ModificarContacto
+                                    contacto={contacto}
+                                    modificarContacto={modificarContacto}
+                                  />
+                                </Grid>
+
+                                <Grid item item xs={12} sm="auto">
+                                  <BorrarContacto
+                                    contacto={contacto}
+                                    borrarContacto={borrarContacto}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </TableCell>
+                          </TableRowElevacion>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              </Grid>
+            )}
           </CardContent>
         </CardMain>
       </Grid>
     </Grid>
   );
-}
-
-{
-  /* {contactos.map((contacto, indice) => {
-                return (
-                  <>
-                    <Grid item xs={12} key={indice}>
-                      <Grid
-                        container
-                        columnSpacing={2}
-                        justifyContent="space-between"
-                      >
-                        <Grid item xs={12} sm={9} md={10}>
-                          <Box
-                            display="flex"
-                            gap={1}
-                            flexWrap="wrap"
-                            flexDirection={esXs ? "column" : "row"}
-                            alignItems={esXs ? "center" : "start"}
-                            paddingY={1}
-                          >
-                            <Avatar
-                              sx={{ bgcolor: "secondary.main", color: "#fff" }}
-                            >
-                              <ContactsIcon />
-                            </Avatar>
-                            <Typography pt={1}>
-                              {contacto.redSocial + ": " + contacto.perfil}
-                            </Typography>
-                          </Box>
-                        </Grid>
-
-                        <Grid item xs={12} sm={3} md={2} textAlign="center">
-                          <Box
-                            display="flex"
-                            justifyContent="space-evenly"
-                            padding={1}
-                            backgroundColor="primary"
-                            sx={{
-                              "&:hover": {
-                                background: "primary.main",
-                              },
-                            }}
-                          >
-                            <ModificarContacto
-                              idContacto={contacto.idContacto}
-                              modificarContacto={modificarContacto}
-                              contacto={contacto}
-                            />
-                            <BorrarContacto
-                              idContacto={contacto.idContacto}
-                              borrarContacto={borrarContacto}
-                            />
-                          </Box>
-                        </Grid>
-                      </Grid>
-                      <Divider sx={{ mt: "0.5rem" }} />
-                    </Grid>
-                  </>
-                );
-              })} */
 }

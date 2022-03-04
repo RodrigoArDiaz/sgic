@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useTheme } from "@emotion/react";
+//Read-redux
+import { useSelector } from "react-redux";
 //MUI
 import { Button, IconButton, Tooltip, useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -6,35 +9,39 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import EditIcon from "@mui/icons-material/Edit";
 import { Zoom } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 //Formik, yup
 import { useFormik } from "formik";
 import * as yup from "yup";
+//Notistack
 import { useSnackbar } from "notistack";
 //hooks personalizados
 import { useModal } from "../../hooks/useModal";
-import { useTheme } from "@emotion/react";
+//Peticiones
+import { peticionModificarContacto } from "../../api/alumnos/gestionContactosApi";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
   redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
-export const ModificarContacto = ({
-  idContacto,
-  modificarContacto,
-  contacto,
-}) => {
+export const ModificarContacto = ({ contacto, modificarContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  //
+  const [isLoading, setIsLoading] = useState(false);
+  //Para estilos segun tamaño screen
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+  //Recupero informacion del usuario
+  const { user } = useSelector((state) => state.user);
 
   const valoresInicialesForm = {
-    perfil: contacto.perfil,
-    redSocial: contacto.redSocial,
+    perfil: contacto.Perfil,
+    redSocial: contacto.Nombre,
   };
 
   const formik = useFormik({
@@ -46,14 +53,51 @@ export const ModificarContacto = ({
     },
   });
 
-  const handleModificarContacto = (values) => {
-    modificarContacto(idContacto, values);
+  /**
+   *
+   */
+  const handleModificarContacto = async (values) => {
+    setIsLoading(true);
+    //Realizo peticion
+    try {
+      const respuesta = await peticionModificarContacto(
+        contacto.IdContacto,
+        user.IdUsuario,
+        values,
+        token
+      );
 
-    // //Si se realizo con exito
-    handleClose();
-    enqueueSnackbar("Se modifico el contacto con exito", {
-      variant: "success",
-    });
+      //Objeto con el modificado
+      const nuevoContacto = {
+        IdContacto: contacto.IdContacto,
+        IdUsuario: user.IdUsuario,
+        Perfil: values.perfil,
+        Nombre: values.redSocial,
+      };
+
+      //Se modifica el contacto en la lista de contactos
+      modificarContacto(nuevoContacto);
+
+      handleClose();
+      formik.resetForm();
+      enqueueSnackbar("Se agregó el contacto con exito", {
+        variant: "success",
+      });
+    } catch (error) {
+      try {
+        let mensajeSnack = "";
+        const data = error.response.data.data;
+        if ("mensaje" in data) {
+          mensajeSnack = data.mensaje;
+        } else {
+          mensajeSnack = data[0];
+        }
+        enqueueSnackbar(`Error: ${mensajeSnack}`, {
+          variant: "error",
+        });
+      } catch (e) {}
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -77,6 +121,9 @@ export const ModificarContacto = ({
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
       >
         <DialogTitle>Modificar contacto</DialogTitle>
         <DialogContent>
@@ -114,7 +161,11 @@ export const ModificarContacto = ({
           </form>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={formik.handleSubmit}>
+          <Button
+            variant="contained"
+            onClick={formik.handleSubmit}
+            disabled={isLoading ? true : false}
+          >
             Aceptar
           </Button>
           <Button
