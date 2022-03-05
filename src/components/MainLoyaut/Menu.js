@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Icon, Tooltip } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
 import { Link, Outlet, NavLink } from "react-router-dom";
+import { Zoom } from "@mui/material";
 import {
   DrawerHeader,
   AppBar,
@@ -20,7 +21,7 @@ import {
   ListMenu,
   ListItemMenu,
 } from "../../components/Material UI - Componentes Modificados/ComponenteMenu/ComponentesMenu";
-import MenuUsuarioDesplegable from "../MenuUsuarioDesplegable.js";
+import MenuUsuarioDesplegable from "./MenuUsuarioDesplegable.js";
 
 import "./Menu.css";
 import FullScreen from "../FullScreen";
@@ -114,23 +115,35 @@ export default function Menu({ listaItemsMenu }) {
           {/*Link de React-Dom*/}
           {listaItems.map((ele, index) => {
             return (
-              <ListItemMenu
-                button
+              <Tooltip
+                title={ele.itemText}
+                placement="right"
+                TransitionComponent={Zoom}
                 key={ele.key}
-                sx={{ paddingLeft: 3.1 }}
-                // component={Link}
-                // to={ele.to}
-                component={NavLink}
-                to={ele.to}
-                className={(navData) => (navData.isActive ? "active" : "")}
+                arrow
               >
-                <ListItemIcon>
-                  <Tooltip title={ele.itemText} placement="right">
+                <ListItemMenu
+                  button
+                  key={ele.key}
+                  sx={{ paddingLeft: 3.1 }}
+                  // component={Link}
+                  // to={ele.to}
+                  component={NavLink}
+                  to={ele.to}
+                  className={(navData) => (navData.isActive ? "active" : "")}
+                >
+                  <ListItemIcon>
+                    {/* <Tooltip
+                    title={ele.itemText}
+                    placement="right"
+                    TransitionComponent={Zoom}
+                  > */}
                     <Icon>{ele.icon}</Icon>
-                  </Tooltip>
-                </ListItemIcon>
-                <ListItemText primary={ele.itemText} />
-              </ListItemMenu>
+                    {/* </Tooltip> */}
+                  </ListItemIcon>
+                  <ListItemText primary={ele.itemText} />
+                </ListItemMenu>
+              </Tooltip>
             );
           })}
         </ListMenu>
