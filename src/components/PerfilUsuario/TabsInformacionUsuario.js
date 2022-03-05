@@ -80,7 +80,6 @@ export default function TabsInformacionUsuario() {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <InformacionDeContactos />
-          {/* <InformacionUsuario /> */}
         </TabPanel>
       </Grid>
     </Grid>

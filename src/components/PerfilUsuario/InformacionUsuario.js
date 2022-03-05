@@ -49,8 +49,6 @@ const InformacionUsuario = () => {
                   width: "5rem",
                   height: "5rem",
                   bgcolor: blue[500],
-                  // display: "flex",
-                  // margin: "auto",
                 }}
               >
                 {user.Apellidos &&
@@ -131,6 +129,7 @@ const InformacionUsuario = () => {
                   />
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} md={6} lg={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Usuario">Usuario</InputLabel>
@@ -143,6 +142,7 @@ const InformacionUsuario = () => {
                   />
                 </FormControl>
               </Grid>
+
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="Documento">Documento</InputLabel>
@@ -156,7 +156,22 @@ const InformacionUsuario = () => {
                 </FormControl>
               </Grid>
 
-              {() => {
+              {esAlumno && (
+                <Grid item xs={12} md={6}>
+                  <FormControl fullWidth>
+                    <InputLabel htmlFor="Libreta">Libreta</InputLabel>
+                    <OutlinedInputOnlyRead
+                      id="Libreta"
+                      value="Falta"
+                      label="Libreta"
+                      readOnly
+                      disabled
+                    />
+                  </FormControl>
+                </Grid>
+              )}
+
+              {/* {() => {
                 if ("Libreta" in user) {
                   return (
                     <Grid item xs={12} md={6}>
@@ -173,7 +188,7 @@ const InformacionUsuario = () => {
                     </Grid>
                   );
                 }
-              }}
+              }} */}
             </Grid>
           </CardContent>
           <Divider />

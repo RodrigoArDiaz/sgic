@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
@@ -17,6 +17,8 @@ import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
 import { regexContrasenia } from "../../helpers/regex";
 import { useTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
+import { peticionModificarContrasena } from "../../api/sgicApi";
 
 const validaciones = yup.object({
   contraseniaActual: yup.string().required("Este campo es obligatorio"),
@@ -24,7 +26,7 @@ const validaciones = yup.object({
     .string()
     .matches(
       regexContrasenia,
-      "La contraseña debe tener un minimo de 8 caracteres y un maximo de 10. Debe contener al menos un numero, una letra en minuscula y una letra en mayuscula."
+      "La contraseña debe tener un minimo de 8 caracteres y un maximo de 16. Debe contener al menos un numero, una letra en minuscula y una letra en mayuscula."
     )
     .required("Este campo es obligatorio"),
   repetirContrasenia: yup
@@ -38,13 +40,19 @@ const validaciones = yup.object({
 
 const ModificarContrasenia = () => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [mostrarContraseniaNueva, setMostrarContraseniaNueva] = useState(false);
   const [mostrarRepetirContrasenia, setMostrarRepetirContrasenia] =
     useState(false);
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+  //
+  const [isLoading, setIsLoading] = useState(false);
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+  //Recupero informacion del usuario
+  const { user } = useSelector((state) => state.user);
 
   const valoresInicialesForm = {
     contraseniaActual: "",
@@ -61,23 +69,43 @@ const ModificarContrasenia = () => {
     },
   });
 
-  const handleModificarContrasenia = (values) => {
-    //Adecuo los datos  para la peticion
-    console.log(values);
+  //Evita bug carga de valores basura en el formulario
+  useEffect(() => {}, [isOpen]);
 
-    //Hago la peticion ...
+  /**
+   *
+   */
+  const handleModificarContrasenia = async (values) => {
+    setIsLoading(true);
+    //Realizo peticion
+    try {
+      const respuesta = await peticionModificarContrasena(
+        user.IdUsuario,
+        values,
+        token
+      );
 
-    //Cierro ventana modal
-    handleClose();
-
-    //Reseteo el formulario
-    formik.resetForm();
-
-    //Muestro mensaje
-    enqueueSnackbar("Se modifico la contraseña con exito.", {
-      variant: "success",
-      // TransitionComponent: Collapse,
-    });
+      formik.resetForm();
+      handleClose();
+      enqueueSnackbar("Se modifico la contraseña con exito", {
+        variant: "success",
+      });
+    } catch (error) {
+      console.log(error.response.data);
+      try {
+        let mensajeSnack = "";
+        const data = error.response.data.data;
+        if ("mensaje" in data) {
+          mensajeSnack = data.mensaje;
+        } else {
+          mensajeSnack = data[0];
+        }
+        enqueueSnackbar(`Error: ${mensajeSnack}`, {
+          variant: "error",
+        });
+      } catch (e) {}
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -91,6 +119,9 @@ const ModificarContrasenia = () => {
         maxWidth="xs"
         fullWidth
         fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
       >
         <DialogTitle>Modificar contraseña</DialogTitle>
         <DialogContent>
@@ -213,6 +244,7 @@ const ModificarContrasenia = () => {
             type="submit"
             variant="contained"
             onClick={formik.handleSubmit}
+            disabled={isLoading ? true : false}
           >
             Aceptar
           </Button>

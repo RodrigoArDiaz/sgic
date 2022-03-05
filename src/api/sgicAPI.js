@@ -6,8 +6,10 @@ const loginAlumnoUrl = rootUrl + "/acceso/alumnos";
 const loginDocenteUrl = rootUrl + "/acceso/docentes";
 const loginSuperUrl = rootUrl + "/acceso/super";
 const logoutUsuarioUrl = rootUrl + "/logout";
-const getDataUsuarioUrl = rootUrl + "/me2";
+// const getDataUsuarioUrl = rootUrl + "/me2";
+const getDataUsuarioUrl = rootUrl + "/mis_datos";
 const registrarUsuarioUrl = rootUrl + "/registro";
+const modificarContrasenaUrl = rootUrl + "/modificar_contrasena";
 
 /****************************************************
  * Peticion para el logueo de usuario tipos alumnos
@@ -167,6 +169,35 @@ export const peticionRegistrarUsuario = (frmData) => {
       const res = await axios.post(registrarUsuarioUrl, credenciales, {
         headers: {
           Accept: "application/json",
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/****************************************************
+ * Peticion para modificar contraseña del usuario
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionModificarContrasena = (IdUsuario, formData, token) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    IdUsuario: IdUsuario,
+    ContrasenaActual: formData.contraseniaActual,
+    ContrasenaNueva: formData.contraseniaNueva,
+    ContrasenaConfirmacion: formData.repetirContrasenia,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(modificarContrasenaUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       resolve(res);
