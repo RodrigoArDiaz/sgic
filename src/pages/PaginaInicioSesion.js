@@ -1,12 +1,15 @@
-import React from 'react';
-import FormularioIniciarSesion from '../components/FormularioIniciarSesion';
+import React from "react";
+import FormularioIniciarSesion from "../components/FormularioIniciarSesion";
 
-const PaginaInicioSesion = ({mostrarRegistrarse}) => {
-    return (
-        <>
-            <FormularioIniciarSesion mostrarRegistrarse={mostrarRegistrarse}/>
-        </>
-    )
-}
+const PaginaInicioSesion = ({ mostrarRegistrarse, tipo }) => {
+  return (
+    <>
+      <FormularioIniciarSesion
+        mostrarRegistrarse={mostrarRegistrarse}
+        tipo={tipo}
+      />
+    </>
+  );
+};
 
-export default PaginaInicioSesion
+export default PaginaInicioSesion;

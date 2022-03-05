@@ -38,6 +38,7 @@ import { useNavigate } from "react-router";
 import {
   loginAlumno,
   loginDocente,
+  loginSuper,
   requestGetDataUsuario,
 } from "../api/sgicApi";
 
@@ -80,14 +81,18 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
     onSubmit: (values) => {
       switch (tipo) {
         case "alumno":
-          inicioSesionAlumno(values);
+          inicioSesion(values, "/inicio", loginAlumno);
           break;
         case "docente":
-          inicioSesionDocente(values);
+          inicioSesion(values, "/inicio_docente", loginDocente);
+          break;
+
+        case "super":
+          inicioSesion(values, "/inicio_superadministrador", loginSuper);
           break;
 
         default:
-          inicioSesionAlumno(values);
+          inicioSesion(values, "/inicio", loginAlumno);
           break;
       }
     },
@@ -97,38 +102,20 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
    *
    * @param {*} values
    */
-  const inicioSesionAlumno = async (values) => {
+  const inicioSesion = async (values, rutaNavigate, login) => {
     dispatch(loginPending());
 
     try {
-      const res = await loginAlumno(values);
+      // const res = await loginAlumno(values);
+      const res = await login(values);
       dispatch(loginSuccess(res.data.token));
       const respData = await requestGetDataUsuario(res.data.token);
       dispatch(getUserSuccess(respData.Usuario));
-      navigate("/inicio");
+      // navigate("/inicio");
+      navigate(rutaNavigate);
     } catch (error) {
-      // console.log(error.response);
+      console.log(error.response);
       dispatch(loginFail(error.response.data.res));
-      controlErrorLogin(true);
-    }
-  };
-
-  /**
-   *
-   * @param {*} values
-   */
-  const inicioSesionDocente = async (values) => {
-    dispatch(loginPending());
-
-    try {
-      const res = await loginDocente(values);
-      dispatch(loginSuccess(res.data.token));
-      const respData = await requestGetDataUsuario(res.data.token);
-      dispatch(getUserSuccess(respData.Usuario));
-      navigate("/inicio_docente");
-    } catch (error) {
-      console.log(error.response.data.error);
-      dispatch(loginFail(error.response.data.error));
       controlErrorLogin(true);
     }
   };

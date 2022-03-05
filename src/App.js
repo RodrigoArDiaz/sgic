@@ -1,5 +1,5 @@
 import React from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Button, CssBaseline, ThemeProvider } from "@mui/material";
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
 import {
   BrowserRouter as Router,
@@ -18,9 +18,11 @@ import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import { useSelector } from "react-redux";
 // import Menu from "./components/Menu.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
-import { SnackbarProvider } from "notistack";
+import { SnackbarProvider, useSnackbar } from "notistack";
 import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
 import Menu from "./components/MainLoyaut/Menu.js";
+import IconButtonNotiStack from "./components/Material UI - Componentes Modificados/IconButtonNotiStack.js";
+import PruebaTablaResponsive from "./components/PruebaTablaResponsive.js";
 
 const listaItemsMenuSuper = [
   {
@@ -41,6 +43,12 @@ const listaItemsMenuSuper = [
     to: "alumnos",
     icon: "school",
   },
+  {
+    key: "perfil",
+    itemText: "Mi perfil",
+    to: "mi_perfil",
+    icon: "manage_accounts",
+  },
 ];
 
 const listaItemsMenuAlumno = [
@@ -58,6 +66,15 @@ const listaItemsMenuAlumno = [
   },
 ];
 
+const listaItemsDocente = [
+  {
+    key: "perfil",
+    itemText: "Mi perfil",
+    to: "mi_perfil",
+    icon: "manage_accounts",
+  },
+];
+
 // import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 
 export default function App() {
@@ -69,26 +86,45 @@ export default function App() {
       <Router>
         <ThemeProvider theme={temaConfig}>
           <CssBaseline />
-          <SnackbarProvider maxSnack={3}>
+          <SnackbarProvider
+            maxSnack={3}
+            action={(keySnackbar) => (
+              <IconButtonNotiStack keySnackbar={keySnackbar} />
+            )}
+          >
             <Routes>
               {/* Rutas publicas */}
-              <Route
+              {/* <Route
                 path="/"
                 element={
                   !isAuth ? <PaginaInicioSesion /> : <Navigate to="/inicio" />
                 }
+              /> */}
+
+              <Route
+                path="/"
+                element={
+                  <PaginaInicioSesion mostrarRegistrarse={true} tipo="alumno" />
+                }
               />
 
-              <Route path="/acceso_alumno" element={<PaginaInicioSesion />} />
+              {/* <Route path="/acceso_alumno" element={<PaginaInicioSesion />} /> */}
 
               <Route
                 path="/acceso_docente"
-                element={<PaginaInicioSesion mostrarRegistrarse={false} />}
+                element={
+                  <PaginaInicioSesion
+                    mostrarRegistrarse={false}
+                    tipo="docente"
+                  />
+                }
               />
 
               <Route
                 path="/acceso_superadministrador"
-                element={<PaginaInicioSesion mostrarRegistrarse={false} />}
+                element={
+                  <PaginaInicioSesion mostrarRegistrarse={false} tipo="super" />
+                }
               />
 
               <Route path="/registrarse" element={<PaginaRegistrarse />} />
@@ -114,10 +150,6 @@ export default function App() {
                   path="inscripciones_cursadas"
                   element={<PaginaInscripcionesCursadas />}
                 />
-
-                {/* <Route path="docentes" element={<PaginaDocentes />} />
-
-              <Route path="alumnos" element={<PaginaAlumnos />} /> */}
               </Route>
 
               {/* Rutas privada: rol docente*/}
@@ -125,43 +157,29 @@ export default function App() {
                 path="/inicio_docente/*"
                 element={
                   isAuth ? (
-                    <MiniDrawers></MiniDrawers>
+                    <Menu listaItemsMenu={listaItemsDocente} />
                   ) : (
                     <Navigate to="/acceso_docente" />
                   )
                 }
-              >
-                {/* <Route path="catedras" element={<PaginaCatedras />} />
-
-              <Route path="docentes" element={<PaginaDocentes />} />
-
-              <Route path="alumnos" element={<PaginaAlumnos />} /> */}
-              </Route>
+              ></Route>
 
               {/* Rutas privada: rol supervisor*/}
               <Route
                 path="/inicio_superadministrador/*"
                 element={
                   isAuth ? (
-                    <MiniDrawers></MiniDrawers>
+                    <Menu listaItemsMenu={listaItemsMenuSuper} />
                   ) : (
                     <Navigate to="/acceso_superadministrador" />
                   )
                 }
               >
                 <Route path="catedras" element={<PaginaCatedras />} />
-
                 <Route path="docentes" element={<PaginaDocentes />} />
-
                 <Route path="alumnos" element={<PaginaAlumnos />} />
+                <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
               </Route>
-
-              {/* <Route path="prueba" element={<PaginaInscripcionesCursadas />} /> */}
-
-              {/* <Route
-                path="menu_prueba"
-                element={<MainLoyaut listaItemsMenu={listaItemsMenuAlumno} />}
-              /> */}
             </Routes>
           </SnackbarProvider>
         </ThemeProvider>

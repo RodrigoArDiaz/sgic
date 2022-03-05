@@ -30,7 +30,7 @@ import { BajaAlumno } from "./BajaAlumno";
 import { BorrarAlumno } from "./BorrarAlumno";
 import { Box } from "@mui/system";
 import { CoPresent, ExpandLess, ExpandMore } from "@mui/icons-material";
-import Paginacion from "../GestionDocenteSuper/Paginacion";
+import Paginacion from "../Paginacion";
 
 export default function AlumnosLista({
   alumnos,
