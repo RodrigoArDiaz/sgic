@@ -244,7 +244,7 @@ export default function InformacionDeContactos() {
                                   />
                                 </Grid>
 
-                                <Grid item item xs={12} sm="auto">
+                                <Grid item xs={12} sm="auto">
                                   <BorrarContacto
                                     contacto={contacto}
                                     borrarContacto={borrarContacto}
