@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+//Estilos
+import "./Menu.css";
+//MUI
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -10,8 +13,10 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { Icon, Tooltip } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
-import { Link, Outlet, NavLink } from "react-router-dom";
 import { Zoom } from "@mui/material";
+//React router dom
+import { Outlet, NavLink } from "react-router-dom";
+//MUI personalizados
 import {
   DrawerHeader,
   AppBar,
@@ -20,38 +25,18 @@ import {
   ButtonMenu,
   ListMenu,
   ListItemMenu,
-} from "../../components/Material UI - Componentes Modificados/ComponenteMenu/ComponentesMenu";
+} from "../Material UI - Componentes Modificados/ComponenteMenu/ComponentesMenu";
+//Componentes propiios
 import MenuUsuarioDesplegable from "./MenuUsuarioDesplegable.js";
-
-import "./Menu.css";
 import FullScreen from "../FullScreen";
-
-// const listaItemsMenu = [
-//   {
-//     key: "catedras",
-//     itemText: "Catedras",
-//     to: "catedras",
-//     icon: "account_balance",
-//   },
-//   {
-//     key: "docentes",
-//     itemText: "Docentes",
-//     to: "docentes",
-//     icon: "co_present",
-//   },
-//   {
-//     key: "alumnos",
-//     itemText: "Alumnos",
-//     to: "alumnos",
-//     icon: "school",
-//   },
-// ];
 
 /** */
 export default function Menu({ listaItemsMenu }) {
   const [open, setOpen] = React.useState(false);
+  //Lista de items del menu lateral
   const [listaItems, setListaItems] = useState(listaItemsMenu);
 
+  //Manejo de apertura del menu
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
@@ -94,7 +79,9 @@ export default function Menu({ listaItemsMenu }) {
         </Toolbar>
       </AppBar>
 
-      {/* Menu screen>=sm */}
+      {/*******************************************
+       Menu screen >= sm (para dispositivos desktop)    
+       *******************************************/}
       <Drawer
         variant="permanent"
         open={open}
@@ -133,13 +120,7 @@ export default function Menu({ listaItemsMenu }) {
                   className={(navData) => (navData.isActive ? "active" : "")}
                 >
                   <ListItemIcon>
-                    {/* <Tooltip
-                    title={ele.itemText}
-                    placement="right"
-                    TransitionComponent={Zoom}
-                  > */}
                     <Icon>{ele.icon}</Icon>
-                    {/* </Tooltip> */}
                   </ListItemIcon>
                   <ListItemText primary={ele.itemText} />
                 </ListItemMenu>
@@ -149,7 +130,9 @@ export default function Menu({ listaItemsMenu }) {
         </ListMenu>
       </Drawer>
 
-      {/* Menu responsive */}
+      {/*******************************************
+       Menu screen < sm (para dispositivos MOVILES)    
+       *******************************************/}
       <DrawerResponsive
         variant="temporary"
         open={open}
@@ -192,24 +175,25 @@ export default function Menu({ listaItemsMenu }) {
           })}
         </ListMenu>
       </DrawerResponsive>
-      {/* Pagina */}
-      {/* <Outlet /> */}
-      {/* Pagina */}
 
-      {/* Main */}
+      {/*******************************************
+       Main: aqui van los componentes paginas, que 
+       se renderizan con los componentes NavLink de
+       react router dom   
+       *******************************************/}
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          paddingX: { xs: 1, sm: 3 },
+          paddingX: { xs: 0, sm: 3 },
           paddingY: { xs: 2, sm: 3 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
-        {/* Pagina */}
+        {/*** Pagina ************/}
         <Outlet />
-        {/* Pagina */}
+        {/*** Pagina ************/}
       </Box>
     </Box>
   );

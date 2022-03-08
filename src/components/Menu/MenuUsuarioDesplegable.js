@@ -1,4 +1,6 @@
-import * as React from "react";
+import React from "react";
+import { useTheme } from "@emotion/react";
+//MUI
 import MoreIcon from "@mui/icons-material/MoreVert";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -17,10 +19,12 @@ import {
   Zoom,
   Fade,
 } from "@mui/material";
-import { useTheme } from "@emotion/react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { blue } from "@mui/material/colors";
+//Redux
+import { useSelector } from "react-redux";
+//React router dom
+import { useNavigate } from "react-router-dom";
+//Componentes propios
 import CerrarSesion from "../CerrarSesion";
 
 const MenuUsuarioDesplegable = () => {
@@ -131,7 +135,6 @@ const MenuUsuarioDesplegable = () => {
                 navigate("mi_perfil");
                 handleClose();
               }}
-              size="medium"
             >
               Mi perfil
             </Button>
