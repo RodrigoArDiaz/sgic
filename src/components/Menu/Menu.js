@@ -41,9 +41,6 @@ export default function Menu() {
   const [open, setOpen] = React.useState(false);
 
   //Manejo de sublistas
-  // const [openSubList, setOpenSubList] = useState(false);
-  // const handleSubList = () => setOpenSubList(!openSubList);
-  //Control de collapse de cada item (lista solo visible en screen xs)
   const [openSubList, setOpenSubList] = useState({});
   const handleSubList = (id) => {
     setOpenSubList((prevState) => ({ ...prevState, [id]: !prevState[id] }));
@@ -150,7 +147,7 @@ export default function Menu() {
             } else {
               //Para items que son sublistas
               return (
-                <>
+                <Box component="div" key={ele.key}>
                   <Tooltip
                     title={ele.itemText}
                     placement="right"
@@ -182,7 +179,7 @@ export default function Menu() {
                     </ListItemMenu>
                   </Tooltip>
                   {/* Sublista */}
-                  <Collapse in={openSubList[index]}>
+                  <Collapse in={openSubList[index]} key={ele.key + "1"}>
                     <ListMenu
                       sx={{
                         transition:
@@ -225,7 +222,7 @@ export default function Menu() {
                     </ListMenu>
                     <Divider />
                   </Collapse>
-                </>
+                </Box>
               );
             }
           })}
