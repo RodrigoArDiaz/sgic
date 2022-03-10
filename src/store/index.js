@@ -4,6 +4,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 //Importacion de reducers
 import loginReducer from "./slices/loginSlice";
 import userReducer from "./slices/userSlice";
+import menuReducer from "./slices/menuSlice";
 
 //Importacion para redux-persist
 import {
@@ -24,6 +25,7 @@ import sessionStorage from "redux-persist/es/storage/session"; //SessionStorage
 const reducers = combineReducers({
   login: loginReducer,
   user: userReducer,
+  menu: menuReducer,
 });
 
 //En blacklist van los estados que no quiero que persistan
