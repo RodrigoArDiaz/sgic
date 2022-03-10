@@ -1,11 +1,32 @@
+/*
+teal (colors de material ui)
+50  #e0f2f1
+100 #b2dfdb
+200 #80cbc4
+300 #4db6ac
+400 #26a69a
+500 #009688
+600 #00897b
+700 #00796b
+800 #00695c
+900 #004d40
+
+*/
+
 /* Clases para el componente ListItem (MUI) en combinacion con 
 NavLink (React-Router) usados en Menu, cuando se selecciono el link */
 .active {
   /* color: #fff !important; */
-  background-color: #26a69a !important;
-  box-shadow: #0e1e251f 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  /* background-color: #26a69a !important; */
+  background-color: #4db6ac !important;
+  /* background-color: #b2dfdb !important; */
+  /* background-color: #e0f2f1 !important; */
+  /* box-shadow: #0e1e251f 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; */
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  /* border: 1px solid #26a69a; */
 }
 
 .active span {
   color: #fff;
+  /* color: #004d40; */
 }

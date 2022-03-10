@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
-import { Icon, Tooltip } from "@mui/material";
+import { Collapse, Icon, Tooltip } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
 import { Zoom } from "@mui/material";
 //React router dom
@@ -29,12 +29,30 @@ import {
 //Componentes propiios
 import MenuUsuarioDesplegable from "./MenuUsuarioDesplegable.js";
 import FullScreen from "../FullScreen";
+import { useDispatch, useSelector } from "react-redux";
 
-/** */
-export default function Menu({ listaItemsMenu }) {
+//Redux - Menu
+// import { actualizarMenu, menuReset } from "../../store/slices/menuSlice";
+import { ExpandMore } from "@mui/icons-material";
+
+/***** Componente Menu *****/
+export default function Menu() {
+  //Manejo del menu lateral (abrir y cerrar)
   const [open, setOpen] = React.useState(false);
-  //Lista de items del menu lateral
-  const [listaItems, setListaItems] = useState(listaItemsMenu);
+
+  //Manejo de sublistas
+  // const [openSubList, setOpenSubList] = useState(false);
+  // const handleSubList = () => setOpenSubList(!openSubList);
+  //Control de collapse de cada item (lista solo visible en screen xs)
+  const [openSubList, setOpenSubList] = useState({});
+  const handleSubList = (id) => {
+    setOpenSubList((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+    console.log(id);
+  };
+
+  //Manejo del titulo e items del menu
+  const { listaItems, titulo } = useSelector((state) => state.menu);
+  const dispatch = useDispatch();
 
   //Manejo de apertura del menu
   const handleDrawerToggle = () => {
@@ -42,6 +60,9 @@ export default function Menu({ listaItemsMenu }) {
   };
 
   return (
+    /*******************************************
+    Navbar   
+    *******************************************/
     <Box sx={{ display: "flex" }}>
       {/* Header */}
       <AppBar
@@ -71,7 +92,7 @@ export default function Menu({ listaItemsMenu }) {
             component="div"
             sx={{ flexGrow: "1" }}
           >
-            Gestion Catedras
+            {titulo}
           </Typography>
 
           <FullScreen />
@@ -80,7 +101,7 @@ export default function Menu({ listaItemsMenu }) {
       </AppBar>
 
       {/*******************************************
-       Menu screen >= sm (para dispositivos desktop)    
+       Menu lateral screen >= sm (para dispositivos desktop)    
        *******************************************/}
       <Drawer
         variant="permanent"
@@ -101,37 +122,118 @@ export default function Menu({ listaItemsMenu }) {
         <ListMenu>
           {/*Link de React-Dom*/}
           {listaItems.map((ele, index) => {
-            return (
-              <Tooltip
-                title={ele.itemText}
-                placement="right"
-                TransitionComponent={Zoom}
-                key={ele.key}
-                arrow
-              >
-                <ListItemMenu
-                  button
+            //Para items ordinario (no son sublist)
+            if (!Boolean(ele.esSublist)) {
+              return (
+                <Tooltip
+                  title={ele.itemText}
+                  placement="right"
+                  TransitionComponent={Zoom}
                   key={ele.key}
-                  sx={{ paddingLeft: 3.1 }}
-                  // component={Link}
-                  // to={ele.to}
-                  component={NavLink}
-                  to={ele.to}
-                  className={(navData) => (navData.isActive ? "active" : "")}
+                  arrow
                 >
-                  <ListItemIcon>
-                    <Icon>{ele.icon}</Icon>
-                  </ListItemIcon>
-                  <ListItemText primary={ele.itemText} />
-                </ListItemMenu>
-              </Tooltip>
-            );
+                  <ListItemMenu
+                    button
+                    key={ele.key}
+                    sx={{ paddingLeft: 3.1 }}
+                    component={NavLink}
+                    to={ele.to}
+                    className={(navData) => (navData.isActive ? "active" : "")}
+                  >
+                    <ListItemIcon>
+                      <Icon>{ele.icono}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={ele.itemText} />
+                  </ListItemMenu>
+                </Tooltip>
+              );
+            } else {
+              //Para items que son sublistas
+              return (
+                <>
+                  <Tooltip
+                    title={ele.itemText}
+                    placement="right"
+                    TransitionComponent={Zoom}
+                    key={ele.key}
+                    arrow
+                  >
+                    <ListItemMenu
+                      button
+                      key={ele.key}
+                      sx={{ paddingLeft: 3.1 }}
+                      // onClick={handleSubList}
+                      onClick={() => handleSubList(index)}
+                    >
+                      <ListItemIcon>
+                        <Icon>{ele.icono}</Icon>
+                      </ListItemIcon>
+                      <ListItemText primary={ele.itemText} />
+                      {Boolean(ele.esSublist) && (
+                        <ExpandMore
+                          sx={{
+                            transform: openSubList[index]
+                              ? "rotate(-180deg)"
+                              : "rotate(0)",
+                            transition: "0.2s",
+                          }}
+                        />
+                      )}
+                    </ListItemMenu>
+                  </Tooltip>
+                  {/* Sublista */}
+                  <Collapse in={openSubList[index]}>
+                    <ListMenu
+                      sx={{
+                        transition:
+                          "padding-left 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
+                        ...(open && {
+                          paddingLeft: 2.2,
+                        }),
+                      }}
+                    >
+                      <Divider />
+                      {ele.sublist.map((itemSubList, index) => {
+                        return (
+                          <Tooltip
+                            title={itemSubList.itemText}
+                            placement="right"
+                            TransitionComponent={Zoom}
+                            key={itemSubList.key}
+                            arrow
+                          >
+                            <ListItemMenu
+                              button
+                              key={itemSubList.key}
+                              sx={{ paddingLeft: 2.6 }}
+                              component={NavLink}
+                              to={itemSubList.to}
+                              className={(navData) =>
+                                navData.isActive ? "active" : ""
+                              }
+                            >
+                              <ListItemIcon>
+                                <Icon fontSize="small">
+                                  {itemSubList.icono}
+                                </Icon>
+                              </ListItemIcon>
+                              <ListItemText primary={itemSubList.itemText} />
+                            </ListItemMenu>
+                          </Tooltip>
+                        );
+                      })}
+                    </ListMenu>
+                    <Divider />
+                  </Collapse>
+                </>
+              );
+            }
           })}
         </ListMenu>
       </Drawer>
 
       {/*******************************************
-       Menu screen < sm (para dispositivos MOVILES)    
+       Menu lateral screen < sm (para dispositivos MOVILES)    
        *******************************************/}
       <DrawerResponsive
         variant="temporary"
@@ -152,26 +254,92 @@ export default function Menu({ listaItemsMenu }) {
         </DrawerHeader>
         <Divider />
         <ListMenu>
-          {/*Link de React-Dom*/}
           {listaItems.map((ele, index) => {
-            return (
-              <ListItemMenu
-                button
-                key={ele.key}
-                sx={{ paddingLeft: 3.1 }}
-                component={NavLink}
-                to={ele.to}
-                className={(navData) => (navData.isActive ? "active" : "")}
-                onClick={handleDrawerToggle}
-              >
-                <ListItemIcon>
-                  <Tooltip title={ele.itemText} placement="right">
-                    <Icon>{ele.icon}</Icon>
-                  </Tooltip>
-                </ListItemIcon>
-                <ListItemText primary={ele.itemText} />
-              </ListItemMenu>
-            );
+            //Es un item ordinario (no es sublist)
+            if (!Boolean(ele.esSublist)) {
+              return (
+                <ListItemMenu
+                  button
+                  key={ele.key}
+                  sx={{ paddingLeft: 3.1 }}
+                  component={NavLink}
+                  to={ele.to}
+                  className={(navData) => (navData.isActive ? "active" : "")}
+                  onClick={handleDrawerToggle}
+                >
+                  <ListItemIcon>
+                    <Icon>{ele.icono}</Icon>
+                  </ListItemIcon>
+                  <ListItemText primary={ele.itemText} />
+                </ListItemMenu>
+              );
+            } else {
+              //Es una sublist
+              return (
+                <Box component="div" key={ele.key}>
+                  <ListItemMenu
+                    button
+                    key={ele.key}
+                    sx={{ paddingLeft: 3.1 }}
+                    // onClick={handleSubList}
+                    onClick={() => handleSubList(index)}
+                  >
+                    <ListItemIcon>
+                      <Icon>{ele.icono}</Icon>
+                    </ListItemIcon>
+                    <ListItemText primary={ele.itemText} />
+                    {Boolean(ele.esSublist) && (
+                      <ExpandMore
+                        sx={{
+                          transform: openSubList[index]
+                            ? "rotate(-180deg)"
+                            : "rotate(0)",
+                          transition: "0.2s",
+                        }}
+                      />
+                    )}
+                  </ListItemMenu>
+
+                  {/* Sublista */}
+                  <Collapse in={openSubList[index]}>
+                    <ListMenu>
+                      <Divider />
+                      {ele.sublist.map((itemSubList, index) => {
+                        return (
+                          <Tooltip
+                            title={itemSubList.itemText}
+                            placement="right"
+                            TransitionComponent={Zoom}
+                            key={itemSubList.key}
+                            arrow
+                          >
+                            <ListItemMenu
+                              button
+                              key={itemSubList.key}
+                              sx={{ paddingLeft: 2.6 }}
+                              component={NavLink}
+                              to={itemSubList.to}
+                              className={(navData) =>
+                                navData.isActive ? "active" : ""
+                              }
+                              onClick={handleDrawerToggle}
+                            >
+                              <ListItemIcon>
+                                <Icon fontSize="small">
+                                  {itemSubList.icono}
+                                </Icon>
+                              </ListItemIcon>
+                              <ListItemText primary={itemSubList.itemText} />
+                            </ListItemMenu>
+                          </Tooltip>
+                        );
+                      })}
+                    </ListMenu>
+                    <Divider />
+                  </Collapse>
+                </Box>
+              );
+            }
           })}
         </ListMenu>
       </DrawerResponsive>

@@ -2,8 +2,9 @@ import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import { IconButton, List, ListItem } from "@mui/material";
+import { teal } from "@mui/material/colors";
 
-export const drawerWidth = 250;
+export const drawerWidth = 290;
 
 /**************************************************
  * Estilos para la apertura del drawer
@@ -103,10 +104,12 @@ export const ButtonMenu = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.main,
   backgroundColor: "rgba(0, 0, 0, 0.04)",
   borderRadius: "10px",
-  border: `1px solid ${theme.palette.primary.light50}`,
+  // border: `1px solid ${theme.palette.primary.light50}`,
+  border: `1px solid ${teal[300]}`,
   "&:hover": {
-    boxShadow:
-      "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+    // boxShadow:
+    //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+    boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
   },
 }));
 
@@ -125,20 +128,22 @@ export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   backgroundColor: "rgba(0, 0, 0, 0.04)",
   borderRadius: "10px",
   marginTop: "0.5rem",
+  border: "1px solid rgba(0, 0, 0, 0)",
+  // border: "1px solid rgba(0, 0, 0, 0.12)",
   // border: `1px solid ${theme.palette.primary.light50}`,
   "&:hover": {
     borderRadius: "10px",
-    boxShadow:
-      "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-    border: "none",
+    // boxShadow:
+    //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
+    boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
+    // border: "none",
+    //
+    // backgroundColor: `${teal[50]}`,
+    borderColor: `${teal[300]}`,
+    "& .MuiListItemIcon-root": { color: `${teal[300]}` },
   },
   transition: theme.transitions.create(["backgroundColor", "boxShadow"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-
-  //
-  // // "& .active": {
-  // backgroundColor: "#61e !important",
-  // // },
 }));

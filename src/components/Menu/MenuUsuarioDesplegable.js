@@ -62,7 +62,15 @@ const MenuUsuarioDesplegable = () => {
           variant="outlined"
           color="tertiary"
           startIcon={<AccountCircleIcon />}
-          endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          // endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          endIcon={
+            <KeyboardArrowDownIcon
+              sx={{
+                transform: open ? "rotate(-180deg)" : "rotate(0)",
+                transition: "0.2s",
+              }}
+            />
+          }
           aria-describedby={id}
           onClick={handleClick}
         >
