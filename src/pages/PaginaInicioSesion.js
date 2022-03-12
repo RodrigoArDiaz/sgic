@@ -1,15 +1,16 @@
-import React from 'react';
-import FormularioIniciarSesion from '../components/FormularioIniciarSesion';
-import { ThemeProvider } from '@mui/material';
-import temaConfig from '../temaConfig';
-const PaginaInicioSesion = ({mostrarRegistrarse}) => {
-    return (
-        <>
-         <ThemeProvider theme={temaConfig}>
-            <FormularioIniciarSesion mostrarRegistrarse={mostrarRegistrarse}/>
-            </ThemeProvider>
-        </>
-    )
-}
+import React from "react";
+// import FormularioIniciarSesionU from "../components/FormularioIniciarSesion";
+import FormularioIniciarSesionUnificado from "../components/Sesiones/FormularioIniciarSesionUnificado";
 
-export default PaginaInicioSesion
+const PaginaInicioSesion = ({ mostrarRegistrarse, tipo }) => {
+  return (
+    <>
+      <FormularioIniciarSesionUnificado
+        mostrarRegistrarse={mostrarRegistrarse}
+        tipo={tipo}
+      />
+    </>
+  );
+};
+
+export default PaginaInicioSesion;

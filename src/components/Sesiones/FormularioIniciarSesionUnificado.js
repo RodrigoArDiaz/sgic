@@ -31,8 +31,8 @@ import {
   loginPending,
   loginSuccess,
   loginFail,
-} from "../store/slices/loginSlice";
-import { getUserSuccess } from "../store/slices/userSlice";
+} from "../../store/slices/loginSlice";
+import { getUserSuccess } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router";
 //sgicApi
 import {
@@ -40,7 +40,8 @@ import {
   loginDocente,
   loginSuper,
   requestGetDataUsuario,
-} from "../api/sgicApi";
+  peticionLoginUsuario,
+} from "../../api/sgicApi";
 
 //
 import {
@@ -51,17 +52,17 @@ import {
   estiloLink,
   estiloHeader,
   estiloContent,
-} from "../styles/EstilosFormularioIniciarSesion";
+} from "../../styles/EstilosFormularioIniciarSesion";
 
 //Redux - Menu
-import { actualizarMenu, actualizarTitulo } from "../store/slices/menuSlice";
+import { actualizarMenu, actualizarTitulo } from "../../store/slices/menuSlice";
 
 //Items del menu
 import {
   listaItemsMenuAlumno,
   listaItemsMenuDocente,
   listaItemsMenuSuper,
-} from "./Menu/itemsMenu";
+} from "../Menu/itemsMenu";
 
 const valoresInicialesForm = {
   email: "",
@@ -77,7 +78,7 @@ const validaciones = yup.object({
 });
 
 //Componente FormularioIniciarSesion
-function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
+function FormularioIniciarSesionUnificado({ mostrarRegistrarse, tipo }) {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [mostrarErrorLogin, setMostrarErrorLogin] = useState(false);
 
@@ -96,46 +97,29 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
     initialValues: valoresInicialesForm,
     validationSchema: validaciones,
     onSubmit: (values) => {
-      switch (tipo) {
-        case "alumno":
-          inicioSesion(values, "/inicio", loginAlumno);
-          break;
-        case "docente":
-          inicioSesion(values, "/inicio", loginDocente);
-          break;
-
-        case "super":
-          inicioSesion(values, "/inicio", loginSuper);
-          break;
-
-        default:
-          inicioSesion(values, "/inicio", loginAlumno);
-          break;
-      }
+      inicioSesion(values);
     },
   });
 
-  /**
-   *
-   * @param {*} values
+  /***************************************************
+   * Peticion para el inicio de sesion de los usuarios
    */
-  const inicioSesion = async (values, rutaNavigate, login) => {
+  const inicioSesion = async (values) => {
     dispatch(loginPending());
 
     try {
       // const res = await loginAlumno(values);
-      const res = await login(values);
+      const res = await peticionLoginUsuario(values);
       dispatch(loginSuccess(res.data.token));
       const respData = await requestGetDataUsuario(res.data.token);
-      dispatch(getUserSuccess(respData.Usuario));
-      // navigate("/inicio");
 
-      //
-      dispatch(actualizarTitulo("Ingenieria de Software"));
-      dispatch(actualizarMenu(listaItemsMenuSuper));
-      //
+      //Guardo datos del usuario
+      dispatch(getUserSuccess(respData.data.usuario));
 
-      navigate(rutaNavigate);
+      //Se acondiciona el menu
+      acondicionarMenu(respData.data.usuario.Tipo);
+
+      navigate("/inicio");
     } catch (error) {
       console.log(error.response);
       dispatch(loginFail(error.response.data.res));
@@ -143,6 +127,29 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
     }
   };
 
+  /*********************************************
+   *Acondiciona el menu segun el tipo de usuario
+   */
+  const acondicionarMenu = (tipo) => {
+    switch (tipo) {
+      case "D":
+        dispatch(actualizarTitulo("Seleccione la catedra"));
+        dispatch(actualizarMenu(listaItemsMenuSuper));
+        break;
+
+      case "A":
+        dispatch(actualizarTitulo(""));
+        dispatch(actualizarMenu(listaItemsMenuAlumno));
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  /*********************************************
+   *Cambia visibilidad del input de contraseña
+   */
   const handleClickMostrarContrasenia = () => {
     setMostrarContrasenia(!mostrarContrasenia);
   };
@@ -281,9 +288,9 @@ function FormularioIniciarSesion({ mostrarRegistrarse, tipo }) {
   );
 }
 
-FormularioIniciarSesion.defaultProps = {
+FormularioIniciarSesionUnificado.defaultProps = {
   mostrarRegistrarse: true,
   tipo: "alumno",
 };
 
-export default FormularioIniciarSesion;
+export default FormularioIniciarSesionUnificado;

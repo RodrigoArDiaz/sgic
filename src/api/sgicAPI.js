@@ -2,6 +2,7 @@ import axios from "axios";
 
 //Endpoints
 const rootUrl = "http://127.0.0.1:8000/api";
+const loginUsuarioUrl = rootUrl + "/acceso";
 const loginAlumnoUrl = rootUrl + "/acceso/alumnos";
 const loginDocenteUrl = rootUrl + "/acceso/docentes";
 const loginSuperUrl = rootUrl + "/acceso/super";
@@ -10,6 +11,32 @@ const logoutUsuarioUrl = rootUrl + "/logout";
 const getDataUsuarioUrl = rootUrl + "/mis_datos";
 const registrarUsuarioUrl = rootUrl + "/registro";
 const modificarContrasenaUrl = rootUrl + "/modificar_contrasena";
+
+/****************************************************
+ * Peticion para el logueo de todos los usuarios
+ * @param {*} frmData
+ * @returns
+ */
+export const peticionLoginUsuario = (frmData) => {
+  //Objeto con las claves que espera la API
+  const credenciales = {
+    Usuario: frmData.email,
+    Contrasena: frmData.password,
+  };
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await axios.post(loginUsuarioUrl, credenciales, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      resolve(res);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 /****************************************************
  * Peticion para el logueo de usuario tipos alumnos
