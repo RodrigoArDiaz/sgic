@@ -6,7 +6,7 @@ import MiniDrawers from "./components/MiniDrawers";
 import PaginaCatedras from "./pages/PaginaCatedras.js";
 import PaginaDocentes from "./pages/PaginaDocentes.js";
 import PaginaAlumnos from "./pages/PaginaAlumnos.js";
-import PaginaInicioSesion from "./pages/PaginaInicioSesion.js";
+import PaginaInicioSesion from "./pages/PaginaInicioSesion-lucho.js";
 import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
 import PaginaDocentesCursadas from "./pages/PaginaDocentesCursadas.js";
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
