@@ -5,6 +5,9 @@ import { combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./slices/loginSlice";
 import userReducer from "./slices/userSlice";
 import menuReducer from "./slices/menuSlice";
+import catedraReducer from "./slices/catedraSlice";
+import materiaReducer from "./slices/materiaSlice";
+import cursadaReducer from "./slices/cursadaSlice";
 
 //Importacion para redux-persist
 import {
@@ -26,6 +29,9 @@ const reducers = combineReducers({
   login: loginReducer,
   user: userReducer,
   menu: menuReducer,
+  catedra: catedraReducer,
+  materia: materiaReducer,
+  cursada: cursadaReducer,
 });
 
 //En blacklist van los estados que no quiero que persistan
