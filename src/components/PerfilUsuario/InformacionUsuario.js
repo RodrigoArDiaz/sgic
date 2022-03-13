@@ -28,7 +28,7 @@ const InformacionUsuario = () => {
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   //
-  const esAlumno = "Libreta" in user ? true : false;
+  const esAlumno = user.Tipo == "A" ? true : false;
 
   return (
     <Grid container spacing={3}>
@@ -162,7 +162,7 @@ const InformacionUsuario = () => {
                     <InputLabel htmlFor="Libreta">Libreta</InputLabel>
                     <OutlinedInputOnlyRead
                       id="Libreta"
-                      value="Falta"
+                      value={user.Libreta}
                       label="Libreta"
                       readOnly
                       disabled
