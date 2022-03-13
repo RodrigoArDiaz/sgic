@@ -87,7 +87,7 @@ export default function Menu() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: "1" }}
+            sx={{ flexGrow: "1", paddingX: { xs: 0, sm: 3 } }}
           >
             {titulo}
           </Typography>
