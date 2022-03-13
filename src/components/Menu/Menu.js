@@ -98,13 +98,13 @@ export default function Menu() {
       </AppBar>
 
       {/*******************************************
-       Menu lateral screen >= sm (para dispositivos desktop)    
+       Menu lateral screen >= md (para dispositivos desktop)    
        *******************************************/}
       <Drawer
         variant="permanent"
         open={open}
         sx={{
-          display: { xs: "none", sm: "block" },
+          display: { sm: "none", md: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
           },
@@ -230,7 +230,7 @@ export default function Menu() {
       </Drawer>
 
       {/*******************************************
-       Menu lateral screen < sm (para dispositivos MOVILES)    
+       Menu lateral screen < md (para dispositivos MOVILES)    
        *******************************************/}
       <DrawerResponsive
         variant="temporary"
@@ -240,7 +240,7 @@ export default function Menu() {
           keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
-          display: { xs: "block", sm: "none" },
+          display: { sm: "block", md: "none" },
           "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
