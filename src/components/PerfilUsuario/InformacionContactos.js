@@ -29,7 +29,7 @@ import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCale
 import { CrearContacto } from "./CrearContacto";
 import { BorrarContacto } from "./BorrarContacto";
 import { ModificarContacto } from "./ModificarContacto";
-import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
 import { peticionListarContactos } from "../../api/alumnos/gestionContactosApi";

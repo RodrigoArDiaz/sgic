@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { blue } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import React from "react";
-import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { OutlinedInputOnlyRead } from "../Material UI - Componentes Modificados/TextfieldVariantes";
 import ModificarContrasenia from "./ModificarContrasenia";
 import ModificarPerfilUsuario from "./ModificarPerfilUsuario";

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import {
   CardList,
   DivInfo,
-} from "./Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones.js";
+} from "./Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina.js";
 import InscribirseEnCursada from "./InscribirseEnCursada";
 
 const estilosCardInscripciones = {

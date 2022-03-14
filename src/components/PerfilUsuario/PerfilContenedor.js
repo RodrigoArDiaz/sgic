@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Grid } from "@mui/material";
 //
-import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import TabsInformacionUsuario from "./TabsInformacionUsuario";
 import InformacionDeContactos from "./InformacionContactos";
 import InformacionUsuario from "./InformacionUsuario";

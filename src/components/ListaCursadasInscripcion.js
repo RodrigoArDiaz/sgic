@@ -21,7 +21,7 @@ import SkeletonInscripcionesCard from "./SkeletonInscripcionesCard";
 import {
   CardMain,
   OutlinedInputSearch,
-} from "./Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+} from "./Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { Box } from "@mui/system";
 
 const cursadasPrueba = [

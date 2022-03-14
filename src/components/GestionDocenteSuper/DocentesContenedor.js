@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Grid } from "@mui/material";
 //
-import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { CrearDocente } from "./CrearDocente";
 import DocentesLista from "./DocentesLista";
 import BuscarDocentes from "./BuscarDocentes";
@@ -154,40 +154,6 @@ export default function DocentesContenedor() {
             <Grid item xs={12} paddingX={1}>
               <Box sx={{ width: "100%" }} padding={2}>
                 <LinearProgress />
-                {/* <Typography component="div" paddingBottom={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider />
-
-                <Typography component="div" paddingY={3}>
-                  <Skeleton />
-                </Typography>
-                <Divider /> */}
               </Box>
             </Grid>
           ) : (

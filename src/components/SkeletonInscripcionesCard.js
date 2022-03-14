@@ -4,7 +4,7 @@ import { CardHeader, Divider, Skeleton } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardList } from "./Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardList } from "./Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 const estilosCardInscripciones = {
   height: "100%",
@@ -31,7 +31,7 @@ const SkeletonInscripcionesCard = () => {
           <Skeleton variant="rectangular" sx={{ mb: 1.4 }} />
           <Skeleton variant="rectangular" />
         </Typography>
-        <Typography sx={{ mb: 1.5 }} sx={{ mb: 1.5 }} variant="body2">
+        <Typography sx={{ mb: 1.5 }} variant="body2">
           <Skeleton variant="rectangular" sx={{ mb: 1.4 }} />
           <Skeleton variant="rectangular" />
         </Typography>
