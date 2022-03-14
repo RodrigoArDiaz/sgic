@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 //mui
 import { Grid } from "@mui/material";
 //
 import BreadCrumbs from "../components/BreadCrumbs";
 import DocentesContenedor from "../components/GestionDocenteSuper/DocentesContenedor";
+import { useDispatch } from "react-redux";
+import { actualizarTitulo } from "../store/slices/menuSlice";
+import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
 
 export default function PaginaDocentes() {
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
+
+  //Actualiza el titulo al montar la pagina
+  useEffect(() => {
+    dispatch(actualizarTitulo("Superadministrador"));
+  }, []);
+
+  //Actualiza el titulo al desmontar la pagina
+  useEffect(() => {
+    return () => {
+      dispatch(actualizarTitulo(""));
+    };
+  }, []);
+
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Grid
-          container
-          sx={{
-            backgroundColor: "#fff",
-            borderRadius: "10px",
-            border: "1px solid",
-            borderColor: "secondary.light100",
-          }}
-        >
+        <Grid container sx={estilosBreadCrumbs}>
           <BreadCrumbs />
         </Grid>
       </Grid>

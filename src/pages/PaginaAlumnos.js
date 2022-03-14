@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
-//import DocentesContenedor from '../components/DocentesContenedor';
-//import BuscarDocentes from '../components/BuscarDocentes';
 import AlumnosContenedor from "../../src/components/SuperAlumnos/AlumnosContenedor";
-//import BuscarAlumnos from '../components/BuscarAlumnos';
+import { useDispatch } from "react-redux";
+import { actualizarTitulo } from "../store/slices/menuSlice";
+import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
 
 export default function PaginaAlumnos() {
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
+
+  //Actualiza el titulo al montar la pagina
+  useEffect(() => {
+    dispatch(actualizarTitulo("Superadministrador"));
+  }, []);
+
+  //Actualiza el titulo al desmontar la pagina
+  useEffect(() => {
+    return () => {
+      dispatch(actualizarTitulo(""));
+    };
+  }, []);
+
   return (
-    <Grid container sx={{ ml: { xs: "0", sm: "20px" }, mt: "80px" }}>
+    <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        {/* <BreadCrumbs/> */}
+        <Grid container sx={estilosBreadCrumbs}>
+          <BreadCrumbs />
+        </Grid>
       </Grid>
 
       <Grid item xs={12}>
