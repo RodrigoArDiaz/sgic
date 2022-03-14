@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import AlumnosLista from "./AlumnosLista";
-import { CardMain } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import BuscarAlumnos from "./BuscarAlumnos";
 import { Box } from "@mui/system";
 

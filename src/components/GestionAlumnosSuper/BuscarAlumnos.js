@@ -8,7 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import { Search } from "@mui/icons-material";
 //
-import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/Componentes Inscripciones/ComponentesInscripciones";
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 //
 import { useFormik } from "formik";
 import * as yup from "yup";
