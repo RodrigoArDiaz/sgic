@@ -95,54 +95,41 @@ export const Borrar = () => {
     }
     */
 
+import React from "react";
 
-    import React from "react";
-
-
-    import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import FormControl from '@mui/material/FormControl';
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
 //import { withStyles } from '@mui/styles';
-import TextField from '@mui/material/TextField';       
+import TextField from "@mui/material/TextField";
 
+export const Borrar = () => {
+  return (
+    <FormControl
+      sx={{
+        "& .MuiInputBase-formControl": {
+          textAlign: "center",
 
-        
-        export const Borrar = () =>  {
-          return (
+          "&. label": { width: "100%", textAlign: "center" },
+        },
 
-            <FormControl  sx={{"& .MuiInputBase-formControl":
-            {textAlign: "center",
-          
-            "&. label":{width:"100%",textAlign: "center"}
-          }
+        //"& .MuiInputLabel-outlined":{textAlign:'center'}
+      }}
+    >
+      <InputLabel>Hola</InputLabel>
+      <OutlinedInput
+        sx={{
+          //  "& .MuiOutlinedInput-notchedOutline":{textAlign:'center'},
+          //"& .MuiOutlinedInput-input":{textAlign:'center'}
 
-            
-            
-  
-            
-            //"& .MuiInputLabel-outlined":{textAlign:'center'}
-            
-            }}>
-    
-            <InputLabel  >Hola</InputLabel>
-            <OutlinedInput sx={{
-              
-            //  "& .MuiOutlinedInput-notchedOutline":{textAlign:'center'},
-             //"& .MuiOutlinedInput-input":{textAlign:'center'}
-             
-             "& .MuiInputLabel-root":{textAlign:'center' }
-          
-             
-          }}
-            //sx={{...style1}}
-              id={44}
-             
-              label={'Check'}
-              
-            />
-        
-            </FormControl>
-/*
+          "& .MuiInputLabel-root": { textAlign: "center" },
+        }}
+        //sx={{...style1}}
+        id={44}
+        label={"Check"}
+      />
+    </FormControl>
+    /*
               <TextField sx={{"& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": {
                   borderColor: "green"
@@ -158,5 +145,5 @@ import TextField from '@mui/material/TextField';
             }}
                 id="standard-basic"
                 label="Standard"/>*/
-          );
-        }
+  );
+};
