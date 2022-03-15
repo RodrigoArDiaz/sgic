@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, InputAdornment, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -15,11 +15,6 @@ import { useTheme } from "@emotion/react";
 import { useModal } from "../useModal";
 //Componentes propios
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
-
-const estiloFormControl = {
-  width: "100%",
-  mt: "25px",
-};
 
 export const ModificarAlumno = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -227,14 +222,23 @@ export const ModificarAlumno = (props) => {
                 }
               }}
               value={form.nombres}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(enombres)}
+                </InputAdornment>
+              }
             />
 
-            {BotonEstadoRegistroDevolver(enombres)}
+            {/* {BotonEstadoRegistroDevolver(enombres)} */}
 
             <FormHelperText>{errors.nombres}</FormHelperText>
           </FormControl>
 
-          <FormControl error={errors.apellidos ? true : false} fullWidth>
+          <FormControl
+            error={errors.apellidos ? true : false}
+            fullWidth
+            margin="dense"
+          >
             <InputLabel htmlFor="apellidos">Apellido/s</InputLabel>
             <Input
               id="apellidos"
@@ -271,13 +275,22 @@ export const ModificarAlumno = (props) => {
                 }
               }}
               value={form.apellidos}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(eapellidos)}
+                </InputAdornment>
+              }
             />
 
-            {BotonEstadoRegistroDevolver(eapellidos)}
+            {/* {BotonEstadoRegistroDevolver(eapellidos)} */}
             <FormHelperText>{errors.apellidos}</FormHelperText>
           </FormControl>
 
-          <FormControl error={errors.usuario ? true : false} fullWidth>
+          <FormControl
+            error={errors.usuario ? true : false}
+            fullWidth
+            margin="dense"
+          >
             <InputLabel htmlFor="Usuario">Usuario</InputLabel>
             <Input
               id="usuario"
@@ -335,12 +348,21 @@ export const ModificarAlumno = (props) => {
                 }
               }}
               value={form.usuario}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(eusuario)}
+                </InputAdornment>
+              }
             />
-            {BotonEstadoRegistroDevolver(eusuario)}
+            {/* {BotonEstadoRegistroDevolver(eusuario)} */}
             <FormHelperText>{errors.usuario}</FormHelperText>
           </FormControl>
 
-          <FormControl error={errors.email ? true : false} fullWidth>
+          <FormControl
+            error={errors.email ? true : false}
+            fullWidth
+            margin="dense"
+          >
             <InputLabel htmlFor="email">Correo</InputLabel>
             <Input
               id="email"
@@ -403,12 +425,21 @@ export const ModificarAlumno = (props) => {
                 //setEm('3') ;
               }}
               value={form.email}
-            />{" "}
-            {BotonEstadoRegistroDevolver(eemail)}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(eemail)}
+                </InputAdornment>
+              }
+            />
+            {/* {BotonEstadoRegistroDevolver(eemail)} */}
             <FormHelperText>{errors.email}</FormHelperText>
           </FormControl>
 
-          <FormControl error={errors.dni ? true : false} fullWidth>
+          <FormControl
+            error={errors.dni ? true : false}
+            fullWidth
+            margin="dense"
+          >
             <InputLabel htmlFor="dni">Documento</InputLabel>
             <Input
               id="dni"
@@ -473,12 +504,21 @@ export const ModificarAlumno = (props) => {
                 }
               }}
               value={form.dni}
-            />{" "}
-            {BotonEstadoRegistroDevolver(edni)}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(edni)}
+                </InputAdornment>
+              }
+            />
+            {/* {BotonEstadoRegistroDevolver(edni)} */}
             <FormHelperText>{errors.dni}</FormHelperText>
           </FormControl>
 
-          <FormControl error={errors.libreta ? true : false} fullWidth>
+          <FormControl
+            error={errors.libreta ? true : false}
+            fullWidth
+            margin="dense"
+          >
             <InputLabel htmlFor="libreta">Libreta</InputLabel>
             <Input
               id="libreta"
@@ -542,8 +582,13 @@ export const ModificarAlumno = (props) => {
                 }
               }}
               value={form.libreta}
+              endAdornment={
+                <InputAdornment position="end">
+                  {BotonEstadoRegistroDevolver(elibreta)}
+                </InputAdornment>
+              }
             />
-            {BotonEstadoRegistroDevolver(elibreta)}
+            {/* {BotonEstadoRegistroDevolver(elibreta)} */}
             <FormHelperText>{errors.libreta}</FormHelperText>
           </FormControl>
         </DialogContent>
