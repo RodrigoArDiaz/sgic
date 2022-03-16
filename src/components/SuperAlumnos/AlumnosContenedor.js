@@ -1,22 +1,16 @@
 import React from "react";
-import {
-  CardContent,
-  CardHeader,
-  Divider,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { Grid } from "@mui/material";
-import AlumnosLista from "./AlumnosLista";
-//import { CrearCatedra } from './CrearCatedra';
-import BuscarAlumnos from "./BuscarAlumnos";
-import Stack from "@mui/material/Stack";
+//MUI
+import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-
+import { Box } from "@mui/system";
+import { Grid } from "@mui/material";
+//React router dom
 import { useNavigate } from "react-router-dom";
+//
+import AlumnosLista from "./AlumnosLista";
+import BuscarAlumnos from "./BuscarAlumnos";
 import SnackMensajes from "../../components/Catedras/SnackMensajes";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { Box } from "@mui/system";
 
 export default function AlumnosContenedor() {
   const navegar = useNavigate();
@@ -219,20 +213,24 @@ export default function AlumnosContenedor() {
             </Grid>
           )}
           {cargando === false && (
-            <Grid container pt={2}>
-              <AlumnosLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-              />
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <AlumnosLista
+                    filas={filas}
+                    filasxpagina={filasxpagina}
+                    pagina={pagina}
+                    paginacion={paginacion}
+                    resultados={resultados}
+                    actualizarpagina={CambioPagina}
+                    actualizarfilas={CambioFPP}
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
           )}
 

@@ -141,21 +141,21 @@ export default function DocentesLista({
 
                       <TableCell align="center">
                         <Grid container justifyContent="space-evenly">
-                          <Grid item item xs={12} sm="auto">
+                          <Grid item xs={12} sm="auto">
                             <ModificarDocente
                               docente={docente}
                               handleRefrescarPagina={handleRefrescarPagina}
                             />
                           </Grid>
 
-                          <Grid item item xs={12} sm="auto">
+                          <Grid item xs={12} sm="auto">
                             <AltaBajaDocente
                               docente={docente}
                               handleRefrescarPagina={handleRefrescarPagina}
                             />
                           </Grid>
 
-                          <Grid item item xs={12} sm="auto">
+                          <Grid item xs={12} sm="auto">
                             <BorrarDocente
                               docente={docente}
                               handleRefrescarPagina={handleRefrescarPagina}

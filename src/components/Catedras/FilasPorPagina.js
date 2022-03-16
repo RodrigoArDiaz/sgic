@@ -1,6 +1,6 @@
-import * as React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import * as React from "react";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 export default function ColorToggleButton(props) {
   const [alignment, setAlignment] = React.useState(props.fpp);
@@ -11,9 +11,10 @@ export default function ColorToggleButton(props) {
   };
 
   return (
-    <ToggleButtonGroup sx={{width: 50,
-      height: 20}}
-      color="success"
+    <ToggleButtonGroup
+      sx={{ width: 50, height: 20 }}
+      color="info"
+      size="large"
       value={alignment}
       exclusive
       onChange={handleChange}

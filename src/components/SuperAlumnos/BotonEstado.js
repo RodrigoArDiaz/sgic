@@ -125,39 +125,4 @@ export const BotonEstado = (props) => {
       )}
     </>
   );
-
-  /*
-if (salto ==='A') 
-{
-    return (
-      
-
-        
-        <Grid item xs={12} sm="auto">
-<Tooltip title="Activa">
-<IconButton aria-label="estado" size='small' color="success" onClick={()=>manejador()}>
-        <CheckIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-      
-
-  );}
-*/
-  /*
-  if (salto==='B') 
-  {
-      return (
-
-        
-        <Grid item xs={12} sm="auto">
-<Tooltip title="Baja">
-<IconButton aria-label="estado2"  size='small' color="error" onClick={()=>manejador()}>
-        <CloseIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-     
-    );}
-*/
 };
