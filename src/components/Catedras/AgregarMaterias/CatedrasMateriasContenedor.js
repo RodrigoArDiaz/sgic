@@ -1,15 +1,15 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
-import { Grid } from "@mui/material";
-import MateriasLista from "./MateriasLista";
-//import { CrearCatedra } from './CrearCatedra';
-import BuscarMaterias from "../BuscarMaterias";
-import Stack from "@mui/material/Stack";
+//MUI
+import { CardContent, Grid } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-
+import { Box } from "@mui/system";
+//React router dom
 import { useNavigate } from "react-router-dom";
+//
 import SnackMensajes from "../SnackMensajes";
-//import BuscarUsuarios from './BuscarUsuarios';
+import MateriasLista from "./MateriasLista";
+import BuscarMaterias from "../BuscarMaterias";
+import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 export default function CatedrasMateriasContenedor(props) {
   const navegar = useNavigate();
@@ -23,7 +23,6 @@ export default function CatedrasMateriasContenedor(props) {
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
   //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
@@ -172,70 +171,60 @@ export default function CatedrasMateriasContenedor(props) {
       });
   }, []);
 
-  //console.log(abrir);
-  //console.log(mensaje);
-  //console.log(tipo);
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={2} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarMaterias
-            actualizar={BuscarMat}
-            filasxpagina={filasxpagina}
-            idcatedra={props.idcatedra}
-          />
-        </Grid>
-      </Grid>
+    <CardMain>
+      <CardContent>
+        <Grid container>
+          <Grid container>
+            <Grid item xs={12} sm={12} xl={12} paddingY={1} paddingX={2}>
+              <BuscarMaterias
+                actualizar={BuscarMat}
+                filasxpagina={filasxpagina}
+                idcatedra={props.idcatedra}
+              />
+            </Grid>
+          </Grid>
 
-      {cargando === true && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
-      )}
-      {cargando === false && (
-        <Grid container pt={2}>
-          <MateriasLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            idcatedra={props.idcatedra}
-          />
-        </Grid>
-      )}
+          {cargando === true && (
+            <Grid item xs={12} paddingX={1}>
+              <Box sx={{ width: "100%" }} padding={2}>
+                <LinearProgress />
+              </Box>
+            </Grid>
+          )}
+          {cargando === false && (
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <MateriasLista
+                    filas={filas}
+                    filasxpagina={filasxpagina}
+                    pagina={pagina}
+                    paginacion={paginacion}
+                    resultados={resultados}
+                    actualizarpagina={CambioPagina}
+                    actualizarfilas={CambioFPP}
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                    idcatedra={props.idcatedra}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
 
-      <div>
-        <SnackMensajes
-          abrir={abrir}
-          mensaje={mensaje}
-          tipo={tipo}
-          cerrar={setAbrir}
-        />{" "}
-      </div>
-    </Paper>
+          <div>
+            <SnackMensajes
+              abrir={abrir}
+              mensaje={mensaje}
+              tipo={tipo}
+              cerrar={setAbrir}
+            />{" "}
+          </div>
+        </Grid>
+      </CardContent>
+    </CardMain>
   );
 }

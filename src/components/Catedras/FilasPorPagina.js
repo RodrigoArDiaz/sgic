@@ -12,9 +12,9 @@ export default function ColorToggleButton(props) {
 
   return (
     <ToggleButtonGroup
-      sx={{ width: 50, height: 20 }}
+      sx={{ width: 50, height: 25 }}
       color="info"
-      size="large"
+      size="medium"
       value={alignment}
       exclusive
       onChange={handleChange}

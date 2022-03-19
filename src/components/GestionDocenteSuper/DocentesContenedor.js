@@ -112,7 +112,7 @@ export default function DocentesContenedor() {
   return (
     <CardMain>
       <CardHeader
-        title={<Typography variant="h5">Gestion Docentes</Typography>}
+        title={<Typography variant="h5">Gestión Docentes</Typography>}
       />
       <Divider />
       <CardContent>

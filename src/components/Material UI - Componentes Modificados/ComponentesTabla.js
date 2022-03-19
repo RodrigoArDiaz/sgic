@@ -1,6 +1,7 @@
-import { TableRow } from "@mui/material";
+import { TableCell, TableRow, tableCellClasses } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
+//
 const TableRowElevacion = styled(TableRow)(({ theme }) => ({
   "&:last-child td, &:last-child th": { border: 0 }, //Estilo por defecto dado en MUI
   "&:hover": {
@@ -8,4 +9,11 @@ const TableRowElevacion = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export { TableRowElevacion };
+//
+const TableCellMedium = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: "1rem",
+  },
+}));
+
+export { TableRowElevacion, TableCellMedium };

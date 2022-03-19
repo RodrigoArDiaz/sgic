@@ -1,29 +1,32 @@
 import React from "react";
+//MUI
 import {
   Box,
   CardContent,
   CardHeader,
   Divider,
-  Paper,
   Typography,
 } from "@mui/material";
 import { Grid } from "@mui/material";
-import CatedraLista from "./CatedraLista";
-import { CrearCatedra } from "./CrearCatedra";
-import BuscarCatedras from "./BuscarCatedras";
-import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
-
+//REact router dom
 import { useNavigate } from "react-router-dom";
+//Componentes propios
 import SnackMensajes from "./SnackMensajes";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+import { CrearCatedra } from "./CrearCatedra";
+import BuscarCatedras from "./BuscarCatedras";
+import CatedraLista from "./CatedraLista";
+import { useSelector } from "react-redux";
 
 export default function CatedrasContenedor() {
   const navegar = useNavigate();
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -42,7 +45,7 @@ export default function CatedrasContenedor() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("tkn"),
+        Authorization: "Bearer " + token,
       },
     });
 
@@ -63,7 +66,7 @@ export default function CatedrasContenedor() {
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
@@ -88,7 +91,7 @@ export default function CatedrasContenedor() {
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
@@ -106,7 +109,7 @@ export default function CatedrasContenedor() {
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
 
     setPagina(pag);
@@ -135,7 +138,7 @@ export default function CatedrasContenedor() {
       .catch((error) => {
         console.log("Error de conexión" + error);
 
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
@@ -153,7 +156,7 @@ export default function CatedrasContenedor() {
       .then((response) => {
         if (response.message === "Unauthenticated.") {
           //console.log(response.message);
-          navegar("/iniciar_sesion_super");
+          navegar("/");
         }
 
         setFilas(response);
@@ -172,7 +175,7 @@ export default function CatedrasContenedor() {
       })
       .catch((error) => {
         console.log("Error de conexión en useefect" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }, []);
 
@@ -229,20 +232,24 @@ export default function CatedrasContenedor() {
             </Grid>
           )}
           {cargando === false && (
-            <Grid container pt={2}>
-              <CatedraLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-              />
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <CatedraLista
+                    filas={filas}
+                    filasxpagina={filasxpagina}
+                    pagina={pagina}
+                    paginacion={paginacion}
+                    resultados={resultados}
+                    actualizarpagina={CambioPagina}
+                    actualizarfilas={CambioFPP}
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
           )}
 

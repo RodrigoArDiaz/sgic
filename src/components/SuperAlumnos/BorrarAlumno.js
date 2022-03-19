@@ -9,11 +9,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { DeleteOutlined } from "@mui/icons-material";
 //Hooks personalizados
 import { useModal } from "../useModal";
 //React router dom
 import { useNavigate } from "react-router-dom";
-import { DeleteOutlined } from "@mui/icons-material";
 
 export const BorrarAlumno = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);

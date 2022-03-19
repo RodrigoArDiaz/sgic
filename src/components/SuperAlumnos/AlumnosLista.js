@@ -10,12 +10,13 @@ import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 //
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import FilasPorPagina from "../Catedras/FilasPorPagina";
+import MensajeFeedback from "../MensajeFeedback";
 
 const columns = [
   {
@@ -104,8 +105,41 @@ export default function StickyHeadTable(props) {
     setPage(0);
   };
 
-  if (props.filas.res === undefined) return <h4>Error fatal</h4>;
-  if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
+  if (props.filas.res === undefined)
+    return (
+      <Box
+        sx={{
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          border: "1px solid",
+          borderColor: "secondary.light100",
+          textAlign: "center",
+          paddingX: "1rem",
+        }}
+      >
+        <Grid container>
+          <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
+        </Grid>
+      </Box>
+    );
+
+  if (props.filas.res.length < 1)
+    return (
+      <Box
+        sx={{
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          border: "1px solid",
+          borderColor: "secondary.light100",
+          textAlign: "center",
+          paddingX: "1rem",
+        }}
+      >
+        <Grid container>
+          <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
+        </Grid>
+      </Box>
+    );
 
   return (
     <>
@@ -270,7 +304,23 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid item xs={2} sx={{ mt: 1 }} textAlign="end">
+        <Grid
+          item
+          xs={2}
+          sx={{
+            mt: 1,
+            verticalAlign: "middle",
+            color: "rgba(0, 0, 0, 0.80)",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+          }}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          gap={1}
+          paddingY={1}
+        >
           Filas por página:{" "}
           {
             <FilasPorPagina
@@ -280,7 +330,22 @@ export default function StickyHeadTable(props) {
           }
         </Grid>
 
-        <Grid item xs={2} sx={{ mt: 1 }} textAlign="end">
+        <Grid
+          item
+          xs={2}
+          sx={{
+            mt: 1,
+            verticalAlign: "middle",
+            color: "rgba(0, 0, 0, 0.80)",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+          }}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="end"
+        >
           Resultados: {props.resultados}
         </Grid>
       </Grid>

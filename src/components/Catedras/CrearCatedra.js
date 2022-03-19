@@ -1,29 +1,28 @@
 import React from "react";
-import { Button } from "@mui/material";
+//MUI
+import { Button, InputAdornment, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModal } from "../../hooks/useModal";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
-import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
-
 import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { FormControl, InputLabel, Input } from "@mui/material";
+//
+import { useTheme } from "@emotion/react";
+//Hooks personalizados
+import { useModal } from "../../hooks/useModal";
+//Componentes propios
+import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 
 export const CrearCatedra = (props) => {
   //Variable de estado y handles de eventos para la ventana modal
   const [isOpen, handleOpen, handleClose] = useModal(false);
+
+  //Para estilos segun tamaño screen
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [enombre, setNom] = React.useState("");
   const [form, setForm] = React.useState({
@@ -94,22 +93,6 @@ export const CrearCatedra = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
-  const estiloFormControl = {
-    width: "100%",
-    mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
-  };
-
   return (
     <>
       <Button
@@ -122,111 +105,106 @@ export const CrearCatedra = (props) => {
       </Button>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="md" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={(event, reason) => {
+          // Evita el cierre de la ventana modal al hacer clik fuera de la misma
+          if (reason && reason == "backdropClick") return;
+          handleClose();
+        }}
+        maxWidth="sm"
+        fullWidth
+        fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
+      >
         <DialogTitle>Crear catedra</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para crear la catedra.
           </DialogContentText>
 
-          <Grid>
-            <Paper sx={estiloPaper}>
-              <Grid sx={estiloContent}>
-                <FormControl
-                  sx={estiloFormControl}
-                  error={errors.nombre ? true : false}
-                >
-                  <InputLabel htmlFor="nombre">Nombre</InputLabel>
-                  <Input
-                    id="nombre"
-                    type="text"
-                    name="nombre"
-                    onChange={(e) => {
-                      if (errors.nombre !== "") {
-                        setErrors({ ...errors, [e.target.name]: "" });
-                      }
+          <FormControl
+            error={errors.nombre ? true : false}
+            margin="dense"
+            fullWidth
+          >
+            <InputLabel htmlFor="nombre">Nombre</InputLabel>
+            <Input
+              id="nombre"
+              type="text"
+              name="nombre"
+              onChange={(e) => {
+                if (errors.nombre !== "") {
+                  setErrors({ ...errors, [e.target.name]: "" });
+                }
 
-                      setNom("");
-                      setForm({
-                        ...form,
-                        [e.target.name]: e.target.value,
-                      });
-                    }}
-                    onBlur={(e) => {
-                      let regex = /^[a-zA-Z\s]+$/;
+                setNom("");
+                setForm({
+                  ...form,
+                  [e.target.name]: e.target.value,
+                });
+              }}
+              onBlur={(e) => {
+                let regex = /^[a-zA-Z\s]+$/;
 
-                      if (!form.nombre.trim()) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]: "El campo 'Nombre' es requerido.",
-                        });
-                        setNom("2");
-                      } else if (!regex.test(form.nombre.trim())) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "El nombre ingresado tiene un formato incorrecto.",
-                        });
-                        setNom("2");
+                if (!form.nombre.trim()) {
+                  setErrors({
+                    ...errors,
+                    [e.target.name]: "El campo 'Nombre' es requerido.",
+                  });
+                  setNom("2");
+                } else if (!regex.test(form.nombre.trim())) {
+                  setErrors({
+                    ...errors,
+                    [e.target.name]:
+                      "El nombre ingresado tiene un formato incorrecto.",
+                  });
+                  setNom("2");
+                } else {
+                  var data = {
+                    Catedra: form.nombre,
+                    IdCatedra: undefined,
+                  };
+
+                  consultas(data, "http://127.0.0.1:8000/api/consultarnomcat")
+                    .then((response) => {
+                      if (response.Error === undefined) {
+                        setNom("1");
+                        // console.log(response);
                       } else {
-                        var data = {
-                          Catedra: form.nombre,
-                          IdCatedra: undefined,
-                        };
-
-                        consultas(
-                          data,
-                          "http://127.0.0.1:8000/api/consultarnomcat"
-                        )
-                          .then((response) => {
-                            if (response.Error === undefined) {
-                              setNom("1");
-                              // console.log(response);
-                            } else {
-                              setNom("2");
-                              setErrors({
-                                ...errors,
-                                [e.target.name]: response.Error,
-                              });
-                            }
-                          })
-                          .catch((error) => {
-                            console.log("Error de conexión" + error);
-                          });
+                        setNom("2");
+                        setErrors({
+                          ...errors,
+                          [e.target.name]: response.Error,
+                        });
                       }
-                    }}
-                    value={form.nombre}
-                  />
-
+                    })
+                    .catch((error) => {
+                      console.log("Error de conexión" + error);
+                    });
+                }
+              }}
+              value={form.nombre}
+              endAdornment={
+                <InputAdornment position="end">
                   {enombre === "1" && <BotonEstadoRegistro estado={"1"} />}
                   {enombre === "2" && <BotonEstadoRegistro estado={"2"} />}
+                </InputAdornment>
+              }
+            />
 
-                  <FormHelperText>{errors.nombre}</FormHelperText>
-                </FormControl>
-              </Grid>
-            </Paper>
-          </Grid>
+            <FormHelperText>{errors.nombre}</FormHelperText>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button variant="outlined" onClick={handleClose}>
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>
   );
 };
-
-/*
-<TextField
-                        autoFocus
-                        margin="dense"
-                        id="catedra"
-                        name="catedra"
-                        label="Nombre de la catedra"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-
-
-*/
