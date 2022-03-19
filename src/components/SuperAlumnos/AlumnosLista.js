@@ -15,7 +15,7 @@ import { Box, Grid } from "@mui/material";
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
-import FilasPorPagina from "../Catedras/FilasPorPagina";
+import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import MensajeFeedback from "../MensajeFeedback";
 
 const columns = [

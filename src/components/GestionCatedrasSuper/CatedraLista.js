@@ -12,9 +12,9 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid } from "@mui/material";
 //
-import { BotonAcciones } from "../Catedras/BotonAcciones";
-import { BotonEstado } from "../Catedras/BotonEstado.js";
-import FilasPorPagina from "../Catedras/FilasPorPagina";
+import { BotonAcciones } from "./BotonAcciones";
+import { BotonEstado } from "./BotonEstado.js";
+import FilasPorPagina from "./FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../MensajeFeedback";
 

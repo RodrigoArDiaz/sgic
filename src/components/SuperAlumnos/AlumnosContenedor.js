@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 //
 import AlumnosLista from "./AlumnosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
-import SnackMensajes from "../../components/Catedras/SnackMensajes";
+import SnackMensajes from "../../components/GestionCatedrasSuper/SnackMensajes";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 export default function AlumnosContenedor() {

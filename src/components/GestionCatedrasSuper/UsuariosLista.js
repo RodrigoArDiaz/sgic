@@ -15,9 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import { Tooltip, Zoom } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import { AgregarUsuarioCatedra } from "../Catedras/AgregarUsuarioCatedra";
+import { AgregarUsuarioCatedra } from "./AgregarUsuarioCatedra";
 //Componentes
-import FilasPorPagina from "../Catedras/FilasPorPagina";
+import FilasPorPagina from "./FilasPorPagina";
 import {
   TableCellMedium,
   TableRowElevacion,
