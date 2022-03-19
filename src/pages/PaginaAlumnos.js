@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
-import AlumnosContenedor from "../../src/components/SuperAlumnos/AlumnosContenedor";
+import AlumnosContenedor from "../../src/components/GestionAlumnosSuper/AlumnosContenedor";
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
