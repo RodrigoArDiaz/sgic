@@ -57,7 +57,7 @@ const columns = [
     id: "Rol",
     label: "Rol",
     minWidth: 20,
-    align: "center",
+    align: "left",
     //format: (value) => value.toFixed(2),
   },
 

@@ -17,6 +17,7 @@ import { BotonEstado } from "./BotonEstado.js";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import MensajeFeedback from "../MensajeFeedback";
+import CopiarButton from "../CopiarButton";
 
 const columns = [
   {
@@ -53,7 +54,7 @@ const columns = [
 
   {
     id: "Email",
-    label: "Correo",
+    label: "Email",
     minWidth: 20,
     align: "left",
     //format: (value) => value.toFixed(2),
@@ -227,6 +228,13 @@ export default function StickyHeadTable(props) {
                           align={column.align}
                           sx={estilosCell}
                         >
+                          <CopiarButton
+                            textoCopiar={
+                              column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value
+                            }
+                          />
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
