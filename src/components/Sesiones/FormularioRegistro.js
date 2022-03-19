@@ -909,7 +909,7 @@ function FormularioRegistro() {
               href="#"
               underline="hover"
               color="secondary"
-              to="/iniciar_sesion_alumno"
+              to="/"
               component={LinkRouter}
             >
               ¿Ya tenes una cuenta? Inicia sesion.

@@ -78,7 +78,7 @@ const validaciones = yup.object({
 });
 
 //Componente FormularioIniciarSesion
-function FormularioIniciarSesionUnificado({ mostrarRegistrarse, tipo }) {
+function FormularioIniciarSesionUnificado() {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [mostrarErrorLogin, setMostrarErrorLogin] = useState(false);
 
@@ -268,29 +268,22 @@ function FormularioIniciarSesionUnificado({ mostrarRegistrarse, tipo }) {
               </Link>
             </Box>
 
-            {mostrarRegistrarse && (
-              <Box textAlign="center" sx={estiloLink}>
-                <Link
-                  href="#"
-                  underline="hover"
-                  color="secondary"
-                  to="/registrarse"
-                  component={LinkRouter}
-                >
-                  Registrarse
-                </Link>
-              </Box>
-            )}
+            <Box textAlign="center" sx={estiloLink}>
+              <Link
+                href="#"
+                underline="hover"
+                color="secondary"
+                to="/registrarse"
+                component={LinkRouter}
+              >
+                Registrarse
+              </Link>
+            </Box>
           </form>
         </Grid>
       </Paper>
     </Grid>
   );
 }
-
-FormularioIniciarSesionUnificado.defaultProps = {
-  mostrarRegistrarse: true,
-  tipo: "alumno",
-};
 
 export default FormularioIniciarSesionUnificado;

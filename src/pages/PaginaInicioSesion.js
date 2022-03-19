@@ -5,10 +5,7 @@ import FormularioIniciarSesionUnificado from "../components/Sesiones/FormularioI
 const PaginaInicioSesion = ({ mostrarRegistrarse, tipo }) => {
   return (
     <>
-      <FormularioIniciarSesionUnificado
-        mostrarRegistrarse={mostrarRegistrarse}
-        tipo={tipo}
-      />
+      <FormularioIniciarSesionUnificado />
     </>
   );
 };

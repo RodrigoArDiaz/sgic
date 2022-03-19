@@ -78,34 +78,7 @@ const initialForm = {
   email: "",
 };
 
-//Funciones de validacion
-/*
-const validationsForm = (form) => {
-    let errors = {};
-    let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
-    
-
-    if(!form.email.trim()){
-        errors.email = "El campo 'Email' es requerido'";
-    }else if(!regexEmail.test(form.email.trim())){
-        errors.email = "El email ingresado tiene un formato incorrecto."
-    }
-
-    return errors;
-}
-*/
-//componente FormularioIniciarSesion
 function FormularioRecuperarContrasenia() {
-  /*    const {form,
-        errors,
-        loading,
-        response,
-        handleChange,
-        handleBlur,
-        handleSubmit} = useForm(initialForm,validationsForm);
-
-*/
-
   const [form, setForm] = React.useState({
     email: "",
   });
@@ -120,7 +93,7 @@ function FormularioRecuperarContrasenia() {
 
   const handleClose = () => {
     setOpen(false);
-    navegar("/iniciar_sesion_super");
+    navegar("/");
   };
 
   async function consultas(data, cadena) {
@@ -140,9 +113,6 @@ function FormularioRecuperarContrasenia() {
     <Grid>
       <Paper sx={estiloPaper}>
         <Grid align="center" sx={estiloHeader}>
-          {/* <AccountCircleIcon
-                            fontSize="large"
-                        /> */}
           <Typography variant="h5">Recuperar contraseña</Typography>
         </Grid>
 
@@ -226,7 +196,7 @@ function FormularioRecuperarContrasenia() {
               href="#"
               underline="hover"
               color="secondary"
-              to="/iniciar_sesion_super"
+              to="/"
               component={LinkRouter}
             >
               ¿Ya tenes una cuenta? Inicia sesion.
