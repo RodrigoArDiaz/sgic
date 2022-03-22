@@ -1,19 +1,28 @@
-import React from "react";
-import { Paper, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+//MUI
+import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
-import MateriasLista from "./MateriasLista";
-//import { CrearCatedra } from './CrearCatedra';
-import BuscarMaterias from "./BuscarMaterias";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
+//React router
 import { useNavigate } from "react-router-dom";
-//import SnackMensajes from '../SnackMensajes';
-//import BuscarUsuarios from './BuscarUsuarios';
+//react redux
+import { useDispatch, useSelector } from "react-redux";
+import { actualizarTitulo } from "../../store/slices/menuSlice";
+//Componentes propios
+import MateriasLista from "./MateriasLista";
+import BuscarMaterias from "./BuscarMaterias";
 
 export default function MateriasContenedor(props) {
+  //Redireccionamiento con reac router
   const navegar = useNavigate();
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
+  //Se recupera los datos de la catedra seleccionada
+  const { idCatedra } = useSelector((state) => state.catedra);
 
+  //Paginación
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
   const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
@@ -22,13 +31,7 @@ export default function MateriasContenedor(props) {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
-  //SnackBar
-  /*
-const [mensaje, setMensaje] = React.useState();
-const [abrir, setAbrir] = React.useState(false);
-const [tipo, setTipo] = React.useState();
-*/
-
+  /** */
   async function consultas(data, cadena) {
     const response = await fetch(cadena, {
       method: "POST",
@@ -42,6 +45,7 @@ const [tipo, setTipo] = React.useState();
     return response.json();
   }
 
+  /** */
   function Refrescar() {
     setCargando(true);
     consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarmateriascat")
@@ -56,14 +60,15 @@ const [tipo, setTipo] = React.useState();
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
+  /** */
   function BuscarMat(parametro) {
     parametro.Offset = 0;
     parametro.Limite = filasxpagina;
-    parametro.pidCa = props.idcatedraprincipal;
+    parametro.pidCa = idCatedra;
 
     setDC(parametro);
     setCargando(true);
@@ -81,10 +86,11 @@ const [tipo, setTipo] = React.useState();
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
+  /** */
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -99,12 +105,13 @@ const [tipo, setTipo] = React.useState();
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
 
     setPagina(pag);
   }
 
+  /** */
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -128,18 +135,20 @@ const [tipo, setTipo] = React.useState();
       .catch((error) => {
         console.log("Error de conexión" + error);
 
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
+  /**
+   * Se lista las materias de la catedra
+   */
   React.useEffect(() => {
     var data = {
       pMat: "",
       piB: "A",
       Offset: 0,
       Limite: filasxpagina,
-      // pidCat:props.idcatedra,
-      pidCa: props.idcatedraprincipal,
+      pidCa: idCatedra,
     };
 
     setDC(data);
@@ -163,13 +172,17 @@ const [tipo, setTipo] = React.useState();
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }, []);
 
-  //console.log(abrir);
-  //console.log(mensaje);
-  //console.log(tipo);
+  /**
+   * Actualiza el titulo al montar el componente
+   */
+  useEffect(() => {
+    dispatch(actualizarTitulo("Seleccione la materia"));
+  }, []);
+
   return (
     <Paper
       component="div"
@@ -187,19 +200,13 @@ const [tipo, setTipo] = React.useState();
     >
       <Grid container pt={2} justifyContent="flex-end" spacing={8}>
         <Grid item xs={12}>
-          <BuscarMaterias
-            actualizar={BuscarMat}
-            filasxpagina={filasxpagina}
-            idcatedra={props.idcatedra}
-          />
+          <BuscarMaterias actualizar={BuscarMat} filasxpagina={filasxpagina} />
         </Grid>
       </Grid>
 
       {cargando === true && (
         <Grid container pt={2}>
           <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
             <LinearProgress color="inherit" />
           </Stack>
         </Grid>
@@ -215,12 +222,7 @@ const [tipo, setTipo] = React.useState();
             actualizarpagina={CambioPagina}
             actualizarfilas={CambioFPP}
             refrescar={Refrescar}
-            salto={props.salto}
-            setMat={props.setMat}
-            setM={props.setM}
-            setT={props.setT}
-            // abrir={setAbrir} mensaje={setMensaje} tipo={setTipo}
-            idcatedra={props.idcatedra}
+            setSalto={props.setSalto}
           />
         </Grid>
       )}
@@ -228,8 +230,7 @@ const [tipo, setTipo] = React.useState();
       <Grid container pt={2}>
         <Button
           onClick={() => {
-            props.salto("1");
-            props.setT("Seleccione la cátedra");
+            props.setSalto("1");
           }}
         >
           VOLVER

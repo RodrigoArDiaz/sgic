@@ -119,7 +119,15 @@ function FormularioIniciarSesionUnificado() {
       //Se acondiciona el menu
       acondicionarMenu(respData.data.usuario.Tipo);
 
-      navigate("/inicio");
+      switch (respData.data.usuario.Tipo) {
+        case "D":
+          navigate("/inicio/docentes/mis_catedras");
+          break;
+
+        default:
+          navigate("/inicio");
+          break;
+      }
     } catch (error) {
       console.log(error.response);
       dispatch(loginFail(error.response.data.res));

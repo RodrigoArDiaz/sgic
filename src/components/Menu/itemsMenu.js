@@ -5,7 +5,7 @@ const listaItemsMenuSuper = [
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
-    to: "mis_catedras",
+    to: "docentes/mis_catedras",
     icono: "assured_workload",
     dividerTop: false,
     dividerBottom: false,

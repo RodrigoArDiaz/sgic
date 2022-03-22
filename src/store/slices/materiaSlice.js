@@ -21,7 +21,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { actualizarCatedra, actualizarIdCatedra, catedraReset } =
+export const { actualizarMateria, actualizarIdMateria, materiaReset } =
   userSlice.actions;
 
 export default userSlice.reducer;

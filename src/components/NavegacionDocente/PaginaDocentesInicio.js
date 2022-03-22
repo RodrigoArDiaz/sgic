@@ -1,25 +1,34 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import { Paper, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+//MUI
+import { CardContent, Grid, CardHeader } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
-
+//React router dom
 import { useNavigate } from "react-router-dom";
+//React redux
+import { useDispatch, useSelector } from "react-redux";
+//Componentes propios
 import CatedrasUsuarioLista from "./CatedrasUsuarioLista";
 import MateriasContenedor from "./MateriasContenedor";
 import CursadasContenedor from "./CursadasContenedor";
+import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+import { actualizarTitulo } from "../../store/slices/menuSlice";
 
 export default function PaginaDocentesInicio(props) {
+  //Recupero token
+  const { token } = useSelector((state) => state.login);
+  //Recupero informacion del usuario
+  const { user } = useSelector((state) => state.user);
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
+  //Indica que subpagina cargar(Catedras = 1, materias = 3, cursadas = 3)
+  const [salto, setSalto] = React.useState("1");
+
+  //Variable para el redireccinoamiento (react router)
   const navegar = useNavigate();
 
-  //const [salto, setS] = React.useState('1');
-  //const [idcatedraprincipal, setCat] = React.useState();
-  //const [idmateriaprincipal, setMat] = React.useState();
-  //const [idcursadaprincipal, setCur] = React.useState();
-
-  //    const [titulo, setT] = React.useState('Seleccione la cátedra');
-  //const [mat, setM] = React.useState();
-
+  //Variables de estado para el manejo de la paginacion
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
   const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
@@ -28,6 +37,9 @@ export default function PaginaDocentesInicio(props) {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
+  /**
+   * Para realizar consultas
+   */
   async function consultas(data, cadena) {
     const response = await fetch(cadena, {
       method: "POST",
@@ -35,13 +47,15 @@ export default function PaginaDocentesInicio(props) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("tkn"),
+        Authorization: `Bearer ${token}`,
+        // Authorization: "Bearer " + localStorage.getItem("tkn"),
       },
     });
 
     return response.json();
   }
 
+  /** */
   function Refrescar() {
     setCargando(true);
     consultas(datosconsulta, "http://127.0.0.1:8000/api/listarcatus")
@@ -60,31 +74,33 @@ export default function PaginaDocentesInicio(props) {
       });
   }
 
-  function BuscarCat(parametro) {
-    parametro.Offset = 0;
-    parametro.Limite = filasxpagina;
+  /** */
+  // function BuscarCat(parametro) {
+  //   parametro.Offset = 0;
+  //   parametro.Limite = filasxpagina;
 
-    setDC(parametro);
-    setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/listarcatus")
-      .then((response) => {
-        setFilas(response);
+  //   setDC(parametro);
+  //   setCargando(true);
+  //   consultas(parametro, "http://127.0.0.1:8000/api/listarcatus")
+  //     .then((response) => {
+  //       setFilas(response);
 
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
+  //       if (response.res.length > 0) {
+  //         setPaginacion(response.res[0].filas);
+  //         setResultado(response.res[0].resultados);
 
-          setPagina(1);
-        }
+  //         setPagina(1);
+  //       }
 
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
-      });
-  }
+  //       setCargando(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error de conexión" + error);
+  //       navegar("/registrarse");
+  //     });
+  // }
 
+  /** */
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -99,12 +115,13 @@ export default function PaginaDocentesInicio(props) {
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
 
     setPagina(pag);
   }
 
+  /** */
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -128,11 +145,12 @@ export default function PaginaDocentesInicio(props) {
       .catch((error) => {
         console.log("Error de conexión" + error);
 
-        navegar("/registrarse");
+        navegar("/");
       });
   }
 
-  React.useEffect(() => {
+  //Carga del listado de catedras del usuario
+  useEffect(() => {
     var data = {
       Catedra: "",
       Bajas: "B",
@@ -142,11 +160,11 @@ export default function PaginaDocentesInicio(props) {
 
     setDC(data);
 
+    //Lista las catedras del usuario
     consultas(data, "http://127.0.0.1:8000/api/listarcatus")
       .then((response) => {
         if (response.message === "Unauthenticated.") {
-          //console.log(response.message);
-          navegar("/iniciar_sesion_super");
+          navegar("/");
         }
 
         setFilas(response);
@@ -165,82 +183,79 @@ export default function PaginaDocentesInicio(props) {
       })
       .catch((error) => {
         console.log("Error de conexión en useefect" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
+
+    //Actualiza el titulo al montar la pagina
+    dispatch(actualizarTitulo("Seleccione la catedra"));
+  }, []);
+
+  //Actualiza el titulo al desmontar la pagina
+  useEffect(() => {
+    return () => {
+      dispatch(actualizarTitulo(""));
+    };
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
+    <CardMain
+    // sx={{
+    //   backgroundColor: "rgba(0, 0, 0, 0.000001)",
+    // }}
     >
-      <Grid container pt={10}></Grid>
-
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}></Grid>
-
-      {cargando === true && (
-        <Grid container pt={10}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
+      <CardHeader title={<Typography variant="h5">Mis catedras</Typography>} />
+      <Divider />
+      <CardContent>
+        <Grid container>
+          {cargando === true && (
+            <Grid container>
+              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+                <LinearProgress color="inherit" />
+              </Stack>
+            </Grid>
+          )}
+          {/* Catedras */}
+          {cargando === false && salto === "1" && (
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <CatedrasUsuarioLista
+                    filas={filas}
+                    filasxpagina={filasxpagina}
+                    pagina={pagina}
+                    paginacion={paginacion}
+                    resultados={resultados}
+                    actualizarpagina={CambioPagina}
+                    actualizarfilas={CambioFPP}
+                    refrescar={Refrescar}
+                    setSalto={setSalto}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+          {/* Materias */}
+          {cargando === false && salto === "2" && (
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <MateriasContenedor setSalto={setSalto} />
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+          {/* Cursadas */}
+          {cargando === false && salto === "3" && (
+            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
+                <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                  <CursadasContenedor setSalto={props.setSalto} />
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
         </Grid>
-      )}
-      {cargando === false && props.salto === "2" && (
-        <Grid container pt={10}>
-          <MateriasContenedor
-            idcatedraprincipal={props.idcatedraprincipal}
-            salto={props.setS}
-            setT={props.setT}
-            setMat={props.setMat}
-            setM={props.setM}
-            //abrir={setAbrir} mensaje={setMensaje} tipo={setTipo}
-          />
-        </Grid>
-      )}
-
-      {cargando === false && props.salto === "3" && (
-        <Grid container pt={10}>
-          <CursadasContenedor
-            idmateriaprincipal={props.idmateriaprincipal}
-            salto={props.setS}
-            setT={props.setT}
-            setCat={props.setCat}
-            Materia={props.mat}
-            //abrir={setAbrir} mensaje={setMensaje} tipo={setTipo}
-          />
-        </Grid>
-      )}
-
-      {cargando === false && props.salto === "1" && (
-        <Grid container pt={10}>
-          <CatedrasUsuarioLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            salto={props.setS}
-            setCat={props.setCat}
-            setT={props.setT}
-            //abrir={setAbrir} mensaje={setMensaje} tipo={setTipo}
-          />
-        </Grid>
-      )}
-    </Paper>
+      </CardContent>
+    </CardMain>
   );
 }
