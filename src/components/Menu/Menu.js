@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
-import { Collapse, Icon, Tooltip } from "@mui/material";
+import { Collapse, Icon, Tooltip, useMediaQuery } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
 import { Zoom } from "@mui/material";
 //React router dom
@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Redux - Menu
 // import { actualizarMenu, menuReset } from "../../store/slices/menuSlice";
 import { ExpandMore } from "@mui/icons-material";
+import { useTheme } from "@emotion/react";
 
 /***** Componente Menu *****/
 export default function Menu() {
@@ -56,6 +57,10 @@ export default function Menu() {
     setOpen(!open);
   };
 
+  //Para aplicar estilos especiales
+  const theme = useTheme();
+  const screenMenorMd = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     /*******************************************
     Navbar   
@@ -68,6 +73,7 @@ export default function Menu() {
         color="primary"
         sx={{
           paddingLeft: "5.5px",
+          ...(screenMenorMd && { width: "100%" }),
         }}
       >
         <Toolbar>
@@ -78,7 +84,10 @@ export default function Menu() {
             edge="start"
             sx={{
               marginRight: "36px",
-              ...(open && { display: "none" }),
+              // ...(open && { opacity: "0" }),
+              // ...(open && { display: { md: "none" } }),
+              ...(!screenMenorMd && { opacity: "0" }),
+              ...(open && !screenMenorMd && { width: "0" }),
             }}
           >
             <MenuIcon />
@@ -104,7 +113,7 @@ export default function Menu() {
         variant="permanent"
         open={open}
         sx={{
-          display: { sm: "none", md: "block" },
+          display: { xs: "none", sm: "none", md: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
           },
