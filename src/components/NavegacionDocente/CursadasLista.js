@@ -18,16 +18,10 @@ export default function StickyHeadTable(props) {
   return (
     <div>
       <Grid container pt={1} spacing={2}>
-        {props.filas.res.map((row) => {
+        {props.filas.res.map((cursada) => {
           return (
             <Grid item xs={6}>
-              <TarjetaCursada
-                fila={props.Materia}
-                idcursada={row.IdCursada}
-                anio={row.Anio}
-                semestre={row.Semestre}
-                // salto={props.salto}
-              />
+              <TarjetaCursada cursada={cursada} />
             </Grid>
           );
         })}

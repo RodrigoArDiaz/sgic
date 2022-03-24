@@ -249,7 +249,7 @@ export default function PaginaDocentesInicio(props) {
             <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
               <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
                 <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <CursadasContenedor setSalto={props.setSalto} />
+                  <CursadasContenedor setSalto={setSalto} />
                 </Grid>
               </Grid>
             </Grid>

@@ -12,41 +12,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import CloseIcon from "@mui/icons-material/Close";
 import { ThemeProvider } from "@mui/material";
 import MenuUsuario from "../components/MenuUsuario.js";
 import MenuResponsive from "../components/MenuResponsive.js";
-
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
-//
-import { Link } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
-import SchoolIcon from "@mui/icons-material/School";
-import PaginaCatedras from "./PaginaCatedras.js";
-import PaginaDocentes from "./PaginaDocentes.js";
-import PaginaAlumnos from "./PaginaAlumnos.js";
 import PaginaDocentesCursadasCuerpo from "./PaginaDocentesCursadasCuerpo.js";
 import PaginaDocentesPracticos from "./PaginaDocentesPracticos.js";
 import PaginaDocentesExamenes from "./PaginaDocentesExamenes.js";
 import PaginaDocentesGrupos from "./PaginaDocentesGrupos.js";
-
-//import BreadCrumbs from './BreadCrumbs.js';
 import ArticleIcon from "@mui/icons-material/Article";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CheckIcon from "@mui/icons-material/Check";
-
 import GroupIcon from "@mui/icons-material/Group";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import PaginaDocentesInscripciones from "./PaginaDocentesInscripciones.js";
 import PaginaDocentesNotas from "./PaginaDocentesNotas.js";
-import PaginaDocentesInicio from "../components/NavegacionDocente/PaginaDocentesInicio";
-//import PaginaInicioSesion from '../pages/PaginaInicioSesion.js';
-
-//import { useNavigate } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 

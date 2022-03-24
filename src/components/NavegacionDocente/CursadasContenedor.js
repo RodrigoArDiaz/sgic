@@ -173,7 +173,7 @@ export default function CursadasContenedor(props) {
       })
       .catch((error) => {
         console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/");
       });
   }, []);
 

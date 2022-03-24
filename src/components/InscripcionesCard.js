@@ -40,12 +40,7 @@ const InscripcionesCard = ({ cursada }) => {
         <Typography sx={{ mb: 1.5 }} color="text.secondary" textAlign="center">
           Materia <br /> {materia}
         </Typography>
-        <Typography
-          sx={{ mb: 1.5 }}
-          sx={{ mb: 1.5 }}
-          variant="body2"
-          textAlign="center"
-        >
+        <Typography sx={{ mb: 1.5 }} variant="body2" textAlign="center">
           Catedra
           <br />
           {catedra}

@@ -4,6 +4,7 @@ const initialState = {
   idCursada: "",
   anio: "",
   semestre: "",
+  cursada: [],
 };
 
 export const userSlice = createSlice({
@@ -19,6 +20,9 @@ export const userSlice = createSlice({
     actualizarSemestre: (state, action) => {
       state.semestre = action.payload;
     },
+    actualizarCursada: (state, action) => {
+      state.cursada = action.payload;
+    },
     cursadaReset: (state, action) => {
       return initialState;
     },
@@ -30,6 +34,7 @@ export const {
   actualizarAnio,
   cursadaReset,
   actualizarSemestre,
+  actualizarCursada,
 } = userSlice.actions;
 
 export default userSlice.reducer;

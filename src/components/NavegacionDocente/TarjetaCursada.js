@@ -12,11 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   actualizarAnio,
+  actualizarCursada,
   actualizarIdCursada,
   actualizarSemestre,
 } from "../../store/slices/cursadaSlice";
+import { actualizarMenu } from "../../store/slices/menuSlice";
+import { listaItemsMenuSuperConCursada } from "../Menu/itemsMenu";
 
-export default function OutlinedCard(props) {
+export default function TarjetaCursada({ cursada }) {
   //Recupero informacion de la materia
   const { materia, idMateria } = useSelector((state) => state.materia);
   //Para el uso de funciones de los state de redux
@@ -26,10 +29,12 @@ export default function OutlinedCard(props) {
 
   /** */
   const handleSeleccionCursada = () => {
-    dispatch(actualizarIdCursada(props.idcursada));
-    dispatch(actualizarAnio(props.anio));
-    dispatch(actualizarSemestre(props.semestre));
-    // navegar("/docentes/cursadas");
+    //Actualizo datos cursada
+    dispatch(actualizarCursada(cursada));
+    //Actualizo menu
+    dispatch(actualizarMenu(listaItemsMenuSuperConCursada));
+    //Redirecciona
+    navegar("/inicio/docentes/cursada/info_cursada");
   };
 
   return (
@@ -45,10 +50,10 @@ export default function OutlinedCard(props) {
             >
               {materia}
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Año: {props.anio}
+                Año: {cursada.Anio}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Semestre: {props.sem}
+                Semestre: {cursada.Semestre}
               </Typography>
             </Typography>
           </CardContent>
