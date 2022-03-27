@@ -43,8 +43,20 @@ const FullScreen = () => {
   return (
     <>
       {arribaSm && (
-        <IconButton sx={{ color: "#fff" }} onClick={handleFullScreen}>
-          {fullScreen ? <FullscreenExit /> : <Fullscreen />}
+        <IconButton
+          sx={{
+            color: "text.bodysecondary",
+            // color: "secondary.main",
+            // backgroundColor: "secondary.light50",
+            marginX: "1rem",
+          }}
+          onClick={handleFullScreen}
+        >
+          {fullScreen ? (
+            <FullscreenExit sx={{ fontSize: 30 }} />
+          ) : (
+            <Fullscreen sx={{ fontSize: 30 }} />
+          )}
         </IconButton>
       )}
     </>

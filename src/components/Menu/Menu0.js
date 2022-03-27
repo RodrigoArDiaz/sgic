@@ -11,8 +11,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import ApiIcon from "@mui/icons-material/Api";
 import { Collapse, Icon, Tooltip, useMediaQuery } from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
 import { Zoom } from "@mui/material";
@@ -75,10 +73,11 @@ export default function Menu() {
         open={open}
         color="primary"
         sx={{
-          // paddingLeft: "5.5px",
-          backgroundColor: "transparent",
-          boxShadow: "none",
-          backdropFilter: "blur(6px)",
+          paddingLeft: "5.5px",
+          ...(screenMenorMd && { width: "100%" }),
+          // backdropFilter: "blur(6px)",
+          // backgroundColor: "transparent",
+          // backgroundColor: "rgba(255, 255, 255, 0.95)",
         }}
       >
         <Toolbar>
@@ -88,17 +87,14 @@ export default function Menu() {
             aria-label="open drawer"
             onClick={handleDrawerToggle}
             edge="start"
-            sx={
-              {
-                // marginRight: "36px",
-              }
-            }
+            sx={{
+              marginRight: "36px",
+              //Estilos nuevos
+              ...(!screenMenorMd && { opacity: "0" }),
+              ...(open && !screenMenorMd && { display: "none" }),
+            }}
           >
-            {open ? (
-              <MenuOpenIcon sx={{ fontSize: 32 }} color="primary" />
-            ) : (
-              <MenuIcon sx={{ fontSize: 32 }} color="primary" />
-            )}
+            <MenuIcon />
           </IconButton>
           <TypographyTitulo
             variant="h6"
@@ -107,6 +103,12 @@ export default function Menu() {
             sx={{
               flexGrow: "1",
               paddingX: { xs: 0, sm: 3 },
+              //Nuevos estilos
+              ...(open &&
+                !screenMenorMd && {
+                  marginLeft: `${drawerWidth}px`,
+                  paddingX: { md: 0 },
+                }),
             }}
           >
             {titulo}
@@ -134,9 +136,9 @@ export default function Menu() {
         }}
       >
         <DrawerHeader sx={!open && { justifyContent: "center" }}>
-          <IconButton>
-            <ApiIcon sx={{ fontSize: 35, color: "primary.main" }} />
-          </IconButton>
+          <ButtonMenu disableRipple onClick={handleDrawerToggle}>
+            {open ? <CloseIcon /> : <MenuIcon />}
+          </ButtonMenu>
         </DrawerHeader>
         {/* <Divider /> */}
         <ListMenu>

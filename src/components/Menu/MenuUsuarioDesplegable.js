@@ -19,7 +19,7 @@ import {
   Zoom,
   Fade,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { blue, indigo, orange } from "@mui/material/colors";
 //Redux
 import { useSelector } from "react-redux";
 //React router dom
@@ -46,28 +46,43 @@ const MenuUsuarioDesplegable = () => {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        //  backgroundColor: "secondary.light50",
+        borderRadius: "10px",
+      }}
+    >
       {mostrarResponsive ? (
         <IconButton
           aria-describedby={id}
           aria-label="Menú"
-          sx={{ color: "#fff" }}
+          sx={{ backgroundColor: "#fff", color: "inherit" }}
+          // sx={{ color: "inherit" }}
           onClick={handleClick}
         >
           <MoreIcon />
         </IconButton>
       ) : (
         <Button
-          sx={{ display: { xs: "none", sm: "flex" } }}
-          variant="outlined"
-          color="tertiary"
-          startIcon={<AccountCircleIcon />}
-          // endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          size="medium"
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+            color: "text.titleprimary",
+            borderColor: "text.bodysecondary",
+          }}
+          // variant="outlined"
+          startIcon={
+            <AccountCircleIcon sx={{ fontSize: 30, color: blue[500] }} />
+          }
           endIcon={
             <KeyboardArrowDownIcon
               sx={{
                 transform: open ? "rotate(-180deg)" : "rotate(0)",
                 transition: "0.2s",
+                fontSize: 30,
               }}
             />
           }
