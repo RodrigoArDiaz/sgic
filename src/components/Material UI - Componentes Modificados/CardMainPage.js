@@ -8,14 +8,21 @@ import {
 
 const CardMainPage = ({ icon, title, bgColorIcon, children }) => {
   return (
-    <CardMain sx={{ overflow: "visible" }}>
+    <CardMain
+      sx={{
+        overflow: "visible",
+        boxShadow:
+          "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
+        border: "none",
+      }}
+    >
       <Box display="flex" justifyContent="start" pt={1} px={2} gap={2}>
         <Box
           variant="gradient"
           // bgColor="#000"
           sx={{ backgroundColor: bgColorIcon }}
           // color={color === "light" ? "dark" : "white"}
-          color="white"
+          color="palette.white.main"
           // coloredShadow={color}
           boxShadow="rgb(99 99 99 / 20%) 0px 2px 8px 0px"
           borderRadius="10px"
@@ -26,7 +33,7 @@ const CardMainPage = ({ icon, title, bgColorIcon, children }) => {
           height="4rem"
           mt={-3}
         >
-          <Icon fontSize="medium" color="inherit">
+          <Icon fontSize="medium" sx={{ color: "white.main" }}>
             {icon}
           </Icon>
         </Box>

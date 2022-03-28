@@ -7,6 +7,7 @@ import CatedrasContenedor from "../components/GestionCatedrasSuper/CatedrasConte
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
+import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 
 export default function PaginaCatedras() {
   //Para el uso de funciones de los state de redux
@@ -27,9 +28,9 @@ export default function PaginaCatedras() {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Grid container sx={estilosBreadCrumbs}>
+        <GridBreadCrumbs>
           <BreadCrumbs />
-        </Grid>
+        </GridBreadCrumbs>
       </Grid>
 
       <Grid item xs={12}>

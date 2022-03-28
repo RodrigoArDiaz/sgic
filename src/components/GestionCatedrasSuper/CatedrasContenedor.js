@@ -18,6 +18,7 @@ import { CrearCatedra } from "./CrearCatedra";
 import BuscarCatedras from "./BuscarCatedras";
 import CatedraLista from "./CatedraLista";
 import { useSelector } from "react-redux";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
 export default function CatedrasContenedor() {
   const navegar = useNavigate();
@@ -180,11 +181,11 @@ export default function CatedrasContenedor() {
   }, []);
 
   return (
-    <CardMain>
-      <CardHeader
-        title={<Typography variant="h5">Gestión de Cátedras</Typography>}
-      />
-      <Divider />
+    <CardMainPage
+      icon="engineering"
+      title="Gestión Catedras"
+      bgColorIcon="cyan.main300"
+    >
       <CardContent>
         <Grid container>
           <Grid container direction="row-reverse">
@@ -263,6 +264,6 @@ export default function CatedrasContenedor() {
           </div>
         </Grid>
       </CardContent>
-    </CardMain>
+    </CardMainPage>
   );
 }

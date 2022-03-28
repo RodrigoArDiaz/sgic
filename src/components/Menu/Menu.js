@@ -133,9 +133,14 @@ export default function Menu() {
           },
         }}
       >
-        <DrawerHeader sx={!open && { justifyContent: "center" }}>
+        <DrawerHeader
+          sx={
+            // !open && { justifyContent: "center" }}
+            open ? { justifyContent: "center" } : { justifyContent: "center" }
+          }
+        >
           <IconButton>
-            <ApiIcon sx={{ fontSize: 35, color: "primary.main" }} />
+            <ApiIcon sx={{ fontSize: 38, color: "white.main" }} />
           </IconButton>
         </DrawerHeader>
         {/* <Divider /> */}
@@ -163,7 +168,10 @@ export default function Menu() {
                     <ListItemIcon>
                       <Icon>{ele.icono}</Icon>
                     </ListItemIcon>
-                    <ListItemText primary={ele.itemText} />
+                    <ListItemText
+                      primary={ele.itemText}
+                      sx={{ color: "text.titleprimary" }}
+                    />
                   </ListItemMenu>
                 </Tooltip>
               );
@@ -378,7 +386,7 @@ export default function Menu() {
         sx={{
           flexGrow: 1,
           paddingX: { xs: 0, sm: 3 },
-          paddingY: { xs: 2, sm: 3 },
+          paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

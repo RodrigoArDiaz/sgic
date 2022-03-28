@@ -17,6 +17,7 @@ import BuscarDocentes from "./BuscarDocentes";
 import { Box } from "@mui/system";
 import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
 import { useSelector } from "react-redux";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
 //Valor inicial de la paginacion
 const paginacionInicial = {
@@ -110,11 +111,15 @@ export default function DocentesContenedor() {
   };
 
   return (
-    <CardMain>
-      <CardHeader
+    <CardMainPage
+      icon="co_present"
+      title="Gestión de docentes"
+      bgColorIcon="cyan.main300"
+    >
+      {/* <CardHeader
         title={<Typography variant="h5">Gestión Docentes</Typography>}
       />
-      <Divider />
+      <Divider /> */}
       <CardContent>
         <Grid container>
           <Grid container direction="row-reverse">
@@ -172,6 +177,6 @@ export default function DocentesContenedor() {
           )}
         </Grid>
       </CardContent>
-    </CardMain>
+    </CardMainPage>
   );
 }

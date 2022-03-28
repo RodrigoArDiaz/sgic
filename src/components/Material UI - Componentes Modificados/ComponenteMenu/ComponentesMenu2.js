@@ -104,8 +104,6 @@ export const Drawer = styled(MuiDrawer, {
       // "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
       "rgba(0, 0, 0, 0.09) 0px 3px 12px",
     borderRight: "0px",
-    backgroundColor: theme.palette.primary.main400,
-    // background: `linear-gradient(195deg, ${theme.palette.primary.main500}, ${theme.palette.primary.main400})`,
   },
 }));
 
@@ -138,7 +136,6 @@ export const ListMenu = styled(List)(({ theme }) => ({
 export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   boxSizing: "border-box",
   backgroundColor: "rgba(0, 0, 0, 0.04)",
-  // backgroundColor: theme.palette.primary.main,
   borderRadius: "10px",
   marginTop: "0.5rem",
   border: "1px solid rgba(0, 0, 0, 0)",

@@ -38,7 +38,11 @@ import { BorrarDocente } from "./BorrarDocente";
 
 import Paginacion from "../Paginacion";
 import { AltaBajaDocente } from "./AltaBajaDocente";
-import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCellComun,
+  TableCellDestacada,
+  TableRowElevacion,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
 import CopiarButton from "../CopiarButton";
 
 //Estilos para filas de la tabla
@@ -112,22 +116,38 @@ export default function DocentesLista({
                 <TableBody>
                   {docentes.map((docente, indice) => (
                     <TableRowElevacion key={indice}>
-                      <TableCell component="th" scope="row" sx={estilosCell}>
+                      <TableCellDestacada
+                        component="th"
+                        scope="row"
+                        sx={estilosCell}
+                      >
                         {docente.Apellidos}
-                      </TableCell>
+                      </TableCellDestacada>
 
-                      <TableCell component="th" scope="row" sx={estilosCell}>
+                      <TableCellDestacada
+                        component="th"
+                        scope="row"
+                        sx={estilosCell}
+                      >
                         {docente.Nombres}
-                      </TableCell>
+                      </TableCellDestacada>
 
-                      <TableCell component="th" scope="row" sx={estilosCell}>
+                      <TableCellComun
+                        component="th"
+                        scope="row"
+                        sx={estilosCell}
+                      >
                         {docente.Documento}
-                      </TableCell>
+                      </TableCellComun>
 
-                      <TableCell component="th" scope="row" sx={estilosCell}>
+                      <TableCellComun
+                        component="th"
+                        scope="row"
+                        sx={estilosCell}
+                      >
                         <CopiarButton textoCopiar={docente.Email} />
                         {docente.Email}
-                      </TableCell>
+                      </TableCellComun>
 
                       <TableCell component="th" scope="row" align="center">
                         {/* {docente.Estado} */}

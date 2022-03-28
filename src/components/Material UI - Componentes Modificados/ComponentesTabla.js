@@ -16,4 +16,23 @@ const TableCellMedium = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export { TableRowElevacion, TableCellMedium };
+const TableCellDestacada = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    color: "rgb(52, 71, 103)",
+    fontWeight: "500",
+  },
+}));
+
+const TableCellComun = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    color: "rgb(103, 116, 142)",
+    fontWeight: "400",
+  },
+}));
+
+export {
+  TableRowElevacion,
+  TableCellMedium,
+  TableCellDestacada,
+  TableCellComun,
+};

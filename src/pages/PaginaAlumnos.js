@@ -5,6 +5,7 @@ import AlumnosContenedor from "../../src/components/GestionAlumnosSuper/AlumnosC
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
+import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 
 export default function PaginaAlumnos() {
   //Para el uso de funciones de los state de redux
@@ -25,9 +26,9 @@ export default function PaginaAlumnos() {
   return (
     <Grid container rowSpacing={3}>
       <Grid item xs={12}>
-        <Grid container sx={estilosBreadCrumbs}>
+        <GridBreadCrumbs>
           <BreadCrumbs />
-        </Grid>
+        </GridBreadCrumbs>
       </Grid>
 
       <Grid item xs={12}>
@@ -36,12 +37,3 @@ export default function PaginaAlumnos() {
     </Grid>
   );
 }
-
-/* 
- <Grid 
-                item xs={12} sm={12} md={12} lg={11}
-            >
-                 <BuscarAlumnos/>
-            </Grid>
-
-*/

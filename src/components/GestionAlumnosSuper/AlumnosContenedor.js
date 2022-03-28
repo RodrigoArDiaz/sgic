@@ -11,6 +11,7 @@ import AlumnosLista from "./AlumnosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
 import SnackMensajes from "../../components/GestionCatedrasSuper/SnackMensajes";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
 export default function AlumnosContenedor() {
   const navegar = useNavigate();
@@ -176,15 +177,12 @@ export default function AlumnosContenedor() {
       });
   }, []);
 
-  //console.log(abrir);
-  //console.log(mensaje);
-  //console.log(tipo);
   return (
-    <CardMain>
-      <CardHeader
-        title={<Typography variant="h5">Gestión de Alumnos</Typography>}
-      />
-      <Divider />
+    <CardMainPage
+      icon="school"
+      title="Gestión Alumnos"
+      bgColorIcon="cyan.main300"
+    >
       <CardContent>
         <Grid container>
           <Grid container>
@@ -244,6 +242,6 @@ export default function AlumnosContenedor() {
           </div>
         </Grid>
       </CardContent>
-    </CardMain>
+    </CardMainPage>
   );
 }

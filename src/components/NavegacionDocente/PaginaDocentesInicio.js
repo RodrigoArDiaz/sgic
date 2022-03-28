@@ -14,6 +14,9 @@ import MateriasContenedor from "./MateriasContenedor";
 import CursadasContenedor from "./CursadasContenedor";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { actualizarTitulo } from "../../store/slices/menuSlice";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { GridBreadCrumbs } from "../Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
+import BreadCrumbs from "../BreadCrumbs";
 
 export default function PaginaDocentesInicio(props) {
   //Recupero token
@@ -198,64 +201,89 @@ export default function PaginaDocentesInicio(props) {
   }, []);
 
   return (
-    <CardMain
-    // sx={{
-    //   backgroundColor: "rgba(0, 0, 0, 0.000001)",
-    // }}
-    >
-      <CardHeader title={<Typography variant="h5">Mis catedras</Typography>} />
-      <Divider />
-      <CardContent>
-        <Grid container>
-          {cargando === true && (
+    <Grid container rowSpacing={3}>
+      <Grid item xs={12}>
+        <GridBreadCrumbs container>
+          <BreadCrumbs />
+        </GridBreadCrumbs>
+      </Grid>
+
+      <Grid item xs={12}>
+        <CardMainPage
+          // sx={{
+          //   backgroundColor: "rgba(0, 0, 0, 0.000001)",
+          // }}
+          icon="assured_workload"
+          title="Mis catedras"
+          bgColorIcon="cyan.main300"
+        >
+          {/* <CardHeader title={<Typography variant="h5">Mis catedras</Typography>} /> */}
+          <Divider />
+          <CardContent>
             <Grid container>
-              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                <LinearProgress color="inherit" />
-              </Stack>
-            </Grid>
-          )}
-          {/* Catedras */}
-          {cargando === false && salto === "1" && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <CatedrasUsuarioLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    setSalto={setSalto}
-                  />
+              {cargando === true && (
+                <Grid container>
+                  <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+                    <LinearProgress color="inherit" />
+                  </Stack>
                 </Grid>
-              </Grid>
-            </Grid>
-          )}
-          {/* Materias */}
-          {cargando === false && salto === "2" && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <MateriasContenedor setSalto={setSalto} />
+              )}
+              {/* Catedras */}
+              {cargando === false && salto === "1" && (
+                <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+                  <Grid
+                    container
+                    justifyContent="end"
+                    sx={{ overflowX: "auto" }}
+                  >
+                    <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                      <CatedrasUsuarioLista
+                        filas={filas}
+                        filasxpagina={filasxpagina}
+                        pagina={pagina}
+                        paginacion={paginacion}
+                        resultados={resultados}
+                        actualizarpagina={CambioPagina}
+                        actualizarfilas={CambioFPP}
+                        refrescar={Refrescar}
+                        setSalto={setSalto}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          )}
-          {/* Cursadas */}
-          {cargando === false && salto === "3" && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <CursadasContenedor setSalto={setSalto} />
+              )}
+              {/* Materias */}
+              {cargando === false && salto === "2" && (
+                <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+                  <Grid
+                    container
+                    justifyContent="end"
+                    sx={{ overflowX: "auto" }}
+                  >
+                    <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                      <MateriasContenedor setSalto={setSalto} />
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
+              )}
+              {/* Cursadas */}
+              {cargando === false && salto === "3" && (
+                <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
+                  <Grid
+                    container
+                    justifyContent="end"
+                    sx={{ overflowX: "auto" }}
+                  >
+                    <Grid item xs={12} sx={{ overflowX: "auto" }}>
+                      <CursadasContenedor setSalto={setSalto} />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
-      </CardContent>
-    </CardMain>
+          </CardContent>
+        </CardMainPage>
+      </Grid>
+    </Grid>
   );
 }

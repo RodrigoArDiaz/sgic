@@ -1,9 +1,11 @@
 import React from "react";
 //MUI
 import {
+  Box,
   CardContent,
   CardHeader,
   Divider,
+  Icon,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -14,6 +16,7 @@ import TabsInformacionUsuario from "./TabsInformacionUsuario";
 import InformacionDeContactos from "./InformacionContactos";
 import InformacionUsuario from "./InformacionUsuario";
 import { useTheme } from "@emotion/react";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
 export default function PerfilContenedor() {
   //
@@ -22,12 +25,11 @@ export default function PerfilContenedor() {
 
   return (
     <>
-      <CardMain>
-        <CardHeader
-          title={<Typography variant="h5">Mi perfil</Typography>}
-        ></CardHeader>
-        <Divider></Divider>
-
+      <CardMainPage
+        title="Mi perfil"
+        icon="manage_accounts"
+        bgColorIcon={"secondary.light400"}
+      >
         <CardContent>
           <Grid container>
             <Grid item xs={12}>
@@ -50,7 +52,7 @@ export default function PerfilContenedor() {
             </Grid>
           </Grid>
         </CardContent>
-      </CardMain>
+      </CardMainPage>
     </>
   );
 }
