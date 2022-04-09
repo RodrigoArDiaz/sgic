@@ -20,7 +20,7 @@ export default function InscripcionesContenedor() {
         <Grid container>
           <Grid container direction="row-reverse">
             {/* CrearPractico */}
-            <Grid item xs={12} sm={6} md={2} lg={1.5} xl={1}>
+            <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
               <Grid
                 container
                 paddingX={2}
@@ -38,10 +38,10 @@ export default function InscripcionesContenedor() {
               item
               xs={12}
               sm={12}
-              md={8}
-              lg={9}
+              md={10}
+              lg={10}
               xl={10}
-              paddingY={1}
+              // paddingY={1}
               paddingX={2}
             >
               <BuscarInscripciones />

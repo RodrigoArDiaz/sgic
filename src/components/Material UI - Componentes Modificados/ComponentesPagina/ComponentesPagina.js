@@ -64,7 +64,7 @@ const DividerExtremoTransp = styled(Divider)(({ theme }) => ({
   backgroundImage:
     "linear-gradient(to right, rgba(52, 71, 103, 0), rgba(52, 71, 103, 0.4), rgba(52, 71, 103, 0))!important",
   height: "0.0625rem",
-  margin: "1rem 0",
+  margin: "0.4rem 0",
   marginBottom: "0",
   borderBottom: "none",
   opacity: "0.5",

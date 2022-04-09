@@ -20,7 +20,8 @@ export default function PracticosContenedor() {
               <Grid
                 container
                 paddingX={2}
-                paddingY={1}
+                // paddingY={1}
+                paddingBottom={1}
                 justifyContent="flex-end"
               >
                 <Grid item xs={12}>
@@ -28,12 +29,13 @@ export default function PracticosContenedor() {
                 </Grid>
               </Grid>
             </Grid>
-            {/* <CrearDocente /> */}
+            {/* <OrdenarPracticos /> */}
             <Grid item xs={12} sm={6} md={2} lg={1.5} xl={1}>
               <Grid
                 container
                 paddingX={2}
-                paddingY={1}
+                // paddingY={1}
+                paddingBottom={1}
                 justifyContent="flex-end"
               >
                 <Grid item xs={12}>
@@ -49,7 +51,8 @@ export default function PracticosContenedor() {
               md={8}
               lg={9}
               xl={10}
-              paddingY={1}
+              // paddingY={1}
+              paddingBottom={1}
               paddingX={2}
             >
               <BuscarExamenes />

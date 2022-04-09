@@ -16,8 +16,8 @@ export default function GruposContenedor() {
       <CardContent>
         <Grid container>
           <Grid container direction="row-reverse">
-            {/* CrearPractico */}
-            <Grid item xs={12} sm={6} md={2} lg={1.5} xl={1}>
+            {/* Crear grupos */}
+            <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
               <Grid
                 container
                 paddingX={2}
@@ -30,15 +30,15 @@ export default function GruposContenedor() {
               </Grid>
             </Grid>
 
-            {/* Buscar practicos */}
+            {/* Buscar grupos */}
             <Grid
               item
               xs={12}
               sm={12}
-              md={8}
-              lg={9}
+              md={9}
+              lg={10}
               xl={10}
-              paddingY={1}
+              // paddingY={1}
               paddingX={2}
             >
               <BuscarGrupos />

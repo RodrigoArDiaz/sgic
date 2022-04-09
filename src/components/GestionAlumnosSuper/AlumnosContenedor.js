@@ -186,16 +186,7 @@ export default function AlumnosContenedor() {
       <CardContent>
         <Grid container>
           <Grid container>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              // md={8.5}
-              // lg={9.5}
-              xl={12}
-              paddingY={1}
-              paddingX={2}
-            >
+            <Grid item xs={12} sm={12} xl={12} paddingBottom={1} paddingX={2}>
               <BuscarAlumnos
                 actualizar={BuscarAl}
                 filasxpagina={filasxpagina}

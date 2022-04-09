@@ -193,7 +193,8 @@ export default function CatedrasContenedor() {
               <Grid
                 container
                 paddingX={2}
-                paddingY={1}
+                // paddingY={1}
+                paddingBottom={1}
                 justifyContent="flex-end"
               >
                 <Grid item xs={12}>
@@ -213,7 +214,8 @@ export default function CatedrasContenedor() {
               md={8.5}
               lg={9.5}
               xl={10}
-              paddingY={1}
+              // paddingY={1}
+              paddingBottom={1}
               paddingX={2}
             >
               <BuscarCatedras

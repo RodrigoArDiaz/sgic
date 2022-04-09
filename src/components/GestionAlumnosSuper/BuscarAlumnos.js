@@ -39,16 +39,6 @@ export default function BuscarAlumnos(props) {
       // pidCa:props.idcatedra,
     };
 
-    /*
-    var data = {
-        Apellidos:form.apellidos,
-        Nombres:form.nombres,
-        Documento:form.dni,
-        Correo:form.email,
-        Bajas:form.bajas,
-      Offset:0,
-      Limite:props.filasxpagina,                                            
-  }*/
     props.actualizar(data);
   }
 
