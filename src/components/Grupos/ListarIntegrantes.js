@@ -1,62 +1,61 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { Tooltip } from '@mui/material';
-import { IconButton } from '@mui/material';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import AddIcon from '@mui/icons-material/Add';
+import { useModal } from '../useModal';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-//import { useModal } from '../hooks/useModal';
-import { useModal } from '../useModal';
-import PanelGruposIntegrantes from './PanelGruposIntegrantes.js';
-import BuscarAlumnosGrupos from './BuscarAlumnosGrupos';
 import { Grid } from '@mui/material';
-//import { useModal } from '/materi';
-export const ListarIntegrantes = () => {
-    const [isOpen, handleOpen, handleClose] = useModal(false);
+//import AgregarInscripcionesContenedor from './Agregar/AgregarInscripcionesContenedor'
 
+
+
+import IconButton from '@mui/material/IconButton';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import { Tooltip } from '@mui/material';
+//import BuscarInscripciones from './BuscarInscripciones'
+import ListarIntegrantesContenedor from './ListarIntegrantes/ListarIntegrantesContenedor'
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+
+export const ListarIntegrantes = (props) => {
+    //Variable de estado y handles de eventos para la ventana modal
+    const [isOpen,handleOpen,handleClose] = useModal(false);
+    
+    function Volver(){
+       // props.refrescar();
+        handleClose();
+    }
     return (
         <>
+            
             <Tooltip title="Listar integrantes">
-                <IconButton 
-                    color='primary'
-                    onClick={handleOpen}
-                >
-                    <SupervisorAccountIcon/>
-                </IconButton>
-            </Tooltip>
+<IconButton aria-label="listar" size='small' color='secondary' onClick={handleOpen}>
+        <SupervisorAccountIcon />
+      </IconButton>
+      </Tooltip>
+            
+           
 
             {/* Ventana modal */}
             <Dialog 
                 open={isOpen} 
                 onClose={handleClose}
-                //maxWidth="xs"
                 fullScreen
             >
-                <DialogTitle>Lista Alumnos Grupo 1</DialogTitle>
+                <DialogTitle>Integrantes de {props.grupo.Grupo}</DialogTitle>
                 
-                <Grid
-              
-            >
-                <BuscarAlumnosGrupos/>
-            </Grid>
-          
-
-            <Grid
-              
-            >
-
-                <PanelGruposIntegrantes/>
+               <ListarIntegrantesContenedor cursada={props.cursada} grupo={props.grupo}/>
 
 
-                </Grid>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleClose}>Volver</Button>
-                     </DialogActions>
-            </Dialog>  
+                    <Button variant="contained" onClick={()=>{Volver()}}>Volver</Button>
+                   
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

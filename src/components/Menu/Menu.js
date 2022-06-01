@@ -38,6 +38,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { actualizarMenu, menuReset } from "../../store/slices/menuSlice";
 import { ExpandMore } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
+import DarkModeButton from "../DarkModeButton";
 
 /***** Componente Menu *****/
 export default function Menu() {
@@ -111,7 +112,7 @@ export default function Menu() {
           >
             {titulo}
           </TypographyTitulo>
-
+          <DarkModeButton />
           <FullScreen />
           <MenuUsuarioDesplegable />
         </Toolbar>

@@ -12,7 +12,6 @@ const theme = createTheme({
       dark: teal[900],
       //Escalas
       light50: teal[50],
-      main50: teal[50],
       main100: teal[100],
       main200: teal[200],
       main300: teal[300],
@@ -63,6 +62,7 @@ const theme = createTheme({
       main: "#fff",
     },
 
+    //color: cyan
     cyan: {
       main: cyan[500],
       main50: cyan[50],
@@ -70,6 +70,15 @@ const theme = createTheme({
       main200: cyan[200],
       main300: cyan[300],
       main400: cyan[400],
+      main500: cyan[500],
+      main600: cyan[600],
+      main700: cyan[700],
+      main800: cyan[800],
+      main900: cyan[900],
+      mainA100: "#84ffff",
+      mainA200: "#18ffff",
+      mainA400: "#00e5ff",
+      mainA700: "#00b8d4",
     },
 
     text: {
@@ -113,52 +122,23 @@ const theme = createTheme({
   //     borderRadius: 0
   // }
 
-  // typography: {
-  //   fontFamily: [
-  //     "-apple-system",
-  //     "BlinkMacSystemFont",
-  //     '"Segoe UI"',
-  //     "Roboto",
-  //     '"Helvetica Neue"',
-  //     "Arial",
-  //     "sans-serif",
-  //     '"Apple Color Emoji"',
-  //     '"Segoe UI Emoji"',
-  //     '"Segoe UI Symbol"',
-  //   ].join(","),
-  // },
-
-  // typography: {
-  //   fontFamily: [
-  //     "PlusJakartaSans-ExtraBold",
-  //     "-apple-system",
-  //     "BlinkMacSystemFont",
-  //     "Segoe UI",
-  //     "Roboto",
-  //     "Helvetica Neue",
-  //     "Arial,sans-serif",
-  //     "Apple Color Emoji",
-  //     "Segoe UI Emoji",
-  //     "Segoe UI Symbol",
-  //   ].join(","),
-  // },
-
-  // typography: {
-  //   fontFamily: [
-  //     "Inter",
-  //     "-apple-system",
-  //     "BlinkMacSystemFont",
-  //     '"Segoe UI"',
-  //     "Helvetica",
-  //     "Arial",
-  //     "sans-serif",
-  //     '"Apple Color Emoji"',
-  //     '"Segoe UI Emoji"',
-  //   ].join(","),
-  // },
-
+  //Tipografria
   typography: {
+    //Family
+    fontFamily: [
+      "Poppins",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      "Segoe UI",
+      "Helvetica Neue",
+      "Arial",
+      "sans-serif",
+    ].join(","),
+
+    //Color
     color: "rgb(34, 51, 84)",
+
+    //Titles
     h5: {
       // color: "rgb(52, 71, 103)",
       color: "rgb(29, 36, 56)",

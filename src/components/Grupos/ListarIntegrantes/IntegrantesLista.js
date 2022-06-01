@@ -12,12 +12,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 //import { BorrarInscripcion } from './BorrarInscripcion';
 //import { BotonAltaBaja } from './BotonAltaBaja';
-import { BotonAcciones } from "./BotonAcciones";
+import { BorrarDeGrupo } from "./BorrarDeGrupo";
 //import { BotonISW } from './BotonISW';
 //import { BotonIS } from './BotonIS';
 
 //import { BotonAsistencia } from './BotonEstado';
-import { BotonEstado } from "./BotonEstado.js";
+//import  {BotonEstado}  from './BotonEstado.js';
 
 //import TextField from '@mui/material/TextField';
 //import SnackBar from './SnackBar'
@@ -31,36 +31,44 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip } from "@mui/material";
 
-import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
+// import  FilasPorPagina  from '../../GestionCatedrasSuper/FilasPorPagina';
 
 const columns = [
   {
-    id: "Grupo",
-    label: "Grupo",
+    id: "Apellidos",
+    label: "Apellido/s",
     minWidth: 20,
     align: "left",
     //format: (value) => value.toFixed(2),
   },
 
   {
-    id: "Tema",
-    label: "Tema",
+    id: "Nombres",
+    label: "Nombre/s",
     minWidth: 20,
     align: "left",
     //format: (value) => value.toFixed(2),
   },
 
   {
-    id: "Modulo",
-    label: "Modulo",
+    id: "Documento",
+    label: "Documento",
     minWidth: 20,
     align: "left",
     //format: (value) => value.toFixed(2),
   },
 
   {
-    id: "Estado",
-    label: "Estado",
+    id: "Libreta",
+    label: "Libreta",
+    minWidth: 20,
+    align: "center",
+    //format: (value) => value.toFixed(2),
+  },
+
+  {
+    id: "Email",
+    label: "Correo",
     minWidth: 20,
     align: "center",
     //format: (value) => value.toFixed(2),
@@ -173,7 +181,7 @@ export default function StickyHeadTable(props) {
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
-                      if (column.id === "Grupo") {
+                      if (column.id === "Apellidos") {
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
@@ -183,7 +191,7 @@ export default function StickyHeadTable(props) {
                         );
                       }
 
-                      if (column.id === "Tema") {
+                      if (column.id === "Nombres") {
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
@@ -193,7 +201,7 @@ export default function StickyHeadTable(props) {
                         );
                       }
 
-                      if (column.id === "Modulo") {
+                      if (column.id === "Documento") {
                         return (
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
@@ -203,6 +211,25 @@ export default function StickyHeadTable(props) {
                         );
                       }
 
+                      if (column.id === "Libreta") {
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      }
+
+                      if (column.id === "Email") {
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      }
                       /*
                       if(column.id ==='Usuario'){
                         return (<TableCell key={column.id} align={column.align}>
@@ -212,17 +239,17 @@ export default function StickyHeadTable(props) {
                         </TableCell>);
                       }
 
-*/
-                      if (column.id === "Estado") {
+
+                      if(column.id==='Estado'){
+
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            <BotonEstado
-                              estado={row.Estado}
-                              idgrupo={row.IdGrupo}
-                            />
+                             <BotonEstado estado={row.Estado}/>
                           </TableCell>
                         );
+
                       }
+*/
 
                       /*
 if(column.id==='EstaInscriptoSitioWeb'){
@@ -266,13 +293,14 @@ if(column.id==='EstaInscriptoSIU'){
                             {column.format && typeof value === "number" ? (
                               column.format(value)
                             ) : (
-                              <BotonAcciones
+                              <BorrarDeGrupo
                                 refrescar={props.refrescar}
                                 abrir={props.abrir}
                                 mensaje={props.mensaje}
                                 tipo={props.tipo}
-                                grupo={row}
+                                grupo={props.grupo}
                                 cursada={props.cursada}
+                                alumno={row}
                               />
                             )}
                           </TableCell>
@@ -285,33 +313,7 @@ if(column.id==='EstaInscriptoSIU'){
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2}>
-          <Grid item xs={6} sx={{ mt: 1 }}>
-            <Stack spacing={2}>
-              <Pagination
-                variant="outlined"
-                defaultPage={1}
-                count={props.paginacion}
-                page={props.pagina}
-                onChange={(e, page) => CambiarPagina(e, page)}
-              />
-            </Stack>
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Resultados: {props.resultados}
-          </Grid>
-        </Grid>
+        <Grid justifyContent="flex-start" container pt={2}></Grid>
         <Grid justifyContent="center" container pt={2} />
       </Paper>
     </ThemeProvider>

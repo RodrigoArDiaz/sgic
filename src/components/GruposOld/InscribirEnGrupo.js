@@ -11,21 +11,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 //import { useModal } from '../hooks/useModal';
 import { useModal } from '../useModal';
-//import PanelGruposInscripcion from '../PanelGruposInscripcion.js';
-//import BuscarAlumnosGrupos from './BuscarAlumnosGrupos';
+import PanelGruposInscripcion from '../PanelGruposInscripcion.js';
+import BuscarAlumnosGrupos from './BuscarAlumnosGrupos';
 import { Grid } from '@mui/material';
 //import { useModal } from '/materi';
-
-import ListarIntegrantesContenedor from './InscribirEnGrupo/ListarIntegrantesContenedor';
-
-export const InscribirEnGrupo = (props) => {
+export const InscribirEnGrupo = () => {
     const [isOpen, handleOpen, handleClose] = useModal(false);
-    
-    function Volver(){
-        //props.refrescar();
-        handleClose();
-    }
-    
+
     return (
         <>
             <Tooltip title="Inscribir alumnos">
@@ -44,11 +36,25 @@ export const InscribirEnGrupo = (props) => {
                 //maxWidth="xs"
                 fullScreen
             >
-                <DialogTitle>Inscribir Alumnos {props.grupo.Grupo}</DialogTitle>
-                <ListarIntegrantesContenedor grupo={props.grupo} cursada={props.cursada} />
+                <DialogTitle>Inscribir Alumnos Grupo 1</DialogTitle>
                 
+                <Grid
+              
+            >
+                <BuscarAlumnosGrupos/>
+            </Grid>
+          
+
+            <Grid
+              
+            >
+
+                <PanelGruposInscripcion/>
+
+
+                </Grid>
                 <DialogActions>
-                    <Button variant='contained' onClick={()=>{Volver()}}>Volver</Button>
+                    <Button variant='contained' onClick={handleClose}>Volver</Button>
                      </DialogActions>
             </Dialog>  
         </>

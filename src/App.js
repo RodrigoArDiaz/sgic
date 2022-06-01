@@ -1,81 +1,41 @@
 import React from "react";
-import { Button, CssBaseline, ThemeProvider } from "@mui/material";
-import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
+//Tema principal
+import temaConfig from "./temaConfig.js";
+//MUI
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+//React router dom
 import {
   BrowserRouter as Router,
   Navigate,
   Route,
   Routes,
 } from "react-router-dom";
-import temaConfig from "./temaConfig.js";
-import MiniDrawers from "./components/MiniDrawers";
+//Reac redux
+import { useSelector } from "react-redux";
+//Notisctack
+import { SnackbarProvider } from "notistack";
+//Componentes
+import Menu from "./components/Menu/Menu.js";
+import IconButtonNotiStack from "./components/Material UI - Componentes Modificados/IconButtonNotiStack.js";
+import ResetPass from "./components/Sesiones/ResetPass.js";
+import ActivarCuenta from "./components/Sesiones/ActivarCuenta.js";
+//Paginas
+import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import PaginaCatedras from "./pages/PaginaCatedras.js";
 import PaginaDocentes from "./pages/PaginaDocentes.js";
 import PaginaAlumnos from "./pages/PaginaAlumnos.js";
 import PaginaInicioSesion from "./pages/PaginaInicioSesion.js";
 import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
-import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
-import { useSelector } from "react-redux";
-// import Menu from "./components/Menu.js";
+import PaginaDocentesCursadas from "./pages/PaginaDocentesCursadas.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
-import { SnackbarProvider, useSnackbar } from "notistack";
 import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
-import Menu from "./components/MainLoyaut/Menu.js";
-import IconButtonNotiStack from "./components/Material UI - Componentes Modificados/IconButtonNotiStack.js";
-import PruebaTablaResponsive from "./components/PruebaTablaResponsive.js";
-
-const listaItemsMenuSuper = [
-  {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "catedras",
-    icon: "account_balance",
-  },
-  {
-    key: "docentes",
-    itemText: "Docentes",
-    to: "docentes",
-    icon: "co_present",
-  },
-  {
-    key: "alumnos",
-    itemText: "Alumnos",
-    to: "alumnos",
-    icon: "school",
-  },
-  {
-    key: "perfil",
-    itemText: "Mi perfil",
-    to: "mi_perfil",
-    icon: "manage_accounts",
-  },
-];
-
-const listaItemsMenuAlumno = [
-  {
-    key: "perfil",
-    itemText: "Mi perfil",
-    to: "mi_perfil",
-    icon: "manage_accounts",
-  },
-  {
-    key: "inscripciones_cursadas",
-    itemText: "Inscripciones",
-    to: "inscripciones_cursadas",
-    icon: "drive_file_rename_outline",
-  },
-];
-
-const listaItemsDocente = [
-  {
-    key: "perfil",
-    itemText: "Mi perfil",
-    to: "mi_perfil",
-    icon: "manage_accounts",
-  },
-];
-
-// import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import PaginaDocentesInicio from "./components/NavegacionDocente/PaginaDocentesInicio.js";
+import PaginaDocentesCursadasCuerpo from "./pages/PaginaDocentesCursadasCuerpo.js";
+import PaginaDocentesPracticos from "./pages/PaginaDocentesPracticos.js";
+import PaginaDocentesExamenes from "./pages/PaginaDocentesExamenes.js";
+import PaginaDocentesGrupos from "./pages/PaginaDocentesGrupos.js";
+import PaginaDocentesInscripciones from "./pages/PaginaDocentesInscripciones.js";
+import PaginaDocentesNotas from "./pages/PaginaDocentesNotas.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -93,40 +53,21 @@ export default function App() {
             )}
           >
             <Routes>
-              {/* Rutas publicas */}
-              {/* <Route
+              {/*****************************************************
+               Rutas publicas: no necesitan autenticacion
+               ******************************************************/}
+
+              {/*********************
+              Ruta: Inicio de sesion*/}
+              <Route
                 path="/"
                 element={
                   !isAuth ? <PaginaInicioSesion /> : <Navigate to="/inicio" />
                 }
-              /> */}
-
-              <Route
-                path="/"
-                element={
-                  <PaginaInicioSesion mostrarRegistrarse={true} tipo="alumno" />
-                }
               />
 
-              {/* <Route path="/acceso_alumno" element={<PaginaInicioSesion />} /> */}
-
-              <Route
-                path="/acceso_docente"
-                element={
-                  <PaginaInicioSesion
-                    mostrarRegistrarse={false}
-                    tipo="docente"
-                  />
-                }
-              />
-
-              <Route
-                path="/acceso_superadministrador"
-                element={
-                  <PaginaInicioSesion mostrarRegistrarse={false} tipo="super" />
-                }
-              />
-
+              {/****************
+              Ruta: Registrarse*/}
               <Route path="/registrarse" element={<PaginaRegistrarse />} />
 
               <Route
@@ -134,50 +75,94 @@ export default function App() {
                 element={<PaginaRecuperarContrasenia />}
               />
 
-              {/* Rutas privada: rol alumno*/}
+              {/*******************
+              Ruta: Activar Cuenta*/}
+              <Route
+                path="/activar_cuenta/:codigoActivacion"
+                element={<ActivarCuenta />}
+              ></Route>
+
+              {/*************************
+              Ruta: Resetear contraseña*/}
+              <Route
+                path="/reset_pass/:codigoActivacion"
+                element={<ResetPass />}
+              ></Route>
+
+              {/*****************************************************
+               Rutas privadas: necesitan autenticacion
+               ******************************************************/}
               <Route
                 path="/inicio/*"
-                element={
-                  isAuth ? (
-                    <Menu listaItemsMenu={listaItemsMenuAlumno} />
-                  ) : (
-                    <Navigate to="/acceso_alumno" />
-                  )
-                }
+                element={isAuth ? <Menu /> : <Navigate to="/" />}
               >
-                <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
+                {/* Superadministrador */}
+                <Route
+                  path="superadministrador"
+                  element={<PaginaCatedras />}
+                  exact
+                ></Route>
+
+                <Route
+                  path="superadministrador/gestion_catedras"
+                  element={<PaginaCatedras />}
+                />
+                <Route
+                  path="superadministrador/gestion_docentes"
+                  element={<PaginaDocentes />}
+                />
+                <Route
+                  path="superadministrador/gestion_alumnos"
+                  element={<PaginaAlumnos />}
+                />
+
+                {/* Docentes */}
+                <Route
+                  path="docentes/mis_catedras"
+                  element={<PaginaDocentesInicio />}
+                />
+
+                {/* <Route
+                  path="docentes/cursadas"
+                  element={<PaginaDocentesCursadas />}
+                /> */}
+
+                <Route
+                  path="docentes/cursada/info_cursada"
+                  element={<PaginaDocentesCursadasCuerpo />}
+                />
+
+                <Route
+                  path="docentes/cursada/practicos"
+                  element={<PaginaDocentesPracticos />}
+                />
+
+                <Route
+                  path="docentes/cursada/examenes"
+                  element={<PaginaDocentesExamenes />}
+                />
+
+                <Route
+                  path="docentes/cursada/grupos"
+                  element={<PaginaDocentesGrupos />}
+                />
+
+                <Route
+                  path="docentes/cursada/inscripciones"
+                  element={<PaginaDocentesInscripciones />}
+                />
+
+                <Route
+                  path="docentes/cursada/notas"
+                  element={<PaginaDocentesNotas />}
+                />
+
+                {/* Alumnos */}
                 <Route
                   path="inscripciones_cursadas"
                   element={<PaginaInscripcionesCursadas />}
                 />
-              </Route>
-
-              {/* Rutas privada: rol docente*/}
-              <Route
-                path="/inicio_docente/*"
-                element={
-                  isAuth ? (
-                    <Menu listaItemsMenu={listaItemsDocente} />
-                  ) : (
-                    <Navigate to="/acceso_docente" />
-                  )
-                }
-              ></Route>
-
-              {/* Rutas privada: rol supervisor*/}
-              <Route
-                path="/inicio_superadministrador/*"
-                element={
-                  isAuth ? (
-                    <Menu listaItemsMenu={listaItemsMenuSuper} />
-                  ) : (
-                    <Navigate to="/acceso_superadministrador" />
-                  )
-                }
-              >
-                <Route path="catedras" element={<PaginaCatedras />} />
-                <Route path="docentes" element={<PaginaDocentes />} />
-                <Route path="alumnos" element={<PaginaAlumnos />} />
+                {/* Todos los usuarios */}
                 <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />
               </Route>
             </Routes>

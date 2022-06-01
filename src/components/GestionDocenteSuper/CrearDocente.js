@@ -5,9 +5,12 @@ import {
   Button,
   Collapse,
   Fab,
+  FormControl,
   IconButton,
   InputAdornment,
+  InputLabel,
   LinearProgress,
+  OutlinedInput,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -35,6 +38,29 @@ import { Box } from "@mui/system";
 import { regexContrasenia, regexSoloNumeros } from "../../helpers/regex";
 import { useDispatch, useSelector } from "react-redux";
 import { LightbulbOutlined, LightbulbSharp } from "@mui/icons-material";
+//
+// import { withStyles } from "@material-ui/core/styles";
+import styled from "@emotion/styled";
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  "& label": {
+    width: "100%",
+    textAlign: "center",
+    transformOrigin: "center",
+    "&.Mui-focused": {
+      transformOrigin: "center",
+    },
+  },
+}));
+
+const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
+  width: "100%",
+  textAlign: "center",
+  transformOrigin: "center",
+  "&.Mui-focused": {
+    transformOrigin: "center",
+  },
+}));
 
 const valoresInicialesForm = {
   Apellidos: "",
@@ -159,6 +185,17 @@ export const CrearDocente = () => {
           <DialogContentText>
             Las credenciales de acceso seran enviadas al email del docente.
           </DialogContentText>
+          {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+            <StyledInputLabel htmlFor="outlined-adornment-password">
+              Password
+            </StyledInputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type="text"
+              label="Password"
+            />
+          </FormControl> */}
+
           <TextField
             autoFocus
             margin="dense"

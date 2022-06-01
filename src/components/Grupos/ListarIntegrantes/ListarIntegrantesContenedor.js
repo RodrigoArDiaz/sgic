@@ -1,21 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import GruposLista from "./GruposLista";
+//import GruposLista from './GruposLista2';
 //import { CrearCatedra } from './CrearCatedra';
-import { CrearGrupo } from "./CrearGrupo";
-import BuscarGrupos from "./BuscarGrupos";
+//import {CrearGrupo} from './CrearGrupo';
+import IntegrantesLista from "./IntegrantesLista";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useNavigate } from "react-router-dom";
-import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
-import { useSelector } from "react-redux";
+import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 
-export default function InscripcionesContenedor(props) {
-  //Recupero informacion de la cursada
-  const { cursada } = useSelector((state) => state.cursada);
-
+export default function ListarIntegrantesContenedor(props) {
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -47,7 +43,7 @@ export default function InscripcionesContenedor(props) {
 
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
+    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
         setFilas(response);
         setCargando(false);
@@ -69,7 +65,7 @@ export default function InscripcionesContenedor(props) {
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscargrupos")
+    consultas(parametro, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
         setFilas(response);
 
@@ -95,7 +91,7 @@ export default function InscripcionesContenedor(props) {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
+    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
         setFilas(response);
         setCargando(false);
@@ -118,7 +114,7 @@ export default function InscripcionesContenedor(props) {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
+    consultas(datos, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
         setFilas(response);
 
@@ -137,15 +133,16 @@ export default function InscripcionesContenedor(props) {
 
   React.useEffect(() => {
     var data = {
-      pGrupo: "",
-      pTema: "",
-      pModulo: "",
-      piB: "B",
+      pidG: props.grupo.IdGrupo,
+      // pGrupo:'',
+      //pTema:'',
+      //pModulo:'',
+      //   piB:'A',
       //pLib:'',
 
       Offset: 0,
       Limite: filasxpagina,
-      pidCu: cursada.cursada.IdCursada,
+      pidCu: props.cursada.IdCursada,
 
       /*
         Catedra:'',
@@ -156,7 +153,7 @@ export default function InscripcionesContenedor(props) {
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/buscargrupos")
+    consultas(data, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
         setFilas(response);
 
@@ -181,38 +178,6 @@ export default function InscripcionesContenedor(props) {
   //console.log(abrir);
   //console.log(mensaje);
   //console.log(tipo);
-
-  if (cursada.cursada.TieneGrupos === "N") {
-    return (
-      <Paper
-        component="div"
-        sx={{
-          p: "4px 4px",
-          // display: 'flex',
-          alignItems: "center",
-          width: "95%",
-          mt: "10px",
-          px: 2,
-          pb: 3,
-          // minHeight: "75vh",
-        }}
-        elevation={3}
-      >
-        <Grid container pt={30} spacing={8}>
-          <Grid item xs={9}>
-            <Typography variant="h4">La cursada no admite grupos</Typography>
-          </Grid>
-        </Grid>
-
-        <Grid container pt={30} spacing={8}>
-          <Grid item xs={9}>
-            <Typography variant="h4"></Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    );
-  }
-
   return (
     <Paper
       component="div"
@@ -228,31 +193,7 @@ export default function InscripcionesContenedor(props) {
       }}
       elevation={3}
     >
-      <Grid container pt={10} spacing={8}>
-        <Grid item xs={9}>
-          <Typography variant="h4">Gestión de Grupos</Typography>
-        </Grid>
-
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <CrearGrupo
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            cursada={cursada.cursada}
-          />
-        </Grid>
-      </Grid>
-
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarGrupos
-            cursada={cursada.cursada}
-            actualizar={BuscarAl}
-            filasxpagina={filasxpagina}
-          />
-        </Grid>
-      </Grid>
+      <Grid container pt={5} justifyContent="flex-end" spacing={8}></Grid>
 
       {cargando === true && (
         <Grid container pt={2}>
@@ -265,7 +206,7 @@ export default function InscripcionesContenedor(props) {
       )}
       {cargando === false && (
         <Grid container pt={2}>
-          <GruposLista
+          <IntegrantesLista
             filas={filas}
             filasxpagina={filasxpagina}
             pagina={pagina}
@@ -274,7 +215,8 @@ export default function InscripcionesContenedor(props) {
             actualizarpagina={CambioPagina}
             actualizarfilas={CambioFPP}
             refrescar={Refrescar}
-            cursada={cursada.cursada}
+            cursada={props.cursada}
+            grupo={props.grupo}
             abrir={setAbrir}
             mensaje={setMensaje}
             tipo={setTipo}
