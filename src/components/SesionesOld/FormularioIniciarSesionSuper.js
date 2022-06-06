@@ -22,9 +22,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import LoginIcon from "@mui/icons-material/Login";
+import { useForm } from "../../hooks/useForm";
 import { Link as LinkRouter } from "react-router-dom";
+import LinearProgress from "@mui/material/LinearProgress";
+import { Opacity } from "@mui/icons-material";
+//import { helpHttp } from '../helpers/helpHttp';
 import { useNavigate } from "react-router-dom";
-import * as Responses from "../Responses";
 
 const dataUser = window.localStorage.setItem(
   "dataUser",
@@ -119,11 +122,35 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
   const [errors, setErrors] = React.useState("");
   const [respuesta, setRes] = React.useState(false);
 
+  /*
+    const {form,
+        errors,
+        loading,
+        response,
+        handleChange,
+        handleBlur,
+        handleSubmit} = useForm(initialForm,validationsForm);
+*/
+
+  //handles de eventos
   const handleClickMostrarContrasenia = () => {
     setMostrarContrasenia(!mostrarContrasenia);
   };
 
   const navegar = useNavigate();
+
+  async function consultas(data) {
+    const response = await fetch("http://127.0.0.1:8000/api/accesosup", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+
+    return await response.json();
+  }
 
   const loguear = (e) => {
     e.preventDefault();
@@ -150,30 +177,46 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
       Contrasena: form.Contrasena,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/acceso")
+    consultas(data)
       .then((response) => {
-        if (Responses.status === 200) {
+        if (response.Error === undefined && response.errors === undefined) {
           localStorage.setItem("tkn", response.token);
+          navegar("/docentes/ingreso");
 
-          localStorage.setItem("EsAl", response.Alumno);
-
-          localStorage.setItem("EsSA", response.SuperAdmin);
-
-          if (response.Alumno === "S") {
-            navegar("/alumnos/inscripciones");
-          } else {
-            navegar("/docentes/ingreso");
-          }
-        } else if (Responses.status === 401) {
+          // console.log(localStorage.getItem('tkn'));
+        } else {
+          //console.log(response);
           setRes(true);
           setErrors(response.Error);
-        } else {
-          navegar("/error");
         }
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
       });
+
+    /*
+        if (form.Usuario==='A'){
+//form.Usuario='A';
+            //
+            navegar("/cat");
+        }*/
+    /*
+        fetch('http://127.0.0.1:8000/api/acceso/alumnos', {
+            method: 'POST', 
+            body: JSON.stringify(data), 
+            headers:{
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          }).then(response => response.json())
+          .catch(error => this.setState({
+            Usuario: 'Error 500'
+    
+        }))
+          .then(responseJson => this.setState({
+            Usuario: responseJson.token 
+    
+        }));*/
   };
 
   return (
@@ -181,7 +224,7 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
       <Paper sx={estiloPaper}>
         <Grid align="center" sx={estiloHeader}>
           <AccountCircleIcon fontSize="large" />
-          <Typography variant="h5">Ingreso</Typography>
+          <Typography variant="h5">Administración</Typography>
         </Grid>
 
         <Grid sx={estiloContent}>
@@ -295,4 +338,16 @@ FormularioIniciarSesionSuper.defaultProps = {
   mostrarRegistrarse: true,
 };
 
-export default FormularioIniciarSesionSuper;
+export default FormularioIniciarSesionSuper; /*}//**/
+
+/*
+<Box sx={{ width: '100%', mt: "10px"}}>
+                            {/* { loading && <LinearProgress 
+
+                            />} */
+/* <LinearProgress
+                            sx={loading1 && loading2
+                            ? {opacity: 1}
+                            : {opacity: 0}}
+                        />
+                </Box>*/

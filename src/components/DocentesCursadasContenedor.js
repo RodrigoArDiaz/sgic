@@ -3,6 +3,7 @@ import React from "react";
 import {
   CardContent,
   Chip,
+  Divider,
   List,
   ListItem,
   Paper,
@@ -29,7 +30,7 @@ export default function DocentesCursadasContenedor() {
   return (
     <CardMainPage
       icon="info"
-      title="Informacion de la cursada"
+      title="Información de la cursada"
       bgColorIcon={blue[500]}
     >
       <CardContent>
@@ -55,13 +56,12 @@ export default function DocentesCursadasContenedor() {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Typography variant="subtitle2">
-                          <b>Cursada:</b>
-                        </Typography>
+                        <Typography variant="subtitle2">Cursada:</Typography>
                         <Typography>
                           {materia} - {cursada.Anio}
                         </Typography>
                       </ListItem>
+                      <Divider />
 
                       {/* Estado */}
                       <ListItem
@@ -70,9 +70,7 @@ export default function DocentesCursadasContenedor() {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Typography variant="subtitle2">
-                          <b>Estado:</b>
-                        </Typography>
+                        <Typography variant="subtitle2">Estado:</Typography>
                         {/* <Typography>{cursada.Estado}</Typography> */}
                         <Chip
                           label={cursada.Estado == "A" ? "Activo" : "Baja"}
@@ -80,6 +78,8 @@ export default function DocentesCursadasContenedor() {
                           color={cursada.Estado == "A" ? "success" : "danger"}
                         />
                       </ListItem>
+                      <Divider />
+
                       {/* Fecha Inicio */}
                       <ListItem
                         sx={{
@@ -88,7 +88,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Fecha Inicio:</b>
+                          Fecha Inicio:
                         </Typography>
                         <Chip label={cursada.FechaInicio} />
                       </ListItem>
@@ -101,10 +101,11 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Fecha Inicio:</b>
+                          Fecha Inicio:
                         </Typography>
                         <Chip label={cursada.FechaFin} />
                       </ListItem>
+                      <Divider />
 
                       {/* Permite grupos */}
                       <ListItem
@@ -114,7 +115,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Permite grupos:</b>
+                          Permite grupos:
                         </Typography>
                         {/* <Typography>{cursada.TieneGrupos}</Typography> */}
                         <Chip
@@ -141,7 +142,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Cantidad de inscriptos:</b>
+                          Cantidad de inscriptos:
                         </Typography>
                         <Typography>-</Typography>
                       </ListItem>
@@ -154,7 +155,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Cantidad de prácticos:</b>
+                          Cantidad de prácticos:
                         </Typography>
                         <Typography>-</Typography>
                       </ListItem>
@@ -167,7 +168,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Cantidad de exámenes:</b>
+                          Cantidad de exámenes:
                         </Typography>
                         <Typography>-</Typography>
                       </ListItem>
@@ -180,7 +181,7 @@ export default function DocentesCursadasContenedor() {
                         }}
                       >
                         <Typography variant="subtitle2">
-                          <b>Cantidad de grupos:</b>
+                          Cantidad de grupos:
                         </Typography>
                         <Typography>-</Typography>
                       </ListItem>
