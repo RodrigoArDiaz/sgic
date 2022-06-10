@@ -36,6 +36,9 @@ import PaginaDocentesExamenes from "./pages/PaginaDocentesExamenes.js";
 import PaginaDocentesGrupos from "./pages/PaginaDocentesGrupos.js";
 import PaginaDocentesInscripciones from "./pages/PaginaDocentesInscripciones.js";
 import PaginaDocentesNotas from "./pages/PaginaDocentesNotas.js";
+//Unificacion 06/2022
+import FormularioIniciarSesionSuper from "./components/Sesiones/FormularioIniciarSesionSuper.js";
+import PaginaDocentesNavegacion from "./components/NavegacionDocente/PaginaDocentesNavegacion.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -59,12 +62,15 @@ export default function App() {
 
               {/*********************
               Ruta: Inicio de sesion*/}
-              <Route
+              {/* <Route
                 path="/"
                 element={
                   !isAuth ? <PaginaInicioSesion /> : <Navigate to="/inicio" />
                 }
-              />
+                
+              /> */}
+
+              <Route path="/" element={<FormularioIniciarSesionSuper />} />
 
               {/****************
               Ruta: Registrarse*/}
@@ -94,7 +100,8 @@ export default function App() {
                ******************************************************/}
               <Route
                 path="/inicio/*"
-                element={isAuth ? <Menu /> : <Navigate to="/" />}
+                // element={isAuth ? <Menu /> : <Navigate to="/" />}
+                element={<Menu />}
               >
                 {/* Superadministrador */}
                 <Route
@@ -117,6 +124,11 @@ export default function App() {
                 />
 
                 {/* Docentes */}
+                <Route
+                  path="docentes/ingreso"
+                  element={<PaginaDocentesNavegacion theme={temaConfig} />}
+                />
+
                 <Route
                   path="docentes/mis_catedras"
                   element={<PaginaDocentesInicio />}
