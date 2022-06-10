@@ -1,186 +1,48 @@
-import React, { useEffect } from "react";
-//MUI
-import { Paper } from "@mui/material";
+import React from "react";
+import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+import MateriasLista from "./MateriasLista";
+
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
-//React router
 import { useNavigate } from "react-router-dom";
-//react redux
-import { useDispatch, useSelector } from "react-redux";
-import { actualizarTitulo } from "../../store/slices/menuSlice";
-//Componentes propios
-import MateriasLista from "./MateriasLista";
-import BuscarMaterias from "./BuscarMaterias";
+
+import * as Responses from "../Responses";
 
 export default function MateriasContenedor(props) {
-  //Redireccionamiento con reac router
   const navegar = useNavigate();
-  //Para el uso de funciones de los state de redux
-  const dispatch = useDispatch();
-  //Se recupera los datos de la catedra seleccionada
-  const { idCatedra } = useSelector((state) => state.catedra);
 
-  //Paginación
-  const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
-  const [pagina, setPagina] = React.useState(1); //pagina actual
-  const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
-  const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
-  const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
-  /** */
-  async function consultas(data, cadena) {
-    const response = await fetch(cadena, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+  const [cargando, setCargando] = React.useState("1"); //Espera al consultar
 
-    return response.json();
-  }
-
-  /** */
-  function Refrescar() {
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarmateriascat")
-      .then((response) => {
-        setFilas(response);
-        setCargando(false);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-        }
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
-      });
-  }
-
-  /** */
-  function BuscarMat(parametro) {
-    parametro.Offset = 0;
-    parametro.Limite = filasxpagina;
-    parametro.pidCa = idCatedra;
-
-    setDC(parametro);
-    setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscarmateriascat")
-      .then((response) => {
-        setFilas(response);
-        console.log(response);
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-
-          setPagina(1);
-        }
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
-      });
-  }
-
-  /** */
-  function CambioPagina(pag) {
-    var datos = datosconsulta;
-    datos.Offset = pag * filasxpagina - filasxpagina;
-    datos.Limite = filasxpagina;
-
-    setDC(datos);
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarmateriascat")
-      .then((response) => {
-        setFilas(response);
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
-      });
-
-    setPagina(pag);
-  }
-
-  /** */
-  function CambioFPP(pag) {
-    setFXP(pag);
-    var datos = datosconsulta;
-    datos.Offset = 0;
-    datos.Limite = pag;
-
-    setDC(datos);
-
-    setCargando(true);
-
-    consultas(datos, "http://127.0.0.1:8000/api/buscarmateriascat")
-      .then((response) => {
-        setFilas(response);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-          setCargando(false);
-        }
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/");
-      });
-  }
-
-  /**
-   * Se lista las materias de la catedra
-   */
   React.useEffect(() => {
     var data = {
       pMat: "",
       piB: "A",
       Offset: 0,
-      Limite: filasxpagina,
-      pidCa: idCatedra,
+      Limite: 30,
+
+      pidCa: props.idcatedraprincipal,
     };
 
-    setDC(data);
-
-    consultas(data, "http://127.0.0.1:8000/api/buscarmateriascat")
+    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarmateriascat")
       .then((response) => {
-        setFilas(response);
-        //console.log(response) ;
-
-        if (response.res === undefined) {
-          setCargando(true);
+        if (Responses.status === 200) {
+          setFilas(response);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
         } else {
-          if (response.res.length > 0) {
-            setPaginacion(response.res[0].filas);
-            setResultado(response.res[0].resultados);
-
-            setPagina(1);
-          }
-          setCargando(false);
+          navegar("/error");
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
+        navegar("/error");
       });
-  }, []);
-
-  /**
-   * Actualiza el titulo al montar el componente
-   */
-  useEffect(() => {
-    dispatch(actualizarTitulo("Seleccione la materia"));
   }, []);
 
   return (
@@ -198,31 +60,27 @@ export default function MateriasContenedor(props) {
       }}
       elevation={3}
     >
-      <Grid container pt={2} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarMaterias actualizar={BuscarMat} filasxpagina={filasxpagina} />
-        </Grid>
-      </Grid>
+      {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
-      {cargando === true && (
+      {cargando === "1" && (
         <Grid container pt={2}>
           <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+            <LinearProgress color="inherit" />
+            <LinearProgress color="inherit" />
             <LinearProgress color="inherit" />
           </Stack>
         </Grid>
       )}
-      {cargando === false && (
+
+      {cargando === "2" && (
         <Grid container pt={2}>
           <MateriasLista
             filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            setSalto={props.setSalto}
+            salto={props.salto}
+            setMat={props.setMat}
+            setM={props.setM}
+            setT={props.setT}
+            idcatedra={props.idcatedra}
           />
         </Grid>
       )}
@@ -230,7 +88,8 @@ export default function MateriasContenedor(props) {
       <Grid container pt={2}>
         <Button
           onClick={() => {
-            props.setSalto("1");
+            props.salto("1");
+            props.setT("Seleccione la cátedra");
           }}
         >
           VOLVER

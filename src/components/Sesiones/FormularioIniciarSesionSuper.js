@@ -26,6 +26,20 @@ import { Link as LinkRouter } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 
+//Redux - Sesion
+import { useDispatch } from "react-redux";
+
+//Redux - Menu
+import { actualizarMenu, actualizarTitulo } from "../../store/slices/menuSlice";
+
+//Items del menu
+import {
+  listaItemsMenuAlumno,
+  listaItemsMenuDocente,
+  listaItemsMenuSuper,
+} from "../Menu/itemsMenu";
+
+//
 const dataUser = window.localStorage.setItem(
   "dataUser",
   JSON.stringify({ nombre: "rodrigo" })
@@ -105,8 +119,10 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
   //variables de estado
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
-  //variables del manejo del formulario
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
 
+  //variables del manejo del formulario
   const [form, setForm] = React.useState({
     Usuario: "",
     Contrasena: "",
@@ -150,9 +166,11 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
       Contrasena: form.Contrasena,
     };
 
+    //Consultas
     Responses.consultas(data, "http://127.0.0.1:8000/api/acceso")
       .then((response) => {
         if (Responses.status === 200) {
+          console.log(response);
           localStorage.setItem("tkn", response.token);
 
           localStorage.setItem("EsAl", response.Alumno);
@@ -162,7 +180,14 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
           if (response.Alumno === "S") {
             navegar("/alumnos/inscripciones");
           } else {
-            navegar("/docentes/ingreso");
+            navegar("/inicio/docentes/ingreso");
+            //Actualizo titulo
+            dispatch(actualizarTitulo("Seleccione la catedra"));
+            //Actualizo items del menu
+
+            if (response.SuperAdmin === "S")
+              dispatch(actualizarMenu(listaItemsMenuSuper));
+            else dispatch(actualizarMenu(listaItemsMenuDocente));
           }
         } else if (Responses.status === 401) {
           setRes(true);

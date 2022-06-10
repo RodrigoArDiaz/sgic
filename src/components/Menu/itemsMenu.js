@@ -7,7 +7,8 @@ const listaItemsMenuSuper = [
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
-    to: "docentes/mis_catedras",
+    // to: "docentes/mis_catedras",
+    to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
     dividerBottom: false,
@@ -72,7 +73,8 @@ const listaItemsMenuSuperConCursada = [
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
-    to: "docentes/mis_catedras",
+    // to: "docentes/mis_catedras",
+    to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
     dividerBottom: false,
@@ -200,7 +202,8 @@ const listaItemsMenuDocente = [
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
-    to: "docentes/mis_catedras",
+    // to: "docentes/mis_catedras",
+    to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
     dividerBottom: false,
@@ -224,7 +227,8 @@ const listaItemsMenuDocenteConCursada = [
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
-    to: "docentes/mis_catedras",
+    // to: "docentes/mis_catedras",
+    to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
     dividerBottom: false,

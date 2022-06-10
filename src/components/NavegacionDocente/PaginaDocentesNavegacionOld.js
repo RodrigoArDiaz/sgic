@@ -20,10 +20,6 @@ import MenuResponsive from "../../components/MenuResponsive.js";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import { Tooltip } from "@mui/material";
-//import { IconButton } from '@mui/material';
-import KeyIcon from "@mui/icons-material/Key";
-
 //
 import { Link } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -50,7 +46,7 @@ import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import PaginaDocentesInicio from "./PaginaDocentesInicio";
 //import PaginaInicioSesion from '../pages/PaginaInicioSesion.js';
 
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -164,8 +160,6 @@ async function consultas(data){
 
 /** */
 export default function PaginaDocentesNavegacion(props) {
-  const navegar = useNavigate();
-
   const [salto, setS] = React.useState("1");
   const [idcatedraprincipal, setCat] = React.useState();
   const [idmateriaprincipal, setMat] = React.useState();
@@ -186,7 +180,6 @@ export default function PaginaDocentesNavegacion(props) {
 
   const [salto2, setSalto] = React.useState("1");
 
-  const [EsAdmin, setESA] = React.useState(localStorage.getItem("EsSA"));
   /*const cambiarvariable = (dato) => {
     setSalto(dato);
   };
@@ -211,111 +204,95 @@ export default function PaginaDocentesNavegacion(props) {
     }
   }
 
-  //var EsAdmin=localStorage.getItem('EsSA');
-
   return (
-    <Modulo cambio={salto2} />
-    // <Box sx={{ display: "flex" }}>
-    //   <ThemeProvider theme={props.theme}>
-    //     <AppBar
-    //       position="fixed"
-    //       open={open}
-    //       color="primary"
-    //       sx={{
-    //         paddingLeft: "5.5px",
-    //       }}
-    //       // elevation={16}
-    //     >
-    //       <Toolbar>
-    //         <IconButton
-    //           color="inherit"
-    //           aria-label="open drawer"
-    //           onClick={handleDrawerOpen}
-    //           edge="start"
-    //           sx={{
-    //             marginRight: "36px",
-    //             ...(open && { display: "none" }),
-    //           }}
-    //         >
-    //           <MenuIcon />
-    //         </IconButton>
-    //         <Typography
-    //           variant="h6"
-    //           noWrap
-    //           component="div"
-    //           sx={{ flexGrow: "1" }}
-    //         >
-    //           {titulo}
-    //         </Typography>
+    <Box sx={{ display: "flex" }}>
+      <ThemeProvider theme={props.theme}>
+        <AppBar
+          position="fixed"
+          open={open}
+          color="primary"
+          sx={{
+            paddingLeft: "5.5px",
+          }}
+          // elevation={16}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: "36px",
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: "1" }}
+            >
+              {titulo}
+            </Typography>
 
-    //         <MenuUsuario informacionUsuario={informacionUsuario} />
+            <MenuUsuario informacionUsuario={informacionUsuario} />
 
-    //         <MenuResponsive informacionUsuario={informacionUsuario} />
-    //         {EsAdmin === "S" && (
-    //           <Tooltip title="Administración">
-    //             <IconButton
-    //               color="inherit"
-    //               //size='small'
-    //               onClick={() => {
-    //                 navegar("/principal");
-    //               }}
-    //             >
-    //               <KeyIcon />
-    //             </IconButton>
-    //           </Tooltip>
-    //         )}
-    //       </Toolbar>
-    //     </AppBar>
+            <MenuResponsive informacionUsuario={informacionUsuario} />
+          </Toolbar>
+        </AppBar>
 
-    //     <Drawer variant="permanent" open={open} elevation={24} sx>
-    //       <DrawerHeader>
-    //         <IconButton onClick={handleDrawerClose}>
-    //           <CloseIcon />
-    //         </IconButton>
-    //       </DrawerHeader>
-    //       <Divider />
-    //       <List>
-    //         {/*Link de React-Dom*/}
-    //         <ListItem
-    //           button
-    //           key="inicio"
-    //           sx={{ paddingLeft: 3.1 }}
-    //           onClick={() => setSalto("1")}
-    //         >
-    //           <ListItemIcon>
-    //             <ArrowForwardIcon />
-    //           </ListItemIcon>
-    //           <ListItemText primary="Inicio" />
-    //         </ListItem>
-    //       </List>
-    //       {/* <Divider /> */}
-    //     </Drawer>
-    //     {<Modulo cambio={salto2} />}
-    //     {/* Aqui van las paginas ******** */}
-    //     {/*      <Routes>
-
-    //           <Route
-    //               path="/"
-    //               element={<PaginaCatedras/>}
-    //           />
-
-    //           <Route
-    //               path="/docentes"
-    //               element={<PaginaDocentes/>}
-    //           />
-
-    //           <Route
-    //               path="/alumnos"
-    //               element={<PaginaAlumnos/>}
-    //           />
-
-    //           <Route
-    //               path="*"
-    //               element={<PaginaCatedras/>}
-    //           />
-    //     </Routes>}
-    //     {/* **** */}
-    //   </ThemeProvider>
-    // </Box>
+        <Drawer variant="permanent" open={open} elevation={24} sx>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              <CloseIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {/*Link de React-Dom*/}
+            <ListItem
+              button
+              key="inicio"
+              sx={{ paddingLeft: 3.1 }}
+              onClick={() => setSalto("1")}
+            >
+              <ListItemIcon>
+                <ArrowForwardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Inicio" />
+            </ListItem>
+          </List>
+          {/* <Divider /> */}
+        </Drawer>
+        {<Modulo cambio={salto2} />}
+        {/* Aqui van las paginas ******** */}
+        {/*      <Routes>             
+            
+              <Route
+                  path="/"
+                  element={<PaginaCatedras/>}
+              />
+              
+              <Route
+                  path="/docentes"
+                  element={<PaginaDocentes/>}
+              />
+        
+              <Route
+                  path="/alumnos"
+                  element={<PaginaAlumnos/>}
+              />
+          
+              <Route
+                  path="*"
+                  element={<PaginaCatedras/>}
+              />  
+        </Routes>}
+        {/* **** */}
+      </ThemeProvider>
+    </Box>
   );
 }
