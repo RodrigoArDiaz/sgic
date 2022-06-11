@@ -12,7 +12,13 @@ import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../Responses";
 
+//Redux
+import { useSelector } from "react-redux";
+
 export default function PracticosContenedor(props) {
+  //Recupero informacion de la cursada
+  const { cursada } = useSelector((state) => state.cursada);
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -145,7 +151,8 @@ export default function PracticosContenedor(props) {
       piB: "B",
       Offset: 0,
       Limite: filasxpagina,
-      pidCu: props.cursada.IdCursada,
+      // pidCu: props.cursada.IdCursada,
+      pidCu: cursada.IdCursada,
     };
 
     setPagina(1);
@@ -197,7 +204,8 @@ export default function PracticosContenedor(props) {
             abrir={setAbrir}
             mensaje={setMensaje}
             tipo={setTipo}
-            cursada={props.cursada}
+            // cursada={props.cursada}
+            cursada={cursada}
           />
         </Grid>
 
@@ -207,7 +215,8 @@ export default function PracticosContenedor(props) {
             abrir={setAbrir}
             mensaje={setMensaje}
             tipo={setTipo}
-            cursada={props.cursada}
+            // cursada={props.cursada}
+            cursada={cursada}
           />
         </Grid>
       </Grid>
@@ -215,7 +224,8 @@ export default function PracticosContenedor(props) {
       <Grid container pt={1} justifyContent="flex-end" spacing={8}>
         <Grid item xs={12}>
           <BuscarPracticos
-            cursada={props.cursada}
+            // cursada={props.cursada}
+            cursada={cursada}
             actualizar={BuscarAl}
             filasxpagina={filasxpagina}
           />
@@ -244,7 +254,8 @@ export default function PracticosContenedor(props) {
             actualizarpagina={CambioPagina}
             actualizarfilas={CambioFPP}
             refrescar={Refrescar}
-            cursada={props.cursada}
+            // cursada={props.cursada}
+            cursada={cursada}
             abrir={setAbrir}
             mensaje={setMensaje}
             tipo={setTipo}

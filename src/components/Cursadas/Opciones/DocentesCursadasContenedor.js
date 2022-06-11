@@ -11,7 +11,7 @@ import { Tooltip } from "@mui/material";
 import * as Responses from "../../Responses";
 
 //Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function DocentesCursadasContenedor(props) {
   //Recupero informacion de la cursada

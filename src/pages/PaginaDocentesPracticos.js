@@ -5,5 +5,5 @@ import PracticosContenedor from "../components/Practicos2/PracticosContenedor";
 import BuscarPracticos from "../components/Practicos/BuscarPracticos";
 
 export default function PaginaDocentesPracticos(props) {
-  return <PracticosContenedor cursada={props.cursada} />;
+  return <PracticosContenedor />;
 }
