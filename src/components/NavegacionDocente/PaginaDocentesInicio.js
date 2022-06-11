@@ -10,6 +10,7 @@ import MateriasContenedor from "./MateriasContenedor";
 import CursadasContenedor from "./CursadasContenedor";
 import * as Responses from "../Responses";
 
+/****************************************************/
 export default function PaginaDocentesInicio(props) {
   const navegar = useNavigate();
 
@@ -23,6 +24,7 @@ export default function PaginaDocentesInicio(props) {
       Offset: 0,
     };
 
+    // Petición a API
     Responses.consultas(data, "http://127.0.0.1:8000/api/listarcatus")
       .then((response) => {
         if (Responses.status === 200) {
@@ -41,6 +43,7 @@ export default function PaginaDocentesInicio(props) {
       });
   }, []);
 
+  //
   return (
     <Paper
       component="div"

@@ -2,7 +2,7 @@ import React from "react";
 //MUI
 import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import { Grid } from "@mui/material";
 //React router dom
 import { useNavigate } from "react-router-dom";

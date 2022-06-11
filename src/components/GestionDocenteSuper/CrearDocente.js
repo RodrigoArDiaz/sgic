@@ -33,7 +33,7 @@ import { useSnackbar } from "notistack";
 //Hooks personalizados
 import { useModal } from "../../hooks/useModal";
 import { peticionCrearDocente } from "../../api/super/gestionDocentesApi";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 //
 import { regexContrasenia, regexSoloNumeros } from "../../helpers/regex";
 import { useDispatch, useSelector } from "react-redux";

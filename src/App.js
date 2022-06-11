@@ -139,10 +139,20 @@ export default function App() {
                   element={<PaginaDocentesCursadas />}
                 /> */}
 
+                {/* <Route
+                  path="docentes/cursada/info_cursada"
+                  element={<PaginaDocentesCursadasCuerpo />}
+                /> */}
+
                 <Route
                   path="docentes/cursada/info_cursada"
                   element={<PaginaDocentesCursadasCuerpo />}
                 />
+                {/* 
+                <Route
+                  path="docentes/cursada/practicos"
+                  element={<PaginaDocentesPracticos />}
+                /> */}
 
                 <Route
                   path="docentes/cursada/practicos"

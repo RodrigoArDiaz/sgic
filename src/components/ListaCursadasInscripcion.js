@@ -22,7 +22,7 @@ import {
   CardMain,
   OutlinedInputSearch,
 } from "./Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 const cursadasPrueba = [
   {

@@ -14,7 +14,7 @@ import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPa
 import { CrearDocente } from "./CrearDocente";
 import DocentesLista from "./DocentesLista";
 import BuscarDocentes from "./BuscarDocentes";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";

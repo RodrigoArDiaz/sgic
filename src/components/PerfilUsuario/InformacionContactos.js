@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 //
 import { useTheme } from "@emotion/react";
 //MUI
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import {
   Alert,
   CardContent,

@@ -13,7 +13,7 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useSelector } from "react-redux";
 import { blue } from "@mui/material/colors";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import React from "react";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { OutlinedInputOnlyRead } from "../Material UI - Componentes Modificados/TextfieldVariantes";

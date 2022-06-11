@@ -17,7 +17,7 @@ import { GenerarCuadricula } from "./GenerarCuadricula";
 import { useDispatch, useSelector } from "react-redux";
 import CardMainPage from "./Material UI - Componentes Modificados/CardMainPage";
 import { blue } from "@mui/material/colors";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import { CardMain } from "./Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { Cancel, Check, CheckCircle } from "@mui/icons-material";
 

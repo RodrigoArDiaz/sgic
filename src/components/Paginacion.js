@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 const Paginacion = ({ paginacion, actualizaDatosPaginacion }) => {
   const handleChangePaginacion = (event, value) => {

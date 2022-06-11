@@ -22,7 +22,7 @@ import {
   AlertTitle,
   Collapse,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";

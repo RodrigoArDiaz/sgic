@@ -26,7 +26,8 @@ import {
   useMediaQuery,
   Zoom,
 } from "@mui/material";
-import { Box, textAlign } from "@mui/system";
+// import { Box, textAlign } from "@mui/system";
+import { Box } from "@mui/material";
 import { ContentCopy, ExpandLess, ExpandMore } from "@mui/icons-material";
 import CoPresent from "@mui/icons-material/CoPresent";
 

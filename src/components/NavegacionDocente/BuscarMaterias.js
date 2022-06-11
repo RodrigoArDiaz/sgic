@@ -8,7 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 //React redux
 import { useSelector } from "react-redux";
 

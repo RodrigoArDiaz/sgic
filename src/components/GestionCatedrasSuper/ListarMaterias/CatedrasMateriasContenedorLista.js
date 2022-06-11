@@ -3,7 +3,7 @@ import React from "react";
 import { CardContent } from "@mui/material";
 import { Grid } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 //
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../SnackMensajes";

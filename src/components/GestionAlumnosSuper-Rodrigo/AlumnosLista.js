@@ -28,7 +28,7 @@ import { ModificarAlumno } from "./ModificarAlumno";
 import { AltaAlumno } from "./AltaAlumno";
 import { BajaAlumno } from "./BajaAlumno";
 import { BorrarAlumno } from "./BorrarAlumno";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import { CoPresent, ExpandLess, ExpandMore } from "@mui/icons-material";
 import Paginacion from "../Paginacion";
 
