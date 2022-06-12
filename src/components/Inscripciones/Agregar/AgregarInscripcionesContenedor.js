@@ -2,20 +2,17 @@ import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import AlumnosLista from "./AlumnosLista";
-import { CrearInscripcion } from "./CrearInscripcion";
-import BuscarAlumnos from "./BuscarAlumnos";
+import BuscarAlumnos from "../BuscarAlumnos";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
-// import SnackMensajes from "../Catedras/SnackMensajes";
-import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
-import { ExportarInfoAlumnos } from "../Cursadas/Opciones/ExportarInfoAlumnos";
-import { GenerarCuadricula } from "../Cursadas/Opciones/GenerarCuadricula";
-import * as Responses from "../Responses";
+// import SnackMensajes from '../../../components/Catedras/SnackMensajes';
+import SnackMensajes from "../../../components/GestionCatedrasSuper/SnackMensajes";
+import * as Responses from "../../Responses";
 //Redux
 import { useSelector } from "react-redux";
 
-export default function InscripcionesContenedor(props) {
+export default function AgregarInscripcionesContenedor(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -36,10 +33,10 @@ export default function InscripcionesContenedor(props) {
   const [tipo, setTipo] = React.useState();
 
   function Refrescar() {
-    setCargando("1");
+    setCargando(true);
     Responses.consultas(
       datosconsulta,
-      "http://127.0.0.1:8000/api/buscarinscriptos"
+      "http://127.0.0.1:8000/api/buscarnoinscriptos"
     )
       .then((response) => {
         if (Responses.status === 200) {
@@ -64,7 +61,10 @@ export default function InscripcionesContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(
+      parametro,
+      "http://127.0.0.1:8000/api/buscarnoinscriptos"
+    )
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -86,17 +86,14 @@ export default function InscripcionesContenedor(props) {
   }
 
   function CambioPagina(pag) {
-    setPagina(pag);
+    setPagina(1);
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
     datos.Limite = filasxpagina;
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarinscriptos"
-    )
+    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarnoinscriptos")
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -112,6 +109,8 @@ export default function InscripcionesContenedor(props) {
       .catch((error) => {
         navegar("/error");
       });
+
+    setPagina(pag);
   }
 
   function CambioFPP(pag) {
@@ -123,9 +122,9 @@ export default function InscripcionesContenedor(props) {
 
     setDC(datos);
 
-    setCargando("1"); //true
+    setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarnoinscriptos")
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -152,7 +151,6 @@ export default function InscripcionesContenedor(props) {
       pNom: "",
       pAp: "",
       pLib: "",
-
       Offset: 0,
       Limite: filasxpagina,
       // pidCu: props.cursada.IdCursada,
@@ -161,7 +159,7 @@ export default function InscripcionesContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarnoinscriptos")
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -197,45 +195,10 @@ export default function InscripcionesContenedor(props) {
       }}
       elevation={3}
     >
-      <Grid container pt={10} spacing={1}>
-        <Grid item xs={3}>
-          <Typography variant="h4">Gestión de Inscripciones</Typography>
-        </Grid>
-
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <CrearInscripcion
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            cursada={props.cursada}
-          />
-        </Grid>
-
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <ExportarInfoAlumnos
-            // idcursada={props.cursada.IdCursada}
-            idcursada={cursada.IdCursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
-
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <GenerarCuadricula
-            // idcursada={props.cursada.IdCursada}
-            idcursada={cursada.IdCursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
-      </Grid>
-
       <Grid container pt={1} justifyContent="flex-end" spacing={8}>
         <Grid item xs={12}>
           <BuscarAlumnos
+            // cursada={props.cursada}
             cursada={cursada}
             actualizar={BuscarAl}
             filasxpagina={filasxpagina}
@@ -244,7 +207,6 @@ export default function InscripcionesContenedor(props) {
       </Grid>
 
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
       {cargando === "1" && (
         <Grid container pt={2}>
           <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
@@ -265,7 +227,8 @@ export default function InscripcionesContenedor(props) {
             actualizarpagina={CambioPagina}
             actualizarfilas={CambioFPP}
             refrescar={Refrescar}
-            cursada={props.cursada}
+            // cursada={props.cursada}
+            cursada={cursada}
             abrir={setAbrir}
             mensaje={setMensaje}
             tipo={setTipo}

@@ -2,20 +2,22 @@ import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useModal } from '../useModal';
+import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AgregarInscripcionesContenedor from './Agregar/AgregarInscripcionesContenedor'
+import { Grid } from '@mui/material';
+import InscripcionPanel from './InscripcionPanel'
+import BuscarInscripciones from './BuscarInscripciones'
 
+ 
 
-export const CrearInscripcion = (props) => {
-
+export const CrearInscripcion = () => {
+    //Variable de estado y handles de eventos para la ventana modal
     const [isOpen,handleOpen,handleClose] = useModal(false);
     
-    function Volver(){
-        props.refrescar();
-        handleClose();
-    }
     return (
         <>
             <Button
@@ -24,7 +26,7 @@ export const CrearInscripcion = (props) => {
                 fullWidth 
                 onClick={handleOpen}  
             >
-                agregar inscripciones
+                agregar inscripcion
             </Button>
 
             {/* Ventana modal */}
@@ -33,13 +35,27 @@ export const CrearInscripcion = (props) => {
                 onClose={handleClose}
                 fullScreen
             >
-                <DialogTitle>Agregar Inscripciones</DialogTitle>
+                <DialogTitle>Agregar Inscripción</DialogTitle>
                 
-               <AgregarInscripcionesContenedor cursada={props.cursada}/>
+                <Grid
+              
+              >
+                  <BuscarInscripciones/>
+              </Grid>
+            
+  
+              <Grid
+                
+              >
+  
+                  <InscripcionPanel/>
+  
+  
+                  </Grid>
 
 
                 <DialogActions>
-                    <Button variant="contained" onClick={()=>{Volver()}}>Volver</Button>
+                    <Button variant="contained" onClick={handleClose}>Volver</Button>
                    
                 </DialogActions>
             </Dialog>
