@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { CardContent, Divider, Grid } from "@mui/material";
 import { Paper, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -9,6 +9,9 @@ import CatedrasUsuarioLista from "./CatedrasUsuarioLista";
 import MateriasContenedor from "./MateriasContenedor";
 import CursadasContenedor from "./CursadasContenedor";
 import * as Responses from "../Responses";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { GridBreadCrumbs } from "../Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
+import BreadCrumbs from "../BreadCrumbs";
 
 /****************************************************/
 export default function PaginaDocentesInicio(props) {
@@ -45,24 +48,18 @@ export default function PaginaDocentesInicio(props) {
 
   //
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={10}></Grid>
+    // <Grid container rowSpacing={3}>
+    //   <Grid item xs={12}></Grid>
 
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}></Grid>
-
+    //   <Grid item xs={12}>
+    //     <CardMainPage
+    //       icon="assured_workload"
+    //       title="Mis catedras"
+    //       bgColorIcon="cyan.main300"
+    //     >
+    //       <Divider />
+    //       <CardContent>
+    <Grid container>
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
       {cargando === "1" && (
@@ -75,7 +72,7 @@ export default function PaginaDocentesInicio(props) {
         </Grid>
       )}
       {cargando === "2" && props.salto === "2" && (
-        <Grid container pt={10}>
+        <Grid container>
           <MateriasContenedor
             idcatedraprincipal={props.idcatedraprincipal}
             salto={props.setS}
@@ -87,7 +84,7 @@ export default function PaginaDocentesInicio(props) {
       )}
 
       {cargando === "2" && props.salto === "3" && (
-        <Grid container pt={10}>
+        <Grid container>
           <CursadasContenedor
             idmateriaprincipal={props.idmateriaprincipal}
             salto={props.setS}
@@ -99,7 +96,7 @@ export default function PaginaDocentesInicio(props) {
       )}
 
       {cargando === "2" && props.salto === "1" && (
-        <Grid container pt={10}>
+        <Grid container>
           <CatedrasUsuarioLista
             filas={filas}
             salto={props.setS}
@@ -108,6 +105,10 @@ export default function PaginaDocentesInicio(props) {
           />
         </Grid>
       )}
-    </Paper>
+    </Grid>
+    //       </CardContent>
+    //     </CardMainPage>
+    //   </Grid>
+    // </Grid>
   );
 }

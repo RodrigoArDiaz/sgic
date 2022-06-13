@@ -21,7 +21,7 @@ export default function StickyHeadTable(props) {
     <Grid container pt={1} spacing={2}>
       {props.filas.res.map((row) => {
         return (
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
             <TarjetaCatedra
               catedra={row.Catedra}
               idcatedra={row.IdCatedra}

@@ -14,6 +14,8 @@ const CardMainPage = ({
   children,
   visibleIcon,
   visibleHeader,
+  titleTextAlign,
+  dividerVisible,
 }) => {
   return (
     <CardMain
@@ -22,6 +24,7 @@ const CardMainPage = ({
         boxShadow:
           "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
         border: "none",
+        // height: "100%",
       }}
     >
       {visibleHeader && (
@@ -40,7 +43,8 @@ const CardMainPage = ({
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                width="3.5rem"
+                // width="3.5rem"
+                minWidth="3.5rem"
                 height="3.5rem"
                 mt={-2.5}
               >
@@ -50,13 +54,13 @@ const CardMainPage = ({
               </Box>
             )}
 
-            <Box textAlign="right" lineHeight={1.25}>
+            <Box textAlign={titleTextAlign} lineHeight={1.25}>
               <Typography variant="h5" paddingTop="0.25rem">
                 {title}
               </Typography>
             </Box>
           </Box>
-          <DividerExtremoTransp />
+          {dividerVisible && <DividerExtremoTransp />}
         </>
       )}
 
@@ -68,6 +72,8 @@ const CardMainPage = ({
 CardMainPage.defaultProps = {
   visibleIcon: true,
   visibleHeader: true,
+  titleTextAlign: "right",
+  dividerVisible: true,
 };
 
 export default CardMainPage;
