@@ -2,6 +2,7 @@ import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import MateriasLista from "./MateriasLista";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -46,43 +47,26 @@ export default function MateriasContenedor(props) {
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
+    <>
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
       {cargando === "1" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
+        <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+          <LinearProgress color="inherit" />
+          <LinearProgress color="inherit" />
+          <LinearProgress color="inherit" />
+        </Stack>
       )}
 
       {cargando === "2" && (
-        <Grid container pt={2}>
-          <MateriasLista
-            filas={filas}
-            salto={props.salto}
-            setMat={props.setMat}
-            setM={props.setM}
-            setT={props.setT}
-            idcatedra={props.idcatedra}
-          />
-        </Grid>
+        <MateriasLista
+          filas={filas}
+          salto={props.salto}
+          setMat={props.setMat}
+          setM={props.setM}
+          setT={props.setT}
+          idcatedra={props.idcatedra}
+        />
       )}
 
       <Grid container pt={2}>
@@ -91,10 +75,11 @@ export default function MateriasContenedor(props) {
             props.salto("1");
             props.setT("Seleccione la cátedra");
           }}
+          startIcon={<ArrowBackIcon />}
         >
           VOLVER
         </Button>
       </Grid>
-    </Paper>
+    </>
   );
 }

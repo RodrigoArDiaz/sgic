@@ -48,17 +48,6 @@ export default function PaginaDocentesInicio(props) {
 
   //
   return (
-    // <Grid container rowSpacing={3}>
-    //   <Grid item xs={12}></Grid>
-
-    //   <Grid item xs={12}>
-    //     <CardMainPage
-    //       icon="assured_workload"
-    //       title="Mis catedras"
-    //       bgColorIcon="cyan.main300"
-    //     >
-    //       <Divider />
-    //       <CardContent>
     <Grid container>
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
@@ -106,9 +95,5 @@ export default function PaginaDocentesInicio(props) {
         </Grid>
       )}
     </Grid>
-    //       </CardContent>
-    //     </CardMainPage>
-    //   </Grid>
-    // </Grid>
   );
 }
