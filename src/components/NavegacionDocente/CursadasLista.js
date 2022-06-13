@@ -7,27 +7,23 @@ export default function StickyHeadTable(props) {
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   return (
-    <div>
-      <Grid container pt={1} spacing={2}>
-        {props.filas.res.map((row) => {
-          return (
-            <Grid item xs={6}>
-              <TarjetaCursada
-                fila={props.Materia}
-                idcursada={row.IdCursada}
-                anio={row.Anio}
-                sem={row.Semestre}
-                salto={props.salto}
-                setCur={props.setCur}
-                setT={props.setT}
-                cur={row}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-
-      <Grid justifyContent="center" container pt={2} />
-    </div>
+    <Grid container pt={1} spacing={2}>
+      {props.filas.res.map((row) => {
+        return (
+          <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
+            <TarjetaCursada
+              fila={props.Materia}
+              idcursada={row.IdCursada}
+              anio={row.Anio}
+              sem={row.Semestre}
+              salto={props.salto}
+              setCur={props.setCur}
+              setT={props.setT}
+              cur={row}
+            />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 }

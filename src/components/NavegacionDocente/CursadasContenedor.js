@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
 import CursadasLista from "./CursadasLista";
 import { GestionarCursadas } from "./GestionarCursadas";
@@ -8,6 +8,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function CursadasContenedor(props) {
   const navegar = useNavigate();
@@ -48,23 +49,10 @@ export default function CursadasContenedor(props) {
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={2} justifyContent="flex-end" spacing={6}>
+    <>
+      <Grid container justifyContent="flex-end" marginBottom={2}>
         {EAC === "S" && cargando === "2" && (
-          <Grid sx={{ mt: 3 }} item xs={12}>
+          <Grid item xs={12} sm={4} md={3} lg={2}>
             <GestionarCursadas
               idmateria={props.idmateriaprincipal}
               Materia={props.Materia}
@@ -74,23 +62,21 @@ export default function CursadasContenedor(props) {
       </Grid>
 
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
+
       {cargando === "1" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
+        <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+          <LinearProgress color="inherit" />
+          <LinearProgress color="inherit" />
+          <LinearProgress color="inherit" />
+        </Stack>
       )}
+
       {cargando === "2" && (
-        <Grid container pt={2}>
-          <CursadasLista
-            filas={filas}
-            Materia={props.Materia}
-            idmateria={props.materiaprincipal}
-          />
-        </Grid>
+        <CursadasLista
+          filas={filas}
+          Materia={props.Materia}
+          idmateria={props.materiaprincipal}
+        />
       )}
 
       <Grid container pt={2}>
@@ -99,10 +85,11 @@ export default function CursadasContenedor(props) {
             props.salto("2");
             props.setT("Seleccione la materia");
           }}
+          startIcon={<ArrowBackIcon />}
         >
           VOLVER
         </Button>
       </Grid>
-    </Paper>
+    </>
   );
 }
