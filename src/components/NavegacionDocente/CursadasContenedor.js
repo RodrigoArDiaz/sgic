@@ -1,5 +1,11 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  ListItem,
+  ListItemText,
+  Paper,
+} from "@mui/material";
 import { Grid } from "@mui/material";
 import CursadasLista from "./CursadasLista";
 import { GestionarCursadas } from "./GestionarCursadas";
@@ -61,15 +67,16 @@ export default function CursadasContenedor(props) {
         )}
       </Grid>
 
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
-      {/* {cargando === "1" && (
-        <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-          <LinearProgress color="inherit" />
-          <LinearProgress color="inherit" />
-          <LinearProgress color="inherit" />
-        </Stack>
-      )} */}
+      {cargando === "3" && (
+        <ListItem key="0" disablePadding>
+          <ListItemText>
+            <Alert severity="info" variant="outlined">
+              <AlertTitle>La materia aún no tiene cursadas.</AlertTitle>
+              {/* Puede crear cursadas con el boton "Gestionar cursadas" */}
+            </Alert>
+          </ListItemText>
+        </ListItem>
+      )}
 
       {cargando === "2" && (
         <CursadasLista

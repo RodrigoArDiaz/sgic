@@ -1,5 +1,12 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Grid,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
@@ -62,7 +69,16 @@ export default function PaginaDocentesInicio(props) {
   //
   return (
     <Grid container>
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
+      {cargando === "3" && (
+        <ListItem key="0" disablePadding>
+          <ListItemText>
+            <Alert severity="info" variant="outlined">
+              <AlertTitle>Aún no tiene catedras asociadas</AlertTitle>
+              {/* Comuníquese con el administrador. */}
+            </Alert>
+          </ListItemText>
+        </ListItem>
+      )}
 
       {cargando === "1" && (
         <Grid container paddingTop={4}>

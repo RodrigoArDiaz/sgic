@@ -1,5 +1,12 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/material";
 import MateriasLista from "./MateriasLista";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -48,15 +55,17 @@ export default function MateriasContenedor(props) {
 
   return (
     <>
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
-      {/* {cargando === "1" && (
-        <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-          <LinearProgress color="inherit" />
-          <LinearProgress color="inherit" />
-          <LinearProgress color="inherit" />
-        </Stack>
-      )} */}
+      {cargando === "3" && (
+        <ListItem key="0" disablePadding>
+          <ListItemText>
+            <Alert severity="info" variant="outlined">
+              <AlertTitle>La catedra no tiene materias asociadas.</AlertTitle>
+              Si es administrador de la catedra, comuníquese con el
+              superadministrador para añadir materias.
+            </Alert>
+          </ListItemText>
+        </ListItem>
+      )}
 
       {cargando === "2" && (
         <MateriasLista
