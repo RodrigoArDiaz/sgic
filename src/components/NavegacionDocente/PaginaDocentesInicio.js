@@ -1,21 +1,34 @@
 import React from "react";
-import { CardContent, Divider, Grid } from "@mui/material";
-import { Paper, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
-
 import { useNavigate } from "react-router-dom";
 import CatedrasUsuarioLista from "./CatedrasUsuarioLista";
 import MateriasContenedor from "./MateriasContenedor";
 import CursadasContenedor from "./CursadasContenedor";
 import * as Responses from "../Responses";
-import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { GridBreadCrumbs } from "../Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
-import BreadCrumbs from "../BreadCrumbs";
+import { Box } from "@mui/material";
+//React spinner
+import { css } from "@emotion/react";
+import { FadeLoader } from "react-spinners";
+import { PropagateLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
+//Theme provider
+import { useTheme } from "@mui/styles";
+import { teal } from "@mui/material/colors";
+
+// const override = css`
+//   display: block;
+//   margin: 0 auto;
+//   border-color: red;
+// `;
 
 /****************************************************/
 export default function PaginaDocentesInicio(props) {
   const navegar = useNavigate();
+  //
+  // const theme = useTheme();
+  const color = teal[400];
 
   const [filas, setFilas] = React.useState({}); // datos a mostrar
   const [cargando, setCargando] = React.useState("1"); //Espera al consultar
@@ -52,12 +65,13 @@ export default function PaginaDocentesInicio(props) {
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
       {cargando === "1" && (
-        <Grid container pt={10}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
+        <Grid container paddingTop={4}>
+          <Grid item xs={12}>
+            <Box component="div" display="flex" justifyContent="center">
+              {/* <PropagateLoader color={color} size={15} /> */}
+              <MoonLoader color={color} size={60} />
+            </Box>
+          </Grid>
         </Grid>
       )}
       {cargando === "2" && props.salto === "2" && (

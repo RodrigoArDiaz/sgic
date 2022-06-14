@@ -63,13 +63,13 @@ export default function CursadasContenedor(props) {
 
       {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
-      {cargando === "1" && (
+      {/* {cargando === "1" && (
         <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
           <LinearProgress color="inherit" />
           <LinearProgress color="inherit" />
           <LinearProgress color="inherit" />
         </Stack>
-      )}
+      )} */}
 
       {cargando === "2" && (
         <CursadasLista
