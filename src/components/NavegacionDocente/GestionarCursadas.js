@@ -8,13 +8,14 @@ import { useModal } from "../useModal";
 import CursadasContenedor from "../Cursadas/CursadasContenedor";
 import BuildIcon from "@mui/icons-material/Build";
 
-//Datos de prueba
-function crearDatosPrueba(apellidos, nombres, dni, email) {
-  return { apellidos, nombres, dni, email };
-}
+//Redux
+import { useSelector } from "react-redux";
 
 export const GestionarCursadas = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
+
+  //Manejo del titulo e items del menu
+  const { jsonMateria } = useSelector((state) => state.materia);
 
   return (
     <>
@@ -34,7 +35,7 @@ export const GestionarCursadas = (props) => {
         <DialogContent>
           <CursadasContenedor
             Materia={props.Materia}
-            idmateria={props.idmateria}
+            idmateria={jsonMateria.IdMateria}
           />
         </DialogContent>
         <DialogActions>

@@ -10,12 +10,16 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function SnackMensajes(props) {
+//  const [open, setOpen] = React.useState(props.abrir);
 
-
+  
   const handleClose = (event, reason) => {
+    //console.log("cerrando snack");
 props.cerrar(false);
+    //setOpen(false);
   };
 
+//  console.log("Renderizando snack"+open);
 
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>

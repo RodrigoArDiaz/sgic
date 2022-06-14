@@ -1,41 +1,39 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { useModal } from '../../hooks/useModal';
+import { useModal } from '../../../hooks/useModal';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-
-import {BotonEstadoRegistro} from './BotonEstadoRegistro';
-import BotonAnio from './BotonAnio';
-import BotonSemestre from './BotonSemestre';
-import BotonTieneGrupo from './BotonTieneGrupo';
-import BotonTipoCalculo from './BotonTipoCalculo';
-import Calendario from './Calendario';
-
-
+import {BotonEstadoRegistro} from '../BotonEstadoRegistro';
+import BotonAnio from '../BotonAnio';
+import BotonSemestre from '../BotonSemestre';
+import BotonTieneGrupo from '../BotonTieneGrupo';
+import BotonTipoCalculo from '../BotonTipoCalculo';
+import Calendario from '../Calendario';
+ 
 import { FormHelperText } from '@mui/material';
 import { FormControl, InputLabel, Input,  Grid, Paper, Typography } from '@mui/material';
-import * as Responses from '../Responses';
 
+import FlipIcon from '@mui/icons-material/Flip';
+
+import * as Responses from '../../Responses';
 import { useNavigate } from "react-router-dom";
 
-export const ModificarCursada = (props) => {
+export const ClonarCursada = (props) => {
     
     const navegar = useNavigate();
     const [isOpen,handleOpen,handleClose] = useModal(false);
     
 
-    
-    const [eanio, setAn] = React.useState('1');
-    const [esemestre, setSem] = React.useState('1');
-    const [efinicio, setFi] = React.useState('1');
-    const [effin, setFf] = React.useState('1');
+
+    const [eanio, setAn] = React.useState('');
+    const [esemestre, setSem] = React.useState('');
+    const [efinicio, setFi] = React.useState('');
+    const [effin, setFf] = React.useState('');
     const [eprograma, setPr] = React.useState('1');
     const [etieneg, setTg] = React.useState('1');
     const [emaxintg, setMx] = React.useState('1');
@@ -55,16 +53,16 @@ export const ModificarCursada = (props) => {
     }
 
     const [form, setForm] = React.useState({
-anio:props.cursada.Anio,     
-semestre:props.cursada.Semestre,     
-finicio: props.cursada.FechaInicio,     
-ffin: props.cursada.FechaFin,     
+anio:'',     
+semestre:'',     
+finicio: '',     
+ffin: '',     
 programa:props.cursada.Programa,     
 tieneg:props.cursada.TieneGrupos,     
 maxintg: MIG(props.cursada.MaximoIntGrupos),     
 escala:props.cursada.EscalaPracticos.toString(),     
 pnt:props.cursada.PorcentajeNotaTotalPracticos.toString(),     
-calculo:props.cursada.CalculoPracticos,     
+calculo:props.cursada.CalculoPracticos.toString(),     
 
 
          });
@@ -84,40 +82,8 @@ calculo:props.cursada.CalculoPracticos,
 
 
 
-
-function FormatoFecha(param){
-
-
-    let indice = param.indexOf("-");
-    let extraida = param.substring(0, indice);
-
-
-let param2=param.substr(indice+1);
-
-let indice2 = param2.indexOf("-");
-let extraida2 = param2.substring(0, indice2);
-
-
-
-let param3=param2.substr(indice2+1);
-
-
-var fecha=param3.concat('-',extraida2);
- fecha=fecha.concat('-',extraida);
-
- var fecha2=fecha.concat('T00:00:00');
-console.log(fecha2);
- return (fecha2);
-
-
-
-} 
-
-
-
 function Modificar(){
 
-if (form.finicio.toString().length>11){
     let p=form.finicio.toLocaleDateString();
 
     let indice = p.indexOf("/");
@@ -137,33 +103,8 @@ let param3=param2.substr(indice2+1);
 var fi=param3.concat('-',extraida2);
 var fi=fi.concat('-',extraida);
 
-}
-else {
-    
-    let p=form.finicio;
-
-    let indice = p.indexOf("-");
-    let extraida = p.substring(0, indice);
 
 
-let param2=p.substr(indice+1);
-
-let indice2 = param2.indexOf("-");
-let extraida2 = param2.substring(0, indice2);
-
-
-
-let param3=param2.substr(indice2+1);
-
-
-var fi=param3.concat('-',extraida2);
-var fi=fi.concat('-',extraida);
-
-
-
-}
-
-if (form.ffin.toString().length>11){
 let pp=form.ffin.toLocaleDateString();
 
 let iindice = pp.indexOf("/");
@@ -183,141 +124,115 @@ let pparam3=pparam2.substr(iindice2+1);
 var ff=pparam3.concat('-',eextraida2);
 var ff=ff.concat('-',eextraida);
 
-}
-else {
-    
-    let pp=form.ffin;
 
-    let iindice = pp.indexOf("-");
-    let eextraida = pp.substring(0, iindice);
-    
-    
-    let pparam2=pp.substr(iindice+1);
-    
-    let iindice2 = pparam2.indexOf("-");
-    let eextraida2 = pparam2.substring(0, iindice2);
-    
-    
-    
-    let pparam3=pparam2.substr(iindice2+1);
-    
-    
-    var ff=pparam3.concat('-',eextraida2);
-    var ff=ff.concat('-',eextraida);
-    
-    
-
-}
 
 
    
 
  var data = {
-   Anio:form.anio,     
-    Semestre:form.semestre,     
-    FechaInicio: fi,     
-    FechaFin: ff,    
-    Programa:form.programa,     
-    TieneGrupos:form.tieneg,     
-    MaximoIntGrupos:form.maxintg,     
-    EscalaPracticos:form.escala,     
-    PorcentajeNotaTotalPracticos:form.pnt,     
-    CalculoPracticos:form.calculo,     
-     IdMateria:props.idmateria,    
-     IdCursada:props.idcursada,                                        
+   pAn:form.anio,     
+    pSem:form.semestre,     
+    pFi: fi,     
+    pFf: ff,    
+    pPro:form.programa,     
+    pTG:form.tieneg,     
+    pMx:form.maxintg,     
+    pEsc:form.escala,     
+    pPNT:form.pnt,     
+    pCal:form.calculo,     
+     pidCu:props.cursada.IdCursada,                                        
  }
-     
-Responses.consultas(data,'http://127.0.0.1:8000/api/modificarcursada').then(response=>{
+
+Responses.consultas(data,'http://127.0.0.1:8000/api/clonarcursada').then(response=>{
 
 
     if(Responses.status===200){
         handleClose();
-        
         props.abrir(true);
-        props.mensaje('Cursada modificada con éxito');
+        props.mensaje('Cursada clonada con éxito');
         props.tipo('success');
         props.refrescar();
       }
       else if(Responses.status===401){
         navegar("/ingreso");
       }
-    else if (Responses.status===460){
+ else if (Responses.status===460){
     
-        if (response.anio!==undefined){
-            setErrors({...errors,anio : response.anio});
-            setAn('2') ;
-           
-            }
-           
-           
-            if (response.semestre!==undefined){
-               setErrors({...errors,semestre : response.semestre});
-               setSem('2') ;
+ if (response.anio!==undefined){
+    setErrors({...errors,anio : response.anio});
+    setAn('2') ;
+   
+    }
+   
+   
+    if (response.semestre!==undefined){
+       setErrors({...errors,semestre : response.semestre});
+       setSem('2') ;
+      
+       }
+   
+   
+       if (response.finicio!==undefined){
+           setErrors({...errors,finicio : response.finicio});
+           setFi('2') ;
+          
+           }
+   
+           if (response.ffin!==undefined){
+               setErrors({...errors,ffin : response.ffin});
+               setFf('2') ;
               
                }
-           
-           
-               if (response.finicio!==undefined){
-                   setErrors({...errors,finicio : response.finicio});
-                   setFi('2') ;
+   
+               if (response.programa!==undefined){
+                   setErrors({...errors,programa : response.programa});
+                   setPr('2') ;
                   
                    }
-           
-                   if (response.ffin!==undefined){
-                       setErrors({...errors,ffin : response.ffin});
-                       setFf('2') ;
+   
+                   
+                   if (response.tieneg!==undefined){
+                       setErrors({...errors,tieneg : response.tieneg});
+                       setTg('2') ;
                       
                        }
-           
-                       if (response.programa!==undefined){
-                           setErrors({...errors,programa : response.programa});
-                           setPr('2') ;
+   
+                       
+                       if (response.maxintg!==undefined){
+                           setErrors({...errors,maxintg : response.maxintg});
+                           setMx('2') ;
                           
                            }
-           
-                           
-                           if (response.tieneg!==undefined){
-                               setErrors({...errors,tieneg : response.tieneg});
-                               setTg('2') ;
+               
+   
+                           if (response.calculo!==undefined){
+                               setErrors({...errors,calculo : response.calculo});
+                               setC('2') ;
                               
                                }
-           
-                               
-                               if (response.maxintg!==undefined){
-                                   setErrors({...errors,maxintg : response.maxintg});
-                                   setMx('2') ;
+   
+   
+                               if (response.escala!==undefined){
+                                   setErrors({...errors,escala : response.escala});
+                                   setEs('2') ;
                                   
                                    }
-                       
-           
-                                   if (response.calculo!==undefined){
-                                       setErrors({...errors,calculo : response.calculo});
-                                       setC('2') ;
+   
+   
+                                   if (response.pnt!==undefined){
+                                       setErrors({...errors,pnt : response.pnt});
+                                       setP('2') ;
                                       
                                        }
-           
-           
-                                       if (response.escala!==undefined){
-                                           setErrors({...errors,escala : response.escala});
-                                           setEs('2') ;
-                                          
-                                           }
-           
-           
-                                           if (response.pnt!==undefined){
-                                               setErrors({...errors,pnt : response.pnt});
-                                               setP('2') ;
-                                              
-                                               }
-                     
-    
-    }    
+   
+ }    
       else {
         navegar("/error");
       }
-    
+
+
 })
-.catch(error=>{        
+.catch(error=>{
     navegar("/error");
 })
 
@@ -338,13 +253,13 @@ function DevolverBoton(){
         
         return(
     
-            <Button variant='contained'  onClick={Modificar}>Modificar</Button>
+            <Button variant='contained'  onClick={Modificar}>Clonar</Button>
         );}
     
     else{
     
         return(
-            <Button variant='contained' disabled onClick={handleClose}>Modificar</Button>);
+            <Button variant='contained' disabled onClick={handleClose}>Clonar</Button>);
     }
     }
     
@@ -383,33 +298,32 @@ function CambioAnio(param){
         var data = {
             Anio:param.trim(),
             Semestre:form.semestre,
-            IdMateria:props.idmateria,
-            IdCursada:props.idcursada,                                             
+            IdMateria:props.idmateria,                                            
         }
             
     Responses.consultas(data,'http://127.0.0.1:8000/api/consultaraniosem').then(response=>{
+  
 
-        
         if(Responses.status===200){
             setErrors({...errors,  semestre : "", anio: "",});
-                   
+           
             setSem('1');
             setAn('1');
           }
           else if(Responses.status===401){
             navegar("/ingreso");
           }
-        else if (Responses.status===460){
-            setAn('1');
-            setSem('2');
-            setErrors({...errors,  semestre : response.Error});
-            
-            
-        }    
+     else if (Responses.status===460){
+        
+        setAn('1');
+        setSem('2');
+        setErrors({...errors,  semestre : response.Error});
+           
+     }    
           else {
             navegar("/error");
           }
-        
+    
 
     })
     .catch(error=>{
@@ -443,36 +357,37 @@ function CambioSemestre(param){
         var data = {
             Anio:form.anio.trim(),
             Semestre:param.trim(),
-            IdMateria:props.idmateria, 
-            IdCursada:props.idcursada,                                             
+            IdMateria:props.idmateria,                                            
         }
             
     Responses.consultas(data,'http://127.0.0.1:8000/api/consultaraniosem').then(response=>{
-             
-if(Responses.status===200){
-    setErrors({...errors,  semestre : ""});
+    
+        if(Responses.status===200){
+            setErrors({...errors,  semestre : ""});
             
-    setSem('1');
-  }
-  else if(Responses.status===401){
-    navegar("/ingreso");
-  }
-else if (Responses.status===460){
-   
-    setSem('2');
-    setErrors({...errors,  semestre : response.Error});
+            setSem('1');
+          }
+          else if(Responses.status===401){
+            navegar("/ingreso");
+          }
+     else if (Responses.status===460){
+        
+       
+        setSem('2');
+        setErrors({...errors,  semestre : response.Error});
+        
+     }    
+          else {
+            navegar("/error");
+          }
     
-    
-}    
-  else {
-    navegar("/error");
-  }
 
     })
     .catch(error=>{
         navegar("/error");
     });    
     }
+
     else {
         setErrors({...errors,  semestre : ""});
         if (param===""){
@@ -591,13 +506,13 @@ function CambioTipoCalculo(param){
 
     return (
         <>
-                <Tooltip title="Modificar">
+                 <Tooltip title="Clonar">
                 <IconButton 
                     color='secondary'
                     size='small'
                     onClick={handleOpen}
                 >
-                    <EditIcon/>
+                    <FlipIcon/>
                 </IconButton>
             </Tooltip>
 
@@ -608,10 +523,10 @@ function CambioTipoCalculo(param){
                 maxWidth="lg"
                 fullWidth
             > 
-                <DialogTitle>Crear cursada</DialogTitle>
+                <DialogTitle>Clonar cursada</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Ingrese los datos para crear la cursada.
+                        Ingrese los datos para clonar la cursada (los parámetros, exámenes y prácticos tambien seran clonados).
                     </DialogContentText>
                     
 
@@ -630,7 +545,7 @@ function CambioTipoCalculo(param){
                             sx={estiloFormControlSelect}
                             error= {errors.anio ? true : false}>
 
-                                {<BotonAnio Cambio={CambioAnio} vpd={props.cursada.Anio}/>}
+                                {<BotonAnio Cambio={CambioAnio} />}
                                 <FormHelperText  >
                                 {errors.anio}
                             </FormHelperText>
@@ -647,7 +562,7 @@ function CambioTipoCalculo(param){
                             error= {errors.semestre ? true : false}
                             disabled= {eanio!=='1' ? true : false}>
                                 
-                                {<BotonSemestre Cambio={CambioSemestre} vpd={props.cursada.Semestre}/>}
+                                {<BotonSemestre Cambio={CambioSemestre} />}
                                 <FormHelperText  >
                                 {errors.semestre}
                             </FormHelperText>
@@ -672,7 +587,7 @@ function CambioTipoCalculo(param){
         sx={estiloFormControlSelect}
         error= {errors.finicio ? true : false}>
   
-<Calendario Cambio={CambioFi} label={"Fecha De Inicio"} vpd={FormatoFecha(props.cursada.FechaInicio)}/>
+<Calendario Cambio={CambioFi} label={"Fecha De Inicio"} />
      
 
             <FormHelperText  >
@@ -694,7 +609,7 @@ function CambioTipoCalculo(param){
         >
   {console.log(props.cursada.FechaFin)}
   {console.log(form.FechaFin)}
-<Calendario Cambio={CambioFf} label={"Fecha De Fin"} vpd={FormatoFecha(props.cursada.FechaFin)}/>
+<Calendario Cambio={CambioFf} label={"Fecha De Fin"} />
      
 
             <FormHelperText  >
@@ -702,9 +617,9 @@ function CambioTipoCalculo(param){
         </FormHelperText>
     </FormControl>
                 </Grid>
-                </Grid>
+</Grid>
 
-                      
+
                                 
                         <FormControl 
                             sx={estiloFormControl}
@@ -730,9 +645,9 @@ function CambioTipoCalculo(param){
 
 
                                 onBlur = {(e)=>{
-                       
+                      
                                         setPr('1');
-                                    
+                          
                                 }}
                                 
                                 value={form.programa}
@@ -976,37 +891,30 @@ function CambioTipoCalculo(param){
                                             PNT:form.pnt,
                                             IdCursada:props.idcursada,                                            
                                         }
-                                           
+                                            
                                     Responses.consultas(data,'http://127.0.0.1:8000/api/consultarpntcur').then(response=>{
                                     
-                                           
-if(Responses.status===200){
-    setP('1');
-  }
-  else if(Responses.status===401){
-    navegar("/ingreso");
-  }
-else if (Responses.status===460){
-    setP('2');
-    setErrors({...errors,  pnt : response.Error});
-    
-}    
-  else {
-    navegar("/error");
-  }
-
-                                                                       
-                                    })
-                                    .catch(error=>{
-                                        navegar("/error");
-                                    });    
-
-
+                                        if(Responses.status===200){
+                                            setP('1');
+                                          }
+                                          else if(Responses.status===401){
+                                            navegar("/ingreso");
+                                          }
+                                     else if (Responses.status===460){
                                         
+                                       
+                                        setP('2');
+                                        setErrors({...errors,  pnt : response.Error});
+                                        
+                                     }    
+                                          else {
+                                            navegar("/error");
+                                          }
+
+                                        })
+                                    .catch(error=>{console.log("Error de conexión"+error);});    
+
                                 }
-                                    
-                                                                     
-                                    
                                     
                                 }}
                                 
@@ -1023,15 +931,6 @@ else if (Responses.status===460){
                                 {errors.pnt}
                             </FormHelperText>
                         </FormControl>
-
-
-
-
-
-
-
-
-
 
                     </Grid>
                 </Paper>

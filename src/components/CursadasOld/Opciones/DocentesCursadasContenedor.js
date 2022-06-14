@@ -10,9 +10,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip } from "@mui/material";
 import * as Responses from "../../Responses";
 
-export default function DocentesCursadasContenedor(props) {
-  const navegar = useNavigate();
+//Redux
+import { useSelector } from "react-redux";
 
+export default function DocentesCursadasContenedor(props) {
+  //Recupero informacion de la cursada
+  const { cursada } = useSelector((state) => state.cursada);
+
+  const navegar = useNavigate();
   const [estado, setE] = React.useState(); //pagina actual
   const [pg, setPG] = React.useState(); // cantidad de paginas a mostrar
   const [ci, setCI] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -23,7 +28,7 @@ export default function DocentesCursadasContenedor(props) {
 
   React.useEffect(() => {
     var data = {
-      pidCu: props.cursada.IdCursada,
+      pidCu: cursada.IdCursada,
     };
 
     Responses.consultas(data, "http://127.0.0.1:8000/api/infocursada")

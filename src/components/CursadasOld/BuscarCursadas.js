@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+//MUI
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
@@ -11,11 +12,12 @@ import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button } from "@mui/material";
-import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { Search } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 export default function BuscarCatedras(props) {
-  //Peticion
+  //Recupero informacion de la materia
+  const { idMateria } = useSelector((state) => state.materia);
+
   async function consultas(data, cadena) {
     const response = await fetch(cadena, {
       method: "POST",
@@ -36,7 +38,7 @@ export default function BuscarCatedras(props) {
       piB: form.bajas,
       Offset: 0,
       Limite: props.filasxpagina,
-      pidMat: props.idmateria,
+      pidMat: idMateria,
     };
     props.actualizar(data);
   }
@@ -46,6 +48,8 @@ export default function BuscarCatedras(props) {
     semestre: "",
     bajas: "B",
   });
+
+  //const [form, setForm] = useState(formInicial);
 
   //handle para campo 'catedra'
   const handleChange = (e) => {
@@ -73,108 +77,109 @@ export default function BuscarCatedras(props) {
   };
 
   //handle para boton 'limpiar'
-  const handleClickLimpiar1 = (e) => {
+  const handleClickLimpiar = (e) => {
     setForm({
       ...form,
-      anio: "",
-    });
-  };
-
-  const handleClickLimpiar2 = (e) => {
-    setForm({
-      ...form,
-      semestre: "",
+      catedra: "",
     });
   };
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
-        <FormControl fullWidth>
-          <OutlinedInputSearch
-            id="anio"
-            type="text"
-            placeholder="Año"
-            size="small"
-            startAdornment={
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            }
-            endAdornment={
-              form.anio ? (
+    <Paper
+      component="form"
+      sx={{
+        p: "2px 4px",
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        mt: "10px",
+        px: 2,
+      }}
+      elevation={3}
+    >
+      <Grid
+        container
+        spacing={2}
+        justifyContent="space-between"
+        alignItems="flex-center"
+      >
+        <Grid item>
+          <FormControl sx={{ m: 0.4 }} variant="standard">
+            <Input
+              id="anio"
+              type="text"
+              placeholder="Año"
+              endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="Limpiar campo anio"
+                    aria-label="Limpiar campo materia"
                     onClick={() => {
-                      handleClickLimpiar1("anio");
+                      handleClickLimpiar("anio");
                     }}
                   >
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              ) : undefined
-            }
-            onChange={handleChange}
-            value={form.anio}
-            name="anio"
-            sx={{ paddingRight: 0 }}
-          />
-        </FormControl>
-      </Grid>
+              }
+              onChange={handleChange}
+              value={form.anio}
+              name="anio"
+            />
+          </FormControl>
+        </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
-        <FormControl fullWidth>
-          <OutlinedInputSearch
-            id="semestre"
-            type="text"
-            placeholder="Semestre"
-            size="small"
-            endAdornment={
-              form.semestre ? (
+        <Grid item>
+          <FormControl sx={{ m: 0.4 }} variant="standard">
+            <Input
+              id="semestre"
+              type="text"
+              placeholder="Semestre"
+              endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo semestre"
                     onClick={() => {
-                      handleClickLimpiar2("semestre");
+                      handleClickLimpiar("semestre");
                     }}
                   >
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              ) : undefined
-            }
-            onChange={handleChange}
-            value={form.semestre}
-            name="semestre"
-            sx={{ paddingRight: 0 }}
-          />
-        </FormControl>
-      </Grid>
+              }
+              onChange={handleChange}
+              value={form.semestre}
+              name="semestre"
+            />
+          </FormControl>
+        </Grid>
 
-      <Grid item xs="auto" sm="auto" alignSelf="center">
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox defaultChecked name="bajas" onChange={handleChecked} />
-            }
-            label="Incluir bajas"
-          />
-        </FormGroup>
-      </Grid>
+        <Grid item>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  defaultChecked
+                  name="bajas"
+                  onChange={handleChecked}
+                />
+              }
+              label="Incluir bajas"
+            />
+          </FormGroup>
+        </Grid>
 
-      <Grid item xs="auto" sm="auto" alignSelf="center">
-        <Button
-          startIcon={<SearchIcon />}
-          color="primary"
-          variant="outlined"
-          onClick={() => {
-            manejador();
-          }}
-        >
-          Buscar
-        </Button>
+        <Grid item xs="auto" sm="auto" alignSelf="center">
+          <Button
+            startIcon={<SearchIcon />}
+            color="secondary"
+            onClick={() => {
+              manejador();
+            }}
+          >
+            Buscar
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
+    </Paper>
   );
 }

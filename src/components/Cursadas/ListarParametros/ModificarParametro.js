@@ -2,40 +2,42 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useModal } from '../useModal';
+import { useModal } from '../../useModal';
 import Paper from '@mui/material/Paper';
 import { Grid } from '@mui/material';
-import { AddCircle } from '@mui/icons-material';
-import BotonTipoCalculo from './BotonTipoCalculo';
-import BotonTipoExamen from './BotonTipoExamen';
-import {BotonEstadoRegistro} from './BotonEstadoRegistro';
+import BotonTipoCalculo from '../BotonTipoCalculo';
+import BotonTipoExamen from '../BotonTipoExamen';
+import {BotonEstadoRegistro} from '../BotonEstadoRegistro';
 import { FormHelperText } from '@mui/material';
 import { FormControl, InputLabel, Input,   Typography } from '@mui/material';
 
-import * as Responses from '../Responses';
+import * as Responses from '../../Responses';
 import { useNavigate } from "react-router-dom";
 
 
-export const AgregarParametro = (props) => {
+
+ 
+export const ModificarParametro = (props) => {
     const navegar = useNavigate();
-    
+
     const [isOpen, handleOpen, handleClose] = useModal(false);
-   
-    const [etipo, setT] = React.useState('');
-    const [eescala, setEs] = React.useState('');
-    const [epnt, setP] = React.useState('');
-    const [ecalculo, setC] = React.useState('');
+    
+    const [etipo, setT] = React.useState('1');
+    const [eescala, setEs] = React.useState('1');
+    const [epnt, setP] = React.useState('1');
+    const [ecalculo, setC] = React.useState('1');
 
     const [form, setForm] = React.useState({
-tipo: '',
-escala:'',     
-pnt:'',     
-calculo:'',     
+tipo: props.parametro.Tipo,
+escala:props.parametro.Escala,     
+pnt:props.parametro.PorcentajeNotaTotal,     
+calculo:props.parametro.Calculo,     
 
 
          });
@@ -47,6 +49,9 @@ pnt:'',
 calculo:'',     
 
          });
+
+
+
 
 
 
@@ -70,77 +75,80 @@ epnt==='1'
             Escala:form.escala,     
     PNT:form.pnt,     
     Calculo:form.calculo,     
-     IdCursada:props.idcursada, 
+     IdParametro:props.parametro.IdParametro,
+     IdCursada:props.idcursada 
+
         }
             
-    Responses.consultas(data,'http://127.0.0.1:8000/api/agregarparametro').then(response=>{
+    Responses.consultas(data,'http://127.0.0.1:8000/api/modificarparametro').then(response=>{
     
 
-    
-if(Responses.status===200){
+        if(Responses.status===200){
 
-    setT('');
-    setC('');
-     setP('');
-     setEs('');
+           
+            setT('');
+            setC('');
+             setP('');
+             setEs('');
+                     
+            setForm({
+                tipo: "",
+                calculo: "",
+                pnt: "",
+                escala: "",
              
-    setForm({
-        tipo: "",
-        calculo: "",
-        pnt: "",
-        escala: "",
-     
-    });
+            });
 
-    props.abrir(true);
-    props.mensaje('Parámetro de examen agregado con éxito');
-    props.tipo('success');
-    handleClose();
-
-}
-  else if(Responses.status===401){
-    navegar("/ingreso");
-  }
-else if (Responses.status===460){
-
-    if(response.tipo!==undefined)
-    {
-        setErrors({...errors, tipo : response.tipo});
-        setT('2') ;
-
-    }
-
-
-    if(response.calculo!==undefined)
-    {
-        setErrors({...errors, calculo : response.calculo});
-        setC('2') ;
-
-    }
+            props.abrir(true);
+            props.mensaje('Parámetro de examen modificado con éxito');
+            props.tipo('success');
+            props.refrescar();
+            handleClose();
+        
+        }
+          else if(Responses.status===401){
+            navegar("/ingreso");
+          }
+        else if (Responses.status===460){
+        
+            if(response.tipo!==undefined)
+        {
+            setErrors({...errors, tipo : response.tipo});
+            setT('2') ;
+    
+        }
     
     
-    if(response.pnt!==undefined)
-    {
-        setErrors({...errors, pnt : response.pnt});
-        setP('2') ;
-
-    }
-
+        if(response.calculo!==undefined)
+        {
+            setErrors({...errors, calculo : response.calculo});
+            setC('2') ;
     
-    if(response.escala!==undefined)
-    {
-        setErrors({...errors, escala : response.escala});
-        setEs('2') ;
-
-    }
+        }
+        
+        
+        if(response.pnt!==undefined)
+        {
+            setErrors({...errors, pnt : response.pnt});
+            setP('2') ;
     
-
-}    
-  else {
-    navegar("/error");
-  }
-
-
+        }
+    
+        
+        if(response.escala!==undefined)
+        {
+            setErrors({...errors, escala : response.escala});
+            setEs('2') ;
+    
+        }
+        
+            
+        
+        }    
+          else {
+            navegar("/error");
+          }
+    
     })
     .catch(error=>{
         navegar("/error");
@@ -152,13 +160,13 @@ else if (Responses.status===460){
 
     }}
 >
-    Agregar
+    Modificar
 </Button>);}
     
     else{
     
         return(
-            <Button variant='contained' disabled onClick={handleClose}>Agregar</Button>);
+            <Button variant='contained' disabled onClick={handleClose}>Modificar</Button>);
     }
     }
     
@@ -218,44 +226,41 @@ else if (Responses.status===460){
             var data = {
                 Tipo:param,
                 IdCursada:props.idcursada,      
-                IdParametro:null,                                      
+                IdParametro:props.parametro.IdParametro,                                      
             }
 
 
     
             Responses.consultas(data,'http://127.0.0.1:8000/api/consultartipoparam').then(response=>{
                 
-
-    
-                if(Responses.status===200){
-
-                    setErrors({...errors,  tipo : ""});
+            
+if(Responses.status===200){
+    setErrors({...errors,  tipo : ""});
                         
-                    setT('1');
-                
-                }
-                  else if(Responses.status===401){
-                    navegar("/ingreso");
-                  }
-                else if (Responses.status===460){
-                
-                    setT('2');
-                    setErrors({...errors,  tipo : response.Error});
+    setT('1');
+
+}
+  else if(Responses.status===401){
+    navegar("/ingreso");
+  }
+else if (Responses.status===460){
+
                     
-                    
-                    
-                
-                }    
-                  else {
-                    navegar("/error");
-                  }
-                
+    setT('2');
+    setErrors({...errors,  tipo : response.Error});
+    
+   
+
+}    
+  else {
+    navegar("/error");
+  }
 
 
             
+            
                 })
                 .catch(error=>{
-                    
                     navegar("/error");
                 });    
                 
@@ -265,6 +270,7 @@ else if (Responses.status===460){
         }
 
 
+    
     }
     
     
@@ -277,14 +283,14 @@ else if (Responses.status===460){
 
     return (
         <>
-        <Tooltip title="Agregar parámetro">
+        <Tooltip title="Modificar">
             
         <IconButton 
                     color='secondary'
                     size='small'
                     onClick={handleOpen}
                 >
-                    <AddCircle/>
+                   < EditIcon/>
                 </IconButton>
             
             
@@ -296,12 +302,12 @@ else if (Responses.status===460){
                 maxWidth="lg"
                 fullWidth
             >
-                <DialogTitle>Agregar parámetro de examen - {props.Materia} - {props.anio} - {props.semestre}</DialogTitle>
+                <DialogTitle>Modificar parámetro de examen - {props.Materia} - {props.anio} - {props.semestre}</DialogTitle>
                 <DialogContent>
 
                 
                 <DialogContentText>
-                        Ingrese los datos para agregar el parámetro de examen.
+                        Ingrese los datos para modificar del parámetro de examen.
                     </DialogContentText>
                     
 
@@ -317,7 +323,7 @@ else if (Responses.status===460){
                             sx={estiloFormControlSelect}
                             error= {errors.tipo ? true : false}>
 
-                                {<BotonTipoExamen Cambio={CambioTipoExamen}/>}
+                                {<BotonTipoExamen Cambio={CambioTipoExamen} vpd={props.parametro.Tipo}/>}
                                 <FormHelperText  >
                                 {errors.tipo}
                             </FormHelperText>
@@ -328,7 +334,7 @@ else if (Responses.status===460){
                             sx={estiloFormControl}
                             error= {errors.calculo ? true : false}>
                                 
-                                {<BotonTipoCalculo Cambio={CambioTipoCalculo}/>}
+                                {<BotonTipoCalculo Cambio={CambioTipoCalculo} vpd={props.parametro.Calculo}/>}
 
                             <FormHelperText  >
                                 {errors.calculo}
@@ -451,7 +457,7 @@ else if (Responses.status===460){
                                         var data = {
                                             PNT:form.pnt,
                                             IdCursada:props.idcursada,
-                                            IdParametro:null,                                            
+                                            IdParametro:props.parametro.IdParametro,                                            
                                         }
                             
                             
@@ -459,25 +465,30 @@ else if (Responses.status===460){
                                         Responses.consultas(data,'http://127.0.0.1:8000/api/consultarpnt').then(response=>{
                                             
                                             
-                                            if(Responses.status===200){
-                                                setErrors({...errors,  pnt : ""});
+if(Responses.status===200){
+    setErrors({...errors,  pnt : ""});
                                                     
-                                                setP('1'); 
-                                              }
-                                              else if(Responses.status===401){
-                                                navegar("/ingreso");
-                                              }
-                                         else if (Responses.status===460){
-                                           
-                                            setP('2');
-                                            setErrors({...errors,  pnt : response.Error});
-                                            
-                                         }    
-                                              else {
-                                                navegar("/error");
-                                              }
+                                                    setP('1');
 
-                                                                                       
+}
+  else if(Responses.status===401){
+    navegar("/ingreso");
+  }
+else if (Responses.status===460){
+
+    setP('2');
+    setErrors({...errors,  pnt : response.Error});
+    
+   
+
+}    
+  else {
+    navegar("/error");
+  }
+
+
+                                               
+                                        
                                             })
                                             .catch(error=>{
                                                 navegar("/error");
@@ -505,19 +516,11 @@ else if (Responses.status===460){
                             </FormHelperText>
                         </FormControl>
 
-
-
-
-
-
                     </Grid>
                 </Paper>
             </Grid>
 
 
-                
-                
-                
                 </DialogContent>
                 <DialogActions>
                 {DevolverBoton()}
@@ -527,4 +530,3 @@ else if (Responses.status===460){
         </>
     )
 }
-
