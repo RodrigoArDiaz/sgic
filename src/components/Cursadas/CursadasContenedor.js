@@ -10,8 +10,12 @@ import { useNavigate } from "react-router-dom";
 import SnackMensajes from "./SnackMensajes";
 import * as Responses from "../Responses";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { teal } from "@mui/material/colors";
+import { MoonLoader } from "react-spinners";
 
 export default function CursadasContenedor(props) {
+  const color = teal[400];
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -175,13 +179,6 @@ export default function CursadasContenedor(props) {
       title={"Gestión de Cursadas - " + props.Materia}
       bgColorIcon="cyan.main300"
     >
-      {/* <Grid container pt={1}>
-        <Grid item xs={12}>
-          <Typography variant="h4">
-            Gestión de Cursadas - {props.Materia}
-          </Typography>
-        </Grid>
-      </Grid> */}
       <CardContent>
         <Grid container>
           <Grid container direction="row-reverse">
@@ -227,11 +224,12 @@ export default function CursadasContenedor(props) {
 
           {cargando === "1" && (
             <Grid container pt={2}>
-              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-              </Stack>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  {/* <PropagateLoader color={color} size={15} /> */}
+                  <MoonLoader color={color} size={60} />
+                </Box>
+              </Grid>
             </Grid>
           )}
           {cargando === "2" && (

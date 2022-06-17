@@ -30,9 +30,18 @@ const TableCellComun = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const TableCell1em = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    // color: "rgb(103, 116, 142)",
+    // fontWeight: "400",
+    fontSize: "1em",
+  },
+}));
+
 export {
   TableRowElevacion,
   TableCellMedium,
   TableCellDestacada,
   TableCellComun,
+  TableCell1em,
 };
