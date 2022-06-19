@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, CardContent, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  CardContent,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/material";
 import CursadaLista from "./CursadaLista";
 import { CrearCursada } from "./CrearCursada";
@@ -220,7 +229,19 @@ export default function CursadasContenedor(props) {
             </Grid>
           </Grid>
 
-          {cargando === "3" && <h4>No se encontraron resultados</h4>}
+          {cargando === "3" && (
+            <Grid container pt={2}>
+              <Grid item xs={12}>
+                <ListItem key="0" disablePadding>
+                  <ListItemText>
+                    <Alert severity="info" variant="outlined">
+                      <AlertTitle>No se encontraron resultados</AlertTitle>
+                    </Alert>
+                  </ListItemText>
+                </ListItem>
+              </Grid>
+            </Grid>
+          )}
 
           {cargando === "1" && (
             <Grid container pt={2}>
