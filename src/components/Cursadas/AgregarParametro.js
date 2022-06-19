@@ -1,6 +1,6 @@
 import React from "react";
 //MUI components
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -201,10 +201,12 @@ export const AgregarParametro = (props) => {
 
   return (
     <>
-      <Tooltip title="Agregar parámetro">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <AddCircle />
-        </IconButton>
+      <Tooltip title="Agregar parámetro" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <AddCircle />
+          </IconButton>
+        </span>
       </Tooltip>
       {/* Ventana modal */}
       <Dialog

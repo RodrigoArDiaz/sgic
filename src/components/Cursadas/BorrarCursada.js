@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,10 +48,12 @@ export const BorrarCursada = (props) => {
 
   return (
     <>
-      <Tooltip title="Borrar">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <DeleteIcon />
-        </IconButton>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <DeleteIcon />
+          </IconButton>
+        </span>
       </Tooltip>
 
       {/* Ventana modal */}

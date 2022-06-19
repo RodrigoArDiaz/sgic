@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -194,11 +194,14 @@ export const ModificarParametro = (props) => {
 
   return (
     <>
-      <Tooltip title="Modificar">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <EditIcon />
-        </IconButton>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <EditIcon />
+          </IconButton>
+        </span>
       </Tooltip>
+
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
         <DialogTitle>

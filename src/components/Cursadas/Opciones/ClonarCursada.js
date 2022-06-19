@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -395,10 +395,12 @@ export const ClonarCursada = (props) => {
 
   return (
     <>
-      <Tooltip title="Clonar">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <FlipIcon />
-        </IconButton>
+      <Tooltip title="Clonar" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <FlipIcon />
+          </IconButton>
+        </span>
       </Tooltip>
 
       {/* Ventana modal */}

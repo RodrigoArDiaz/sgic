@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import ViewListIcon from "@mui/icons-material/ViewList";
@@ -20,10 +20,12 @@ export const ListarParametros = (props) => {
 
   return (
     <>
-      <Tooltip title="Listar parámetros">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <ViewListIcon />
-        </IconButton>
+      <Tooltip title="Listar parámetros" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <ViewListIcon />
+          </IconButton>
+        </span>
       </Tooltip>
       {/* Ventana modal */}
       <Dialog
