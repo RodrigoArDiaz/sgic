@@ -1,24 +1,34 @@
 import React from "react";
-import { Button } from "@mui/material";
-import { useModal } from "../../hooks/useModal";
+//MUI
+import { Button, IconButton, Tooltip, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
-import { OrdenarLista } from "./Orden/OrdenarLista";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useNavigate } from "react-router-dom";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import SortIcon from "@mui/icons-material/Sort";
+//Responses
 import * as Responses from "../Responses";
-
+//Hooks personalizados
+import { useModal } from "../../hooks/useModal";
 //Redux
 import { useSelector } from "react-redux";
+//Componentes propios
+import { OrdenarLista } from "./Orden/OrdenarLista";
+//React router
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 export default function Ordenar(props) {
+  //Para estilos segun tamaño screen
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const navegar = useNavigate();
@@ -70,82 +80,65 @@ export default function Ordenar(props) {
   return (
     <>
       <Button
-        variant="contained"
-        // startIcon={<AddIcon/>}
+        variant="outlined"
+        startIcon={<SortIcon />}
         fullWidth
         onClick={handleOpen}
       >
-        ordenar
+        Ordenar
       </Button>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} fullScreen>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
+      >
         <DialogTitle>Ordenar trabajos prácticos</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Arrastre el trabajo práctico hacia el lugar deseado.
           </DialogContentText>
 
-          <Grid>
-            <Paper
-              component="div"
+          {cargando === "3" && <h4>No se encontraron resultados</h4>}
+          {cargando === "1" && (
+            <Grid container pt={2}>
+              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
+                <LinearProgress color="inherit" />
+                <LinearProgress color="inherit" />
+                <LinearProgress color="inherit" />
+              </Stack>
+            </Grid>
+          )}
+          {cargando === "2" && (
+            <Grid container pt={2}>
+              <OrdenarLista
+                filas={filas}
+                refrescar={props.refrescar}
+                cursada={cursada}
+                CerrarBack={CerrarBackDrop}
+                AbrirBack={handleToggle}
+              />
+            </Grid>
+          )}
+
+          <div>
+            <Backdrop
               sx={{
-                p: "4px 4px",
-                // display: 'flex',
-                alignItems: "center",
-                width: "95%",
-                mt: "10px",
-                px: 2,
-                pb: 3,
-                // minHeight: "75vh",
+                color: "#fff",
+                zIndex: (theme) => theme.zIndex.drawer + 1,
               }}
-              elevation={3}
+              open={open}
+              onClick={handleClose}
             >
-              <Grid container pt={10} spacing={8}></Grid>
-
-              <Grid
-                container
-                pt={1}
-                justifyContent="flex-end"
-                spacing={8}
-              ></Grid>
-
-              {cargando === "3" && <h4>No se encontraron resultados</h4>}
-              {cargando === "1" && (
-                <Grid container pt={2}>
-                  <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                    <LinearProgress color="inherit" />
-                    <LinearProgress color="inherit" />
-                    <LinearProgress color="inherit" />
-                  </Stack>
-                </Grid>
-              )}
-              {cargando === "2" && (
-                <Grid container pt={6}>
-                  <OrdenarLista
-                    filas={filas}
-                    refrescar={props.refrescar}
-                    cursada={cursada}
-                    CerrarBack={CerrarBackDrop}
-                    AbrirBack={handleToggle}
-                  />
-                </Grid>
-              )}
-
-              <div>
-                <Backdrop
-                  sx={{
-                    color: "#fff",
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                  }}
-                  open={open}
-                  onClick={handleClose}
-                >
-                  <CircularProgress color="inherit" />
-                </Backdrop>
-              </div>
-            </Paper>
-          </Grid>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Volver</Button>

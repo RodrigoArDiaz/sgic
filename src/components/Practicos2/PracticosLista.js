@@ -15,6 +15,10 @@ import Stack from "@mui/material/Stack";
 import { Grid } from "@mui/material";
 // import FilasPorPagina from "../Catedras/FilasPorPagina";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
+import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+
+//Estilos para filas de la tabla
+const estilosCell = { fontSize: "1em" };
 
 const columns = [
   {
@@ -28,28 +32,28 @@ const columns = [
     id: "Orden",
     label: "Orden",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "FechaAlta",
     label: "Alta",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "FechaVencimiento",
     label: "Vencimiento",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "NotaMinimaAprobacion",
     label: "Nota Mínima",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
@@ -78,150 +82,205 @@ export default function StickyHeadTable(props) {
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   return (
-    <ThemeProvider theme={theme}>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: "none" }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.filas.res.map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.IdCatedra}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      if (column.id === "Practico") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+    <>
+      <TableContainer sx={{ maxHeight: "none" }}>
+        <Table aria-label="Lista de practicos" sx={{ mb: "1rem" }} size="small">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.filas.res.map((row) => {
+              return (
+                <TableRowElevacion key={row.IdCatedra}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    if (column.id === "Practico") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          sx={estilosCell}
+                          align={column.align}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
 
-                      if (column.id === "Orden") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "Orden") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          sx={estilosCell}
+                          align={column.align}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
 
-                      if (column.id === "FechaAlta") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "FechaAlta") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          sx={estilosCell}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
 
-                      if (column.id === "FechaVencimiento") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "FechaVencimiento") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          sx={estilosCell}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
 
-                      if (column.id === "NotaMinimaAprobacion") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "NotaMinimaAprobacion") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          sx={estilosCell}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
 
-                      if (column.id === "Estado") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            <BotonEstado
-                              estado={row.Estado}
-                              idpractico={row.IdPractico}
+                    if (column.id === "Estado") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          sx={estilosCell}
+                        >
+                          <BotonEstado
+                            estado={row.Estado}
+                            idpractico={row.IdPractico}
+                            cursada={props.cursada}
+                          />
+                        </TableCell>
+                      );
+                    }
+
+                    if (column.id === "acciones") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          sx={estilosCell}
+                        >
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            <BotonAcciones
+                              refrescar={props.refrescar}
+                              abrir={props.abrir}
+                              mensaje={props.mensaje}
+                              tipo={props.tipo}
+                              practico={row}
                               cursada={props.cursada}
                             />
-                          </TableCell>
-                        );
-                      }
-
-                      if (column.id === "acciones") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              <BotonAcciones
-                                refrescar={props.refrescar}
-                                abrir={props.abrir}
-                                mensaje={props.mensaje}
-                                tipo={props.tipo}
-                                practico={row}
-                                cursada={props.cursada}
-                              />
-                            )}
-                          </TableCell>
-                        );
-                      }
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2}>
-          <Grid item xs={6} sx={{ mt: 1 }}>
-            <Stack spacing={2}>
-              <Pagination
-                variant="outlined"
-                defaultPage={1}
-                count={props.paginacion}
-                page={props.pagina}
-                onChange={(e, page) => CambiarPagina(e, page)}
-              />
-            </Stack>
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Resultados: {props.resultados}
-          </Grid>
+                          )}
+                        </TableCell>
+                      );
+                    }
+                  })}
+                </TableRowElevacion>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Grid justifyContent="flex-start" container pt={2}>
+        <Grid item xs={8} sx={{ mt: 1 }}>
+          <Stack spacing={2}>
+            <Pagination
+              size="large"
+              color="info"
+              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
+              variant="outlined"
+              defaultPage={1}
+              count={props.paginacion}
+              page={props.pagina}
+              onChange={(e, page) => CambiarPagina(e, page)}
+            />
+          </Stack>
         </Grid>
-        <Grid justifyContent="center" container pt={2} />
-      </Paper>
-    </ThemeProvider>
+
+        <Grid
+          item
+          xs={2}
+          sx={{
+            mt: 1,
+            verticalAlign: "middle",
+            color: "rgba(0, 0, 0, 0.80)",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+          }}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          gap={1}
+          paddingY={1}
+        >
+          Filas por página:{" "}
+          {
+            <FilasPorPagina
+              actualizarfilas={props.actualizarfilas}
+              fpp={props.filasxpagina}
+            />
+          }
+        </Grid>
+
+        <Grid
+          item
+          xs={2}
+          sx={{
+            mt: 1,
+            verticalAlign: "middle",
+            color: "rgba(0, 0, 0, 0.80)",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+          }}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="end"
+        >
+          Resultados: {props.resultados}
+        </Grid>
+      </Grid>
+      <Grid justifyContent="center" container pt={2} />
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import { Box, CardContent, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import PracticosLista from "./PracticosLista";
 import { CrearPractico } from "./CrearPractico";
@@ -14,8 +14,12 @@ import * as Responses from "../Responses";
 
 //Redux
 import { useSelector } from "react-redux";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { blue, teal } from "@mui/material/colors";
+import { MoonLoader } from "react-spinners";
 
 export default function PracticosContenedor(props) {
+  const color = teal[400];
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -179,25 +183,119 @@ export default function PracticosContenedor(props) {
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={10} spacing={8}>
-        <Grid item xs={6}>
-          <Typography variant="h4">Gestión de Trabajos Prácticos</Typography>
+    <CardMainPage icon="info" title="Prácticos" bgColorIcon={blue[500]}>
+      <CardContent>
+        <Grid container>
+          <Grid container direction="row-reverse">
+            {/* CrearPractico */}
+            <Grid item xs={12} sm={2} md={2}>
+              <Grid
+                container
+                paddingX={2}
+                // paddingY={1}
+                paddingBottom={1}
+                justifyContent="flex-end"
+              >
+                <Grid item xs={12}>
+                  <CrearPractico
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                    // cursada={props.cursada}
+                    cursada={cursada}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            {/* <OrdenarPractico /> */}
+            <Grid item xs={12} sm={2} md={1}>
+              <Grid
+                container
+                paddingX={2}
+                // paddingY={1}
+                paddingBottom={1}
+                justifyContent="flex-end"
+              >
+                <Grid item xs={12}>
+                  <Ordenar
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                    // cursada={props.cursada}
+                    cursada={cursada}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+
+            {/* Buscar practicos */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8}
+              lg={9}
+              // xl={10}
+              paddingBottom={1}
+              paddingX={2}
+            >
+              <BuscarPracticos
+                // cursada={props.cursada}
+                cursada={cursada}
+                actualizar={BuscarAl}
+                filasxpagina={filasxpagina}
+              />
+            </Grid>
+          </Grid>
+
+          {cargando === "3" && <h4>No se encontraron resultados</h4>}
+
+          {cargando === "1" && (
+            <Grid container paddingTop={4}>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  {/* <PropagateLoader color={color} size={15} /> */}
+                  <MoonLoader color={color} size={60} />
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+
+          {cargando === "2" && (
+            <Grid container pt={2}>
+              <PracticosLista
+                filas={filas}
+                filasxpagina={filasxpagina}
+                pagina={pagina}
+                paginacion={paginacion}
+                resultados={resultados}
+                actualizarpagina={CambioPagina}
+                actualizarfilas={CambioFPP}
+                refrescar={Refrescar}
+                // cursada={props.cursada}
+                cursada={cursada}
+                abrir={setAbrir}
+                mensaje={setMensaje}
+                tipo={setTipo}
+              />
+            </Grid>
+          )}
         </Grid>
 
+        <div>
+          <SnackMensajes
+            abrir={abrir}
+            mensaje={mensaje}
+            tipo={tipo}
+            cerrar={setAbrir}
+          />{" "}
+        </div>
+      </CardContent>
+
+      {/* <Grid container pt={10} spacing={8}>
         <Grid sx={{ mt: 1 }} item xs={3}>
           <CrearPractico
             refrescar={Refrescar}
@@ -219,9 +317,9 @@ export default function PracticosContenedor(props) {
             cursada={cursada}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
 
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
+      {/* <Grid container pt={1} justifyContent="flex-end" spacing={8}>
         <Grid item xs={12}>
           <BuscarPracticos
             // cursada={props.cursada}
@@ -230,9 +328,9 @@ export default function PracticosContenedor(props) {
             filasxpagina={filasxpagina}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
 
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
+      {/* {cargando === "3" && <h4>No se encontraron resultados</h4>}
 
       {cargando === "1" && (
         <Grid container pt={2}>
@@ -270,7 +368,7 @@ export default function PracticosContenedor(props) {
           tipo={tipo}
           cerrar={setAbrir}
         />{" "}
-      </div>
-    </Paper>
+      </div> */}
+    </CardMainPage>
   );
 }

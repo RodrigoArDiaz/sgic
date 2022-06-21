@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -22,8 +22,13 @@ import {
 } from "@mui/material";
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 export const ModificarPractico = (props) => {
+  //Para estilos segun tamaño screen
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   const navegar = useNavigate();
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -190,180 +195,205 @@ export const ModificarPractico = (props) => {
 
   return (
     <>
-      <Tooltip title="Modificar">
-        <IconButton color="secondary" size="small" onClick={handleOpen}>
-          <EditIcon />
-        </IconButton>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <EditIcon />
+          </IconButton>
+        </span>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="lg" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        fullScreen={esXs ? true : false}
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
+      >
         <DialogTitle>Modificar trabajo práctico</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para modificar el trabajo práctico.
           </DialogContentText>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <FormControl
+                sx={estiloFormControl}
+                error={errors.practico ? true : false}
+              >
+                <InputLabel htmlFor="practico">Práctico</InputLabel>
+                <Input
+                  id="practico"
+                  type="text"
+                  name="practico"
+                  onChange={(e) => {
+                    if (errors.practico !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-          <Grid>
-            <Paper sx={estiloPaper}>
-              <Grid sx={estiloContent}>
-                <FormControl
-                  sx={estiloFormControl}
-                  error={errors.practico ? true : false}
-                >
-                  <InputLabel htmlFor="practico">Práctico</InputLabel>
-                  <Input
-                    id="practico"
-                    type="text"
-                    name="practico"
-                    onChange={(e) => {
-                      if (errors.practico !== "") {
-                        setErrors({ ...errors, [e.target.name]: "" });
-                      }
-
-                      setP("");
-                      setForm({
-                        ...form,
-                        [e.target.name]: e.target.value,
+                    setP("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onBlur={(e) => {
+                    let regex = /^[0-9a-zA-Z\s]+$/;
+                    if (!form.practico.trim()) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El campo 'Práctico' es requerido.",
                       });
-                    }}
-                    onBlur={(e) => {
-                      let regex = /^[0-9a-zA-Z\s]+$/;
-                      if (!form.practico.trim()) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]: "El campo 'Práctico' es requerido.",
-                        });
-                        setP("2");
-                      } else if (!regex.test(form.practico.trim())) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "El práctico ingresado tiene un formato incorrecto.",
-                        });
-                        setP("2");
-                      } else {
-                        var data = {
-                          pPractico: form.practico,
-                          pidCu: props.cursada.IdCursada,
-                          pidP: props.practico.IdPractico,
-                        };
+                      setP("2");
+                    } else if (!regex.test(form.practico.trim())) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "El práctico ingresado tiene un formato incorrecto.",
+                      });
+                      setP("2");
+                    } else {
+                      var data = {
+                        pPractico: form.practico,
+                        pidCu: props.cursada.IdCursada,
+                        pidP: props.practico.IdPractico,
+                      };
 
-                        Responses.consultas(
-                          data,
-                          "http://127.0.0.1:8000/api/consultarnompractico"
-                        )
-                          .then((response) => {
-                            if (Responses.status === 200) {
-                              setP("1");
-                            } else if (Responses.status === 401) {
-                              navegar("/ingreso");
-                            } else if (Responses.status === 460) {
-                              setP("2");
-                              setErrors({
-                                ...errors,
-                                [e.target.name]: response.Error,
-                              });
-                            } else {
-                              navegar("/error");
-                            }
-                          })
-                          .catch((error) => {
+                      Responses.consultas(
+                        data,
+                        "http://127.0.0.1:8000/api/consultarnompractico"
+                      )
+                        .then((response) => {
+                          if (Responses.status === 200) {
+                            setP("1");
+                          } else if (Responses.status === 401) {
+                            navegar("/ingreso");
+                          } else if (Responses.status === 460) {
+                            setP("2");
+                            setErrors({
+                              ...errors,
+                              [e.target.name]: response.Error,
+                            });
+                          } else {
                             navegar("/error");
-                          });
-                      }
-                    }}
-                    value={form.practico}
-                  />
+                          }
+                        })
+                        .catch((error) => {
+                          navegar("/error");
+                        });
+                    }
+                  }}
+                  value={form.practico}
+                  endAdornment={
+                    (epractico === "1" && (
+                      <BotonEstadoRegistro estado={"1"} />
+                    )) ||
+                    (epractico === "2" && <BotonEstadoRegistro estado={"2"} />)
+                  }
+                />
 
-                  {epractico === "1" && <BotonEstadoRegistro estado={"1"} />}
-                  {epractico === "2" && <BotonEstadoRegistro estado={"2"} />}
+                {/* {epractico === "1" && <BotonEstadoRegistro estado={"1"} />}
+                {epractico === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-                  <FormHelperText>{errors.practico}</FormHelperText>
-                </FormControl>
+                <FormHelperText>{errors.practico}</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <FormControl
+                fullWidth
+                sx={estiloFormControlSelect}
+                error={errors.fechavencimiento ? true : false}
+              >
+                <Calendario
+                  Cambio={CambioFV}
+                  label={"Fecha De Vencimiento"}
+                  vpd={FormatoFecha(props.practico.FechaVencimiento)}
+                />
 
-                <FormControl
-                  fullWidth
-                  sx={estiloFormControlSelect}
-                  error={errors.fechavencimiento ? true : false}
-                >
-                  <Calendario
-                    Cambio={CambioFV}
-                    label={"Fecha De Vencimiento"}
-                    vpd={FormatoFecha(props.practico.FechaVencimiento)}
-                  />
+                <FormHelperText>{errors.fechavencimiento}</FormHelperText>
+              </FormControl>
+            </Grid>
 
-                  <FormHelperText>{errors.fechavencimiento}</FormHelperText>
-                </FormControl>
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <FormControl
+                sx={estiloFormControl}
+                error={errors.notaminima ? true : false}
+              >
+                <InputLabel htmlFor="notaminima">
+                  Nota mínima de aprobación
+                </InputLabel>
+                <Input
+                  id="notaminima"
+                  type="text"
+                  name="notaminima"
+                  onChange={(e) => {
+                    if (errors.notaminima !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-                <FormControl
-                  sx={estiloFormControl}
-                  error={errors.notaminima ? true : false}
-                >
-                  <InputLabel htmlFor="notaminima">
-                    Nota mínima de aprobación
-                  </InputLabel>
-                  <Input
-                    id="notaminima"
-                    type="text"
-                    name="notaminima"
-                    onChange={(e) => {
-                      if (errors.notaminima !== "") {
-                        setErrors({ ...errors, [e.target.name]: "" });
-                      }
-
-                      setNM("");
-                      setForm({
-                        ...form,
-                        [e.target.name]: e.target.value,
+                    setNM("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onBlur={(e) => {
+                    let regex = /^[0-9]+$/;
+                    if (!form.notaminima.trim()) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "El campo 'Nota mínima de aprobación' es requerido.",
                       });
-                    }}
-                    onBlur={(e) => {
-                      let regex = /^[0-9]+$/;
-                      if (!form.notaminima.trim()) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "El campo 'Nota mínima de aprobación' es requerido.",
-                        });
-                        setNM("2");
-                      } else if (!regex.test(form.notaminima.trim())) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "La nota mínima ingresada tiene un formato incorrecto.",
-                        });
-                        setNM("2");
-                      } else if (parseInt(form.notaminima) < 1) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "La nota mínima ingresada debe ser mayor que 0.",
-                        });
-                        setNM("2");
-                      } else if (
-                        parseInt(form.notaminima) >
-                        parseInt(props.cursada.EscalaPracticos)
-                      ) {
-                        setErrors({
-                          ...errors,
-                          [e.target.name]:
-                            "La nota mínima ingresada debe ser menor que " +
-                            props.cursada.EscalaPracticos,
-                        });
-                        setNM("2");
-                      } else setNM("1");
-                    }}
-                    value={form.notaminima}
-                  />
+                      setNM("2");
+                    } else if (!regex.test(form.notaminima.trim())) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "La nota mínima ingresada tiene un formato incorrecto.",
+                      });
+                      setNM("2");
+                    } else if (parseInt(form.notaminima) < 1) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "La nota mínima ingresada debe ser mayor que 0.",
+                      });
+                      setNM("2");
+                    } else if (
+                      parseInt(form.notaminima) >
+                      parseInt(props.cursada.EscalaPracticos)
+                    ) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "La nota mínima ingresada debe ser menor que " +
+                          props.cursada.EscalaPracticos,
+                      });
+                      setNM("2");
+                    } else setNM("1");
+                  }}
+                  value={form.notaminima}
+                  endAdornment={
+                    (enotaminima === "1" && (
+                      <BotonEstadoRegistro estado={"1"} />
+                    )) ||
+                    (enotaminima === "2" && (
+                      <BotonEstadoRegistro estado={"2"} />
+                    ))
+                  }
+                />
 
-                  {enotaminima === "1" && <BotonEstadoRegistro estado={"1"} />}
-                  {enotaminima === "2" && <BotonEstadoRegistro estado={"2"} />}
+                {/* {enotaminima === "1" && <BotonEstadoRegistro estado={"1"} />}
+                {enotaminima === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-                  <FormHelperText>{errors.notaminima}</FormHelperText>
-                </FormControl>
-              </Grid>
-            </Paper>
+                <FormHelperText>{errors.notaminima}</FormHelperText>
+              </FormControl>
+            </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
