@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
-import ExamenesContenedor from "../components/Examenes/ExamenesContenedor";
+import ExamenesContenedor from "../components/Examenes2/ExamenesContenedor";
 import BuscarExamenes from "../components/Examenes/BuscarExamenes";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,9 +34,6 @@ export default function PaginaDocentesExamenes() {
           <BreadCrumbs />
         </GridBreadCrumbs>
       </Grid>
-      {/* <Grid item xs={12} sm={12} md={10} lg={10}>
-        <BuscarExamenes />
-      </Grid> */}
 
       <Grid item xs={12}>
         <ExamenesContenedor />

@@ -13,17 +13,14 @@ import { BotonEstado } from "./BotonEstado.js";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Grid } from "@mui/material";
-// import FilasPorPagina from "../Catedras/FilasPorPagina";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
-
-//Estilos para filas de la tabla
-const estilosCell = { fontSize: "1em" };
+import { TableCell1em } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
 const columns = [
   {
-    id: "Practico",
-    label: "Practico",
+    id: "Examen",
+    label: "Examen",
     minWidth: 20,
     align: "left",
   },
@@ -36,8 +33,8 @@ const columns = [
   },
 
   {
-    id: "FechaAlta",
-    label: "Alta",
+    id: "Tipo",
+    label: "Tipo",
     minWidth: 20,
     align: "center",
   },
@@ -72,6 +69,12 @@ const columns = [
 ];
 
 export default function StickyHeadTable(props) {
+  function Tipo(param) {
+    if (param === "P") return "Parcial";
+    if (param === "Q") return "Quiz";
+    if (param === "F") return "Final";
+  }
+
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
@@ -84,7 +87,7 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de practicos" sx={{ mb: "1rem" }} size="small">
+        <Table aria-label="Lista de examenes" sx={{ mb: "1rem" }} size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -104,99 +107,71 @@ export default function StickyHeadTable(props) {
                 <TableRowElevacion key={row.IdCatedra}>
                   {columns.map((column) => {
                     const value = row[column.id];
-                    if (column.id === "Practico") {
+                    if (column.id === "Examen") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          sx={estilosCell}
-                          align={column.align}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Orden") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          sx={estilosCell}
-                          align={column.align}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
-                    if (column.id === "FechaAlta") {
+                    if (column.id === "Tipo") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          sx={estilosCell}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
-                        </TableCell>
+                            : Tipo(value)}
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "FechaVencimiento") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          sx={estilosCell}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "NotaMinimaAprobacion") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          sx={estilosCell}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Estado") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          sx={estilosCell}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           <BotonEstado
                             estado={row.Estado}
-                            idpractico={row.IdPractico}
+                            idexamen={row.IdExamen}
                             cursada={props.cursada}
                           />
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "acciones") {
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          sx={estilosCell}
-                        >
+                        <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : (
@@ -205,11 +180,12 @@ export default function StickyHeadTable(props) {
                               abrir={props.abrir}
                               mensaje={props.mensaje}
                               tipo={props.tipo}
-                              practico={row}
+                              examen={row}
                               cursada={props.cursada}
+                              parametros={props.parametros}
                             />
                           )}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
                   })}
@@ -219,6 +195,8 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Paginación */}
       <Grid justifyContent="flex-start" container pt={2}>
         <Grid item xs={8} sx={{ mt: 1 }}>
           <Stack spacing={2}>
