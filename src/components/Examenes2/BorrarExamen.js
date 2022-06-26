@@ -19,9 +19,14 @@ export const BorrarExamen = (props) => {
 
   const navegar = useNavigate();
 
+  React.useEffect(() => {
+    console.log(props.cursada);
+  }, []);
+
   function BorrarExamen() {
     var data = {
-      pidCu: props.idcursada,
+      // pidCu: props.idcursada,
+      pidCu: props.cursada.IdCursada,
       pidE: props.examen.IdExamen,
     };
 

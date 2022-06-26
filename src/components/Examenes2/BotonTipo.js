@@ -50,66 +50,13 @@ export default function BotonTipo(props) {
           <MenuItem value="">Tipo</MenuItem>
           {dato.res.map((row) => {
             return (
-              <MenuItem value={row.IdParametro}>{Tipo(row.Tipo)}</MenuItem>
+              <MenuItem value={row.IdParametro} key={row.Tipo}>
+                {Tipo(row.Tipo)}
+              </MenuItem>
             );
           })}
         </Select>
       </FormControl>
     </Box>
   );
-  //}
-
-  /*
-  if(activar==='2')
-  {
-    return (
-      <Box sx={{ minWidth: 50 }}>
-        <FormControl fullWidth>
-        
-          <Select
-            //value={anio}
-            onChange={handleChange}
-            displayEmpty
-            //inputProps={{ 'aria-label': 'Without label' }}
-          >
-             <MenuItem value="">
-              Cargando
-              </MenuItem>
-              
-            
-          </Select>
-        </FormControl>
-      </Box>
-    );
-    }
-
-
-
-
-
-    if(activar==='3')
-    {
-      return (
-        <Box sx={{ minWidth: 50 }}>
-          <FormControl fullWidth>
-          
-            <Select
-              //value={anio}
-              onChange={handleChange}
-              displayEmpty
-              //inputProps={{ 'aria-label': 'Without label' }}
-            >
-               <MenuItem value="">
-                Debe configurar parámetros
-                </MenuItem>
-                
-              
-            </Select>
-          </FormControl>
-        </Box>
-      );
-      }
-  
-
-*/
 }

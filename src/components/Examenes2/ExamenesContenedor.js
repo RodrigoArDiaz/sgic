@@ -174,6 +174,7 @@ export default function ExamenesContenedor(props) {
       .then((response) => {
         if (Responses.status === 200) {
           setPar(response);
+
           /////////////Esto va dentro del 200
 
           Responses.consultas(data, "http://127.0.0.1:8000/api/buscarexamenes")
@@ -209,7 +210,6 @@ export default function ExamenesContenedor(props) {
       });
   }, []);
 
-  console.log(parametros);
   return (
     <CardMainPage icon="assignment" title="Exámenes" bgColorIcon={blue[500]}>
       <CardContent>
