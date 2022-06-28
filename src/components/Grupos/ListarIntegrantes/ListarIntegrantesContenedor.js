@@ -1,26 +1,18 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-//import GruposLista from './GruposLista2';
-//import { CrearCatedra } from './CrearCatedra';
-//import {CrearGrupo} from './CrearGrupo';
 import IntegrantesLista from "./IntegrantesLista";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
-
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
+import * as Responses from "../../Responses";
 
 export default function ListarIntegrantesContenedor(props) {
   const navegar = useNavigate();
 
-  const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
-  const [pagina, setPagina] = React.useState(1); //pagina actual
-  const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
-  const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
-  const [cargando, setCargando] = React.useState(true); //Espera al consultar
+  const [cargando, setCargando] = React.useState("1"); //Espera al consultar
 
   //SnackBar
 
@@ -28,156 +20,32 @@ export default function ListarIntegrantesContenedor(props) {
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
-  async function consultas(data, cadena) {
-    const response = await fetch(cadena, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-
-    return response.json();
-  }
-
-  function Refrescar() {
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarintegrantes")
-      .then((response) => {
-        setFilas(response);
-        setCargando(false);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-        }
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
-      });
-  }
-
-  function BuscarAl(parametro) {
-    parametro.Offset = 0;
-    parametro.Limite = filasxpagina;
-
-    setDC(parametro);
-    setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/listarintegrantes")
-      .then((response) => {
-        setFilas(response);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-
-          setPagina(1);
-        }
-
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
-      });
-  }
-
-  function CambioPagina(pag) {
-    var datos = datosconsulta;
-    datos.Offset = pag * filasxpagina - filasxpagina;
-    datos.Limite = filasxpagina;
-
-    setDC(datos);
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarintegrantes")
-      .then((response) => {
-        setFilas(response);
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
-      });
-
-    setPagina(pag);
-  }
-
-  function CambioFPP(pag) {
-    setFXP(pag);
-    var datos = datosconsulta;
-    datos.Offset = 0;
-    datos.Limite = pag;
-
-    setDC(datos);
-
-    setCargando(true);
-
-    consultas(datos, "http://127.0.0.1:8000/api/listarintegrantes")
-      .then((response) => {
-        setFilas(response);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-          setCargando(false);
-        }
-      })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
-      });
-  }
-
   React.useEffect(() => {
     var data = {
       pidG: props.grupo.IdGrupo,
-      // pGrupo:'',
-      //pTema:'',
-      //pModulo:'',
-      //   piB:'A',
-      //pLib:'',
-
       Offset: 0,
-      Limite: filasxpagina,
+      Limite: 30,
       pidCu: props.cursada.IdCursada,
-
-      /*
-        Catedra:'',
-        Bajas:'B',
-        Offset:0,
-    Limite:filasxpagina,*/
     };
 
-    setDC(data);
-
-    consultas(data, "http://127.0.0.1:8000/api/listarintegrantes")
+    Responses.consultas(data, "http://127.0.0.1:8000/api/listarintegrantes")
       .then((response) => {
-        setFilas(response);
-
-        if (response.res === undefined) {
-          setCargando(true);
+        if (Responses.status === 200) {
+          setFilas(response);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
         } else {
-          if (response.res.length > 0) {
-            setPaginacion(response.res[0].filas);
-            setResultado(response.res[0].resultados);
-
-            setPagina(1);
-          }
-          setCargando(false);
+          navegar("/error");
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/error");
       });
   }, []);
 
-  //console.log(abrir);
-  //console.log(mensaje);
-  //console.log(tipo);
   return (
     <Paper
       component="div"
@@ -195,7 +63,9 @@ export default function ListarIntegrantesContenedor(props) {
     >
       <Grid container pt={5} justifyContent="flex-end" spacing={8}></Grid>
 
-      {cargando === true && (
+      {cargando === "3" && <h4>No se encontraron resultados</h4>}
+
+      {cargando === "1" && (
         <Grid container pt={2}>
           <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
             <LinearProgress color="inherit" />
@@ -204,17 +74,10 @@ export default function ListarIntegrantesContenedor(props) {
           </Stack>
         </Grid>
       )}
-      {cargando === false && (
+      {cargando === "2" && (
         <Grid container pt={2}>
           <IntegrantesLista
             filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
             cursada={props.cursada}
             grupo={props.grupo}
             abrir={setAbrir}

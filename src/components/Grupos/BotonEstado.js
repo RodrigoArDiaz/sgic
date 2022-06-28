@@ -1,165 +1,112 @@
-
-
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-//import {AltaGrupo} from './AltaGrupo';
-//import {BajaGrupo} from './BajaGrupo';
-
-import IconButton from '@mui/material/IconButton';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import { Tooltip } from '@mui/material';
-import {  Grid } from '@mui/material';
-
+import * as React from "react";
+//MUI
+import IconButton from "@mui/material/IconButton";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import { Tooltip, Zoom } from "@mui/material";
+import { Grid } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+//
 import { useNavigate } from "react-router-dom";
-
-import CircularProgress from '@mui/material/CircularProgress';
+import * as Responses from "../Responses";
 
 export const BotonEstado = (props) => {
-
   const navegar = useNavigate();
-    const [salto, setSalto] = React.useState(props.estado); 
+  const [salto, setSalto] = React.useState(props.estado);
 
+  function manejador() {
+    var data = {
+      pidG: props.idgrupo,
+      pidCu: props.cursada.IdCursada,
+    };
 
-    async function consultas(data, cadena){
-
-      const response = await fetch(cadena,
-      {
-          method: 'POST', 
-          body: JSON.stringify(data), 
-          headers:{
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+    if (salto === "A") {
+      setSalto("C");
+      Responses.consultas(data, "http://127.0.0.1:8000/api/bajagrupo")
+        .then((response) => {
+          if (Responses.status === 200) {
+            setSalto("B");
+          } else if (Responses.status === 401) {
+            navegar("/ingreso");
+          } else {
+            navegar("/error");
           }
-        }
-      );
-  
-           return response.json();
-  }
-
-
-    function manejador(){
-        
-      var data = {
-        pidG:props.idgrupo,}
-
-
-    if (salto ==='A'){
-      setSalto('C');
-      consultas(data,'http://127.0.0.1:8000/api/bajagrupo').then(response=>{
-      
-        if (response.Error===undefined){
-          setSalto('B');  
-        }
-        else {
-          console.log(response.Error)
-        }
-                
         })
-        .catch(error=>{console.log("Error de conexión"+error);
-          navegar("/registrarse");
-      });
-      
-      //setSalto('B'); 
-}
+        .catch((error) => {
+          navegar("/error");
+        });
 
-else {
-    if (salto ==='B'){
-      setSalto('C');
-      consultas(data,'http://127.0.0.1:8000/api/altagrupo').then(response=>{
-      
-        if (response.Error===undefined){
-          setSalto('A');  
-        }
-        else {
-          console.log(response.Error)
-        }       
-        })
-        .catch(error=>{console.log("Error de conexión"+error);
-          navegar("/registrarse");
-      });
-      
-    //  setSalto('A');
+      //setSalto('B');
+    } else {
+      if (salto === "B") {
+        setSalto("C");
+        Responses.consultas(data, "http://127.0.0.1:8000/api/altagrupo")
+          .then((response) => {
+            if (Responses.status === 200) {
+              setSalto("A");
+            } else if (Responses.status === 401) {
+              navegar("/ingreso");
+            } else {
+              navegar("/error");
+            }
+          })
+          .catch((error) => {
+            navegar("/error");
+          });
+      }
     }
-
   }
 
-
-}
-
-
-
-
-return (<>
-  {(salto==='A') &&<Grid item xs={12} sm="auto">
-<Tooltip title="Activo">
-<IconButton aria-label="estado" size='small' color="success" onClick={()=>manejador()}>
-        <CheckIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-  }
-  {(salto==='B') &&<Grid item xs={12} sm="auto">
-<Tooltip title="Baja">
-<IconButton aria-label="estado2"  size='small' color="error" onClick={()=>manejador()}>
-        <CloseIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-  }
-  {(salto==='C') &&<Grid item xs={12} sm="auto">
-<Tooltip title="Verificando">
-<IconButton aria-label="estado3"  size='small' color="inherit"  onClick={()=>manejador()}>
-        <CircularProgress />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-  }
-  </>
-
-);
-
-
-
-
-
-
-/*
-if (salto ==='A') 
-{
-    return (
-      
-
-        
+  return (
+    <>
+      {salto === "A" && (
         <Grid item xs={12} sm="auto">
-<Tooltip title="Activa">
-<IconButton aria-label="estado" size='small' color="success" onClick={()=>manejador()}>
-        <CheckIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-      
-
-  );}
-*/
-/*
-  if (salto==='B') 
-  {
-      return (
-
-        
+          <Tooltip title="Activo" TransitionComponent={Zoom} arrow>
+            <span>
+              <IconButton
+                aria-label="estado"
+                size="small"
+                color="success"
+                onClick={() => manejador()}
+              >
+                <CheckIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
+        </Grid>
+      )}
+      {salto === "B" && (
         <Grid item xs={12} sm="auto">
-<Tooltip title="Baja">
-<IconButton aria-label="estado2"  size='small' color="error" onClick={()=>manejador()}>
-        <CloseIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-     
-    );}
-*/
-
- 
-
-}
+          <Tooltip title="Baja" TransitionComponent={Zoom} arrow>
+            <span>
+              <IconButton
+                aria-label="estado2"
+                size="small"
+                color="error"
+                onClick={() => manejador()}
+              >
+                <CloseIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
+        </Grid>
+      )}
+      {salto === "C" && (
+        <Grid item xs={12} sm="auto">
+          <Tooltip title="Verificando" TransitionComponent={Zoom} arrow>
+            <span>
+              <IconButton
+                aria-label="estado3"
+                size="small"
+                color="inherit"
+                onClick={() => manejador()}
+              >
+                <CircularProgress size={21} />
+              </IconButton>
+            </span>
+          </Tooltip>
+        </Grid>
+      )}
+    </>
+  );
+};

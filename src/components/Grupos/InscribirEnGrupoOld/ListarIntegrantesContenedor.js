@@ -1,13 +1,16 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+//import GruposLista from './GruposLista2';
+//import { CrearCatedra } from './CrearCatedra';
+//import {CrearGrupo} from './CrearGrupo';
 import IntegrantesLista from "./IntegrantesLista";
 import Stack from "@mui/material/Stack";
 import LinearProgress from "@mui/material/LinearProgress";
+
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import BuscarAlumnos from "./BuscarAlumnos";
-import * as Responses from "../../Responses";
 
 export default function ListarIntegrantesContenedor(props) {
   const navegar = useNavigate();
@@ -18,7 +21,7 @@ export default function ListarIntegrantesContenedor(props) {
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
-  const [cargando, setCargando] = React.useState("1"); //Espera al consultar
+  const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
   //SnackBar
 
@@ -26,26 +29,34 @@ export default function ListarIntegrantesContenedor(props) {
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
+  async function consultas(data, cadena) {
+    const response = await fetch(cadena, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+
+    return response.json();
+  }
+
   function Refrescar() {
-    setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    setCargando(true);
+    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarnointegrantes")
       .then((response) => {
-        if (Responses.status === 200) {
-          setFilas(response);
-          setCargando("2");
-        } else if (Responses.status === 401) {
-          navegar("/ingreso");
-        } else if (Responses.status === 460) {
-          setCargando("3");
-        } else {
-          navegar("/error");
+        setFilas(response);
+        setCargando(false);
+
+        if (response.res.length > 0) {
+          setPaginacion(response.res[0].filas);
+          setResultado(response.res[0].resultados);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
+        navegar("/registrarse");
       });
   }
 
@@ -54,62 +65,47 @@ export default function ListarIntegrantesContenedor(props) {
     parametro.Limite = filasxpagina;
 
     setDC(parametro);
-    setCargando("1");
-    Responses.consultas(
-      parametro,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    setCargando(true);
+    consultas(parametro, "http://127.0.0.1:8000/api/listarnointegrantes")
       .then((response) => {
-        if (Responses.status === 200) {
-          setFilas(response);
+        setFilas(response);
+
+        if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-          setCargando("2");
+
           setPagina(1);
-        } else if (Responses.status === 401) {
-          navegar("/ingreso");
-        } else if (Responses.status === 460) {
-          setCargando("3");
-        } else {
-          navegar("/error");
         }
+
+        setCargando(false);
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
+        navegar("/registrarse");
       });
   }
 
   function CambioPagina(pag) {
-    setPagina(pag);
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
     datos.Limite = filasxpagina;
 
     setDC(datos);
-    setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    setCargando(true);
+    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarnointegrantes")
       .then((response) => {
-        if (Responses.status === 200) {
-          setFilas(response);
-          setCargando("2");
-        } else if (Responses.status === 401) {
-          navegar("/ingreso");
-        } else if (Responses.status === 460) {
-          setCargando("3");
-        } else {
-          navegar("/error");
-        }
+        setFilas(response);
+        setCargando(false);
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
+        navegar("/registrarse");
       });
+
+    setPagina(pag);
   }
 
   function CambioFPP(pag) {
-    setPagina(1);
     setFXP(pag);
     var datos = datosconsulta;
     datos.Offset = 0;
@@ -117,25 +113,22 @@ export default function ListarIntegrantesContenedor(props) {
 
     setDC(datos);
 
-    setCargando("1");
+    setCargando(true);
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/listarnointegrantes")
+    consultas(datos, "http://127.0.0.1:8000/api/listarnointegrantes")
       .then((response) => {
-        if (Responses.status === 200) {
-          setFilas(response);
+        setFilas(response);
+
+        if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-          setCargando("2");
-        } else if (Responses.status === 401) {
-          navegar("/ingreso");
-        } else if (Responses.status === 460) {
-          setCargando("3");
-        } else {
-          navegar("/error");
+          setCargando(false);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
+
+        navegar("/registrarse");
       });
   }
 
@@ -150,31 +143,41 @@ export default function ListarIntegrantesContenedor(props) {
       Offset: 0,
       Limite: filasxpagina,
       pidCu: props.cursada.IdCursada,
+
+      /*
+        Catedra:'',
+        Bajas:'B',
+        Offset:0,
+    Limite:filasxpagina,*/
     };
 
-    setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarnointegrantes")
+    consultas(data, "http://127.0.0.1:8000/api/listarnointegrantes")
       .then((response) => {
-        if (Responses.status === 200) {
-          setFilas(response);
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-          setCargando("2");
-        } else if (Responses.status === 401) {
-          navegar("/ingreso");
-        } else if (Responses.status === 460) {
-          setCargando("3");
+        setFilas(response);
+
+        if (response.res === undefined) {
+          setCargando(true);
         } else {
-          navegar("/error");
+          if (response.res.length > 0) {
+            setPaginacion(response.res[0].filas);
+            setResultado(response.res[0].resultados);
+
+            setPagina(1);
+          }
+          setCargando(false);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        console.log("Error de conexión" + error);
+        navegar("/registrarse");
       });
   }, []);
 
+  //console.log(abrir);
+  //console.log(mensaje);
+  //console.log(tipo);
   return (
     <Paper
       component="div"
@@ -201,8 +204,7 @@ export default function ListarIntegrantesContenedor(props) {
         </Grid>
       </Grid>
 
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
-      {cargando === "1" && (
+      {cargando === true && (
         <Grid container pt={2}>
           <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
             <LinearProgress color="inherit" />
@@ -211,7 +213,7 @@ export default function ListarIntegrantesContenedor(props) {
           </Stack>
         </Grid>
       )}
-      {cargando === "2" && (
+      {cargando === false && (
         <Grid container pt={2}>
           <IntegrantesLista
             filas={filas}

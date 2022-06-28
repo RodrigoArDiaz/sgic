@@ -2,25 +2,53 @@ import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
+import { Box } from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+//Valor inicial del formulario
+/*const formInicial = {
+  apellidos: "",
+  nombres: "",
+  dni: "",
+  email: "",
+}
+
+*/
 
 export default function BuscarAlumnos(props) {
+  //variable de estado del formulario
+
   function manejador() {
     var data = {
+      //pUs:form.usuario,
       pMail: form.email,
       pDoc: form.dni,
       pLib: form.libreta,
       pNom: form.nombres,
       pAp: form.apellidos,
+      //piB:form.bajas,
       Offset: 0,
       Limite: props.filasxpagina,
+      //pidG:props.grupo.IdGrupo,
       pidCu: props.cursada.IdCursada,
     };
 
+    /*
+    var data = {
+        Apellidos:form.apellidos,
+        Nombres:form.nombres,
+        Documento:form.dni,
+        Correo:form.email,
+        Bajas:form.bajas,
+      Offset:0,
+      Limite:props.filasxpagina,                                            
+  }*/
     props.actualizar(data);
   }
 
@@ -29,6 +57,7 @@ export default function BuscarAlumnos(props) {
     nombres: "",
     dni: "",
     email: "",
+    //bajas:"B",
   });
 
   //handle para inputs de busqueda
@@ -38,6 +67,21 @@ export default function BuscarAlumnos(props) {
       ...form,
       [name]: value,
     });
+  };
+
+  const handleChecked = (e) => {
+    // const {name, value} = e.target;
+    if (e.target.checked === true) {
+      setForm({
+        ...form,
+        [e.target.name]: "B",
+      });
+    } else {
+      setForm({
+        ...form,
+        [e.target.name]: "A",
+      });
+    }
   };
 
   //handle para boton 'limpiar'

@@ -1,18 +1,22 @@
-import React, { useEffect } from "react";
-import { Paper, Typography } from "@mui/material";
+import React from "react";
+//MUI
+import { CardContent, Paper, Typography, Box } from "@mui/material";
 import { Grid } from "@mui/material";
+import { blue, teal } from "@mui/material/colors";
+//
 import GruposLista from "./GruposLista";
-//import { CrearCatedra } from './CrearCatedra';
 import { CrearGrupo } from "./CrearGrupo";
 import BuscarGrupos from "./BuscarGrupos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
-
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
+import * as Responses from "../Responses";
 import { useSelector } from "react-redux";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { MoonLoader } from "react-spinners";
 
 export default function InscripcionesContenedor(props) {
+  const color = teal[400];
+
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -24,7 +28,7 @@ export default function InscripcionesContenedor(props) {
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
-  const [cargando, setCargando] = React.useState(true); //Espera al consultar
+  const [cargando, setCargando] = React.useState("1"); //Espera al consultar
 
   //SnackBar
 
@@ -32,34 +36,23 @@ export default function InscripcionesContenedor(props) {
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
-  async function consultas(data, cadena) {
-    const response = await fetch(cadena, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-
-    return response.json();
-  }
-
   function Refrescar() {
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
+    setCargando("1");
+    Responses.consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
       .then((response) => {
-        setFilas(response);
-        setCargando(false);
-
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
+        if (Responses.status === 200) {
+          setFilas(response);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
+        } else {
+          navegar("/error");
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/error");
       });
   }
 
@@ -68,47 +61,58 @@ export default function InscripcionesContenedor(props) {
     parametro.Limite = filasxpagina;
 
     setDC(parametro);
-    setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscargrupos")
+    setCargando("1");
+    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscargrupos")
       .then((response) => {
-        setFilas(response);
-
-        if (response.res.length > 0) {
+        if (Responses.status === 200) {
+          setFilas(response);
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-
+          setCargando("2");
           setPagina(1);
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
+        } else {
+          navegar("/error");
         }
-
-        setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/error");
       });
   }
 
   function CambioPagina(pag) {
+    setPagina(pag);
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
     datos.Limite = filasxpagina;
 
     setDC(datos);
-    setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
+    setCargando("1");
+    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
       .then((response) => {
-        setFilas(response);
-        setCargando(false);
+        if (Responses.status === 200) {
+          setFilas(response);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
+        } else {
+          navegar("/error");
+        }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/error");
       });
 
     setPagina(pag);
   }
 
   function CambioFPP(pag) {
+    setPagina(1);
     setFXP(pag);
     var datos = datosconsulta;
     datos.Offset = 0;
@@ -116,22 +120,25 @@ export default function InscripcionesContenedor(props) {
 
     setDC(datos);
 
-    setCargando(true);
+    setCargando("1");
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
       .then((response) => {
-        setFilas(response);
-
-        if (response.res.length > 0) {
+        if (Responses.status === 200) {
+          setFilas(response);
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-          setCargando(false);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
+        } else {
+          navegar("/error");
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
+        navegar("/error");
       });
   }
 
@@ -141,48 +148,35 @@ export default function InscripcionesContenedor(props) {
       pTema: "",
       pModulo: "",
       piB: "B",
-      //pLib:'',
-
       Offset: 0,
       Limite: filasxpagina,
-      pidCu: cursada.cursada.IdCursada,
-
-      /*
-        Catedra:'',
-        Bajas:'B',
-        Offset:0,
-    Limite:filasxpagina,*/
+      pidCu: cursada.IdCursada,
+      // pidCu: props.cursada.IdCursada,
     };
-
+    setPagina(1);
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(data, "http://127.0.0.1:8000/api/buscargrupos")
       .then((response) => {
-        setFilas(response);
-
-        if (response.res === undefined) {
-          setCargando(true);
+        if (Responses.status === 200) {
+          setFilas(response);
+          setPaginacion(response.res[0].filas);
+          setResultado(response.res[0].resultados);
+          setCargando("2");
+        } else if (Responses.status === 401) {
+          navegar("/ingreso");
+        } else if (Responses.status === 460) {
+          setCargando("3");
         } else {
-          if (response.res.length > 0) {
-            setPaginacion(response.res[0].filas);
-            setResultado(response.res[0].resultados);
-
-            setPagina(1);
-          }
-          setCargando(false);
+          navegar("/error");
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar("/error");
       });
   }, []);
 
-  //console.log(abrir);
-  //console.log(mensaje);
-  //console.log(tipo);
-
-  if (cursada.cursada.TieneGrupos === "N") {
+  if (cursada.TieneGrupos === "N") {
     return (
       <Paper
         component="div"
@@ -214,82 +208,93 @@ export default function InscripcionesContenedor(props) {
   }
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
+    <CardMainPage
+      icon="supervisor_account"
+      title="Grupos"
+      bgColorIcon={blue[500]}
     >
-      <Grid container pt={10} spacing={8}>
-        <Grid item xs={9}>
-          <Typography variant="h4">Gestión de Grupos</Typography>
-        </Grid>
+      <CardContent>
+        <Grid container>
+          <Grid container direction="row-reverse">
+            {/* Crear grupo */}
+            <Grid item xs={12} sm={2} md={2}>
+              <Grid
+                container
+                paddingX={2}
+                // paddingY={1}
+                paddingBottom={1}
+                justifyContent="flex-end"
+              >
+                <Grid item xs={12}>
+                  <CrearGrupo
+                    refrescar={Refrescar}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                    cursada={cursada}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            {/* Buscar grupo */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={8}
+              lg={10}
+              // xl={10}
+              // paddingY={1}
+              paddingBottom={1}
+              paddingX={2}
+            >
+              <BuscarGrupos
+                cursada={cursada}
+                actualizar={BuscarAl}
+                filasxpagina={filasxpagina}
+              />
+            </Grid>
+          </Grid>
 
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <CrearGrupo
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            cursada={cursada.cursada}
-          />
-        </Grid>
-      </Grid>
+          {cargando === "3" && <h4>No se encontraron resultados</h4>}
+          {cargando === "1" && (
+            <Grid container paddingTop={2}>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  <MoonLoader color={color} size={60} />
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+          {cargando === "2" && (
+            <Grid container pt={2}>
+              <GruposLista
+                filas={filas}
+                filasxpagina={filasxpagina}
+                pagina={pagina}
+                paginacion={paginacion}
+                resultados={resultados}
+                actualizarpagina={CambioPagina}
+                actualizarfilas={CambioFPP}
+                refrescar={Refrescar}
+                cursada={cursada}
+                abrir={setAbrir}
+                mensaje={setMensaje}
+                tipo={setTipo}
+              />
+            </Grid>
+          )}
 
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarGrupos
-            cursada={cursada.cursada}
-            actualizar={BuscarAl}
-            filasxpagina={filasxpagina}
-          />
+          <div>
+            <SnackMensajes
+              abrir={abrir}
+              mensaje={mensaje}
+              tipo={tipo}
+              cerrar={setAbrir}
+            />{" "}
+          </div>
         </Grid>
-      </Grid>
-
-      {cargando === true && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
-      )}
-      {cargando === false && (
-        <Grid container pt={2}>
-          <GruposLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            cursada={cursada.cursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
-      )}
-
-      <div>
-        <SnackMensajes
-          abrir={abrir}
-          mensaje={mensaje}
-          tipo={tipo}
-          cerrar={setAbrir}
-        />{" "}
-      </div>
-    </Paper>
+      </CardContent>
+    </CardMainPage>
   );
 }
