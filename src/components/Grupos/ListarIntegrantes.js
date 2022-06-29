@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, Zoom } from "@mui/material";
+import { Button, DialogContent, Zoom } from "@mui/material";
 import { useModal } from "../useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -34,12 +34,14 @@ export const ListarIntegrantes = (props) => {
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} fullScreen>
-        <DialogTitle>Integrantes de {props.grupo.Grupo}</DialogTitle>
+        {/* <DialogTitle>Integrantes de {props.grupo.Grupo}</DialogTitle> */}
 
-        <ListarIntegrantesContenedor
-          cursada={props.cursada}
-          grupo={props.grupo}
-        />
+        <DialogContent>
+          <ListarIntegrantesContenedor
+            cursada={props.cursada}
+            grupo={props.grupo}
+          />
+        </DialogContent>
 
         <DialogActions>
           <Button

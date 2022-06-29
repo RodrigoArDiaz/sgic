@@ -1,15 +1,25 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  ListItem,
+  ListItemText,
+  Box,
+  CardContent,
+} from "@mui/material";
 import { Grid } from "@mui/material";
 import IntegrantesLista from "./IntegrantesLista";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import BuscarAlumnos from "./BuscarAlumnos";
 import * as Responses from "../../Responses";
+import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
+import { MoonLoader } from "react-spinners";
+import { teal } from "@mui/material/colors";
 
 export default function ListarIntegrantesContenedor(props) {
+  const color = teal[400];
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -176,69 +186,79 @@ export default function ListarIntegrantesContenedor(props) {
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
+    <CardMainPage
+      icon="redo"
+      title={"Inscribir alumno - " + props.grupo.Grupo}
+      bgColorIcon="cyan.main300"
     >
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarAlumnos
-            grupo={props.grupo}
-            cursada={props.cursada}
-            actualizar={BuscarAl}
-            filasxpagina={filasxpagina}
-          />
-        </Grid>
-      </Grid>
+      <CardContent>
+        <Grid container>
+          <Grid container direction="row-reverse">
+            {/* Buscar alumno */}
+            <Grid item xs={12} sm={12} paddingBottom={1} paddingX={2}>
+              <BuscarAlumnos
+                grupo={props.grupo}
+                cursada={props.cursada}
+                actualizar={BuscarAl}
+                filasxpagina={filasxpagina}
+              />
+            </Grid>
+          </Grid>
 
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
-      {cargando === "1" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
-      )}
-      {cargando === "2" && (
-        <Grid container pt={2}>
-          <IntegrantesLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            cursada={props.cursada}
-            grupo={props.grupo}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
-      )}
+          {cargando === "3" && (
+            <Grid container pt={2}>
+              <Grid item xs={12}>
+                <ListItem key="0" disablePadding>
+                  <ListItemText>
+                    <Alert severity="info" variant="outlined">
+                      <AlertTitle>No se encontraron resultados</AlertTitle>
+                    </Alert>
+                  </ListItemText>
+                </ListItem>
+              </Grid>
+            </Grid>
+          )}
 
-      <div>
-        <SnackMensajes
-          abrir={abrir}
-          mensaje={mensaje}
-          tipo={tipo}
-          cerrar={setAbrir}
-        />{" "}
-      </div>
-    </Paper>
+          {cargando === "1" && (
+            <Grid container pt={2}>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  <MoonLoader color={color} size={60} />
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+
+          {cargando === "2" && (
+            <Grid container pt={2}>
+              <IntegrantesLista
+                filas={filas}
+                filasxpagina={filasxpagina}
+                pagina={pagina}
+                paginacion={paginacion}
+                resultados={resultados}
+                actualizarpagina={CambioPagina}
+                actualizarfilas={CambioFPP}
+                refrescar={Refrescar}
+                cursada={props.cursada}
+                grupo={props.grupo}
+                abrir={setAbrir}
+                mensaje={setMensaje}
+                tipo={setTipo}
+              />
+            </Grid>
+          )}
+
+          <div>
+            <SnackMensajes
+              abrir={abrir}
+              mensaje={mensaje}
+              tipo={tipo}
+              cerrar={setAbrir}
+            />{" "}
+          </div>
+        </Grid>
+      </CardContent>
+    </CardMainPage>
   );
 }

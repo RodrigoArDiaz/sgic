@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Zoom } from "@mui/material";
+import { Button, DialogContent, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import RedoIcon from "@mui/icons-material/Redo";
@@ -33,11 +33,12 @@ export const InscribirEnGrupo = (props) => {
         //maxWidth="xs"
         fullScreen
       >
-        <DialogTitle>Inscribir Alumnos {props.grupo.Grupo}</DialogTitle>
-        <ListarIntegrantesContenedor
-          grupo={props.grupo}
-          cursada={props.cursada}
-        />
+        <DialogContent>
+          <ListarIntegrantesContenedor
+            grupo={props.grupo}
+            cursada={props.cursada}
+          />
+        </DialogContent>
 
         <DialogActions>
           <Button
