@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent, Paper, Typography } from "@mui/material";
+import { Box, CardContent, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import AlumnosLista from "./AlumnosLista";
 import { CrearInscripcion } from "./CrearInscripcion";
@@ -16,6 +16,11 @@ import * as Responses from "../Responses";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { blue } from "@mui/material/colors";
+import { MoonLoader } from "react-spinners";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
 export default function InscripcionesContenedor(props) {
   //Recupero informacion de la cursada
@@ -257,11 +262,11 @@ export default function InscripcionesContenedor(props) {
 
           {cargando === "1" && (
             <Grid container pt={2}>
-              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-              </Stack>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+                </Box>
+              </Grid>
             </Grid>
           )}
 

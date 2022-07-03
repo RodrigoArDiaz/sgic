@@ -22,6 +22,11 @@ import { Tooltip } from "@mui/material";
 
 // import  FilasPorPagina  from '../Catedras/FilasPorPagina';
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
+import {
+  TableCell1em,
+  TableRowElevacion,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
+import { estilosBotonNavegacion } from "../../styles/EstilosPaginacion";
 
 const columns = [
   {
@@ -99,190 +104,209 @@ export default function StickyHeadTable(props) {
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   return (
-    <ThemeProvider theme={theme}>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: "none" }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.filas.res.map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.IdCatedra}
-                  >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      if (column.id === "Apellidos") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+    <>
+      <TableContainer sx={{ maxHeight: "none" }}>
+        <Table
+          aria-label="Lista de inscriptos"
+          sx={{ mb: "1rem" }}
+          size="small"
+        >
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.filas.res.map((row) => {
+              return (
+                <TableRowElevacion key={row.IdCatedra}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    if (column.id === "Apellidos") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "Nombres") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "Nombres") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "Libreta") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "Libreta") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "Documento") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "Documento") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "Email") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "Email") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "FechaInscripcion") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "FechaInscripcion") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "EstaInscriptoSitioWeb") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              <BotonISW
-                                refrescar={props.refrescar}
-                                abrir={props.abrir}
-                                mensaje={props.mensaje}
-                                tipo={props.tipo}
-                                alumno={row}
-                                cursada={props.cursada}
-                                inscripto={value}
-                                SIU={row["EstaInscriptoSIU"]}
-                              />
-                            )}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "EstaInscriptoSitioWeb") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            <BotonISW
+                              refrescar={props.refrescar}
+                              abrir={props.abrir}
+                              mensaje={props.mensaje}
+                              tipo={props.tipo}
+                              alumno={row}
+                              cursada={props.cursada}
+                              inscripto={value}
+                              SIU={row["EstaInscriptoSIU"]}
+                            />
+                          )}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "EstaInscriptoSIU") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              <BotonIS
-                                refrescar={props.refrescar}
-                                abrir={props.abrir}
-                                mensaje={props.mensaje}
-                                tipo={props.tipo}
-                                alumno={row}
-                                cursada={props.cursada}
-                                inscripto={value}
-                                SW={row["EstaInscriptoSitioWeb"]}
-                              />
-                            )}
-                          </TableCell>
-                        );
-                      }
+                    if (column.id === "EstaInscriptoSIU") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            <BotonIS
+                              refrescar={props.refrescar}
+                              abrir={props.abrir}
+                              mensaje={props.mensaje}
+                              tipo={props.tipo}
+                              alumno={row}
+                              cursada={props.cursada}
+                              inscripto={value}
+                              SW={row["EstaInscriptoSitioWeb"]}
+                            />
+                          )}
+                        </TableCell1em>
+                      );
+                    }
 
-                      if (column.id === "acciones") {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              <BotonAcciones
-                                refrescar={props.refrescar}
-                                abrir={props.abrir}
-                                mensaje={props.mensaje}
-                                tipo={props.tipo}
-                                alumno={row}
-                                cursada={props.cursada}
-                              />
-                            )}
-                          </TableCell>
-                        );
-                      }
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2}>
-          <Grid item xs={6} sx={{ mt: 1 }}>
-            <Stack spacing={2}>
-              <Pagination
-                variant="outlined"
-                defaultPage={1}
-                count={props.paginacion}
-                page={props.pagina}
-                onChange={(e, page) => CambiarPagina(e, page)}
-              />
-            </Stack>
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Resultados: {props.resultados}
-          </Grid>
+                    if (column.id === "acciones") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            <BotonAcciones
+                              refrescar={props.refrescar}
+                              abrir={props.abrir}
+                              mensaje={props.mensaje}
+                              tipo={props.tipo}
+                              alumno={row}
+                              cursada={props.cursada}
+                            />
+                          )}
+                        </TableCell1em>
+                      );
+                    }
+                  })}
+                </TableRowElevacion>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* Paginación */}
+      <Grid justifyContent="flex-start" container pt={2}>
+        <Grid item xs={6} sx={{ mt: 1 }}>
+          <Stack spacing={2}>
+            <Pagination
+              size="large"
+              color="info"
+              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
+              variant="outlined"
+              defaultPage={1}
+              count={props.paginacion}
+              page={props.pagina}
+              onChange={(e, page) => CambiarPagina(e, page)}
+            />
+          </Stack>
         </Grid>
-        <Grid justifyContent="center" container pt={2} />
-      </Paper>
-    </ThemeProvider>
+
+        <Grid
+          item
+          xs={2}
+          sx={estilosBotonNavegacion}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          gap={1}
+          paddingY={1}
+        >
+          Filas por página:{" "}
+          {
+            <FilasPorPagina
+              actualizarfilas={props.actualizarfilas}
+              fpp={props.filasxpagina}
+            />
+          }
+        </Grid>
+
+        <Grid
+          item
+          xs={2}
+          sx={estilosBotonNavegacion}
+          textAlign="end"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="end"
+        >
+          Resultados: {props.resultados}
+        </Grid>
+      </Grid>
+    </>
   );
 }
