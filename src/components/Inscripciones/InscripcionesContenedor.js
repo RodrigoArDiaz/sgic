@@ -213,7 +213,7 @@ export default function InscripcionesContenedor(props) {
                   />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <ExportarInfoAlumnos
                     // idcursada={props.cursada.IdCursada}
                     idcursada={cursada.IdCursada}

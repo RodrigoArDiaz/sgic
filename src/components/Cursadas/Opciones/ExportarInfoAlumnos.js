@@ -11,7 +11,11 @@ import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
 import Add from "@mui/icons-material/Add";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode, faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFileExcel,
+  faFileExport,
+  faFilePdf,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const ExportarInfoAlumnos = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -86,28 +90,46 @@ export const ExportarInfoAlumnos = (props) => {
     <>
       <Button
         variant="outlined"
-        startIcon={<FontAwesomeIcon icon={faFileArrowDown} />}
+        startIcon={<FontAwesomeIcon icon={faFileExport} />}
         fullWidth
         onClick={handleOpen}
       >
-        {/* Exportar Información */}
+        Exportar Información
       </Button>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        maxWidth="xs"
+        fullWidth
+        sx={{
+          backdropFilter: "blur(0.8px)",
+        }}
+      >
         <DialogTitle>Exportar Información</DialogTitle>
         <DialogContent>
-          <DialogContentText>Seleccione el formato</DialogContentText>
+          <DialogContentText>Seleccione el formato:</DialogContentText>
 
-          <Grid container pt={3} justifyContent="flex-start" spacing={25}>
-            <Grid item xs={6}>
-              <Button variant="contained" onClick={() => ExportP()}>
+          <Grid container justifyContent="space-evenly" spacing={2} pt={1}>
+            <Grid item xs={6} textAlign="center">
+              <Button
+                variant="outlined"
+                size="medium"
+                startIcon={<FontAwesomeIcon icon={faFilePdf} />}
+                onClick={() => ExportP()}
+              >
                 PDF
               </Button>
             </Grid>
 
-            <Grid item xs={6}>
-              <Button variant="contained" onClick={() => ExportX()}>
+            <Grid item xs={6} textAlign="center">
+              <Button
+                variant="outlined"
+                size="medium"
+                startIcon={<FontAwesomeIcon icon={faFileExcel} />}
+                onClick={() => ExportX()}
+              >
                 XLSX
               </Button>
             </Grid>

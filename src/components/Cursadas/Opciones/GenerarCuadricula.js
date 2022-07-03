@@ -3,6 +3,11 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
 import Add from "@mui/icons-material/Add";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFileExport,
+  faSheetPlastic,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const GenerarCuadricula = (props) => {
   const navegar = useNavigate();
@@ -49,7 +54,7 @@ export const GenerarCuadricula = (props) => {
     <>
       <Button
         variant="outlined"
-        // startIcon={<Add />}
+        startIcon={<FontAwesomeIcon icon={faSheetPlastic} />}
         fullWidth
         onClick={() => Cuadricula()}
       >
