@@ -8,9 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 export default function BuscarAlumnos(props) {
   function manejador() {
@@ -68,32 +66,16 @@ export default function BuscarAlumnos(props) {
   };
 
   return (
-    <Paper
-      component="form"
-      sx={{
-        p: "2px 4px",
-        display: "flex",
-        alignItems: "center",
-        // width: "100%",
-        mt: "10px",
-        px: 2,
-        my: 3,
-      }}
-      elevation={1}
-    >
-      <Grid
-        container
-        spacing={2}
-        justifyContent="space-between"
-        alignItems="flex-center"
-      >
-        <Grid item>
-          <FormControl sx={{ m: 0.4 }} variant="standard">
-            <Input
-              id="apellidos"
-              type="text"
-              placeholder="Apellidos"
-              endAdornment={
+    <Grid container spacing={1}>
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="apellidos"
+            type="text"
+            placeholder="Apellidos"
+            size="small"
+            endAdornment={
+              form.apellidos ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo apellidos"
@@ -104,21 +86,24 @@ export default function BuscarAlumnos(props) {
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              }
-              onChange={handleChange}
-              value={form.apellidos}
-              name="apellidos"
-            />
-          </FormControl>
-        </Grid>
+              ) : undefined
+            }
+            onChange={handleChange}
+            value={form.apellidos}
+            name="apellidos"
+          />
+        </FormControl>
+      </Grid>
 
-        <Grid item>
-          <FormControl sx={{ m: 0.4 }} variant="standard">
-            <Input
-              id="nombres"
-              type="text"
-              placeholder="Nombres"
-              endAdornment={
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="nombres"
+            type="text"
+            placeholder="Nombres"
+            size="small"
+            endAdornment={
+              form.nombres ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo nombres"
@@ -129,21 +114,24 @@ export default function BuscarAlumnos(props) {
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              }
-              onChange={handleChange}
-              value={form.nombres}
-              name="nombres"
-            />
-          </FormControl>
-        </Grid>
+              ) : undefined
+            }
+            onChange={handleChange}
+            value={form.nombres}
+            name="nombres"
+          />
+        </FormControl>
+      </Grid>
 
-        <Grid item>
-          <FormControl sx={{ m: 0.4 }} variant="standard">
-            <Input
-              id="dni"
-              type="text"
-              placeholder="Documento"
-              endAdornment={
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="dni"
+            type="text"
+            placeholder="Documento"
+            size="small"
+            endAdornment={
+              form.dni ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo dni"
@@ -154,21 +142,24 @@ export default function BuscarAlumnos(props) {
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              }
-              onChange={handleChange}
-              value={form.dni}
-              name="dni"
-            />
-          </FormControl>
-        </Grid>
+              ) : undefined
+            }
+            onChange={handleChange}
+            value={form.dni}
+            name="dni"
+          />
+        </FormControl>
+      </Grid>
 
-        <Grid item>
-          <FormControl sx={{ m: 0.4 }} variant="standard">
-            <Input
-              id="email"
-              type="text"
-              placeholder="Correo"
-              endAdornment={
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="email"
+            type="text"
+            placeholder="Correo"
+            size="small"
+            endAdornment={
+              form.email ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo email"
@@ -179,21 +170,24 @@ export default function BuscarAlumnos(props) {
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              }
-              onChange={handleChange}
-              value={form.email}
-              name="email"
-            />
-          </FormControl>
-        </Grid>
+              ) : undefined
+            }
+            onChange={handleChange}
+            value={form.email}
+            name="email"
+          />
+        </FormControl>
+      </Grid>
 
-        <Grid item xs={3}>
-          <FormControl sx={{ m: 0.4 }} variant="standard">
-            <Input
-              id="libreta"
-              type="text"
-              placeholder="Libreta"
-              endAdornment={
+      <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <FormControl fullWidth>
+          <OutlinedInputSearch
+            id="libreta"
+            type="text"
+            placeholder="Libreta"
+            size="small"
+            endAdornment={
+              form.libreta ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Limpiar campo libreta"
@@ -204,29 +198,29 @@ export default function BuscarAlumnos(props) {
                     <CloseIcon />
                   </IconButton>
                 </InputAdornment>
-              }
-              onChange={handleChange}
-              value={form.libreta}
-              name="libreta"
-            />
-          </FormControl>
-        </Grid>
-
-        <Grid item xs="auto" sm="auto" alignSelf="center">
-          <Box>
-            <IconButton
-              // type="submit"
-              sx={{ p: "10px" }}
-              aria-label="Buscar usuarios"
-              onClick={() => {
-                manejador();
-              }}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Box>
-        </Grid>
+              ) : undefined
+            }
+            onChange={handleChange}
+            value={form.libreta}
+            name="libreta"
+          />
+        </FormControl>
       </Grid>
-    </Paper>
+
+      <Grid item xs="auto" sm="auto" alignSelf="center">
+        <Box>
+          <IconButton
+            // type="submit"
+            sx={{ p: "10px" }}
+            aria-label="Buscar usuarios"
+            onClick={() => {
+              manejador();
+            }}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

@@ -9,7 +9,7 @@ export const BotonAcciones = (props) => {
   const { cursada } = useSelector((state) => state.cursada);
 
   return (
-    <Grid container justifyContent="space-between">
+    <Grid container justifyContent="space-evenly">
       <Grid item xs={12} sm="auto">
         <InscribirAlumno
           refrescar={props.refrescar}

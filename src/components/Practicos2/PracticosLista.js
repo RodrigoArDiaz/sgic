@@ -16,6 +16,7 @@ import { Grid } from "@mui/material";
 // import FilasPorPagina from "../Catedras/FilasPorPagina";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import { estilosBotonNavegacion } from "../../styles/EstilosPaginacion";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -238,13 +239,7 @@ export default function StickyHeadTable(props) {
         <Grid
           item
           xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
+          sx={estilosBotonNavegacion}
           textAlign="end"
           display="flex"
           flexDirection="row"
@@ -264,13 +259,7 @@ export default function StickyHeadTable(props) {
         <Grid
           item
           xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
+          sx={estilosBotonNavegacion}
           textAlign="end"
           display="flex"
           flexDirection="row"
