@@ -93,7 +93,7 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
+export default function AlumnosLista(props) {
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }

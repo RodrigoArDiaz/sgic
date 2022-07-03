@@ -281,7 +281,7 @@ export default function InscripcionesContenedor(props) {
                 actualizarpagina={CambioPagina}
                 actualizarfilas={CambioFPP}
                 refrescar={Refrescar}
-                cursada={props.cursada}
+                cursada={cursada}
                 abrir={setAbrir}
                 mensaje={setMensaje}
                 tipo={setTipo}
