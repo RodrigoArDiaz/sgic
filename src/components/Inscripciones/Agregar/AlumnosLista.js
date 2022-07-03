@@ -32,28 +32,28 @@ const columns = [
     id: "Nombres",
     label: "Nombres",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "Libreta",
     label: "Libreta",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "Documento",
     label: "Documento",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
     id: "Email",
     label: "Correo",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {

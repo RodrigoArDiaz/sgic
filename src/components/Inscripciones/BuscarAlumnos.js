@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
@@ -209,8 +209,18 @@ export default function BuscarAlumnos(props) {
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
         <Box>
-          <IconButton
-            // type="submit"
+          <Button
+            variant="outlined"
+            size="medium"
+            startIcon={<SearchIcon />}
+            onClick={() => {
+              manejador();
+            }}
+          >
+            Buscar
+          </Button>
+
+          {/* <IconButton
             sx={{ p: "10px" }}
             aria-label="Buscar usuarios"
             onClick={() => {
@@ -218,7 +228,7 @@ export default function BuscarAlumnos(props) {
             }}
           >
             <SearchIcon />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Grid>
     </Grid>

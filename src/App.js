@@ -126,13 +126,13 @@ export default function App() {
                 {/* Docentes */}
                 <Route
                   path="docentes/ingreso"
-                  element={<PaginaDocentesNavegacion theme={temaConfig} />}
+                  element={<PaginaDocentesNavegacion />}
                 />
 
-                <Route
+                {/* <Route
                   path="docentes/mis_catedras"
                   element={<PaginaDocentesInicio />}
-                />
+                /> */}
 
                 {/* <Route
                   path="docentes/cursadas"
@@ -169,6 +169,7 @@ export default function App() {
                   element={<PaginaDocentesGrupos />}
                 />
 
+                {/* Inscripciones */}
                 <Route
                   path="docentes/cursada/inscripciones"
                   element={<PaginaDocentesInscripciones />}
