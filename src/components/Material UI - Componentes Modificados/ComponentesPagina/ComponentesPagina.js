@@ -1,7 +1,7 @@
 import Card from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import { blue, orange } from "@mui/material/colors";
-import { Divider, OutlinedInput } from "@mui/material";
+import { Divider, OutlinedInput, ToggleButton } from "@mui/material";
 
 const CardList = styled(Card)(({ theme }) => ({
   boxShadow: "none",
@@ -52,6 +52,11 @@ const OutlinedInputSearch = styled(OutlinedInput)(({ theme }) => ({
   },
 }));
 
+//ToggleButton customizado
+const CustomerToggleButton = styled(ToggleButton)(({ theme }) => ({
+  borderRadius: "10px",
+}));
+
 //Divider bordes transparentes
 
 const DividerExtremoTransp = styled(Divider)(({ theme }) => ({
@@ -77,4 +82,5 @@ export {
   CardMain,
   OutlinedInputSearch,
   DividerExtremoTransp,
+  CustomerToggleButton,
 };

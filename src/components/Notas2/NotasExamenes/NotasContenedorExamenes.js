@@ -1,6 +1,6 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
-import { Grid } from "@mui/material";
+//
+import { Grid, Box } from "@mui/material";
 import NotasExamenesLista from "./NotasExamenesLista";
 import BuscarAlumnos from "../BuscarAlumnos";
 import BotonTipo from "./BotonTipo";
@@ -9,6 +9,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../../Responses";
+import { MoonLoader } from "react-spinners";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners.js";
+import MensajeFeedback from "../../MensajeFeedback";
 
 export default function NotasContenedorExamenes(props) {
   const [expandir, setExp] = React.useState("2");
@@ -168,43 +174,27 @@ export default function NotasContenedorExamenes(props) {
       });
   }, []);
 
-  return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={1} spacing={8}>
-        <Grid item xs={12}>
-          <Typography variant="h5" sx={{ ml: 55 }}>
-            {props.titulo}
-          </Typography>
-        </Grid>
-      </Grid>
+  /********************************************************************************/
+  /* Componente
+   */
 
+  return (
+    <>
       {expandir === "2" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
+        <Grid container paddingTop={1}>
+          <Grid item xs={12}>
+            <Box component="div" display="flex" justifyContent="center">
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+            </Box>
+          </Grid>
         </Grid>
       )}
+
       {expandir === "3" && <h4>No se encontraron resultados</h4>}
 
       {expandir === "1" && (
         <>
-          <Grid container pt={1} justifyContent="flex-end" spacing={8}>
+          <Grid container pt={1} justifyContent="flex-end">
             <Grid item xs={12}>
               <BotonTipo
                 cursada={props.cursada}
@@ -226,18 +216,34 @@ export default function NotasContenedorExamenes(props) {
             )}
           </Grid>
 
-          {cargando === "3" && <h4>No se encontraron resultados</h4>}
-          {cargando === "1" && (
-            <Grid container pt={2}>
-              <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-                <LinearProgress color="inherit" />
-              </Stack>
+          {cargando === "3" && (
+            <Grid container>
+              <Grid item xs={12}>
+                <Box paddingX={2}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                      <MensajeFeedback>
+                        No se encontraron resultados
+                      </MensajeFeedback>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
             </Grid>
           )}
+
+          {cargando === "1" && (
+            <Grid container paddingTop={2}>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+
           {cargando === "2" && (
-            <Grid container pt={2}>
+            <Grid container>
               <NotasExamenesLista
                 filas={filas}
                 filasxpagina={filasxpagina}
@@ -264,6 +270,6 @@ export default function NotasContenedorExamenes(props) {
           cerrar={setAbrir}
         />{" "}
       </div>
-    </Paper>
+    </>
   );
 }
