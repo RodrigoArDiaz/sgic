@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 import { cyan, teal } from "@mui/material/colors";
 import { blueGrey } from "@mui/material/colors";
+import { NoEncryption } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -99,8 +100,10 @@ const theme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          // borderRadius: 20,
-          borderRadius: "10px",
+          boxShadow: "none",
+          "&:hover": {
+            boxShadow: "none",
+          },
         },
       },
     },
@@ -110,10 +113,8 @@ const theme = createTheme({
           // ...darkScrollbar(),
           color: "darkred",
           // backgroundColor: "#e3f2fd",
-          backgroundColor: "rgb(242, 245, 249)",
-          // "& h1": {
-          //   color: "black"
-          // }
+          // backgroundColor: "rgb(242, 245, 249)",
+          backgroundColor: "rgb(243, 244, 249)",
         },
       },
     },
@@ -149,6 +150,12 @@ const theme = createTheme({
       color: "rgb(29, 36, 56)",
       fontWeight: "500",
     },
+  },
+
+  // Shadows custom
+  customShadows: {
+    z1: "rgba(95, 116, 141, 0.03) 0px 2px 1px -1px, rgba(95, 116, 141, 0.04) 0px 1px 1px 0px, rgba(95, 116, 141, 0.08) 0px 1px 3px 0px",
+    z2: "0px 2px 8px rgb(0 0 0 / 15%)",
   },
 });
 

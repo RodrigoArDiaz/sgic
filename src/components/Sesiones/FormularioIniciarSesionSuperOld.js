@@ -12,7 +12,6 @@ import {
   Alert,
   AlertTitle,
   Collapse,
-  Stack,
 } from "@mui/material";
 import { Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -39,7 +38,6 @@ import {
   listaItemsMenuDocente,
   listaItemsMenuSuper,
 } from "../Menu/itemsMenu";
-import AuthWrapper from "./AuthWrapper";
 
 //********************************************/
 const dataUser = window.localStorage.setItem(
@@ -63,20 +61,19 @@ const estiloBoxForm = {
   display: "flex",
   alignItems: "flex-end",
   width: "100%",
-  mt: { xs: "4rem", md: "4rem" },
+  mt: { xs: "42px", md: "25px" },
 };
 
 const estiloButton = {
-  mt: "2rem",
+  mt: "60px",
 };
 
 const estiloLink = {
-  mt: "3rem",
-  fontSize: ".9rem",
+  mt: "15px",
 };
 
 const estiloHeader = {
-  // backgroundColor: "primary.main",
+  backgroundColor: "primary.main",
   color: "white",
   py: "20px",
   borderRadius: { xs: "none", md: "4px 4px 0 0" },
@@ -87,7 +84,7 @@ const estiloHeader = {
 };
 
 const estiloContent = {
-  // padding: "5px 40px 40px 40px ",
+  padding: "5px 40px 40px 40px ",
 };
 
 const estiloIconoUsuario = {
@@ -207,136 +204,117 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
   };
 
   return (
-    <AuthWrapper>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="baseline"
-            sx={{ mb: { xs: -0.5, sm: 0.5 } }}
-          >
-            <Typography variant="h6">Ingreso</Typography>
-          </Stack>
+    <Grid>
+      <Paper sx={estiloPaper}>
+        <Grid align="center" sx={estiloHeader}>
+          <AccountCircleIcon fontSize="large" />
+          <Typography variant="h5">Ingreso</Typography>
         </Grid>
 
-        <Grid item xs={12}>
-          {/* <Grid align="center" sx={estiloHeader}>
-            <AccountCircleIcon fontSize="large" />
-            <Typography variant="h5">Ingreso</Typography>
-          </Grid> */}
-
-          {/* Formulario inicio sesión */}
-          <Grid sx={estiloContent}>
-            <Box sx={{ ...estiloBoxForm, mt: "0" }}>
-              <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-              <FormControl
-                sx={estiloFormControl}
-                error={errores.Usuario ? true : false}
-              >
-                <InputLabel htmlFor="Usuario">Usuario o Correo</InputLabel>
-                <Input
-                  id="Usuario"
-                  type="text"
-                  name="Usuario"
-                  onChange={(e) => {
-                    if (errors !== "" || errores.Usuario !== "") {
-                      setErrors("");
-                      setRes(false);
-                      setErrores({ Usuario: "", Contrasena: "" });
-                    }
-                    setForm({
-                      ...form,
-                      [e.target.name]: e.target.value,
-                    });
-                  }}
-                  //onBlur = {handleBlur}
-                  value={form.Usuario}
-                />
-              </FormControl>
-            </Box>
-
-            <FormHelperText sx={{ ml: "35px" }} error>
-              {errores.Usuario}
-            </FormHelperText>
-
-            <Box sx={estiloBoxForm}>
-              <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-              <FormControl
-                sx={estiloFormControl}
-                error={errores.Contrasena ? true : false}
-              >
-                <InputLabel htmlFor="Contrasena">Contraseña</InputLabel>
-                <Input
-                  id="Contrasena"
-                  name="Contrasena"
-                  type={mostrarContrasenia ? "text" : "password"}
-                  onChange={(e) => {
-                    if (errors !== "" || errores.Contrasena !== "") {
-                      setErrors("");
-                      setRes(false);
-                      setErrores({ Usuario: "", Contrasena: "" });
-                    }
-                    setForm({
-                      ...form,
-                      [e.target.name]: e.target.value,
-                    });
-                  }}
-                  //onBlur = {handleBlur}
-                  value={form.Contrasena}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="cambiar mostrar contraseña"
-                        onClick={handleClickMostrarContrasenia}
-                      >
-                        {mostrarContrasenia ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </Box>
-
-            <FormHelperText sx={{ ml: "35px" }} error>
-              {errores.Contrasena}
-            </FormHelperText>
-
-            <Box textAlign="center" sx={estiloLink}>
-              <Link
-                href="#"
-                underline="hover"
-                color="secondary"
-                to="/recuperar_contrasenia"
-                component={LinkRouter}
-              >
-                ¿Olvidaste la contraseña?
-              </Link>
-            </Box>
-
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={estiloButton}
-              endIcon={<LoginIcon />}
-              onClick={loguear}
-              // disabled={loading1 && loading2 ? true : false}
+        <Grid sx={estiloContent}>
+          <Box sx={estiloBoxForm}>
+            <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <FormControl
+              sx={estiloFormControl}
+              error={errores.Usuario ? true : false}
             >
-              Iniciar sesión
-            </Button>
+              <InputLabel htmlFor="Usuario">Usuario o Correo</InputLabel>
+              <Input
+                id="Usuario"
+                type="text"
+                name="Usuario"
+                onChange={(e) => {
+                  if (errors !== "" || errores.Usuario !== "") {
+                    setErrors("");
+                    setRes(false);
+                    setErrores({ Usuario: "", Contrasena: "" });
+                  }
+                  setForm({
+                    ...form,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                //onBlur = {handleBlur}
+                value={form.Usuario}
+              />
+            </FormControl>
+          </Box>
 
-            <Collapse in={respuesta}>
-              <Alert severity="error">{errors}</Alert>
-            </Collapse>
-          </Grid>
+          <FormHelperText sx={{ ml: "35px" }} error>
+            {errores.Usuario}
+          </FormHelperText>
+
+          <Box sx={estiloBoxForm}>
+            <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <FormControl
+              sx={estiloFormControl}
+              error={errores.Contrasena ? true : false}
+            >
+              <InputLabel htmlFor="Contrasena">Contraseña</InputLabel>
+              <Input
+                id="Contrasena"
+                name="Contrasena"
+                type={mostrarContrasenia ? "text" : "password"}
+                onChange={(e) => {
+                  if (errors !== "" || errores.Contrasena !== "") {
+                    setErrors("");
+                    setRes(false);
+                    setErrores({ Usuario: "", Contrasena: "" });
+                  }
+                  setForm({
+                    ...form,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+                //onBlur = {handleBlur}
+                value={form.Contrasena}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="cambiar mostrar contraseña"
+                      onClick={handleClickMostrarContrasenia}
+                    >
+                      {mostrarContrasenia ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </Box>
+          <FormHelperText sx={{ ml: "35px" }} error>
+            {errores.Contrasena}
+          </FormHelperText>
+
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={estiloButton}
+            endIcon={<LoginIcon />}
+            onClick={loguear}
+            // disabled={loading1 && loading2 ? true : false}
+          >
+            Iniciar sesión
+          </Button>
+
+          <Collapse in={respuesta}>
+            <Alert severity="error">{errors}</Alert>
+          </Collapse>
+
+          <Box textAlign="center" sx={estiloLink}>
+            <Link
+              href="#"
+              underline="hover"
+              color="secondary"
+              to="/recuperar_contrasenia"
+              component={LinkRouter}
+            >
+              Recuperar Contraseña
+            </Link>
+          </Box>
         </Grid>
-      </Grid>
-    </AuthWrapper>
+      </Paper>
+    </Grid>
   );
 }
 
