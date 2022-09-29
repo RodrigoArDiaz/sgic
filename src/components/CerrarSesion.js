@@ -1,5 +1,11 @@
 import React from "react";
-import { Button } from "@mui/material";
+import {
+  Button,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useModal } from "../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +20,9 @@ import { logoutUsuario } from "../api/sgicApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+/*********************************************************
+ * Componente
+ */
 export default function CerrarSesion({ handleCloseMenu }) {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -38,28 +47,30 @@ export default function CerrarSesion({ handleCloseMenu }) {
 
   return (
     <>
-      <Button
-        size="medium"
-        variant="outlined"
-        color="secondary"
-        endIcon={<LogoutIcon />}
-        elevation={12}
+      <ListItemButton
         onClick={() => {
           handleCloseMenu();
           handleOpen();
         }}
       >
-        Cerrar Sesion
-      </Button>
+        <ListItemIcon>
+          <LogoutIcon color="secondary" />
+        </ListItemIcon>
+        <ListItemText
+          primary={<Typography variant="p">Cerrar sesión</Typography>}
+        />
+      </ListItemButton>
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
         <DialogTitle>Cerrar Sesion</DialogTitle>
+
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea cerrar sesión?
           </DialogContentText>
         </DialogContent>
+
         <DialogActions>
           <Button variant="contained" onClick={handleLogout}>
             Aceptar

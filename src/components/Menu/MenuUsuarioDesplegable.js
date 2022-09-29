@@ -1,25 +1,34 @@
 import React from "react";
-import { useTheme } from "@emotion/react";
+
 //MUI
 import MoreIcon from "@mui/icons-material/MoreVert";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
-import PersonIcon from "@mui/icons-material/Person";
-import { Box } from "@mui/material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import {
+  CardContent,
+  CardHeader,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import {
   Avatar,
   Divider,
-  Grid,
   Popover,
   Typography,
   useMediaQuery,
   Button,
-  Zoom,
   Fade,
 } from "@mui/material";
-import { blue, indigo, orange } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
+import { useTheme } from "@emotion/react";
+import { styled } from "@mui/material/styles";
+
 //Redux
 import { useSelector } from "react-redux";
 //React router dom
@@ -27,6 +36,25 @@ import { useNavigate } from "react-router-dom";
 //Componentes propios
 import CerrarSesion from "../CerrarSesion";
 
+/**Componente Popover custom*/
+const PopoverCustomMenu = styled(Popover)(({ theme }) => ({
+  "& .MuiPopover-paper": {
+    boxShadow: theme.customShadows.z3,
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: theme.palette.secondary.light100,
+    // boxShadow: "none",
+  },
+}));
+
+/**Componente CarContent custom*/
+const CardContentCustom = styled(CardContent)(({ theme }) => ({
+  "&:last-child": { paddingBottom: "0" },
+}));
+
+/*************************************
+ * Componente
+ */
 const MenuUsuarioDesplegable = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user } = useSelector((state) => state.user);
@@ -46,18 +74,12 @@ const MenuUsuarioDesplegable = () => {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <Box
-      sx={{
-        //  backgroundColor: "secondary.light50",
-        borderRadius: "10px",
-      }}
-    >
+    <>
       {mostrarResponsive ? (
         <IconButton
           aria-describedby={id}
           aria-label="Menú"
           sx={{ backgroundColor: "#fff", color: "inherit" }}
-          // sx={{ color: "inherit" }}
           onClick={handleClick}
         >
           <MoreIcon />
@@ -73,7 +95,6 @@ const MenuUsuarioDesplegable = () => {
             color: "text.titleprimary",
             borderColor: "text.bodysecondary",
           }}
-          // variant="outlined"
           startIcon={
             <AccountCircleIcon sx={{ fontSize: 30, color: blue[500] }} />
           }
@@ -93,7 +114,7 @@ const MenuUsuarioDesplegable = () => {
         </Button>
       )}
 
-      <Popover
+      <PopoverCustomMenu
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -107,68 +128,88 @@ const MenuUsuarioDesplegable = () => {
           vertical: "top",
           horizontal: "center",
         }}
-        // TransitionComponent={Zoom}
         TransitionComponent={Fade}
         TransitionProps={{ timeout: 300 }}
+        paddingX={0}
+        xs
       >
-        <Grid container justifyContent="center" marginTop={2}>
-          <Avatar
-            sx={{
-              width: 56,
-              height: 56,
-              bgcolor: blue[500],
-            }}
-          >
-            {user.Apellidos &&
-              user.Nombres &&
-              user.Apellidos.toString().charAt(0) +
-                "" +
-                user.Nombres.toString().charAt(0)}
-          </Avatar>
-        </Grid>
+        <CardHeader
+          avatar={
+            <Avatar
+              sx={{
+                bgcolor: blue[500],
+              }}
+              aria-label="recipe"
+            >
+              {user.Apellidos &&
+                user.Nombres &&
+                user.Apellidos.toString().charAt(0) +
+                  "" +
+                  user.Nombres.toString().charAt(0)}
+            </Avatar>
+          }
+          title={
+            <Typography
+              gutterBottom
+              variant="subtitle2"
+              sx={{ fontSize: "1.1rem", mb: "0" }}
+              padding={0}
+            >
+              {user.Apellidos && user.Nombres
+                ? user.Apellidos + " " + user.Nombres
+                : "John Doe Smith"}
+            </Typography>
+          }
+          subheader={
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              textAlign="center"
+            >
+              <MailOutlineIcon
+                sx={{ color: "action.active", mr: 1, my: 0.5 }}
+                fontSize="small"
+              />
+              {user.Email ? user.Email : "userejemplo@gmail.com"}
+            </Typography>
+          }
+        />
 
-        <Typography gutterBottom variant="h5" component="div" align="center">
-          {user.Apellidos + " " + user.Nombres}
-        </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          align="center"
-        ></Typography>
-        <Typography variant="body2" color="text.secondary" align="center">
-          {user.Email}
-        </Typography>
-
-        <Divider variant="middle" />
-
-        <Grid
-          container
-          justifyContent="center"
-          align="center"
-          marginBottom={2}
-          marginTop={1}
-          spacing={1}
+        <CardContentCustom
+          sx={{ paddingTop: "0", paddingBottom: "0px" }}
+          paddingBottom={0}
         >
-          <Grid item xs={12}>
-            <Button
-              size="large"
-              variant="contained"
-              startIcon={<PersonIcon />}
+          <List sx={{ paddingTop: "0" }}>
+            <Divider variant="middle" sx={{ marginX: "0" }} />
+            <ListItem
+              disablePadding
               onClick={() => {
                 navigate("mi_perfil");
                 handleClose();
               }}
             >
-              Mi perfil
-            </Button>
-          </Grid>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PersonOutlineIcon color="secondary" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={<Typography variant="p">Mi perfil</Typography>}
+                />
+              </ListItemButton>
+            </ListItem>
 
-          <Grid item xs={12}>
-            <CerrarSesion handleCloseMenu={handleClose} />
-          </Grid>
-        </Grid>
-      </Popover>
-    </Box>
+            <Divider variant="middle" sx={{ marginX: "0" }} />
+
+            <ListItem disablePadding>
+              <CerrarSesion handleCloseMenu={handleClose} />
+            </ListItem>
+          </List>
+        </CardContentCustom>
+      </PopoverCustomMenu>
+    </>
   );
 };
 
