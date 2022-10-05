@@ -13,7 +13,14 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ApiIcon from "@mui/icons-material/Api";
-import { Collapse, Icon, Tooltip, useMediaQuery } from "@mui/material";
+import {
+  Collapse,
+  Fade,
+  Icon,
+  ListItem,
+  Tooltip,
+  useMediaQuery,
+} from "@mui/material";
 import { Drawer as DrawerResponsive } from "@mui/material";
 import { Zoom } from "@mui/material";
 //React router dom
@@ -37,6 +44,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Redux - Menu
 // import { actualizarMenu, menuReset } from "../../store/slices/menuSlice";
 import { ExpandMore } from "@mui/icons-material";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { useTheme } from "@emotion/react";
 import DarkModeButton from "../DarkModeButton";
 
@@ -74,7 +82,7 @@ export default function Menu() {
       <AppBar
         position="fixed"
         open={open}
-        color="primary"
+        // color="primary"
         sx={{
           // paddingLeft: "5.5px",
           backgroundColor: "transparent",
@@ -125,31 +133,82 @@ export default function Menu() {
         variant="permanent"
         open={open}
         sx={{
+          backgroundColor: "#fff",
           display: { xs: "none", sm: "none", md: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            //Radius nabvar
-            // ...(!open && { borderRadius: "0 16px 16px 0" }),
             borderRadius: "0 13px 13px 0",
+            backgroundColor: "#fff",
           },
         }}
       >
         <DrawerHeader
           sx={
-            // !open && { justifyContent: "center" }}
             open ? { justifyContent: "center" } : { justifyContent: "center" }
           }
         >
           <IconButton>
-            <ApiIcon sx={{ fontSize: 38, color: "white.main" }} />
+            <ApiIcon
+              sx={{
+                fontSize: 38,
+              }}
+            />
           </IconButton>
         </DrawerHeader>
-        {/* <Divider /> */}
+
         <ListMenu>
           {/*Link de React-Dom*/}
           {listaItems.map((ele, index) => {
-            //Para items ordinario (no son sublist)
-            if (!Boolean(ele.esSublist)) {
+            /****************************/
+            // Para items que son titulos
+            if (Boolean(ele.esTitle)) {
+              return (
+                <>
+                  {/* <Collapse in={open}> */}
+                  <ListItem
+                    key={ele.key}
+                    sx={{
+                      paddingLeft: 3.1,
+
+                      paddingBottom: 0,
+                      height: open ? "auto" : "0px",
+                      transition: "all 0.15s ease 0s",
+                      minHeight: "0px",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        opacity: open ? "100%" : "0",
+                        transition: "all 0.15s ease 0s",
+                        fontWeight: "500",
+                        fontSize: "14px",
+                      }}
+                      marginTop={1.5}
+                    >
+                      {ele.itemText.toUpperCase()}
+                    </Typography>
+                  </ListItem>
+                  {/* </Collapse> */}
+                  <ListItem
+                    paddingY={0}
+                    marginTop={0}
+                    marginBottom={0}
+                    sx={{ justifyContent: "center" }}
+                  >
+                    <Divider
+                      sx={{
+                        paddingTop: "0",
+                        width: open ? "90%" : "80%",
+                      }}
+                    />
+                  </ListItem>
+                </>
+              );
+            }
+            /****************************/
+            //Para items que son no son titulos y son items simples
+            if (!Boolean(ele.esSublist) && !Boolean(ele.esTitle)) {
               return (
                 <Tooltip
                   title={ele.itemText}
@@ -167,94 +226,112 @@ export default function Menu() {
                     className={(navData) => (navData.isActive ? "active" : "")}
                   >
                     <ListItemIcon>
-                      <Icon>{ele.icono}</Icon>
+                      <Icon
+                        baseClassName="material-icons-outlined"
+                        sx={{
+                          color: "icons.main",
+                          fontSize: "1.45rem",
+                        }}
+                      >
+                        {ele.icono}
+                      </Icon>
                     </ListItemIcon>
                     <ListItemText
                       primary={ele.itemText}
-                      sx={{ color: "text.titleprimary" }}
+                      sx={{
+                        opacity: open ? "100%" : "0",
+                        transition: "all 0.15s ease 0s",
+                        marginTop: "0",
+                        marginBottom: "0",
+                      }}
                     />
                   </ListItemMenu>
                 </Tooltip>
               );
-            } else {
-              //Para items que son sublistas
+            }
+
+            /****************************/
+            //Para items que son sublistas
+            if (Boolean(ele.esSublist)) {
               return (
-                <Box component="div" key={ele.key}>
-                  <Tooltip
-                    title={ele.itemText}
-                    placement="right"
-                    TransitionComponent={Zoom}
-                    key={ele.key}
-                    arrow
-                  >
-                    <ListItemMenu
-                      button
+                <>
+                  <Box component="div" key={ele.key}>
+                    <Tooltip
+                      title={ele.itemText}
+                      placement="right"
+                      TransitionComponent={Zoom}
                       key={ele.key}
-                      sx={{ paddingLeft: 3.1 }}
-                      // onClick={handleSubList}
-                      onClick={() => handleSubList(index)}
+                      arrow
                     >
-                      <ListItemIcon>
-                        <Icon>{ele.icono}</Icon>
-                      </ListItemIcon>
-                      <ListItemText primary={ele.itemText} />
-                      {Boolean(ele.esSublist) && (
-                        <ExpandMore
-                          sx={{
-                            transform: openSubList[index]
-                              ? "rotate(-180deg)"
-                              : "rotate(0)",
-                            transition: "0.2s",
-                          }}
-                        />
-                      )}
-                    </ListItemMenu>
-                  </Tooltip>
-                  {/* Sublista */}
-                  <Collapse in={openSubList[index]} key={ele.key + "1"}>
-                    <ListMenu
-                      sx={{
-                        transition:
-                          "padding-left 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
-                        ...(open && {
-                          paddingLeft: 2.2,
-                        }),
-                      }}
-                    >
-                      <Divider />
-                      {ele.sublist.map((itemSubList, index) => {
-                        return (
-                          <Tooltip
-                            title={itemSubList.itemText}
-                            placement="right"
-                            TransitionComponent={Zoom}
-                            key={itemSubList.key}
-                            arrow
-                          >
-                            <ListItemMenu
-                              button
+                      <ListItemMenu
+                        button
+                        key={ele.key}
+                        sx={{ paddingLeft: 3.1 }}
+                        // onClick={handleSubList}
+                        onClick={() => handleSubList(index)}
+                      >
+                        <ListItemIcon>
+                          <Icon>{ele.icono}</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={ele.itemText} />
+                        {Boolean(ele.esSublist) && (
+                          <ExpandMore
+                            sx={{
+                              transform: openSubList[index]
+                                ? "rotate(-180deg)"
+                                : "rotate(0)",
+                              transition: "0.2s",
+                            }}
+                          />
+                        )}
+                      </ListItemMenu>
+                    </Tooltip>
+                    {/* Sublista */}
+                    <Collapse in={openSubList[index]} key={ele.key + "1"}>
+                      <ListMenu
+                        sx={{
+                          transition:
+                            "padding-left 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
+                          ...(open && {
+                            paddingLeft: 2.2,
+                          }),
+                        }}
+                      >
+                        <Divider />
+                        {ele.sublist.map((itemSubList, index) => {
+                          return (
+                            <Tooltip
+                              title={itemSubList.itemText}
+                              placement="right"
+                              TransitionComponent={Zoom}
                               key={itemSubList.key}
-                              sx={{ paddingLeft: 2.6 }}
-                              component={NavLink}
-                              to={itemSubList.to}
-                              className={(navData) =>
-                                navData.isActive ? "active" : ""
-                              }
+                              arrow
                             >
-                              <ListItemIcon>
-                                <Icon fontSize="small">
-                                  {itemSubList.icono}
-                                </Icon>
-                              </ListItemIcon>
-                              <ListItemText primary={itemSubList.itemText} />
-                            </ListItemMenu>
-                          </Tooltip>
-                        );
-                      })}
-                    </ListMenu>
-                    <Divider />
-                  </Collapse>
-                </Box>
+                              <ListItemMenu
+                                button
+                                key={itemSubList.key}
+                                sx={{ paddingLeft: 2.6 }}
+                                component={NavLink}
+                                to={itemSubList.to}
+                                className={(navData) =>
+                                  navData.isActive ? "active" : ""
+                                }
+                              >
+                                <ListItemIcon>
+                                  <Icon fontSize="small">
+                                    {itemSubList.icono}
+                                  </Icon>
+                                </ListItemIcon>
+                                <ListItemText primary={itemSubList.itemText} />
+                              </ListItemMenu>
+                            </Tooltip>
+                          );
+                        })}
+                      </ListMenu>
+                      <Divider />
+                    </Collapse>
+                  </Box>
+                </>
               );
             }
           })}
@@ -287,90 +364,181 @@ export default function Menu() {
         </DrawerHeader>
         {/* <Divider /> */}
         <ListMenu>
+          {/*Link de React-Dom*/}
           {listaItems.map((ele, index) => {
-            //Es un item ordinario (no es sublist)
-            if (!Boolean(ele.esSublist)) {
+            /****************************/
+            // Para items que son titulos
+            if (Boolean(ele.esTitle)) {
               return (
-                <ListItemMenu
-                  button
-                  key={ele.key}
-                  sx={{ paddingLeft: 3.1 }}
-                  component={NavLink}
-                  to={ele.to}
-                  className={(navData) => (navData.isActive ? "active" : "")}
-                  onClick={handleDrawerToggle}
-                >
-                  <ListItemIcon>
-                    <Icon>{ele.icono}</Icon>
-                  </ListItemIcon>
-                  <ListItemText primary={ele.itemText} />
-                </ListItemMenu>
+                <>
+                  {/* <Collapse in={open}> */}
+                  <ListItem
+                    key={ele.key}
+                    sx={{
+                      paddingLeft: 3.1,
+
+                      paddingBottom: 0,
+                      height: open ? "auto" : "0px",
+                      transition: "all 0.15s ease 0s",
+                      minHeight: "0px",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        opacity: open ? "100%" : "0",
+                        transition: "all 0.15s ease 0s",
+                        fontWeight: "500",
+                        fontSize: "14px",
+                      }}
+                      marginTop={1.5}
+                    >
+                      {ele.itemText.toUpperCase()}
+                    </Typography>
+                  </ListItem>
+                  {/* </Collapse> */}
+                  <ListItem
+                    paddingY={0}
+                    marginTop={0}
+                    marginBottom={0}
+                    sx={{ justifyContent: "center" }}
+                  >
+                    <Divider
+                      sx={{
+                        paddingTop: "0",
+                        width: open ? "90%" : "80%",
+                      }}
+                    />
+                  </ListItem>
+                </>
               );
-            } else {
-              //Es una sublist
+            }
+            /****************************/
+            //Para items que son no son titulos y son items simples
+            if (!Boolean(ele.esSublist) && !Boolean(ele.esTitle)) {
               return (
-                <Box component="div" key={ele.key}>
+                <Tooltip
+                  title={ele.itemText}
+                  placement="right"
+                  TransitionComponent={Zoom}
+                  key={ele.key}
+                  arrow
+                >
                   <ListItemMenu
                     button
                     key={ele.key}
                     sx={{ paddingLeft: 3.1 }}
-                    // onClick={handleSubList}
-                    onClick={() => handleSubList(index)}
+                    component={NavLink}
+                    to={ele.to}
+                    className={(navData) => (navData.isActive ? "active" : "")}
                   >
                     <ListItemIcon>
-                      <Icon>{ele.icono}</Icon>
-                    </ListItemIcon>
-                    <ListItemText primary={ele.itemText} />
-                    {Boolean(ele.esSublist) && (
-                      <ExpandMore
+                      <Icon
+                        baseClassName="material-icons-outlined"
                         sx={{
-                          transform: openSubList[index]
-                            ? "rotate(-180deg)"
-                            : "rotate(0)",
-                          transition: "0.2s",
+                          color: "icons.main",
+                          fontSize: "1.45rem",
                         }}
-                      />
-                    )}
+                      >
+                        {ele.icono}
+                      </Icon>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={ele.itemText}
+                      sx={{
+                        opacity: open ? "100%" : "0",
+                        transition: "all 0.15s ease 0s",
+                        marginTop: "0",
+                        marginBottom: "0",
+                      }}
+                    />
                   </ListItemMenu>
+                </Tooltip>
+              );
+            }
 
-                  {/* Sublista */}
-                  <Collapse in={openSubList[index]}>
-                    <ListMenu>
-                      <Divider />
-                      {ele.sublist.map((itemSubList, index) => {
-                        return (
-                          <Tooltip
-                            title={itemSubList.itemText}
-                            placement="right"
-                            TransitionComponent={Zoom}
-                            key={itemSubList.key}
-                            arrow
-                          >
-                            <ListItemMenu
-                              button
+            /****************************/
+            //Para items que son sublistas
+            if (Boolean(ele.esSublist)) {
+              return (
+                <>
+                  <Box component="div" key={ele.key}>
+                    <Tooltip
+                      title={ele.itemText}
+                      placement="right"
+                      TransitionComponent={Zoom}
+                      key={ele.key}
+                      arrow
+                    >
+                      <ListItemMenu
+                        button
+                        key={ele.key}
+                        sx={{ paddingLeft: 3.1 }}
+                        // onClick={handleSubList}
+                        onClick={() => handleSubList(index)}
+                      >
+                        <ListItemIcon>
+                          <Icon>{ele.icono}</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={ele.itemText} />
+                        {Boolean(ele.esSublist) && (
+                          <ExpandMore
+                            sx={{
+                              transform: openSubList[index]
+                                ? "rotate(-180deg)"
+                                : "rotate(0)",
+                              transition: "0.2s",
+                            }}
+                          />
+                        )}
+                      </ListItemMenu>
+                    </Tooltip>
+                    {/* Sublista */}
+                    <Collapse in={openSubList[index]} key={ele.key + "1"}>
+                      <ListMenu
+                        sx={{
+                          transition:
+                            "padding-left 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms",
+                          ...(open && {
+                            paddingLeft: 2.2,
+                          }),
+                        }}
+                      >
+                        <Divider />
+                        {ele.sublist.map((itemSubList, index) => {
+                          return (
+                            <Tooltip
+                              title={itemSubList.itemText}
+                              placement="right"
+                              TransitionComponent={Zoom}
                               key={itemSubList.key}
-                              sx={{ paddingLeft: 2.6 }}
-                              component={NavLink}
-                              to={itemSubList.to}
-                              className={(navData) =>
-                                navData.isActive ? "active" : ""
-                              }
-                              onClick={handleDrawerToggle}
+                              arrow
                             >
-                              <ListItemIcon>
-                                <Icon fontSize="small">
-                                  {itemSubList.icono}
-                                </Icon>
-                              </ListItemIcon>
-                              <ListItemText primary={itemSubList.itemText} />
-                            </ListItemMenu>
-                          </Tooltip>
-                        );
-                      })}
-                    </ListMenu>
-                    <Divider />
-                  </Collapse>
-                </Box>
+                              <ListItemMenu
+                                button
+                                key={itemSubList.key}
+                                sx={{ paddingLeft: 2.6 }}
+                                component={NavLink}
+                                to={itemSubList.to}
+                                className={(navData) =>
+                                  navData.isActive ? "active" : ""
+                                }
+                              >
+                                <ListItemIcon>
+                                  <Icon fontSize="small">
+                                    {itemSubList.icono}
+                                  </Icon>
+                                </ListItemIcon>
+                                <ListItemText primary={itemSubList.itemText} />
+                              </ListItemMenu>
+                            </Tooltip>
+                          );
+                        })}
+                      </ListMenu>
+                      <Divider />
+                    </Collapse>
+                  </Box>
+                </>
               );
             }
           })}

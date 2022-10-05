@@ -5,17 +5,6 @@
 //Lista antes de seleccionar catedra
 const listaItemsMenuSuper = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
-  },
-  {
     key: "mis_catedras",
     itemText: "Mis catedras",
     // to: "docentes/mis_catedras",
@@ -25,9 +14,7 @@ const listaItemsMenuSuper = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
-
   {
     key: "superadministrador",
     itemText: "Superadministrador",
@@ -36,53 +23,38 @@ const listaItemsMenuSuper = [
     dividerTop: false,
     dividerBottom: false,
     esSublist: true,
-    sublist: [],
-    esTitle: true,
-  },
-  {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "superadministrador/gestion_catedras",
-    icono: "account_balance",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "docentes",
-    itemText: "Docentes",
-    to: "superadministrador/gestion_docentes",
-    icono: "co_present",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "alumnos",
-    itemText: "Alumnos",
-    to: "superadministrador/gestion_alumnos",
-    icono: "school",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-
-  {
-    key: "cuenta",
-    itemText: "Cuenta",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
+    sublist: [
+      {
+        key: "catedras",
+        itemText: "Catedras",
+        to: "superadministrador/gestion_catedras",
+        icono: "account_balance",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+      {
+        key: "docentes",
+        itemText: "Docentes",
+        to: "superadministrador/gestion_docentes",
+        icono: "co_present",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+      {
+        key: "alumnos",
+        itemText: "Alumnos",
+        to: "superadministrador/gestion_alumnos",
+        icono: "school",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+    ],
   },
   {
     key: "perfil",
@@ -93,24 +65,11 @@ const listaItemsMenuSuper = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
 ];
 
 //Lista despues de seleccinar la catedra
 const listaItemsMenuSuperConCursada = [
-  {
-    key: "dashboard",
-    itemText: "dashboard",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: true,
-  },
-
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
@@ -121,7 +80,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "info_cursada",
@@ -132,7 +90,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "practicos",
@@ -143,7 +100,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "examenes",
@@ -154,7 +110,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "grupos",
@@ -165,7 +120,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "inscripciones",
@@ -176,7 +130,6 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "notas",
@@ -187,9 +140,7 @@ const listaItemsMenuSuperConCursada = [
     dividerBottom: true,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
-
   {
     key: "superadministrador",
     itemText: "Superadministrador",
@@ -197,54 +148,39 @@ const listaItemsMenuSuperConCursada = [
     icono: "engineering",
     dividerTop: false,
     dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: true,
-  },
-  {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "superadministrador/gestion_catedras",
-    icono: "account_balance",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "docentes",
-    itemText: "Docentes",
-    to: "superadministrador/gestion_docentes",
-    icono: "co_present",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "alumnos",
-    itemText: "Alumnos",
-    to: "superadministrador/gestion_alumnos",
-    icono: "school",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: false,
-    sublist: [],
-    esTitle: false,
-  },
-
-  {
-    key: "cuenta",
-    itemText: "Cuenta",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
     esSublist: true,
-    sublist: [],
-    esTitle: true,
+    sublist: [
+      {
+        key: "catedras",
+        itemText: "Catedras",
+        to: "superadministrador/gestion_catedras",
+        icono: "account_balance",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+      {
+        key: "docentes",
+        itemText: "Docentes",
+        to: "superadministrador/gestion_docentes",
+        icono: "co_present",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+      {
+        key: "alumnos",
+        itemText: "Alumnos",
+        to: "superadministrador/gestion_alumnos",
+        icono: "school",
+        dividerTop: false,
+        dividerBottom: false,
+        esSublist: false,
+        sublist: [],
+      },
+    ],
   },
   {
     key: "perfil",
@@ -256,49 +192,6 @@ const listaItemsMenuSuperConCursada = [
     esSublist: false,
     sublist: [],
   },
-  //****Ejemplo de sublista */
-  // {
-  //   key: "superadministrador",
-  //   itemText: "Superadministrador",
-  //   to: "superadministrador",
-  //   icono: "engineering",
-  //   dividerTop: false,
-  //   dividerBottom: false,
-  //   esSublist: true,
-  //   esTitle: false,
-  //   sublist: [
-  //     {
-  //       key: "catedras",
-  //       itemText: "Catedras",
-  //       to: "superadministrador/gestion_catedras",
-  //       icono: "account_balance",
-  //       dividerTop: false,
-  //       dividerBottom: false,
-  //       esSublist: false,
-  //       sublist: [],
-  //     },
-  //     {
-  //       key: "docentes",
-  //       itemText: "Docentes",
-  //       to: "superadministrador/gestion_docentes",
-  //       icono: "co_present",
-  //       dividerTop: false,
-  //       dividerBottom: false,
-  //       esSublist: false,
-  //       sublist: [],
-  //     },
-  //     {
-  //       key: "alumnos",
-  //       itemText: "Alumnos",
-  //       to: "superadministrador/gestion_alumnos",
-  //       icono: "school",
-  //       dividerTop: false,
-  //       dividerBottom: false,
-  //       esSublist: false,
-  //       sublist: [],
-  //     },
-  //   ],
-  // },
 ];
 
 /*****************************************
@@ -306,18 +199,6 @@ const listaItemsMenuSuperConCursada = [
  */
 //Lista docentes antes de seleccionar la catedra
 const listaItemsMenuDocente = [
-  {
-    key: "dashboard",
-    itemText: "dashboard",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
-  },
-  ,
   {
     key: "mis_catedras",
     itemText: "Mis catedras",
@@ -328,18 +209,6 @@ const listaItemsMenuDocente = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "cuenta",
-    itemText: "cuenta",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
   },
   {
     key: "perfil",
@@ -356,17 +225,6 @@ const listaItemsMenuDocente = [
 //Lista despues de seleccinar la catedra
 const listaItemsMenuDocenteConCursada = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
-  },
-  {
     key: "mis_catedras",
     itemText: "Mis catedras",
     // to: "docentes/mis_catedras",
@@ -376,7 +234,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "info_cursada",
@@ -387,7 +244,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "practicos",
@@ -398,7 +254,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "examenes",
@@ -409,7 +264,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "grupos",
@@ -420,7 +274,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "inscripciones",
@@ -431,7 +284,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "notas",
@@ -442,18 +294,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: true,
     esSublist: false,
     sublist: [],
-    esTitle: false,
-  },
-  {
-    key: "cuenta",
-    itemText: "cuenta",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
   },
   {
     key: "perfil",
@@ -464,7 +304,6 @@ const listaItemsMenuDocenteConCursada = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
 ];
 
@@ -472,17 +311,6 @@ const listaItemsMenuDocenteConCursada = [
  *  Lista de items para alumnos
  */
 const listaItemsMenuAlumno = [
-  {
-    key: "dashboard",
-    itemText: "dashboard",
-    to: "",
-    icono: "",
-    dividerTop: false,
-    dividerBottom: false,
-    esSublist: true,
-    sublist: [],
-    esTitle: true,
-  },
   {
     key: "mis_cursadas",
     itemText: "Mis cursadas",
@@ -492,7 +320,6 @@ const listaItemsMenuAlumno = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "inscripciones_cursadas",
@@ -503,7 +330,6 @@ const listaItemsMenuAlumno = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
   {
     key: "perfil",
@@ -514,7 +340,6 @@ const listaItemsMenuAlumno = [
     dividerBottom: false,
     esSublist: false,
     sublist: [],
-    esTitle: false,
   },
 ];
 

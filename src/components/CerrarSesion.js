@@ -54,7 +54,7 @@ export default function CerrarSesion({ handleCloseMenu }) {
         }}
       >
         <ListItemIcon>
-          <LogoutIcon color="secondary" />
+          <LogoutIcon sx={{ color: "icons.main" }} />
         </ListItemIcon>
         <ListItemText
           primary={<Typography variant="p">Cerrar sesión</Typography>}

@@ -193,7 +193,7 @@ const MenuUsuarioDesplegable = () => {
             >
               <ListItemButton>
                 <ListItemIcon>
-                  <PersonOutlineIcon color="secondary" />
+                  <PersonOutlineIcon sx={{ color: "icons.main" }} />
                 </ListItemIcon>
                 <ListItemText
                   primary={<Typography variant="p">Mi perfil</Typography>}

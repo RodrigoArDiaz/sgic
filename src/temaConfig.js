@@ -55,6 +55,19 @@ const theme = createTheme({
       mainA700: "#455a64",
     },
 
+    error: {
+      lightLow: "#ee9897",
+      light: "#ef5350",
+      main: "#d32f2f",
+      dark: "#c62828",
+    },
+
+    success: {
+      light: "#4caf50",
+      main: "#2e7d32",
+      dark: "#1b5e20",
+    },
+
     tertiary: {
       main: "#fff",
     },
@@ -80,6 +93,10 @@ const theme = createTheme({
       mainA200: "#18ffff",
       mainA400: "#00e5ff",
       mainA700: "#00b8d4",
+    },
+
+    icons: {
+      main: "rgba(58, 53, 65, 0.87)",
     },
 
     text: {
@@ -156,6 +173,7 @@ const theme = createTheme({
   customShadows: {
     z1: "rgba(95, 116, 141, 0.03) 0px 2px 1px -1px, rgba(95, 116, 141, 0.04) 0px 1px 1px 0px, rgba(95, 116, 141, 0.08) 0px 1px 3px 0px",
     z2: "0px 2px 8px rgb(0 0 0 / 15%)",
+    z3: "rgb(0 0 0 / 15%) 0px 2px 8px",
   },
 });
 
