@@ -48,6 +48,7 @@ import { ExpandMore } from "@mui/icons-material";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { useTheme } from "@emotion/react";
 import DarkModeButton from "../DarkModeButton";
+import { estiloScrollbar } from "../../styles/EstilosScrollBar";
 
 /***** Componente Menu *****/
 export default function Menu() {
@@ -140,6 +141,7 @@ export default function Menu() {
             boxSizing: "border-box",
             borderRadius: "0 13px 13px 0",
             backgroundColor: "#fff",
+            ...estiloScrollbar,
           },
         }}
       >
