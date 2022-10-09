@@ -21,8 +21,9 @@ const CardMainPage = ({
     <CardMain
       sx={{
         overflow: "visible",
-        boxShadow:
-          "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
+        // boxShadow:
+        //   "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
+        boxShadow: (theme) => theme.customShadows.z1,
         border: "none",
         // height: "100%",
       }}

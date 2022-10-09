@@ -1,7 +1,7 @@
 import React from "react";
 //MUI
 import {
-  Box,
+  Card,
   CardContent,
   Chip,
   Divider,
@@ -10,15 +10,16 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { Cancel, CheckCircle } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
+import { linearProgressClasses } from "@mui/material/LinearProgress";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip } from "@mui/material";
-
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { blue } from "@mui/material/colors";
+import LinearProgress from "@mui/material/LinearProgress";
 //React router
 import { useNavigate } from "react-router-dom";
 //Responses
@@ -38,7 +39,58 @@ const ChipCustom = React.forwardRef(function MyComponent(props, ref) {
   );
 });
 
-export default function DocentesCursadasContenedor(props) {
+/******************************
+ * Linear progress custom error
+ * */
+const BorderLinearProgressError = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.error.lightLow,
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    // backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+    backgroundColor: theme.palette.error.main,
+  },
+}));
+
+/********************************
+ * Linear progress custom success
+ * */
+const BorderLinearProgressSuccess = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.success.light,
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.success.main,
+  },
+}));
+
+function LinearProgressWithLabel(props) {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        {/* <LinearProgress variant="determinate" {...props} /> */}
+        {props.value < 100 ? (
+          <BorderLinearProgressError variant="determinate" {...props} />
+        ) : (
+          <BorderLinearProgressSuccess variant="determinate" {...props} />
+        )}
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+export default function DocentesCursadasContenedorEstadisticas(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
   //Recupero informacion de la materia
@@ -82,11 +134,7 @@ export default function DocentesCursadasContenedor(props) {
   }, []);
 
   return (
-    <CardMainPage
-      icon="info"
-      title="Información de la cursada"
-      bgColorIcon={blue[500]}
-    >
+    <CardMainPage icon="bar_chart" title="" bgColorIcon={blue[500]}>
       <CardContent>
         <Grid container>
           <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
@@ -98,15 +146,14 @@ export default function DocentesCursadasContenedor(props) {
                   }}
                 >
                   <CardContent>
-                    <Grid container justifyContent="space-between" rowGap={2}>
-                      {/* Cursada */}
-                      {/* <Box textAlign="center" sx={{ width: "100%" }}>
-                        <Typography variant="h6">
-                          {materia} - {cursada.Anio}
-                        </Typography>
-                      </Box> */}
-
-                      {/* Fecha Inicio */}
+                    <Grid
+                      container
+                      justifyContent="space-between"
+                      // rowSpacing={1}
+                      rowGap={2}
+                      // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                    >
+                      {/* Cantidad de inscriptos */}
                       <Grid
                         item
                         xs={5.5}
@@ -119,28 +166,16 @@ export default function DocentesCursadasContenedor(props) {
                           borderColor: "secondary.light100",
                         }}
                       >
-                        <Typography
-                          variant="h6"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                        >
-                          <CalendarTodayIcon
-                            fontSize="4"
-                            sx={{ marginRight: "0.5rem" }}
-                          />
-                          {cursada.FechaInicio}
-                        </Typography>
-                        {/* <Chip label={cursada.FechaInicio} /> */}
+                        <Typography variant="h5"> {ci}</Typography>
                         <Typography
                           variant="subtitle2"
                           sx={{ opacity: "0.75" }}
                         >
-                          Fecha Inicio
+                          Inscriptos
                         </Typography>
                       </Grid>
 
-                      {/* Fecha Inicio */}
+                      {/* Cantidad de prácticos */}
                       <Grid
                         item
                         xs={5.5}
@@ -153,29 +188,16 @@ export default function DocentesCursadasContenedor(props) {
                           borderColor: "secondary.light100",
                         }}
                       >
-                        {/* <Chip label={cursada.FechaFin} /> */}
-
-                        <Typography
-                          variant="h6"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                        >
-                          <CalendarTodayIcon
-                            fontSize="4"
-                            sx={{ marginRight: "0.5rem" }}
-                          />
-                          {cursada.FechaFin}
-                        </Typography>
+                        <Typography variant="h5"> {cp}</Typography>
                         <Typography
                           variant="subtitle2"
                           sx={{ opacity: "0.75" }}
                         >
-                          Fecha Fin
+                          Prácticos
                         </Typography>
                       </Grid>
 
-                      {/* Estado */}
+                      {/* Cantidad de exámenes: */}
                       <Grid
                         item
                         xs={5.5}
@@ -188,21 +210,16 @@ export default function DocentesCursadasContenedor(props) {
                           borderColor: "secondary.light100",
                         }}
                       >
-                        <Chip
-                          label={cursada.Estado == "A" ? "Activo" : "Baja"}
-                          variant="outlined"
-                          color={cursada.Estado == "A" ? "success" : "danger"}
-                        />
+                        <Typography variant="h5">{ce}</Typography>
                         <Typography
-                          marginTop={1}
                           variant="subtitle2"
                           sx={{ opacity: "0.75" }}
                         >
-                          Estado
+                          Exámenes
                         </Typography>
                       </Grid>
 
-                      {/* Permite grupos */}
+                      {/* Cantidad de grupos: */}
                       <Grid
                         item
                         xs={5.5}
@@ -215,27 +232,23 @@ export default function DocentesCursadasContenedor(props) {
                           borderColor: "secondary.light100",
                         }}
                       >
-                        <Chip
-                          label={cursada.TieneGrupos == "S" ? "SI" : "NO"}
-                          variant="outlined"
-                          color={
-                            cursada.TieneGrupos == "S" ? "success" : "error"
-                          }
-                          icon={
-                            cursada.TieneGrupos == "S" ? (
-                              <CheckCircle />
-                            ) : (
-                              <Cancel />
-                            )
-                          }
-                        />
+                        <Typography variant="h5">{cg}</Typography>
                         <Typography
-                          marginTop={1}
                           variant="subtitle2"
                           sx={{ opacity: "0.75" }}
                         >
-                          Permite grupos
+                          Grupos
                         </Typography>
+                      </Grid>
+
+                      {/* Cantidad de parametros: */}
+                      <Grid item xs={12}>
+                        <Typography variant="subtitle2" textAlign="center">
+                          Parámetros configurados
+                        </Typography>
+                        <Box sx={{ width: "100%" }}>
+                          <LinearProgressWithLabel value={pnt} />
+                        </Box>
                       </Grid>
                     </Grid>
                   </CardContent>
