@@ -4,7 +4,8 @@ import MuiAppBar from "@mui/material/AppBar";
 import { IconButton, List, ListItem, Typography } from "@mui/material";
 import { teal } from "@mui/material/colors";
 
-export const drawerWidth = 290;
+export const drawerWidth = 270;
+// export const drawerWidth = "24em";
 
 /**************************************************
  * Estilos para la apertura del drawer
@@ -31,7 +32,7 @@ export const closedMixin = (theme) => ({
 
   //Ancho del menu minimmizado
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(10.5)} + 1px)`,
+    width: `calc(${theme.spacing(9)} + 1px)`,
   },
   //Esconder drawer en mobile
   [theme.breakpoints.down("md")]: {
@@ -49,31 +50,48 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-//********* */
+/********************************
+Componente AppBar
+*/
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer - 1, // +1 si se quiere que la barra de menu este por encima
-  transition: theme.transitions.create(["width", "margin"], {
+  transition: theme.transitions.create(["width", "margin", "padding"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  // width: `calc(100% - ${drawerWidth}px)`,
-  paddingLeft: "5.5rem",
+  //Padding por defecto
+  // paddingLeft: "5.5rem",
+  // paddingLeft: `${drawerWidth}px`,
+
+  //Ancho del menu minimmizado
+  [theme.breakpoints.up("sm")]: {
+    ...(!open && {
+      paddingLeft: `calc(${theme.spacing(10.5)} + 1px)`,
+    }),
+  },
+
+  //Estilo AppBar en pantallas < md
+  [theme.breakpoints.down("md")]: {
+    paddingLeft: "0",
+    width: "100%",
+  },
+
+  //Estilo Appbar cuando menu lateral esta abierto
   ...(open && {
-    // marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    // width: "100%",
-    // width: {
-    //   xs: "100%",
-    //   sm: "100%",
-    //   md: `calc(100% - ${drawerWidth}px)`,
-    // },
-    transition: theme.transitions.create(["width", "margin"], {
+
+    transition: theme.transitions.create(["width", "margin", "padding"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    paddingLeft: "0.2rem",
+    // paddingLeft: "0.2rem",
+
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "0",
+      width: "100%",
+    },
   }),
 
   //agregados
@@ -114,15 +132,12 @@ export const Drawer = styled(MuiDrawer, {
  */
 export const ButtonMenu = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.main,
-  backgroundColor: "rgba(0, 0, 0, 0.04)",
+  // backgroundColor: "rgba(0, 0, 0, 0.04)",
   borderRadius: "10px",
-  // border: `1px solid ${theme.palette.primary.light50}`,
   border: `1px solid ${teal[300]}`,
-  "&:hover": {
-    // boxShadow:
-    //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-    boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
-  },
+  // "&:hover": {
+  //   boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
+  // },
 }));
 
 /*******************************************
@@ -137,7 +152,7 @@ export const ListMenu = styled(List)(({ theme }) => ({
  */
 export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   boxSizing: "border-box",
-  backgroundColor: "rgba(0, 0, 0, 0.04)",
+  // backgroundColor: "rgba(0, 0, 0, 0.04)",
   // backgroundColor: theme.palette.primary.main,
   borderRadius: "10px",
   marginTop: "0.5rem",
@@ -148,7 +163,7 @@ export const ListItemMenu = styled(ListItem)(({ theme }) => ({
     borderRadius: "10px",
     // boxShadow:
     //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-    boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
+    // boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
     // border: "none",
     //
     // backgroundColor: `${teal[50]}`,

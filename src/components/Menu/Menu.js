@@ -16,6 +16,7 @@ import ApiIcon from "@mui/icons-material/Api";
 import {
   Collapse,
   Fade,
+  Grid,
   Icon,
   ListItem,
   Tooltip,
@@ -115,7 +116,7 @@ export default function Menu() {
             component="div"
             sx={{
               flexGrow: "1",
-              paddingX: { xs: 0, sm: 3 },
+              // paddingX: { xs: 0, sm: 3 },
             }}
           >
             {titulo}
@@ -220,7 +221,13 @@ export default function Menu() {
                   <ListItemMenu
                     button
                     key={ele.key}
-                    sx={{ paddingLeft: 3.1 }}
+                    // sx={{ paddingLeft: 3.1 }}
+                    sx={{
+                      flexDirection: open ? "row" : "column",
+                      "& .MuiListItemIcon-root": {
+                        justifyContent: "center",
+                      },
+                    }}
                     component={NavLink}
                     to={ele.to}
                     className={(navData) => (navData.isActive ? "active" : "")}
@@ -230,7 +237,7 @@ export default function Menu() {
                         baseClassName="material-icons-outlined"
                         sx={{
                           color: "icons.main",
-                          fontSize: "1.45rem",
+                          fontSize: "1.25em",
                         }}
                       >
                         {ele.icono}
@@ -240,9 +247,13 @@ export default function Menu() {
                       primary={ele.itemText}
                       sx={{
                         opacity: open ? "100%" : "0",
-                        transition: "all 0.15s ease 0s",
+                        position: open ? "relative" : "absolute",
+                        transition: "opacity 0.15s ease 0s",
                         marginTop: "0",
                         marginBottom: "0",
+                        "& .MuiTypography-root": {
+                          fontSize: "0.85em",
+                        },
                       }}
                     />
                   </ListItemMenu>
@@ -554,12 +565,15 @@ export default function Menu() {
         component="main"
         sx={{
           flexGrow: 1,
-          paddingX: { xs: 0, sm: 3 },
+          // paddingX: { xs: 0, sm: 3 },
+          // paddingY: { xs: 2, sm: 1 },
+          paddingX: { xs: 1, sm: 3 },
           paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
+
         {/*** Pagina ************/}
         <Outlet />
         {/*** Pagina ************/}
