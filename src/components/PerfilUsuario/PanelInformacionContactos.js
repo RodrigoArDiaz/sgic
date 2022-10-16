@@ -172,7 +172,15 @@ export default function PanelInformacionDeContactos() {
               <>
                 <ListItem key="0">
                   <ListItemText>
-                    <Alert severity="info">
+                    <Alert
+                      severity="info"
+                      sx={
+                        {
+                          // bgcolor: "secondary.main50",
+                          // color: "secondary.main",
+                        }
+                      }
+                    >
                       Aún no añadió informacion de contacto.
                     </Alert>
                   </ListItemText>
