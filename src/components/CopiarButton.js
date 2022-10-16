@@ -12,7 +12,7 @@ const CopiarButton = ({ textoCopiar }) => {
     >
       <span>
         <IconButton
-          size="medium"
+          size="small"
           color="secondary"
           sx={{ mr: "0.3rem" }}
           onClick={() => {

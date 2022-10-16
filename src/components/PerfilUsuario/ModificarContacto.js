@@ -20,6 +20,7 @@ import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
 //Peticiones
 import { peticionModificarContacto } from "../../api/alumnos/gestionContactosApi";
+import { blue } from "@mui/material/colors";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
@@ -106,9 +107,10 @@ export const ModificarContacto = ({ contacto, modificarContacto }) => {
         <IconButton
           edge="end"
           aria-label="modificar"
-          color="secondary"
+          // color="secondary"
+
           onClick={handleOpen}
-          sx={{ mr: "1rem" }}
+          sx={{ mr: "1rem", color: blue[500] }}
         >
           <ModeEditOutlinedIcon />
         </IconButton>

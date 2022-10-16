@@ -12,6 +12,7 @@ import { DeleteOutlined } from "@mui/icons-material";
 import { useModal } from "../../hooks/useModal";
 import { useSelector } from "react-redux";
 import { peticionBorrarContacto } from "../../api/alumnos/gestionContactosApi";
+import { red } from "@mui/material/colors";
 
 export const BorrarContacto = ({ contacto, borrarContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -63,8 +64,9 @@ export const BorrarContacto = ({ contacto, borrarContacto }) => {
         <IconButton
           edge="end"
           aria-label="delete"
-          color="secondary"
+          // color="secondary"
           onClick={handleOpen}
+          sx={{ color: red[500] }}
         >
           <DeleteOutlined />
         </IconButton>

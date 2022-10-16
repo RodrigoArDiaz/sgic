@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogTitle,
   TextField,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
@@ -126,7 +127,10 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar perfil</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <Edit sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar perfil
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
             <TextField
@@ -234,8 +238,8 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
             Aceptar
           </Button>
           <Button
-            variant="outlined"
-            color="secondary"
+            // variant="outlined"
+            // color="secondary"
             onClick={() => {
               formik.resetForm();
               handleClose();

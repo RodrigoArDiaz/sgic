@@ -7,9 +7,11 @@ import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
-//
-import InformacionUsuario from "./InformacionUsuario";
-import InformacionDeContactos from "./InformacionContactos";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+//Componentes propios
+import PanelDatosPersonales from "./PanelDatosPersonales";
+import PanelInformacionDeContactos from "./PanelInformacionContactos";
+import PanelSeguridad from "./PanelSeguridad";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -22,7 +24,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -48,8 +50,10 @@ export default function TabsInformacionUsuario() {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
+    <>
+      <Box
+      // sx={{ borderBottom: 1, borderColor: "divider", width: "auto" }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -57,31 +61,40 @@ export default function TabsInformacionUsuario() {
           scrollButtons
           allowScrollButtonsMobile
           aria-label="basic tabs example"
+          centered
         >
-          <Tab
+          {/* <Tab
             icon={<InfoOutlinedIcon />}
             iconPosition="start"
             label="Datos personales"
             {...a11yProps(0)}
-          />
+          /> */}
           <Tab
             icon={<PermContactCalendarOutlinedIcon />}
             iconPosition="start"
             label="Informacion de contacto"
+            {...a11yProps(0)}
+          />
+          <Tab
+            icon={<LockOutlinedIcon />}
+            iconPosition="start"
+            label="Seguridad"
             {...a11yProps(1)}
           />
         </Tabs>
-      </Grid>
-
+      </Box>
       {/* Paneles */}
       <Grid item xs={12}>
+        {/* <TabPanel value={value} index={0}>
+          <PanelDatosPersonales />
+        </TabPanel> */}
         <TabPanel value={value} index={0}>
-          <InformacionUsuario />
+          <PanelInformacionDeContactos />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <InformacionDeContactos />
+          <PanelSeguridad />
         </TabPanel>
       </Grid>
-    </Grid>
+    </>
   );
 }

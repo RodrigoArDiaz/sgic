@@ -8,6 +8,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
@@ -108,6 +109,7 @@ export const CrearContacto = ({ crearContacto }) => {
           }}
         >
           <AddIcon />
+          {/* <AddCircleOutlineOutlinedIcon /> */}
         </Fab>
       ) : (
         <Button
@@ -131,7 +133,10 @@ export const CrearContacto = ({ crearContacto }) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Crear nuevo contacto</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear nuevo contacto
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
             <TextField

@@ -3,6 +3,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Chip,
   Divider,
   FormControl,
   Grid,
@@ -12,14 +13,16 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useSelector } from "react-redux";
-import { blue } from "@mui/material/colors";
+import { blue, orange } from "@mui/material/colors";
 import { Box } from "@mui/material";
 import React from "react";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { OutlinedInputOnlyRead } from "../Material UI - Componentes Modificados/TextfieldVariantes";
-import ModificarContrasenia from "./ModificarContrasenia";
+// import ModificarContrasenia from "./PanelSeguridad";
 import ModificarPerfilUsuario from "./ModificarPerfilUsuario";
 import { useTheme } from "@emotion/react";
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { useSearchParams } from "react-router-dom";
 
 const InformacionUsuario = () => {
   const { user } = useSelector((state) => state.user);
@@ -27,185 +30,135 @@ const InformacionUsuario = () => {
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
-  //
+  //Se chequea si el usuario es un alumno
   const esAlumno = user.Tipo == "A" ? true : false;
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={5} lg={4} xl={3}>
-        <CardMain
-          sx={{
-            border: "1px solid",
-            borderColor: "secondary.light100",
-            "&:hover": {
-              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-            },
-          }}
+    <CardMainPage visibleHeader={false}>
+      {/* Avatar */}
+      <CardContent
+        sx={{
+          flexDirection: "column",
+          alignItems: "center",
+          paddingBottom: "0",
+        }}
+      >
+        {/* <Divider sx={{ marginY: "2rem" }}> */}
+        <Box display="flex" justifyContent="center" mt={3} mb={2}>
+          <Avatar
+            sx={{
+              width: "7.2rem",
+              height: "7.2rem",
+              // bgcolor: orange[400],
+              bgcolor: "secondary.main50",
+              color: "secondary.main",
+              fontSize: "3em",
+            }}
+            variant="rounded"
+          >
+            {user.Apellidos && user.Nombres
+              ? user.Apellidos.toString().charAt(0) +
+                "" +
+                user.Nombres.toString().charAt(0)
+              : "JD"}
+          </Avatar>
+        </Box>
+        {/* </Divider> */}
+        <Box
+          display="flex"
+          justifyContent="center"
+          flexDirection="column"
+          gap={1}
+          mb="1rem"
         >
-          <CardContent>
-            <Divider sx={{ marginY: "2rem" }}>
-              <Avatar
-                sx={{
-                  width: "5rem",
-                  height: "5rem",
-                  bgcolor: blue[500],
-                }}
-              >
-                {user.Apellidos &&
-                  user.Nombres &&
-                  user.Apellidos.toString().charAt(0) +
-                    "" +
-                    user.Nombres.toString().charAt(0)}
-              </Avatar>
-            </Divider>
-            <Box
-              display="flex"
-              justifyContent="center"
-              flexDirection="column"
-              mb="1rem"
-            >
-              <Typography variant="h5" textAlign="center">
-                {user.Apellidos + " " + user.Nombres}
-              </Typography>
-            </Box>
-          </CardContent>
-        </CardMain>
-      </Grid>
+          <Typography
+            variant="h6"
+            textAlign="center"
+            sx={{ fontWeight: "400" }}
+          >
+            {user.Apellidos && user.Nombres
+              ? user.Apellidos + " " + user.Nombres
+              : "John Doe Smith"}
+          </Typography>
+
+          <Chip
+            label={user.Usuario ? user.Usuario : "username"}
+            size="small"
+            sx={{
+              width: "max-content",
+              alignSelf: "center",
+              fontWeight: "500",
+              bgcolor: "primary.main50",
+              color: "primary.main",
+            }}
+          />
+        </Box>
+      </CardContent>
 
       {/* Datos personales */}
-      <Grid item xs>
-        <CardMain
-          sx={{
-            border: "1px solid",
-            borderColor: "secondary.light100",
-            "&:hover": {
-              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-            },
-          }}
-        >
-          <CardHeader
-            avatar={<InfoOutlinedIcon />}
-            title={<Typography variant="p">Datos Personales</Typography>}
-          />
+      <CardContent sx={{ paddingX: "1.2rem" }}>
+        <Typography sx={{ fontWeight: "500", paddingY: "0.5rem" }}>
+          Datos Personales
+        </Typography>
+        <Divider />
+        <Box>
+          <Box display="flex" flexDirection="row" gap={2} mt={1.5}>
+            <Typography variant="subtitle2">Nombre:</Typography>
+            <Typography sx={{ color: "text.subtitle2secondary" }}>
+              {user.Nombres ? user.Nombres : "John"}
+            </Typography>
+          </Box>
 
-          <Divider />
-          <CardContent>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6} xl={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Apellidos">Apellidos</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Apellidos"
-                    value={user.Apellidos}
-                    label="Apellidos"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+          <Box display="flex" flexDirection="row" gap={2} mt={1.5}>
+            <Typography variant="subtitle2">Apellidos:</Typography>
+            <Typography sx={{ color: "text.subtitle2secondary" }}>
+              {user.Apellidos ? user.Apellidos : "Doe Smith"}
+            </Typography>
+          </Box>
 
-              <Grid item xs={12} md={6} xl={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Nombres">Nombres</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Nombres"
-                    value={user.Nombres}
-                    label="Nombres"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+          <Box display="flex" flexDirection="row" gap={2} mt={1.5}>
+            <Typography variant="subtitle2">Nombre de usuario:</Typography>
+            <Typography sx={{ color: "text.subtitle2secondary" }}>
+              {user.Usuario ? user.Usuario : "username"}
+            </Typography>
+          </Box>
 
-              <Grid item xs={12} md={6} xl={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Email">Email</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Email"
-                    value={user.Email}
-                    label="Email"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+          <Box display="flex" flexDirection="row" gap={2} mt={1.5}>
+            <Typography variant="subtitle2">Email:</Typography>
+            <Typography sx={{ color: "text.subtitle2secondary" }}>
+              {user.Email ? user.Email : "userejemplo@gmail.com"}
+            </Typography>
+          </Box>
 
-              <Grid item xs={12} md={6} lg={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Usuario">Usuario</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Usuario"
-                    value={user.Usuario}
-                    label="Usuario"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+          <Box display="flex" flexDirection="row" gap={2} mt={1.5} mb={1.5}>
+            <Typography variant="subtitle2">Documento: </Typography>
+            <Typography sx={{ color: "text.subtitle2secondary" }}>
+              {user.Documento ? user.Documento : "10200300"}
+            </Typography>
+          </Box>
 
-              <Grid item xs={12} md={6}>
-                <FormControl fullWidth>
-                  <InputLabel htmlFor="Documento">Documento</InputLabel>
-                  <OutlinedInputOnlyRead
-                    id="Documento"
-                    value={user.Documento}
-                    label="Documento"
-                    readOnly
-                    disabled
-                  />
-                </FormControl>
-              </Grid>
+          {esAlumno && (
+            <Box display="flex" flexDirection="row" gap={2} mt={1.5} mb={1.5}>
+              <Typography variant="subtitle2">Libreta: </Typography>
+              <Typography sx={{ color: "text.subtitle2secondary" }}>
+                {user.Libreta ? user.Libreta : "14100200"}
+              </Typography>
+            </Box>
+          )}
+        </Box>
+        <Divider />
+      </CardContent>
 
-              {esAlumno && (
-                <Grid item xs={12} md={6}>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor="Libreta">Libreta</InputLabel>
-                    <OutlinedInputOnlyRead
-                      id="Libreta"
-                      value={user.Libreta}
-                      label="Libreta"
-                      readOnly
-                      disabled
-                    />
-                  </FormControl>
-                </Grid>
-              )}
-
-              {/* {() => {
-                if ("Libreta" in user) {
-                  return (
-                    <Grid item xs={12} md={6}>
-                      <FormControl fullWidth>
-                        <InputLabel htmlFor="Libreta">Libreta</InputLabel>
-                        <OutlinedInputOnlyRead
-                          id="Libreta"
-                          value="Falta"
-                          label="Libreta"
-                          readOnly
-                          disabled
-                        />
-                      </FormControl>
-                    </Grid>
-                  );
-                }
-              }} */}
-            </Grid>
-          </CardContent>
-          <Divider />
-          {/* Acciones */}
-          <CardActions>
-            <Grid container spacing={3} justifyContent="space-evenly">
-              <Grid item xs={12} sm={6} sx={{ textAlign: "center" }}>
-                <ModificarPerfilUsuario esAlumno={esAlumno} user={user} />
-              </Grid>
-              <Grid item xs={12} sm={6} sx={{ textAlign: "center" }}>
-                <ModificarContrasenia />
-              </Grid>
-            </Grid>
-          </CardActions>
-        </CardMain>
-      </Grid>
-    </Grid>
+      <CardActions
+        sx={{
+          justifyContent: "center",
+          paddingX: "1.2rem",
+          paddingBottom: "1.2rem",
+        }}
+      >
+        <ModificarPerfilUsuario esAlumno={esAlumno} user={user} />
+      </CardActions>
+    </CardMainPage>
   );
 };
 
