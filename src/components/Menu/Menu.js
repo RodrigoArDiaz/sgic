@@ -569,7 +569,7 @@ export default function Menu() {
           flexGrow: 1,
           // paddingX: { xs: 0, sm: 3 },
           // paddingY: { xs: 2, sm: 1 },
-          paddingX: { xs: 1, sm: 3 },
+          paddingX: { xs: 2, sm: 3, lg: 10 },
           paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}

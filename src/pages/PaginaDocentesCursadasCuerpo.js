@@ -31,13 +31,13 @@ export default function PaginaDocentesCursadasCuerpo(props) {
 
   return (
     <Grid container rowSpacing={3} columnSpacing={2}>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <GridBreadCrumbs container>
           <BreadCrumbs />
         </GridBreadCrumbs>
-      </Grid>
+      </Grid> */}
 
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12}>
         <DocentesCursadasContenedor />
       </Grid>
     </Grid>
