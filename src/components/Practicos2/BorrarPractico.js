@@ -12,6 +12,7 @@ import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import { useTheme } from "@emotion/react";
+import { DeleteOutlined } from "@mui/icons-material";
 
 export const BorrarPractico = (props) => {
   //Para estilos segun tamaño screen
@@ -57,7 +58,7 @@ export const BorrarPractico = (props) => {
       <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <DeleteIcon />
+            <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>

@@ -20,6 +20,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
@@ -198,7 +199,7 @@ export const ModificarPractico = (props) => {
       <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <EditIcon />
+            <ModeEditOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>
