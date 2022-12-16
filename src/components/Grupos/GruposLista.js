@@ -20,6 +20,9 @@ import {
   TableRowElevacion,
   TableCell1em,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
+import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
+import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
 
 const columns = [
   {
@@ -160,11 +163,7 @@ export default function StickyHeadTable(props) {
       <Grid justifyContent="flex-start" container pt={2}>
         <Grid item xs={8} sx={{ mt: 1 }}>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -173,50 +172,19 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:{" "}
+        <ContenedorFilasPorPagina>
+          Filas por página:
           {
             <FilasPorPagina
               actualizarfilas={props.actualizarfilas}
               fpp={props.filasxpagina}
             />
           }
-        </Grid>
+        </ContenedorFilasPorPagina>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
+        <ContenedorResultados>
           Resultados: {props.resultados}
-        </Grid>
+        </ContenedorResultados>
       </Grid>
     </>
   );

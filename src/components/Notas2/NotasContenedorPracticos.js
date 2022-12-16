@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import NotasPracticosLista from "./NotasPracticosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
@@ -14,6 +14,7 @@ import {
   colorMainSpinner,
   sizeMainSpinner,
 } from "../../styles/EstilosSpinners";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function NotasContenedorPracticos(props) {
   const navegar = useNavigate();
@@ -234,7 +235,20 @@ export default function NotasContenedorPracticos(props) {
         </Grid>
       )}
 
-      {cargando === "3" && <h4>No se encontraron resultados</h4>}
+      {cargando === "3" && (
+        <Grid container paddingTop={2}>
+          <Grid item xs={12}>
+            <Box
+              component="div"
+              display="flex"
+              justifyContent="center"
+              paddingX={2}
+            >
+              <MensajeFeedback>No se encontraron resultados</MensajeFeedback>
+            </Box>
+          </Grid>
+        </Grid>
+      )}
 
       <div>
         <SnackMensajes

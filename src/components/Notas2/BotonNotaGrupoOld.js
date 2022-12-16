@@ -38,8 +38,7 @@ const style2 = {
 };
 
 var estilo;
-
-export const BotonNota = (props) => {
+export const BotonNotaGrupo = (props) => {
   const navegar = useNavigate();
 
   function Transformar(param) {
@@ -54,7 +53,6 @@ export const BotonNota = (props) => {
   const [salto, setSalto] = React.useState("1");
 
   const [nomb, setNombre] = React.useState(Transformar(props.Nota));
-
   function cambio2(e) {
     setTexto(e.target.value);
   }
@@ -76,8 +74,8 @@ export const BotonNota = (props) => {
       } else {
         var data = {
           pNota: texto,
-          pidAl: props.IdUsuario,
-          pidG: "",
+          pidAl: "",
+          pidG: props.IdGrupo,
           pidDoc: localStorage.getItem("tkn2"), //IdDocente aunque aqui va el token
           pidP: props.IdPractico,
           pidCu: props.cursada.IdCursada,
@@ -124,45 +122,92 @@ export const BotonNota = (props) => {
             navegar("/error");
           });
       }
-
-      setTexto("");
     }
 
-    if (salto === "1") {
-      if (nomb === "-") {
-        estilo = style3;
-      } else if (parseInt(nomb) < props.NMA) {
-        estilo = style1;
-      } else {
-        estilo = style2;
-      }
-      return (
-        <>
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">{nomb}</InputLabel>
-            <OutlinedInput
-              sx={{ ...estilo, width: 50, height: 32 }}
-              id={props.var}
-              value={texto}
-              onBlur={() => cambio()}
-              onChange={(e) => cambio2(e)}
-              label={nomb}
-            />
-          </FormControl>
-        </>
-      );
-    }
+    setTexto("");
+  }
 
-    if (salto === "2") {
-      return (
-        <Grid item xs={12} sm="auto">
-          <Tooltip title="Verificando">
-            <IconButton aria-label="estado3" size="small" color="inherit">
-              <CircularProgress />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-      );
+  if (salto === "1") {
+    if (nomb === "-") {
+      estilo = style3;
+    } else if (parseInt(nomb) < props.NMA) {
+      estilo = style1;
+    } else {
+      estilo = style2;
     }
+    return (
+      <>
+        <FormControl size="small">
+          <InputLabel htmlFor="component-outlined">{nomb}</InputLabel>
+          <OutlinedInput
+            sx={{ ...estilo, width: 50, height: 32 }}
+            id={props.var}
+            value={texto}
+            onBlur={() => cambio()}
+            onChange={(e) => cambio2(e)}
+            label={nomb}
+          />
+        </FormControl>
+      </>
+    );
+  }
+
+  if (salto === "2") {
+    return (
+      <Grid item xs={12} sm="auto">
+        <Tooltip title="Verificando">
+          <IconButton aria-label="estado3" size="small" color="inherit">
+            <CircularProgress />
+          </IconButton>
+        </Tooltip>
+      </Grid>
+    );
   }
 };
+
+/*
+
+ console.log(response);
+  if(response.Error === undefined){
+  //aqui va el snack
+if(parseInt(texto)===0){
+  setNombre('-');
+  props.mensaje('Nota modificada: '+'-');
+}
+  else{
+  setNombre(texto);
+  props.mensaje('Nota modificada: '+texto);
+}
+  setTexto('');
+
+  
+  props.abrir(true);
+  
+  props.tipo('success');
+  setSalto('1');
+ 
+  
+ }
+ else{
+ // Aqui actualizo los errores
+ setTexto('');
+ setSalto('1');
+ if (response.nota1!==undefined){
+  props.abrir(true);
+  props.mensaje(response.nota1);
+  props.tipo('error');
+  
+     }
+    
+    
+     else if (response.nota2!==undefined){
+      props.abrir(true);
+      props.mensaje(response.nota2);
+      props.tipo('error');
+      
+        }
+        
+    
+ }
+ setTexto('');
+*/

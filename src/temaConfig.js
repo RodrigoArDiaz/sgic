@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { cyan, indigo, teal } from "@mui/material/colors";
+import { blue, cyan, indigo, teal } from "@mui/material/colors";
 import { blueGrey } from "@mui/material/colors";
 import { NoEncryption } from "@mui/icons-material";
 
@@ -8,9 +8,9 @@ const theme = createTheme({
     //Paleta del color primario
     primary: {
       //Principales
-      main: teal[700],
-      light: teal[500],
-      dark: teal[900],
+      main: teal[800],
+      light: "#4fb3bf",
+      dark: "#005662",
       //Escalas
       light50: teal[50],
       main50: teal[50],
@@ -32,9 +32,9 @@ const theme = createTheme({
     //Paleta del color secondario
     secondary: {
       //Principales
-      main: indigo["A400"],
-      light: indigo[300],
-      dark: indigo[700],
+      main: indigo[400],
+      light: "#8e99f3",
+      dark: "#26418f",
 
       //Escalas
       light400: indigo[400],
@@ -146,16 +146,57 @@ const theme = createTheme({
 
   //Tipografria
   typography: {
-    //Family
+    //  Family
+    // fontFamily: [
+    //   "Poppins",
+    //   "-apple-system",
+    //   "BlinkMacSystemFont",
+    //   "Segoe UI",
+    //   "Helvetica Neue",
+    //   "Arial",
+    //   "sans-serif",
+    // ].join(","),
+
+    // fontFamily: [
+    //   "Inter",
+    //   "-apple-system",
+    //   "BlinkMacSystemFont",
+    //   "Segoe UI",
+    //   "Helvetica",
+    //   "Arial",
+    //   "sans-serif",
+    //   "Apple Color Emoji",
+    //   "Segoe UI Emoji",
+    // ].join(","),
+
+    // fontFamily: ["DM Sans", "sans-serif"].join(","),
+
     fontFamily: [
-      "Poppins",
+      "Inter",
       "-apple-system",
       "BlinkMacSystemFont",
       "Segoe UI",
-      "Helvetica Neue",
+      "Helvetica",
       "Arial",
       "sans-serif",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
     ].join(","),
+
+    // fontFamily: [
+    //   "Inter",
+    //   "sans-serif",
+    //   "-apple-system",
+    //   "BlinkMacSystemFont",
+    //   "Segoe UI",
+    //   "Roboto",
+    //   "Helvetica Neue",
+    //   "Arial",
+    //   "sans-serif",
+    //   "Apple Color Emoji",
+    //   "Segoe UI Emoji",
+    //   "Segoe UI Symbol",
+    // ].join(","),
 
     //Color
     color: "rgb(34, 51, 84)",

@@ -5,7 +5,15 @@ const MensajeFeedback = ({ tipo, children }) => {
   return (
     <ListItem key="0" sx={{ paddingX: "0" }}>
       <ListItemText>
-        <Alert severity={tipo} sx={{ fontSize: "1rem" }}>
+        <Alert
+          severity={tipo}
+          sx={{
+            fontSize: "1rem",
+            border: "1px solid",
+            borderColor: "info.light",
+          }}
+          // variant="outlined"
+        >
           {children}
         </Alert>
       </ListItemText>
@@ -15,7 +23,7 @@ const MensajeFeedback = ({ tipo, children }) => {
 
 MensajeFeedback.defaultProps = {
   tipo: "info",
-  children: "sdfsdf",
+  children: "",
 };
 
 export default MensajeFeedback;

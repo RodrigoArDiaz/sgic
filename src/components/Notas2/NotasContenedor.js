@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, CardContent, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  CardContent,
+  CardHeader,
+  Icon,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +22,15 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 // import TabContext from "@mui/lab/TabContext";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import {
+  Article,
+  ArticleOutlined,
+  Assignment,
+  AssignmentOutlined,
+  FactCheck,
+  GradingOutlined,
+} from "@mui/icons-material";
+import CardMainPageHeader from "../Material UI - Componentes Modificados/CardMainPageHeader";
 
 export default function NotasContenedor(props) {
   //Recupero informacion de la cursada
@@ -29,77 +45,126 @@ export default function NotasContenedor(props) {
 
   return (
     <>
-      <CardMainPage icon="fact_check" title="Notas" bgColorIcon={blue[500]}>
-        <CardContent>
-          {/* <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setCT("1");
-                  setTitulo("Trabajos Práctricos");
-                }}
-              >
-                Prácticos
-              </Button>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setCT("2");
-                  setTitulo("Exámenes");
-                }}
-              >
-                Exámenes
-              </Button>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setCT("3");
-                  setTitulo("Situación Final");
-                }}
-              >
-                Situación Final
-              </Button>
-            </Grid>
-          </Grid > */}
-          <Paper elevation={0}>
+      <Grid container>
+        {/* Titulo pagina */}
+        <Grid item xs={12}>
+          <CardMainPageHeader icon={"fact_check"} title="Notas" />
+        </Grid>
+        {/* Cuerpo pagina */}
+        <Grid item xs={12}>
+          {/* <CardMainPage visibleHeader={false} bgColorIcon={blue[500]}>
+            <CardContent sx={{ paddingX: "0", paddingTop: "0" }}> */}
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: "transparent",
+            }}
+          >
             <TabContext value={cambiocontexto}>
               <Box
-                sx={{ borderBottom: 1, borderColor: "divider" }}
-                paddingX={2}
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                  bgcolor: "transparent",
+                }}
+                paddingX={0}
               >
-                <TabList onChange={handleChange} aria-label="notas">
-                  <Tab label="Trabajos Prácticos" value="1" />
-                  <Tab label="Exámenes" value="2" />
-                  <Tab label="Situación Final" value="3" />
+                <TabList
+                  onChange={handleChange}
+                  aria-label="notas"
+                  // indicatorColor="secondary"
+                >
+                  <Tab
+                    label="Trabajos Prácticos"
+                    value="1"
+                    icon={<ArticleOutlined fontSize="small" />}
+                    iconPosition="start"
+                  />
+                  <Tab
+                    label="Exámenes"
+                    value="2"
+                    icon={<AssignmentOutlined fontSize="small" />}
+                    iconPosition="start"
+                  />
+                  <Tab
+                    label="Situación Final"
+                    value="3"
+                    icon={<GradingOutlined fontSize="small" />}
+                    iconPosition="start"
+                  />
                 </TabList>
               </Box>
 
-              {cambiocontexto === "1" && (
-                <NotasContenedorPracticos
-                  cursada={cursada}
-                  titulo="Trabajos Prácticos"
-                />
-              )}
-              {cambiocontexto === "2" && (
-                <NotasContenedorExamenes cursada={cursada} titulo="Exámenes" />
-              )}
-              {cambiocontexto === "3" && (
-                <SituacionFinalContenedor
-                  cursada={cursada}
-                  titulo="Situación Final"
-                />
-              )}
+              <Paper elevation={0} sx={{ marginTop: 2 }}>
+                <CardMainPage
+                  visibleHeader={false}
+                  bgColorIcon={blue[500]}
+                  sx={{
+                    marginTop: "10px",
+                    paddingBottom: "0",
+                    "& .MuiCardContent-root:last-child": {
+                      paddingBottom: "0",
+                    },
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      paddingX: "0",
+                      paddingY: "0",
+                      "&:last-child": {
+                        paddingBottom: "0",
+                      },
+                    }}
+                  >
+                    <TabPanel value="1" sx={{ paddingX: "0", paddingTop: 1 }}>
+                      <NotasContenedorPracticos
+                        cursada={cursada}
+                        titulo="Trabajos Prácticos"
+                      />
+                    </TabPanel>
+
+                    <TabPanel value="2" sx={{ paddingX: "0", paddingTop: 1 }}>
+                      <NotasContenedorExamenes
+                        cursada={cursada}
+                        titulo="Exámenes"
+                      />
+                    </TabPanel>
+
+                    <TabPanel value="3" sx={{ paddingX: "0", paddingTop: 1 }}>
+                      <SituacionFinalContenedor
+                        cursada={cursada}
+                        titulo="Situación Final"
+                      />
+                    </TabPanel>
+                  </CardContent>
+                </CardMainPage>
+
+                {/* {cambiocontexto === "1" && (
+                    <NotasContenedorPracticos
+                      cursada={cursada}
+                      titulo="Trabajos Prácticos"
+                    />
+                  )}
+
+                  {cambiocontexto === "2" && (
+                    <NotasContenedorExamenes
+                      cursada={cursada}
+                      titulo="Exámenes"
+                    />
+                  )}
+                  {cambiocontexto === "3" && (
+                    <SituacionFinalContenedor
+                      cursada={cursada}
+                      titulo="Situación Final"
+                    />
+                  )} */}
+              </Paper>
             </TabContext>
           </Paper>
-        </CardContent>
-      </CardMainPage>
+          {/* </CardContent>
+          </CardMainPage> */}
+        </Grid>
+      </Grid>
     </>
   );
 }

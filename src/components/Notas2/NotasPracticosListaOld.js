@@ -13,9 +13,6 @@ import { Grid } from "@mui/material";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import ECContenedorPracticos from "./EnCorPracticos/ECContenedorPracticos";
 import Row from "./Row";
-import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
-import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
 
 export default function NotasPracticosLista(props) {
   var columns = [
@@ -90,8 +87,6 @@ export default function NotasPracticosLista(props) {
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
-  /***************************************/
-  //Tabla para cursadas que no tienen grupos
   if (props.cursada.TieneGrupos === "N") {
     return (
       <>
@@ -236,10 +231,7 @@ export default function NotasPracticosLista(props) {
         <TableContainer sx={{ maxHeight: "none" }} size="medium">
           <Table
             aria-label="Lista de inscriptos"
-            sx={{
-              mb: "1rem",
-              borderCollapse: "collapse",
-            }}
+            sx={{ mb: "1rem" }}
             size="small"
           >
             <TableHead>
@@ -292,10 +284,11 @@ export default function NotasPracticosLista(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2} paddingX={2}>
-          <Grid item xs={8} sx={{ mt: 1 }}>
+        <Grid justifyContent="flex-start" container pt={2}>
+          <Grid item xs={6} sx={{ mt: 1 }}>
             <Stack spacing={2}>
-              <PaginationCustom
+              <Pagination
+                variant="outlined"
                 defaultPage={1}
                 count={props.paginacion}
                 page={props.pagina}
@@ -304,7 +297,7 @@ export default function NotasPracticosLista(props) {
             </Stack>
           </Grid>
 
-          <ContenedorFilasPorPagina>
+          <Grid item xs={3} sx={{ mt: 1 }}>
             Filas por página:{" "}
             {
               <FilasPorPagina
@@ -312,12 +305,13 @@ export default function NotasPracticosLista(props) {
                 fpp={props.filasxpagina}
               />
             }
-          </ContenedorFilasPorPagina>
+          </Grid>
 
-          <ContenedorResultados>
+          <Grid item xs={3} sx={{ mt: 1 }}>
             Resultados: {props.resultados}
-          </ContenedorResultados>
+          </Grid>
         </Grid>
+        <Grid justifyContent="center" container pt={2} />
       </>
     );
   }
