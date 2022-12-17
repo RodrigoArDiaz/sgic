@@ -1,206 +1,160 @@
-import * as React from 'react';
-import {  Grid } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import FormControl from '@mui/material/FormControl';
-import CircularProgress from '@mui/material/CircularProgress';
-import IconButton from '@mui/material/IconButton';
-import { Tooltip } from '@mui/material';
-import * as Responses from '../../Responses';
+import * as React from "react";
+import { useState } from "react";
+//MUI
+import { useTheme } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+//Responses
+import * as Responses from "../../Responses";
+//React router
 import { useNavigate } from "react-router-dom";
+//React spinner
+import { ScaleLoader } from "react-spinners";
+//Formik, yup
+import { useFormik } from "formik";
+import * as yup from "yup";
+import OutlinedInputEditableNote from "../../Material UI - Componentes Modificados/ComponentesNotas/OutlinedInputEditableNote";
 
-
-const style3 = {
-  //verde
-    width: {xs: 50},
-    
-    //color:'red',
-    backgroundColor: {xs:"#f5f5f5"},
-    //border: "solid black 2px"
-  }
-  
-
-// equivalente en verde E6FDE9  #e6fde9
-const style1 = {
-//verde
-  width: {xs: 50},
-  
-  //color:'red',
-  backgroundColor: {xs:"#fdeae6"},
-  //border: "solid black 2px"
-}
-
-
-
-const style2 = {
-// rojo
-  width: {xs: 50},
-  
-  //color:'red',
-  backgroundColor: {xs:"#e6fde9"},
-  //border: "solid black 2px"
-}
-
-var estilo;
+/*****************************************
+ * Componente 'BotonNotaGrupo'
+ */
 export const BotonNota = (props) => {
+  //Para estilos
+  const theme = useTheme();
+  const colorBgSpinner = theme.palette.secondary.main;
 
+  //Navegacion React Router
   const navegar = useNavigate();
 
-function Transformar(param){
-if (param===-5){
-return '-';
-}
-return param;
-}
+  //Variable de estado que indica la nota
+  const [nota, setNota] = useState(props.Nota < 0 ? "" : props.Nota);
 
+  //Variable de estado que indica el procesamiento de la peticion
+  const [loading, setLoading] = useState(false);
 
+  //Valores iniciales del objeto formik
+  const valoresInicialesForm = { nota: nota };
 
-  const [texto, setTexto] = React.useState(''); 
-       
-  
-  const [salto, setSalto] = React.useState('1'); 
+  //Objeto formik
+  const formik = useFormik({
+    enableReinitialize: true, //Se habilita el reinicio del form
+    initialValues: valoresInicialesForm, //Se setean valores iniciales
+    validationSchema: yup.object({}), //Se setea el esquema de validacion (vacio)
+    //Handle del evento submit
+    onSubmit: (values) => {
+      handleSubmit(values.nota);
+    },
+  });
 
-  const [nomb, setNombre] = React.useState(Transformar(props.Nota)); 
-  
-  function cambio2(e){
-setTexto(e.target.value);
-  }
-
-
-  function cambio(){
-    
-    
-   
-    if (texto!==''&& !isNaN(texto)){
-  
-      if(parseInt(texto)<0){
-        setTexto('');
- props.abrir(true);
- props.mensaje('La nota debe ser mayor que 0');
- props.tipo('error');
-      }
-      else if(parseInt(texto)>props.Escala){
-        setTexto('');
+  //Handle submit
+  const handleSubmit = (notaParam) => {
+    console.log(notaParam);
+    console.log(props.Escala);
+    //Control: nota es numero
+    if (!isNaN(notaParam)) {
+      console.log("es numero");
+      //Control: nota mayor a 0
+      if (parseInt(notaParam) < 0) {
         props.abrir(true);
-        props.mensaje('La nota debe ser menor o igual que '+props.Escala);
-        props.tipo('error');
+        props.mensaje("La nota debe ser mayor que 0");
+        props.tipo("error");
+        formik.resetForm();
       }
-
-
-      
-else{
-  var data = {
-    pNota:texto,    
-    pidAl:props.IdUsuario,
-    //pidG:'',
-     pidDoc:localStorage.getItem('tkn2'), //IdDocente aunque aqui va el token
-     pidE:props.IdExamen,
-     pidCu:props.cursada.IdCursada,                                        
-  }
-      setSalto('2');
- Responses.consultas(data,'http://127.0.0.1:8000/api/modificarnotaexamen').then(response=>{
- 
-  if(Responses.status===200){
-       
-    if(parseInt(texto)===0){
-      setNombre('-');
-      props.mensaje('Nota modificada: '+'-');
+      //Comprueba si nota esta dentro de la escala
+      else if (parseInt(notaParam) > props.Escala) {
+        props.abrir(true);
+        props.mensaje("La nota debe ser menor o igual que " + props.Escala);
+        props.tipo("error");
+        formik.resetForm();
+      }
+      //Comprueba si nuevo valor de nota es igual que el anterior
+      else if (notaParam.trim() == nota) {
+        // No se modifica si la nota es igual a la anterior
+      }
+      //Comprobacion completa, se realiza petición
+      else {
+        //Se indica que se esta realizando la peticion
+        setLoading(true);
+        //Estructura de datos a enviar
+        var data = {
+          pNota: notaParam,
+          pidAl: props.IdUsuario,
+          //pidG: props.IdGrupo,
+          pidDoc: localStorage.getItem("tkn2"), //IdDocente aunque aqui va el token
+          pidE: props.IdExamen,
+          pidCu: props.cursada.IdCursada,
+        };
+        //Peticion
+        Responses.consultas(
+          data,
+          "http://127.0.0.1:8000/api/modificarnotaexamen"
+        )
+          .then((response) => {
+            setLoading(false);
+            if (Responses.status === 200) {
+              // if (parseInt(notaParam) === 0) {
+              //   setNombre("-");
+              //   props.mensaje("Nota modificada: " + "-");
+              // } else {
+              //   setNombre(notaParam);
+              props.mensaje("Nota modificada: " + notaParam);
+              props.abrir(true);
+              props.tipo("success");
+              setNota(notaParam);
+            } else if (Responses.status === 401) {
+              navegar("/ingreso");
+            } else if (Responses.status === 460) {
+              // setTexto("");
+              // setSalto("1");
+              // if (response.nota1 !== undefined) {
+              //   props.abrir(true);
+              //   props.mensaje(response.nota1);
+              //   props.tipo("error");
+              // } else if (response.nota2 !== undefined) {
+              //   props.abrir(true);
+              //   props.mensaje(response.nota2);
+              //   props.tipo("error");
+              // }
+            } else {
+              navegar("/error");
+            }
+          })
+          .catch((error) => {
+            navegar("/error");
+          });
+      }
+    } else {
+      formik.resetForm();
     }
-      else{
-      setNombre(texto);
-      props.mensaje('Nota modificada: '+texto);
-    }
-      setTexto('');
-    
-      
-      props.abrir(true);
-      
-      props.tipo('success');
-      setSalto('1');
-     
-              }
-              else if(Responses.status===401){
-                navegar("/ingreso");
-              }
-         else if (Responses.status===460){
-          setTexto('');
-          setSalto('1');
-          if (response.nota1!==undefined){
-           props.abrir(true);
-           props.mensaje(response.nota1);
-           props.tipo('error');
-           
-              }
-             
-             
-              else if (response.nota2!==undefined){
-               props.abrir(true);
-               props.mensaje(response.nota2);
-               props.tipo('error');
-               
-                 }
-         }    
-              else {
-                navegar("/error");
-              }
- })
- .catch(error=>{console.log("Error de conexión"+error);});
- 
+  };
 
-}
-
- 
-  }
-  setTexto('');
-}
-
-
-  if (salto==='1'){
-  if(nomb==='-'){estilo=style3;
-
-  }  
-  else if(parseInt(nomb)<props.NMA){estilo=style1;  }
-    else{estilo=style2; }
-    return(
-  
+  return (
     <>
-
-     
-  <FormControl>
-    
-    <InputLabel  htmlFor="component-outlined" >{nomb}</InputLabel>
-    <OutlinedInput
-    sx={{...estilo, width: 50,
-      height: 32}}
-      id={props.var}
-     value={texto}
-      onBlur={()=>cambio()}
-      onChange={(e)=>cambio2(e)}
-      label={nomb}
-      
-    />
-
-    </FormControl>
+      {!loading ? (
+        <FormControl fullWidth>
+          <OutlinedInputEditableNote
+            id="grupo"
+            type="text"
+            placeholder="-"
+            size="small"
+            name="nota"
+            value={formik.values.nota}
+            onChange={formik.handleChange}
+            onBlur={formik.handleSubmit}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
+              }
+            }}
+            notaEstilo={nota}
+            notaMinEstilo={props.NMA}
+          />
+        </FormControl>
+      ) : (
+        <IconButton aria-label="estado3" size="small" color="inherit">
+          <ScaleLoader color={colorBgSpinner} width="0.5" height="15" />
+        </IconButton>
+      )}
     </>
-    );
-    
-    
-    
-    }
-    
-if (salto==='2'){
-  
-
-    return(
-<Grid item xs={12} sm="auto">
-<Tooltip title="Verificando">
-<IconButton aria-label="estado3"  size='small' color="inherit"  >
-        <CircularProgress />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-        );
-    }
-
-}
-
+  );
+};
