@@ -9,8 +9,20 @@ export default function OutlinedCard(props) {
       variant="outlined"
       severity="info"
       // icon={<DragIndicatorIcon fontSize="inherit" />}
+      // sx={{
+      //   borderWidth: "1px",
+      //   borderColor: "secondary.main",
+      //   color: "inherit",
+      // }}
       icon={false}
-      action={<DragIndicatorIcon color="info" />}
+      action={
+        <DragIndicatorIcon
+          color="info"
+          // sx={{
+          //   color: "secondary.main",
+          // }}
+        />
+      }
     >
       <Typography>{props.fila.Practico}</Typography>
     </Alert>

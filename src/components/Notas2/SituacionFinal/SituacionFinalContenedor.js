@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import SituacionFinalLista from "./SituacionFinalLista";
 import BuscarAlumnos from "../BuscarAlumnos";
@@ -8,20 +8,28 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../../Responses";
+import { MoonLoader } from "react-spinners";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
+import MensajeFeedback from "../../MensajeFeedback";
 
+/********************************************************************************/
+/* Componente
+ */
 export default function SituacionFinalContenedor(props) {
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState("1"); //Espera al consultar
 
   //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
@@ -172,28 +180,7 @@ export default function SituacionFinalContenedor(props) {
   }, []);
 
   return (
-    <Paper
-      component="div"
-      sx={{
-        p: "4px 4px",
-        // display: 'flex',
-        alignItems: "center",
-        width: "95%",
-        mt: "10px",
-        px: 2,
-        pb: 3,
-        // minHeight: "75vh",
-      }}
-      elevation={3}
-    >
-      <Grid container pt={1} spacing={8}>
-        <Grid item xs={12}>
-          <Typography variant="h5" sx={{ ml: 55 }}>
-            {props.titulo}
-          </Typography>
-        </Grid>
-      </Grid>
-
+    <>
       <Grid container pt={1} justifyContent="flex-end" spacing={8}>
         <Grid item xs={12}>
           <BuscarAlumnos
@@ -204,21 +191,16 @@ export default function SituacionFinalContenedor(props) {
         </Grid>
       </Grid>
 
-      {cargando === "3" && (
-        <h4>
-          No se encontraron resultados. Revise si los parámetros de examen están
-          configurados correctamente
-        </h4>
-      )}
       {cargando === "1" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
+        <Grid container paddingTop={2}>
+          <Grid item xs={12}>
+            <Box component="div" display="flex" justifyContent="center">
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+            </Box>
+          </Grid>
         </Grid>
       )}
+
       {cargando === "2" && (
         <Grid container pt={2}>
           <SituacionFinalLista
@@ -238,6 +220,24 @@ export default function SituacionFinalContenedor(props) {
         </Grid>
       )}
 
+      {cargando === "3" && (
+        <Grid container paddingTop={2}>
+          <Grid item xs={12}>
+            <Box
+              component="div"
+              display="flex"
+              justifyContent="center"
+              paddingX={2}
+            >
+              <MensajeFeedback>
+                No se encontraron resultados. Revise si los parámetros de examen
+                están configurados correctamente
+              </MensajeFeedback>
+            </Box>
+          </Grid>
+        </Grid>
+      )}
+
       <div>
         <SnackMensajes
           abrir={abrir}
@@ -246,6 +246,6 @@ export default function SituacionFinalContenedor(props) {
           cerrar={setAbrir}
         />{" "}
       </div>
-    </Paper>
+    </>
   );
 }

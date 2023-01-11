@@ -40,20 +40,20 @@ import CopiarButton from "../CopiarButton";
 import { MoonLoader } from "react-spinners";
 
 const contactosPrueba = [
-  // {
-  //   Nombre: "Facebook",
-  //   Perfil: "https://www.facebook.com/sinnombre.nn.90",
-  // },
-  // { Nombre: "Whatsapp", Perfil: "+5493815746160" },
-  // { Nombre: "Whatsapp", Perfil: "+549386421392" },
-  // { Nombre: "Github", Perfil: "https://github.com/..." },
-  // { Nombre: "Slack", Perfil: "https://github.com/..." },
-  // { Nombre: "LinkedIn", Perfil: "https://github.com/..." },
-  // { Nombre: "Twitter", Perfil: "https://github.com/..." },
-  // { Nombre: "Gmail", Perfil: "https://github.com/..." },
-  // { Nombre: "Outlook", Perfil: "https://github.com/..." },
-  // { Nombre: "Telefono", Perfil: "+549386421392" },
-  // { Nombre: "Correo", Perfil: "diaz" },
+  {
+    Nombre: "Facebook",
+    Perfil: "https://www.facebook.com/sinnombre.nn.90",
+  },
+  { Nombre: "Whatsapp", Perfil: "+5493815746160" },
+  { Nombre: "Whatsapp", Perfil: "+549386421392" },
+  { Nombre: "Github", Perfil: "https://github.com/..." },
+  { Nombre: "Slack", Perfil: "https://github.com/..." },
+  { Nombre: "LinkedIn", Perfil: "https://github.com/..." },
+  { Nombre: "Twitter", Perfil: "https://github.com/..." },
+  { Nombre: "Gmail", Perfil: "https://github.com/..." },
+  { Nombre: "Outlook", Perfil: "https://github.com/..." },
+  { Nombre: "Telefono", Perfil: "+549386421392" },
+  { Nombre: "Correo", Perfil: "diaz" },
 ];
 
 //Estilos para filas de la tabla

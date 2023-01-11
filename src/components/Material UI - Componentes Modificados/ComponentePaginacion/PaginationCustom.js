@@ -6,8 +6,12 @@ const PaginationCustom = (props) => {
     <Pagination
       shape="rounded"
       size="medium"
-      color="info"
-      sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
+      // color="info"
+      color="primary"
+      variant="outlined"
+      sx={{
+        "& .MuiPagination-ul": { gap: "0.5rem" },
+      }}
       {...props}
     />
   );

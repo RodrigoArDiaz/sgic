@@ -8,9 +8,11 @@ import {
   Paper,
   Typography,
   FormHelperText,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { Link as LinkRouter } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Dialog from "@mui/material/Dialog";
@@ -20,6 +22,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
+import AuthWrapper from "./AuthWrapper";
 
 const estiloPaper = {
   height: "auto",
@@ -38,7 +41,8 @@ const estiloButton = {
 };
 
 const estiloLink = {
-  mt: "30px",
+  mt: "1rem",
+  fontSize: ".9rem",
 };
 
 const estiloHeader = {
@@ -64,16 +68,7 @@ const estiloBoxForm = {
 };
 
 const estiloBoxRecuperar = {
-  mt: { xs: "35px", md: "25px" },
-};
-
-const estiloError = {
-  mt: { xs: "10px", md: "15px" },
-};
-
-//
-const initialForm = {
-  email: "",
+  // mt: { xs: "25px", md: "15px" },
 };
 
 function FormularioRecuperarContrasenia() {
@@ -95,31 +90,34 @@ function FormularioRecuperarContrasenia() {
   };
 
   return (
-    <Grid>
-      <Paper sx={estiloPaper}>
-        <Grid align="center" sx={estiloHeader}>
-          {/* <AccountCircleIcon
-                            fontSize="large"
-                        /> */}
-          <Typography variant="h5">Recuperar contraseña</Typography>
+    <AuthWrapper childMaxWidthXs={300} maxWidthChildLg={475}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            <Typography variant="h5">Recuperar contraseña</Typography>
+          </Stack>
         </Grid>
 
-        <Grid sx={estiloContent}>
+        <Grid item xs={12}>
           <Box sx={estiloBoxRecuperar}>
             <Typography variant="subtitle1">
               Ingrese la direccion de correo de su cuenta:
             </Typography>
 
             <Box sx={estiloBoxForm}>
-              <EmailIcon
+              <EmailOutlinedIcon
                 error
-                sx={{ color: "action.active", mr: 1, my: 0.5 }}
+                sx={{ color: "icons.main", mr: 1, my: 0.5 }}
               />
               <FormControl
                 error={errors.email ? true : false}
                 sx={estiloFormControl}
               >
-                <InputLabel htmlFor="email">Correo</InputLabel>
+                <InputLabel htmlFor="email">Correo electrónico</InputLabel>
                 <Input
                   id="email"
                   type="email"
@@ -179,40 +177,49 @@ function FormularioRecuperarContrasenia() {
             Enviar
           </Button>
           <Box textAlign="center" sx={estiloLink}>
+            <Typography
+              variant="text"
+              sx={{ color: "text.subtitle1secondary" }}
+            >
+              ¿Ya tenes una cuenta?
+            </Typography>
+
             <Link
               href="#"
               underline="hover"
               color="secondary"
-              to="/iniciar_sesion_super"
+              to="/"
               component={LinkRouter}
+              sx={{ ml: "0.5em" }}
             >
-              ¿Ya tenes una cuenta? Inicia sesion.
+              Iniciar sesión &rarr;
             </Link>
           </Box>
           {/* <Alert severity="success" sx={estiloError}>La direccion de email no existe en el sistema</Alert>    */}
         </Grid>
-      </Paper>
-      <div>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          fullWidth={true}
-          maxWidth={"sm"}
-        >
-          <DialogTitle id="alert-dialog-title">{"Información"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {texto}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Aceptar</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    </Grid>
+
+        <div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth={true}
+            maxWidth={"sm"}
+          >
+            <DialogTitle id="alert-dialog-title">{"Información"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {texto}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Aceptar</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      </Grid>
+    </AuthWrapper>
   );
 }
 

@@ -9,20 +9,6 @@ export const BotonAcciones = (props) => {
   return (
     <Grid container justifyContent="space-evenly">
       <Grid item xs={12} sm="auto">
-        <ModificarGrupo
-          anio={props.anio}
-          idcursada={props.idcursada}
-          semestre={props.semestre}
-          cursada={props.cursada}
-          grupo={props.grupo}
-          abrir={props.abrir}
-          mensaje={props.mensaje}
-          tipo={props.tipo}
-          refrescar={props.refrescar}
-        />
-      </Grid>
-
-      <Grid item xs={12} sm="auto">
         <ListarIntegrantes
           anio={props.anio}
           idcursada={props.idcursada}
@@ -40,6 +26,20 @@ export const BotonAcciones = (props) => {
           Materia={props.Materia}
           cursada={props.cursada}
           grupo={props.grupo}
+        />
+      </Grid>
+
+      <Grid item xs={12} sm="auto">
+        <ModificarGrupo
+          anio={props.anio}
+          idcursada={props.idcursada}
+          semestre={props.semestre}
+          cursada={props.cursada}
+          grupo={props.grupo}
+          abrir={props.abrir}
+          mensaje={props.mensaje}
+          tipo={props.tipo}
+          refrescar={props.refrescar}
         />
       </Grid>
 

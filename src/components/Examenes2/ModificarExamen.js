@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 
 import Calendario from "./Calendario";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
@@ -240,7 +241,7 @@ export const ModificarExamen = (props) => {
       <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <EditIcon />
+            <ModeEditOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>
@@ -459,7 +460,9 @@ export const ModificarExamen = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

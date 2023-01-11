@@ -96,7 +96,7 @@ export const AppBar = styled(MuiAppBar, {
 
   //agregados
   background: theme.palette.primary.main400,
-  boxShadow: "-9px 1px 10px 2px rgb(0 0 0 / 12%)",
+  // boxShadow: "-9px 1px 10px 2px rgb(0 0 0 / 12%)",
 }));
 
 //********* Setea la propiedad open de MuiDrawer*/
@@ -118,12 +118,10 @@ export const Drawer = styled(MuiDrawer, {
   }),
 
   "& .MuiPaper-root": {
-    boxShadow:
-      // "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
-      "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+    boxShadow: theme.customShadows.z4,
+    // theme.customShadows.z1,
     borderRight: "0px",
     backgroundColor: theme.palette.primary.main400,
-    // background: `linear-gradient(195deg, ${theme.palette.primary.main500}, ${theme.palette.primary.main400})`,
   },
 }));
 
@@ -152,23 +150,16 @@ export const ListMenu = styled(List)(({ theme }) => ({
  */
 export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   boxSizing: "border-box",
-  // backgroundColor: "rgba(0, 0, 0, 0.04)",
-  // backgroundColor: theme.palette.primary.main,
+
   borderRadius: "10px",
   marginTop: "0.5rem",
   border: "1px solid rgba(0, 0, 0, 0)",
-  // border: "1px solid rgba(0, 0, 0, 0.12)",
-  // border: `1px solid ${theme.palette.primary.light50}`,
+
   "&:hover": {
     borderRadius: "10px",
-    // boxShadow:
-    //   "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px",
-    // boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
-    // border: "none",
-    //
-    // backgroundColor: `${teal[50]}`,
-    borderColor: `${teal[300]}`,
-    "& .MuiListItemIcon-root": { color: `${teal[300]}` },
+
+    // borderColor: `${teal[300]}`,
+    // "& .MuiListItemIcon-root": { color: `${teal[300]}` },
   },
   transition: theme.transitions.create(["backgroundColor", "boxShadow"], {
     easing: theme.transitions.easing.sharp,

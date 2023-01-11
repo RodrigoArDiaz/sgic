@@ -238,7 +238,7 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
             Aceptar
           </Button>
           <Button
-            // variant="outlined"
+            variant="outlined"
             // color="secondary"
             onClick={() => {
               formik.resetForm();

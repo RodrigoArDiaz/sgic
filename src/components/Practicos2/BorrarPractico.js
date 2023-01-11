@@ -84,7 +84,7 @@ export const BorrarPractico = (props) => {
           <Button variant="contained" onClick={BorrarPractico}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

@@ -21,9 +21,14 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import EmailIcon from "@mui/icons-material/Email";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockIcon from "@mui/icons-material/Lock";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginIcon from "@mui/icons-material/Login";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 //React router
 import { Link as LinkRouter } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -73,21 +78,6 @@ const estiloButton = {
 const estiloLink = {
   mt: "3rem",
   fontSize: ".9rem",
-};
-
-const estiloHeader = {
-  // backgroundColor: "primary.main",
-  color: "white",
-  py: "20px",
-  borderRadius: { xs: "none", md: "4px 4px 0 0" },
-  mb: "10px",
-  borderBottom: { xs: "0px", sm: "2px solid" },
-  borderColor: "secondary.light",
-  boxShadow: { xs: 4, sm: 0 },
-};
-
-const estiloContent = {
-  // padding: "5px 40px 40px 40px ",
 };
 
 const estiloIconoUsuario = {
@@ -216,25 +206,35 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
             alignItems="baseline"
             sx={{ mb: { xs: -0.5, sm: 0.5 } }}
           >
-            <Typography variant="h6">Ingreso</Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.subtitle1secondary" }}
+            >
+              ¡Bienvenido!
+            </Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="baseline"
+            sx={{ mb: { xs: -0.5, sm: 0.6 } }}
+          >
+            <Typography variant="h5">Iniciar sesión</Typography>
           </Stack>
         </Grid>
 
         <Grid item xs={12}>
-          {/* <Grid align="center" sx={estiloHeader}>
-            <AccountCircleIcon fontSize="large" />
-            <Typography variant="h5">Ingreso</Typography>
-          </Grid> */}
-
           {/* Formulario inicio sesión */}
-          <Grid sx={estiloContent}>
+          <Grid>
             <Box sx={{ ...estiloBoxForm, mt: "0" }}>
-              <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <EmailOutlinedIcon sx={{ color: "icons.main", mr: 1, my: 0.5 }} />
               <FormControl
                 sx={estiloFormControl}
                 error={errores.Usuario ? true : false}
               >
-                <InputLabel htmlFor="Usuario">Usuario o Correo</InputLabel>
+                <InputLabel htmlFor="Usuario">
+                  Usuario o correo electrónico
+                </InputLabel>
                 <Input
                   id="Usuario"
                   type="text"
@@ -260,8 +260,8 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
               {errores.Usuario}
             </FormHelperText>
 
-            <Box sx={estiloBoxForm}>
-              <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <Box sx={{ ...estiloBoxForm, mt: "3rem" }}>
+              <LockOutlinedIcon sx={{ color: "icons.main", mr: 1, my: 0.5 }} />
               <FormControl
                 sx={estiloFormControl}
                 error={errores.Contrasena ? true : false}
@@ -291,9 +291,9 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
                         onClick={handleClickMostrarContrasenia}
                       >
                         {mostrarContrasenia ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -307,14 +307,22 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
             </FormHelperText>
 
             <Box textAlign="center" sx={estiloLink}>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary" }}
+              >
+                ¿Olvidaste tu contraseña?
+              </Typography>
+
               <Link
                 href="#"
                 underline="hover"
                 color="secondary"
                 to="/recuperar_contrasenia"
                 component={LinkRouter}
+                sx={{ ml: "0.5em" }}
               >
-                ¿Olvidaste la contraseña?
+                Recuperar &rarr;
               </Link>
             </Box>
 
@@ -327,7 +335,7 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
               onClick={loguear}
               // disabled={loading1 && loading2 ? true : false}
             >
-              Iniciar sesión
+              Ingresar
             </Button>
 
             <Collapse in={respuesta}>

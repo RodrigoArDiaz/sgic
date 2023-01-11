@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { DeleteOutlined } from "@mui/icons-material";
 //Hooks personalizados
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +60,7 @@ export const BorrarExamen = (props) => {
       <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <DeleteIcon />
+            <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>

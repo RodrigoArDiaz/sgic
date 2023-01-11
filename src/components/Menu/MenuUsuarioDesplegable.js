@@ -7,6 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import {
   CardContent,
   CardHeader,
@@ -86,6 +87,7 @@ const MenuUsuarioDesplegable = () => {
         </IconButton>
       ) : (
         <Button
+          variant="outlined"
           size="medium"
           sx={{
             display: {
@@ -93,14 +95,25 @@ const MenuUsuarioDesplegable = () => {
               sm: "flex",
             },
             color: "text.titleprimary",
-            borderColor: "text.bodysecondary",
+            // borderColor: "text.bodysecondary",
+            borderColor: "secondary.main",
+            // borderColor:'primary.main',
+            textTransform: "lowercase",
+            borderWidth: "0",
+            "&:hover": {
+              borderWidth: "0",
+            },
+            backgroundColor: "icons.bg",
           }}
           startIcon={
-            <AccountCircleIcon sx={{ fontSize: 30, color: blue[500] }} />
+            <AccountCircleOutlinedIcon
+              sx={{ fontSize: 60, color: "icons.main" }}
+            />
           }
           endIcon={
             <KeyboardArrowDownIcon
               sx={{
+                color: "icons.main",
                 transform: open ? "rotate(-180deg)" : "rotate(0)",
                 transition: "0.2s",
                 fontSize: 30,
@@ -110,7 +123,7 @@ const MenuUsuarioDesplegable = () => {
           aria-describedby={id}
           onClick={handleClick}
         >
-          {user.Usuario}
+          {user.Usuario ? user.Usuario : "johnsmith"}
         </Button>
       )}
 

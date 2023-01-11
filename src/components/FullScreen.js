@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Fullscreen, FullscreenExit } from "@mui/icons-material";
 import { IconButton, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { amber, indigo } from "@mui/material/colors";
+
+const colorIconDark = indigo[500];
 
 const FullScreen = () => {
   const [fullScreen, setFullScreen] = useState(false);
@@ -44,18 +47,23 @@ const FullScreen = () => {
     <>
       {arribaSm && (
         <IconButton
+          size="small"
           sx={{
-            color: "text.bodysecondary",
-            // color: "secondary.main",
-            // backgroundColor: "secondary.light50",
+            color: "icons.main",
             marginX: "1rem",
+            borderRadius: "4px",
+            // "&.MuiButtonBase-root.MuiIconButton-root": {
+            //   backgroundColor: "theme.palette.icons.bg",
+            // },
+            backgroundColor: "icons.bg",
           }}
           onClick={handleFullScreen}
+          disableTouchRipple
         >
           {fullScreen ? (
-            <FullscreenExit sx={{ fontSize: 30 }} />
+            <FullscreenExit sx={{ fontSize: 26 }} />
           ) : (
-            <Fullscreen sx={{ fontSize: 30 }} />
+            <Fullscreen sx={{ fontSize: 26 }} />
           )}
         </IconButton>
       )}

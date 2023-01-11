@@ -185,6 +185,7 @@ export const CrearContacto = ({ crearContacto }) => {
               handleClose();
               formik.resetForm();
             }}
+            variant="outlined"
           >
             Cancelar
           </Button>

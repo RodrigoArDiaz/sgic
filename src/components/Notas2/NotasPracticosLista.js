@@ -16,6 +16,7 @@ import Row from "./Row";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
 import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
+import { estiloScrollbar } from "../../styles/EstilosScrollBar";
 
 export default function NotasPracticosLista(props) {
   var columns = [
@@ -96,7 +97,7 @@ export default function NotasPracticosLista(props) {
     return (
       <>
         <TableContainer sx={{ maxHeight: "none" }}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => {
@@ -239,6 +240,23 @@ export default function NotasPracticosLista(props) {
             sx={{
               mb: "1rem",
               borderCollapse: "collapse",
+              "& .MuiTableContainer": {
+                backgroundColor: "red",
+                "&::-webkit-scrollbar": {
+                  width: "0.25em",
+                },
+                "&::-webkit-scrollbar-track": {
+                  // boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+                  // webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  // backgroundColor: "rgba(0,0,0,0.1)",
+                  backgroundColor: "secondary.light100",
+                  "&:hover": {},
+                  // outline: "1px solid rgba(0,0,0,0.3)",
+                  borderRadius: "10px",
+                },
+              },
             }}
             size="small"
           >

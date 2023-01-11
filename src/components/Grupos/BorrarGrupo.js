@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { DeleteOutlined } from "@mui/icons-material";
 //
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +61,7 @@ export const BorrarGrupo = (props) => {
       <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <DeleteIcon />
+            <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>
@@ -86,7 +87,7 @@ export const BorrarGrupo = (props) => {
           <Button variant="contained" onClick={BorrarGrupo}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

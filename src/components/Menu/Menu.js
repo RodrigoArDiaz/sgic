@@ -19,6 +19,7 @@ import {
   Grid,
   Icon,
   ListItem,
+  SvgIcon,
   Tooltip,
   useMediaQuery,
 } from "@mui/material";
@@ -49,6 +50,8 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 import { useTheme } from "@emotion/react";
 import DarkModeButton from "../DarkModeButton";
 import { estiloScrollbar } from "../../styles/EstilosScrollBar";
+import Logo from "../Logo/Logo";
+import LogoAppName from "../Logo/LogoAppName";
 
 /***** Componente Menu *****/
 export default function Menu() {
@@ -87,13 +90,18 @@ export default function Menu() {
         // color="primary"
         sx={{
           // paddingLeft: "5.5px",
-          backgroundColor: "transparent",
+          // backgroundColor: "transparent",
+          backgroundColor: "#fff",
           boxShadow: "none",
           backdropFilter: "blur(6px)",
+          borderBottom: "1px solid",
+          borderColor: "borders.main",
+          boxShadow: "none",
         }}
       >
         <Toolbar>
           <IconButton
+            size="medium"
             // color="inherit"
             color="tertiary"
             aria-label="open drawer"
@@ -106,9 +114,12 @@ export default function Menu() {
             }
           >
             {open ? (
-              <MenuOpenIcon sx={{ fontSize: 32 }} color="primary" />
+              <MenuOpenIcon sx={{ color: "icons.main" }} color="primary" />
             ) : (
-              <MenuIcon sx={{ fontSize: 32 }} color="primary" />
+              <MenuIcon
+                // sx={{ fontSize: 32 }}
+                sx={{ color: "icons.main" }}
+              />
             )}
           </IconButton>
           <TypographyTitulo
@@ -150,13 +161,16 @@ export default function Menu() {
             open ? { justifyContent: "center" } : { justifyContent: "center" }
           }
         >
-          <IconButton>
-            <ApiIcon
-              sx={{
-                fontSize: 38,
-              }}
-            />
-          </IconButton>
+          <Logo />
+          <Box
+            sx={
+              open
+                ? { display: "inline-block" }
+                : { marginLeft: 1, display: "none" }
+            }
+          >
+            <LogoAppName />
+          </Box>
         </DrawerHeader>
 
         <ListMenu>
@@ -371,6 +385,7 @@ export default function Menu() {
         }}
       >
         <DrawerHeader>
+          <Logo />
           <ButtonMenu disableRipple onClick={handleDrawerToggle}>
             <CloseIcon />
           </ButtonMenu>

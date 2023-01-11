@@ -141,7 +141,9 @@ export default function Ordenar(props) {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Volver</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Volver
+          </Button>
         </DialogActions>
       </Dialog>
     </>

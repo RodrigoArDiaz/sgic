@@ -20,7 +20,7 @@ export const InscribirEnGrupo = (props) => {
     <>
       <Tooltip title="Inscribir alumnos" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="primary" onClick={handleOpen}>
+          <IconButton color="secondary" onClick={handleOpen}>
             <RedoIcon />
           </IconButton>
         </span>

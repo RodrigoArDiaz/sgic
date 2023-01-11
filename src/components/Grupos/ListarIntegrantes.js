@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 //
 import ListarIntegrantesContenedor from "./ListarIntegrantes/ListarIntegrantesContenedor";
 
@@ -27,7 +28,7 @@ export const ListarIntegrantes = (props) => {
             color="secondary"
             onClick={handleOpen}
           >
-            <SupervisorAccountIcon />
+            <SupervisorAccountOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>

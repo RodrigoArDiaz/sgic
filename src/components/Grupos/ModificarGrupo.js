@@ -11,6 +11,7 @@ import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { FormHelperText } from "@mui/material";
 import { FormControl, InputLabel, Input, Grid, Paper } from "@mui/material";
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 //
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import * as Responses from "../Responses";
@@ -112,7 +113,7 @@ export const ModificarGrupo = (props) => {
       <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <EditIcon />
+            <ModeEditOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>
@@ -326,7 +327,9 @@ export const ModificarGrupo = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button variant="outlined" onClick={handleClose}>
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

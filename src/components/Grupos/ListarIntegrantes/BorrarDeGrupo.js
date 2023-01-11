@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+import DoNotDisturbOnOutlinedIcon from "@mui/icons-material/DoNotDisturbOnOutlined";
 import * as Responses from "../../Responses";
 
 export const BorrarDeGrupo = (props) => {
@@ -67,7 +68,7 @@ export const BorrarDeGrupo = (props) => {
                   handleOpen();
                 }}
               >
-                <DoNotDisturbOnIcon />
+                <DoNotDisturbOnOutlinedIcon color="secondary" />
               </IconButton>
             </span>
           </Tooltip>
@@ -81,7 +82,7 @@ export const BorrarDeGrupo = (props) => {
               backdropFilter: "blur(0.8px)",
             }}
           >
-            <DialogTitle>Borrar Integrante</DialogTitle>
+            <DialogTitle>Borrar integrante</DialogTitle>
             <DialogContent>
               <DialogContentText>
                 ¿Seguro que desea borrar el alumno del grupo?
@@ -96,11 +97,7 @@ export const BorrarDeGrupo = (props) => {
               >
                 Aceptar
               </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleClose}
-              >
+              <Button variant="outlined" color="primary" onClick={handleClose}>
                 Cancelar
               </Button>
             </DialogActions>

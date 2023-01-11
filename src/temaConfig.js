@@ -76,7 +76,7 @@ const theme = createTheme({
     },
 
     white: {
-      main: "#fff",
+      main: "rgb(255,255,255)",
     },
 
     //color: cyan
@@ -99,13 +99,20 @@ const theme = createTheme({
     },
 
     icons: {
-      main: "rgba(58, 53, 65, 0.87)",
+      // main: "rgba(58, 53, 65, 0.87)",
+      main: "rgb(38, 38, 38)",
+      bg: "rgb(245, 245, 245)",
+    },
+
+    borders: {
+      main: "rgb(240, 240, 240)",
     },
 
     text: {
       titleprimary: "rgb(29, 36, 56)",
       bodysecondary: "rgb(148, 164, 196)",
       subtitle2secondary: "#696969",
+      subtitle1secondary: "rgba(0, 0, 0, 0.6)",
     },
 
     background: {
@@ -132,7 +139,7 @@ const theme = createTheme({
       styleOverrides: {
         body: {
           // ...darkScrollbar(),
-          color: "darkred",
+          // color: "darkred",
           // backgroundColor: "#e3f2fd",
           // backgroundColor: "rgb(242, 245, 249)",
           backgroundColor: "rgb(243, 244, 249)",
@@ -147,15 +154,8 @@ const theme = createTheme({
   //Tipografria
   typography: {
     //  Family
-    // fontFamily: [
-    //   "Poppins",
-    //   "-apple-system",
-    //   "BlinkMacSystemFont",
-    //   "Segoe UI",
-    //   "Helvetica Neue",
-    //   "Arial",
-    //   "sans-serif",
-    // ].join(","),
+
+    fontFamily: ["Public Sans", "sans-serif"].join(","),
 
     // fontFamily: [
     //   "Inter",
@@ -167,35 +167,6 @@ const theme = createTheme({
     //   "sans-serif",
     //   "Apple Color Emoji",
     //   "Segoe UI Emoji",
-    // ].join(","),
-
-    // fontFamily: ["DM Sans", "sans-serif"].join(","),
-
-    fontFamily: [
-      "Inter",
-      "-apple-system",
-      "BlinkMacSystemFont",
-      "Segoe UI",
-      "Helvetica",
-      "Arial",
-      "sans-serif",
-      "Apple Color Emoji",
-      "Segoe UI Emoji",
-    ].join(","),
-
-    // fontFamily: [
-    //   "Inter",
-    //   "sans-serif",
-    //   "-apple-system",
-    //   "BlinkMacSystemFont",
-    //   "Segoe UI",
-    //   "Roboto",
-    //   "Helvetica Neue",
-    //   "Arial",
-    //   "sans-serif",
-    //   "Apple Color Emoji",
-    //   "Segoe UI Emoji",
-    //   "Segoe UI Symbol",
     // ].join(","),
 
     //Color
@@ -223,6 +194,7 @@ const theme = createTheme({
     z1: "rgba(95, 116, 141, 0.03) 0px 2px 1px -1px, rgba(95, 116, 141, 0.04) 0px 1px 1px 0px, rgba(95, 116, 141, 0.08) 0px 1px 3px 0px",
     z2: "0px 2px 8px rgb(0 0 0 / 15%)",
     z3: "rgb(0 0 0 / 15%) 0px 2px 8px",
+    z4: "rgb(0 0 0 / 8%) 0px 1px 4px",
   },
 });
 

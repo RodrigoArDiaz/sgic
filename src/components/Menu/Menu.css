@@ -18,12 +18,17 @@ NavLink (React-Router) usados en Menu, cuando se selecciono el link */
 .active {
   /* color: #fff !important; */
   /* background-color: #26a69a !important; */
-  background-color: #4db6ac !important;
+  /* background-color: #4db6ac !important; */
   /* background-color: #b2dfdb !important; */
+  background-color: #e0f2f1 !important;
   /* background-color: #e0f2f1 !important; */
   /* box-shadow: #0e1e251f 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; */
-  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  /* box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px; */
   /* border: 1px solid #26a69a; */
+}
+
+.active span {
+  color: #00695c !important;
 }
 
 .active span {

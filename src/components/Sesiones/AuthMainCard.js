@@ -53,7 +53,7 @@ const AuthMainCard = forwardRef(
         sx={{
           ...sx,
           border: border ? "1px solid" : "none",
-          borderRadius: 2,
+          borderRadius: 1,
           borderColor:
             theme.palette.mode === "dark"
               ? theme.palette.divider
