@@ -105,7 +105,7 @@ function FormularioRecuperarContrasenia() {
         <Grid item xs={12}>
           <Box sx={estiloBoxRecuperar}>
             <Typography variant="subtitle1">
-              Ingrese la direccion de correo de su cuenta:
+              Ingrese la dirección de correo de su cuenta:
             </Typography>
 
             <Box sx={estiloBoxForm}>
@@ -181,7 +181,7 @@ function FormularioRecuperarContrasenia() {
               variant="text"
               sx={{ color: "text.subtitle1secondary" }}
             >
-              ¿Ya tenes una cuenta?
+              ¿Ya tenés una cuenta?
             </Typography>
 
             <Link

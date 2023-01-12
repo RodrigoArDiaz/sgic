@@ -72,12 +72,12 @@ const estiloBoxForm = {
 };
 
 const estiloButton = {
-  mt: "2rem",
+  mt: "3rem",
 };
 
 const estiloLink = {
-  mt: "3rem",
-  fontSize: ".9rem",
+  mt: "2rem",
+  fontSize: ".88rem",
 };
 
 const estiloIconoUsuario = {
@@ -220,6 +220,15 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
             sx={{ mb: { xs: -0.5, sm: 0.6 } }}
           >
             <Typography variant="h5">Iniciar sesión</Typography>
+
+            <Box textAlign="center" sx={{ ...estiloLink, mt: "0.3rem" }}>
+              {/* <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary" }}
+              >
+                ¿No tenes cuenta?
+              </Typography> */}
+            </Box>
           </Stack>
         </Grid>
 
@@ -306,6 +315,18 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
               {errores.Contrasena}
             </FormHelperText>
 
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={estiloButton}
+              endIcon={<LoginIcon />}
+              onClick={loguear}
+              // disabled={loading1 && loading2 ? true : false}
+            >
+              Ingresar
+            </Button>
+
             <Box textAlign="center" sx={estiloLink}>
               <Typography
                 variant="text"
@@ -326,19 +347,31 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
               </Link>
             </Box>
 
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={estiloButton}
-              endIcon={<LoginIcon />}
-              onClick={loguear}
-              // disabled={loading1 && loading2 ? true : false}
-            >
-              Ingresar
-            </Button>
+            <Box textAlign="center" sx={{ ...estiloLink, mt: "0.5rem" }}>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary" }}
+              >
+                ¿Eres alumno?
+              </Typography>
 
-            <Collapse in={respuesta}>
+              <Link
+                href="#"
+                underline="hover"
+                color="secondary"
+                to="/registrarse"
+                component={LinkRouter}
+                sx={{ ml: "0.5em" }}
+              >
+                Registrate &rarr;
+                {/* ¿No tenes cuenta? */}
+              </Link>
+            </Box>
+
+            <Collapse
+              in={respuesta}
+              sx={respuesta ? { mt: "1rem" } : { mt: "0" }}
+            >
               <Alert severity="error">{errors}</Alert>
             </Collapse>
           </Grid>
