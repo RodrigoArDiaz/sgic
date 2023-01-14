@@ -106,20 +106,19 @@ export default function Menu() {
             color="tertiary"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
-            edge="start"
-            sx={
-              {
-                // marginRight: "36px",
-              }
-            }
+            edge="center"
+            sx={{
+              // marginRight: "36px",
+              color: "text.bodysecondary",
+              borderRadius: "4px",
+              backgroundColor: "icons.bg",
+            }}
+            disableFocusRipple
           >
             {open ? (
-              <MenuOpenIcon sx={{ color: "icons.main" }} color="primary" />
+              <MenuOpenIcon sx={{ fontSize: 24, color: "icons.main" }} />
             ) : (
-              <MenuIcon
-                // sx={{ fontSize: 32 }}
-                sx={{ color: "icons.main" }}
-              />
+              <MenuIcon sx={{ fontSize: 24, color: "icons.main" }} />
             )}
           </IconButton>
           <TypographyTitulo
@@ -129,6 +128,7 @@ export default function Menu() {
             sx={{
               flexGrow: "1",
               // paddingX: { xs: 0, sm: 3 },
+              marginLeft: 1,
             }}
           >
             {titulo}
@@ -587,6 +587,7 @@ export default function Menu() {
           paddingX: { xs: 2, sm: 3, lg: 10 },
           paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          marginTop: "1rem",
         }}
       >
         <Toolbar />

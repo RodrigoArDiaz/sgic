@@ -7,8 +7,9 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip } from "@mui/material";
+import { InputAdornment, Tooltip } from "@mui/material";
 import { Grid } from "@mui/material";
+import Zoom from "@mui/material/Zoom";
 
 import CircularProgress from "@mui/material/CircularProgress";
 export const BotonEstadoRegistro = (props) => {
@@ -16,37 +17,43 @@ export const BotonEstadoRegistro = (props) => {
 
   if (salto === "1") {
     return (
-      <Grid item xs={12} sm="auto">
-        <Tooltip title="Verificado">
+      <InputAdornment position="end">
+        {/* <Grid item xs={12} sm="auto"> */}
+        <Tooltip title="Verificado" TransitionComponent={Zoom} arrow>
           <IconButton aria-label="verificado" size="small" color="success">
             <CheckIcon />
           </IconButton>
         </Tooltip>
-      </Grid>
+        {/* </Grid>s */}
+      </InputAdornment>
     );
   }
 
   if (salto === "2") {
     return (
-      <Grid item xs={12} sm="auto">
-        <Tooltip title="Error">
+      <InputAdornment position="end">
+        {/* <Grid item xs={12} sm="auto"> */}
+        <Tooltip title="Error" TransitionComponent={Zoom} arrow>
           <IconButton aria-label="error" size="small" color="error">
             <CloseIcon />
           </IconButton>
         </Tooltip>
-      </Grid>
+        {/* </Grid> */}
+      </InputAdornment>
     );
   }
 
   if (salto === "3") {
     return (
-      <Grid item xs={12} sm="auto">
-        <Tooltip title="Verificando">
+      <InputAdornment position="end">
+        {/* <Grid item xs={12} sm="auto"> */}
+        <Tooltip title="Verificando" TransitionComponent={Zoom} arrow>
           <IconButton aria-label="esperando" size="small">
             <CircularProgress />
           </IconButton>
         </Tooltip>
-      </Grid>
+        {/* </Grid> */}
+      </InputAdornment>
     );
   }
 };

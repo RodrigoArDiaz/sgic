@@ -25,12 +25,6 @@ const DivInfo = styled("div")(({ theme }) => ({
 const CardMain = styled(Card)(({ theme }) => ({
   borderRadius: "10px",
   boxShadow: "none",
-  // boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
-  // boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-  // boxShadow: " rgba(0, 0, 0, 0.09) 0px 3px 12px",
-  // boxShadow:
-  //   "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
-  // "rgb(0 0 0 / 10%) 0rem 0.25rem 0.375rem -0.0625rem, rgb(0 0 0 / 6%) 0rem 0.125rem 0.25rem -0.0625rem",
   border: `1px solid ${theme.palette.secondary.light100}`,
 }));
 

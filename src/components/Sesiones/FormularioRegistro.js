@@ -7,6 +7,7 @@ import {
   Grid,
   Paper,
   Typography,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/material";
 import Link from "@mui/material/Link";
@@ -20,6 +21,11 @@ import { BotonEstadoRegistro } from "../BotonEstadoRegistro";
 import SnackMensajes from "./SnackMensajes";
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 const estiloPaper = {
   height: "auto",
@@ -41,18 +47,11 @@ const estiloLink = {
   mt: "30px",
 };
 
-const estiloHeader = {
-  backgroundColor: "primary.main",
-  color: "white",
-  py: "15px",
-  borderRadius: { xs: "none", md: "4px 4px 0 0" },
-  mb: "10px",
-  borderBottom: "2px solid",
-  borderColor: "secondary.light",
-};
-
-const estiloContent = {
-  padding: "5px 40px 40px 40px ",
+const estiloBoxForm = {
+  display: "flex",
+  alignItems: "flex-end",
+  width: "100%",
+  mt: { xs: "4rem", md: "4rem" },
 };
 
 function FormularioRegistro() {
@@ -240,13 +239,33 @@ function FormularioRegistro() {
   };
 
   return (
-    <Grid>
-      <Paper sx={estiloPaper}>
-        <Grid align="center" sx={estiloHeader}>
-          <Typography variant="h5">Registro</Typography>
-        </Grid>
+    <Grid container>
+      <Grid item xs={12}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="baseline"
+          sx={{ mb: { xs: -0.5, sm: 0.6 } }}
+        >
+          <Typography variant="h5">Registrarse</Typography>
+        </Stack>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="baseline"
+          sx={{ mb: { xs: -0.5, sm: 0.5 } }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "text.subtitle1secondary" }}
+          >
+            Creá una cuenta para ingresar al sistema
+          </Typography>
+        </Stack>
+      </Grid>
 
-        <Grid sx={estiloContent}>
+      <Grid item={12}>
+        <Grid>
           <FormControl
             sx={estiloFormControl}
             error={errors.nombres ? true : false}
@@ -288,13 +307,22 @@ function FormularioRegistro() {
                 }
               }}
               value={form.nombres}
+              endAdornment={
+                (enombres === "1" && (
+                  <BotonEstadoRegistro estado={enombres} />
+                )) ||
+                (enombres === "2" && (
+                  <BotonEstadoRegistro estado={enombres} />
+                )) ||
+                (enombres === "3" && <BotonEstadoRegistro estado={enombres} />)
+              }
             />
-
+            {/* 
             {enombres === "1" && <BotonEstadoRegistro estado={enombres} />}
 
             {enombres === "2" && <BotonEstadoRegistro estado={enombres} />}
 
-            {enombres === "3" && <BotonEstadoRegistro estado={enombres} />}
+            {enombres === "3" && <BotonEstadoRegistro estado={enombres} />} */}
 
             <FormHelperText>{errors.nombres}</FormHelperText>
           </FormControl>
@@ -339,94 +367,125 @@ function FormularioRegistro() {
                 }
               }}
               value={form.apellidos}
+              endAdornment={
+                (eapellidos === "1" && (
+                  <BotonEstadoRegistro estado={eapellidos} />
+                )) ||
+                (eapellidos === "2" && (
+                  <BotonEstadoRegistro estado={eapellidos} />
+                )) ||
+                (eapellidos === "3" && (
+                  <BotonEstadoRegistro estado={eapellidos} />
+                ))
+              }
             />
 
-            {eapellidos === "1" && <BotonEstadoRegistro estado={eapellidos} />}
+            {/* {eapellidos === "1" && <BotonEstadoRegistro estado={eapellidos} />}
 
             {eapellidos === "2" && <BotonEstadoRegistro estado={eapellidos} />}
 
-            {eapellidos === "3" && <BotonEstadoRegistro estado={eapellidos} />}
+            {eapellidos === "3" && <BotonEstadoRegistro estado={eapellidos} />} */}
+
             <FormHelperText>{errors.apellidos}</FormHelperText>
           </FormControl>
 
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.usuario ? true : false}
-          >
-            <InputLabel htmlFor="Usuario">Usuario</InputLabel>
-            <Input
-              id="usuario"
-              type="text"
-              name="usuario"
-              onChange={(e) => {
-                if (errors.usuario !== "") {
-                  setErrors({ ...errors, [e.target.name]: "" });
+          <Box sx={{ ...estiloBoxForm, mt: "0" }}>
+            <FormControl
+              sx={estiloFormControl}
+              error={errors.usuario ? true : false}
+            >
+              <InputLabel htmlFor="Usuario">Usuario</InputLabel>
+              <Input
+                id="usuario"
+                type="text"
+                name="usuario"
+                startAdornment={
+                  <PersonOutlineOutlinedIcon
+                    sx={{ color: "icons.main", mr: 1, my: 0.5 }}
+                  />
                 }
+                onChange={(e) => {
+                  if (errors.usuario !== "") {
+                    setErrors({ ...errors, [e.target.name]: "" });
+                  }
 
-                setUs("");
-                setForm({
-                  ...form,
-                  [e.target.name]: e.target.value,
-                });
-              }}
-              onBlur={(e) => {
-                let regex = /^[0-9a-zA-Z]+$/;
-
-                setUs("3");
-
-                if (!form.usuario.trim()) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo 'Usuario' es requerido.",
+                  setUs("");
+                  setForm({
+                    ...form,
+                    [e.target.name]: e.target.value,
                   });
-                  setUs("2");
-                } else if (!regex.test(form.usuario.trim())) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]:
-                      "El usuario ingresado tiene un formato incorrecto.",
-                  });
-                  setUs("2");
-                } else {
-                  var data = {
-                    Usuario: form.usuario,
-                  };
+                }}
+                onBlur={(e) => {
+                  let regex = /^[0-9a-zA-Z]+$/;
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarus"
-                  )
-                    .then((response) => {
-                      if (Responses.status === 200) {
-                        setUs("1");
-                      } else if (Responses.status === 401) {
-                        navegar("/ingreso");
-                      } else if (Responses.status === 460) {
-                        setUs("2");
-                        setErrors({
-                          ...errors,
-                          [e.target.name]: response.Error,
-                        });
-                      } else {
-                        navegar("/error");
-                      }
-                    })
-                    .catch((error) => {
-                      navegar("/error");
+                  setUs("3");
+
+                  if (!form.usuario.trim()) {
+                    setErrors({
+                      ...errors,
+                      [e.target.name]: "El campo 'Usuario' es requerido.",
                     });
+                    setUs("2");
+                  } else if (!regex.test(form.usuario.trim())) {
+                    setErrors({
+                      ...errors,
+                      [e.target.name]:
+                        "El usuario ingresado tiene un formato incorrecto.",
+                    });
+                    setUs("2");
+                  } else {
+                    var data = {
+                      Usuario: form.usuario,
+                    };
+
+                    Responses.consultas(
+                      data,
+                      "http://127.0.0.1:8000/api/consultarus"
+                    )
+                      .then((response) => {
+                        if (Responses.status === 200) {
+                          setUs("1");
+                        } else if (Responses.status === 401) {
+                          navegar("/ingreso");
+                        } else if (Responses.status === 460) {
+                          setUs("2");
+                          setErrors({
+                            ...errors,
+                            [e.target.name]: response.Error,
+                          });
+                        } else {
+                          navegar("/error");
+                        }
+                      })
+                      .catch((error) => {
+                        navegar("/error");
+                      });
+                  }
+                }}
+                value={form.usuario}
+                endAdornment={
+                  (eusuario === "1" && (
+                    <BotonEstadoRegistro estado={eusuario} />
+                  )) ||
+                  (eusuario === "2" && (
+                    <BotonEstadoRegistro estado={eusuario} />
+                  ))
+                  // ||
+                  // (eusuario === "3" && (
+                  //   <BotonEstadoRegistro estado={eusuario} />
+                  // ))
                 }
-              }}
-              value={form.usuario}
-            />
+              />
 
-            {eusuario === "1" && <BotonEstadoRegistro estado={eusuario} />}
+              {/* {eusuario === "1" && <BotonEstadoRegistro estado={eusuario} />}
 
-            {eusuario === "2" && <BotonEstadoRegistro estado={eusuario} />}
+              {eusuario === "2" && <BotonEstadoRegistro estado={eusuario} />}
 
-            {eusuario === "3" && <BotonEstadoRegistro estado={eusuario} />}
+              {eusuario === "3" && <BotonEstadoRegistro estado={eusuario} />} */}
 
-            <FormHelperText>{errors.usuario}</FormHelperText>
-          </FormControl>
+              <FormHelperText>{errors.usuario}</FormHelperText>
+            </FormControl>
+          </Box>
 
           <FormControl
             sx={estiloFormControl}
@@ -437,6 +496,11 @@ function FormularioRegistro() {
               id="email"
               type="email"
               name="email"
+              startAdornment={
+                <EmailOutlinedIcon
+                  sx={{ color: "icons.main", mr: 1, my: 0.5 }}
+                />
+              }
               onChange={(e) => {
                 if (errors.email !== "") {
                   setErrors({ ...errors, [e.target.name]: "" });
@@ -496,10 +560,16 @@ function FormularioRegistro() {
                 }
               }}
               value={form.email}
-            />{" "}
-            {eemail === "1" && <BotonEstadoRegistro estado={eemail} />}
+              endAdornment={
+                (eemail === "1" && <BotonEstadoRegistro estado={eemail} />) ||
+                (eemail === "2" && <BotonEstadoRegistro estado={eemail} />)
+                // ||
+                // (eemail === "3" && <BotonEstadoRegistro estado={eemail} />)
+              }
+            />
+            {/* {eemail === "1" && <BotonEstadoRegistro estado={eemail} />}
             {eemail === "2" && <BotonEstadoRegistro estado={eemail} />}
-            {eemail === "3" && <BotonEstadoRegistro estado={eemail} />}
+            {eemail === "3" && <BotonEstadoRegistro estado={eemail} />} */}
             <FormHelperText>{errors.email}</FormHelperText>
           </FormControl>
 
@@ -573,10 +643,16 @@ function FormularioRegistro() {
                 }
               }}
               value={form.dni}
-            />{" "}
-            {edni === "1" && <BotonEstadoRegistro estado={edni} />}
+              endAdornment={
+                (edni === "1" && <BotonEstadoRegistro estado={edni} />) ||
+                (edni === "2" && <BotonEstadoRegistro estado={edni} />)
+                // ||
+                // (edni === "3" && <BotonEstadoRegistro estado={edni} />)
+              }
+            />
+            {/* {edni === "1" && <BotonEstadoRegistro estado={edni} />}
             {edni === "2" && <BotonEstadoRegistro estado={edni} />}
-            {edni === "3" && <BotonEstadoRegistro estado={edni} />}
+            {edni === "3" && <BotonEstadoRegistro estado={edni} />} */}
             <FormHelperText>{errors.dni}</FormHelperText>
           </FormControl>
 
@@ -652,12 +728,20 @@ function FormularioRegistro() {
                 }
               }}
               value={form.libreta}
+              endAdornment={
+                (elibreta === "1" && (
+                  <BotonEstadoRegistro estado={elibreta} />
+                )) ||
+                (elibreta === "2" && <BotonEstadoRegistro estado={elibreta} />)
+                // ||
+                // (elibreta === "3" && <BotonEstadoRegistro estado={elibreta} />)
+              }
             />
-            {elibreta === "1" && <BotonEstadoRegistro estado={elibreta} />}
+            {/* {elibreta === "1" && <BotonEstadoRegistro estado={elibreta} />}
 
             {elibreta === "2" && <BotonEstadoRegistro estado={elibreta} />}
 
-            {elibreta === "3" && <BotonEstadoRegistro estado={elibreta} />}
+            {elibreta === "3" && <BotonEstadoRegistro estado={elibreta} />} */}
             <FormHelperText>{errors.libreta}</FormHelperText>
           </FormControl>
 
@@ -670,6 +754,11 @@ function FormularioRegistro() {
               id="contrasenia"
               type={mostrarContrasenia ? "text" : "password"}
               name="contrasenia"
+              startAdornment={
+                <LockOutlinedIcon
+                  sx={{ color: "icons.main", mr: 1, my: 0.5 }}
+                />
+              }
               onChange={(e) => {
                 if (errors.contrasenia !== "") {
                   setErrors({ ...errors, [e.target.name]: "" });
@@ -712,17 +801,33 @@ function FormularioRegistro() {
               }}
               value={form.contrasenia}
               endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="cambiar mostrar contraseña"
-                    onClick={handleClickMostrarContrasenia}
-                  >
-                    {mostrarContrasenia ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
+                <>
+                  {" "}
+                  {econtrasenia === "1" && (
+                    <BotonEstadoRegistro estado={econtrasenia} />
+                  )}
+                  {econtrasenia === "2" && (
+                    <BotonEstadoRegistro estado={econtrasenia} />
+                  )}
+                  {econtrasenia === "3" && (
+                    <BotonEstadoRegistro estado={econtrasenia} />
+                  )}
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="cambiar mostrar contraseña"
+                      onClick={handleClickMostrarContrasenia}
+                    >
+                      {mostrarContrasenia ? (
+                        <VisibilityOffOutlinedIcon />
+                      ) : (
+                        <VisibilityOutlinedIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                </>
               }
             />
-            {econtrasenia === "1" && (
+            {/* {econtrasenia === "1" && (
               <BotonEstadoRegistro estado={econtrasenia} />
             )}
 
@@ -732,7 +837,7 @@ function FormularioRegistro() {
 
             {econtrasenia === "3" && (
               <BotonEstadoRegistro estado={econtrasenia} />
-            )}
+            )} */}
             <FormHelperText>{errors.contrasenia}</FormHelperText>
           </FormControl>
 
@@ -747,6 +852,11 @@ function FormularioRegistro() {
               id="repetirContrasenia"
               type={mostrarRepetirContrasenia ? "text" : "password"}
               name="repetirContrasenia"
+              startAdornment={
+                <LockOutlinedIcon
+                  sx={{ color: "icons.main", mr: 1, my: 0.5 }}
+                />
+              }
               onChange={(e) => {
                 if (errors.repetirContrasenia !== "") {
                   setErrors({ ...errors, [e.target.name]: "" });
@@ -779,21 +889,32 @@ function FormularioRegistro() {
               }}
               value={form.repetirContrasenia}
               endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="cambiar mostrar contraseña"
-                    onClick={handleClickRepetirMostrarContrasenia}
-                  >
-                    {mostrarRepetirContrasenia ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
-                </InputAdornment>
+                <>
+                  {erepetirContrasenia === "1" && (
+                    <BotonEstadoRegistro estado={erepetirContrasenia} />
+                  )}
+                  {erepetirContrasenia === "2" && (
+                    <BotonEstadoRegistro estado={erepetirContrasenia} />
+                  )}
+                  {erepetirContrasenia === "3" && (
+                    <BotonEstadoRegistro estado={erepetirContrasenia} />
+                  )}
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="cambiar mostrar contraseña"
+                      onClick={handleClickRepetirMostrarContrasenia}
+                    >
+                      {mostrarRepetirContrasenia ? (
+                        <VisibilityOffOutlinedIcon />
+                      ) : (
+                        <VisibilityOutlinedIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                </>
               }
-            />{" "}
-            {erepetirContrasenia === "1" && (
+            />
+            {/* {erepetirContrasenia === "1" && (
               <BotonEstadoRegistro estado={erepetirContrasenia} />
             )}
             {erepetirContrasenia === "2" && (
@@ -801,33 +922,41 @@ function FormularioRegistro() {
             )}
             {erepetirContrasenia === "3" && (
               <BotonEstadoRegistro estado={erepetirContrasenia} />
-            )}
+            )} */}
             <FormHelperText>{errors.repetirContrasenia}</FormHelperText>
           </FormControl>
 
           {DevolverBoton()}
 
           <Box textAlign="center" sx={estiloLink}>
+            <Typography
+              variant="text"
+              sx={{ color: "text.subtitle1secondary" }}
+            >
+              ¿Ya tenés una cuenta?
+            </Typography>
             <Link
               href="#"
               underline="hover"
               color="secondary"
-              to="/iniciar_sesion_alumno"
+              to="/"
               component={LinkRouter}
+              sx={{ ml: "0.5em" }}
             >
-              ¿Ya tenes una cuenta? Inicia sesion.
+              Iniciar sesión &rarr;
             </Link>
           </Box>
         </Grid>
-        <div>
-          <SnackMensajes
-            abrir={abrir}
-            mensaje={mensaje}
-            tipo={tipo}
-            cerrar={setAbrir}
-          />{" "}
-        </div>
-      </Paper>
+      </Grid>
+
+      <div>
+        <SnackMensajes
+          abrir={abrir}
+          mensaje={mensaje}
+          tipo={tipo}
+          cerrar={setAbrir}
+        />{" "}
+      </div>
     </Grid>
   );
 }

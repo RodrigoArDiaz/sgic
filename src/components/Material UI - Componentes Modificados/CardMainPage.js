@@ -21,11 +21,13 @@ const CardMainPage = ({
     <CardMain
       sx={{
         overflow: "visible",
-        // boxShadow:
-        //   "rgb(159 162 191 / 18%) 0px 9px 16px, rgb(159 162 191 / 32%) 0px 2px 2px",
-        boxShadow: (theme) => theme.customShadows.z1,
-        border: "none",
-        // height: "100%",
+
+        // boxShadow: (theme) => theme.customShadows.z1,
+        // border: "none",
+
+        borderRadius: "4px",
+        boxShadow: "none !important",
+        border: "1px solid rgb(230, 235, 241)",
       }}
     >
       {visibleHeader && (

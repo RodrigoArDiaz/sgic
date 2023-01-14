@@ -30,8 +30,10 @@ const DarkModeButton = () => {
         borderRadius: "4px",
         backgroundColor: "icons.bg",
       }}
+      edge="center"
+      aria-label="darkmode toggle"
       onClick={handleFullScreen}
-      disableTouchRipple
+      disableFocusRipple
     >
       {fullScreen ? (
         <LightModeOutlinedIcon sx={{ fontSize: 24, color: "icons.main" }} />

@@ -13,6 +13,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../../store/slices/menuSlice";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { CardHeader, Divider } from "@mui/material";
+import AssuredWorkloadOutlinedIcon from "@mui/icons-material/AssuredWorkloadOutlined";
 
 export default function TarjetaCatedra(props) {
   //Para el uso de funciones de los state de redux
@@ -26,8 +28,29 @@ export default function TarjetaCatedra(props) {
       bgColorIcon="cyan.main300"
       titleTextAlign="left"
       dividerVisible={false}
+      //
+      visibleIcon={false}
+      visibleHeader={false}
     >
-      <CardContent sx={{ paddingTop: "0" }}>
+      <CardHeader
+        avatar={
+          <AssuredWorkloadOutlinedIcon
+            sx={{ color: "rgb(255,255,255)" }}
+            fontSize="medium"
+          />
+        }
+        sx={{
+          bgcolor: "rgb(24, 144, 255)",
+          borderRadius: "4px 4px 0 0",
+          "&:hover": {
+            bgcolor: "#f3f3f3",
+          },
+        }}
+      >
+        {" "}
+      </CardHeader>
+      <Divider></Divider>
+      <CardContent sx={{ paddingY: "3rem" }}>
         <Typography variant="h5" align="center">
           {props.catedra}
         </Typography>
