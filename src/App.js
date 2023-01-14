@@ -18,7 +18,7 @@ import { SnackbarProvider } from "notistack";
 import Menu from "./components/Menu/Menu.js";
 import IconButtonNotiStack from "./components/Material UI - Componentes Modificados/IconButtonNotiStack.js";
 import ResetPass from "./components/Sesiones/ResetPass.js";
-import ActivarCuenta from "./components/Sesiones/ActivarCuenta.js";
+// import ActivarCuenta from "./components/Sesiones/ActivarCuenta.js";
 //Paginas
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import PaginaCatedras from "./pages/PaginaCatedras.js";
@@ -39,6 +39,7 @@ import PaginaDocentesNotas from "./pages/PaginaDocentesNotas.js";
 //Unificacion 06/2022
 import FormularioIniciarSesionSuper from "./components/Sesiones/FormularioIniciarSesionSuper.js";
 import PaginaDocentesNavegacion from "./components/NavegacionDocente/PaginaDocentesNavegacion.js";
+import PaginaActivarCuenta from "./pages/PaginaActivarCuenta.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -85,7 +86,7 @@ export default function App() {
               Ruta: Activar Cuenta*/}
               <Route
                 path="/activar_cuenta/:codigoActivacion"
-                element={<ActivarCuenta />}
+                element={<PaginaActivarCuenta />}
               ></Route>
 
               {/*************************
