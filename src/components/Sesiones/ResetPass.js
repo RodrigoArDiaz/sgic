@@ -1,37 +1,35 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+//MUI
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
   Input,
   Button,
   Grid,
-  Paper,
   Typography,
   FormHelperText,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import LockIcon from "@mui/icons-material/Lock";
+//
 import * as Responses from "../Responses";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import MensajeFeedback from "../MensajeFeedback";
 
-const estiloPaper = {
-  height: "auto",
-  width: { xs: "100%", sm: "380px" },
-  margin: { xs: "0 auto", sm: "100px auto" },
-  boxShadow: { xs: 0, sm: 8 },
-};
-
+//Estilos
 const estiloFormControl = {
   width: "100%",
 };
@@ -47,37 +45,7 @@ const estiloButton = {
   mt: "60px",
 };
 
-const estiloLink = {
-  mt: "15px",
-};
-
-const estiloHeader = {
-  backgroundColor: "primary.main",
-  color: "white",
-  py: "20px",
-  borderRadius: { xs: "none", md: "4px 4px 0 0" },
-  mb: "10px",
-  borderBottom: { xs: "0px", sm: "2px solid" },
-  borderColor: "secondary.light",
-  boxShadow: { xs: 4, sm: 0 },
-};
-
-const estiloContent = {
-  padding: "5px 40px 40px 40px ",
-};
-
-const estiloIconoUsuario = {
-  width: "50px",
-  height: "50px",
-  bgcolor: "#000",
-};
-
-//
-const initialForm = {
-  Usuario: "",
-  Contrasena: "",
-};
-
+//Componente
 export default function ResetPass() {
   const [mostrarContrasenia, setMostrarContrasenia] = React.useState(false);
   const [mostrarContrasenia2, setMostrarContrasenia2] = React.useState(false);
@@ -99,7 +67,7 @@ export default function ResetPass() {
 
   const handleClose = () => {
     setOpen(false);
-    navegar("/ingreso");
+    navegar(routes.iniciarSesion);
   };
 
   const handleClickMostrarContrasenia = () => {
@@ -117,13 +85,13 @@ export default function ResetPass() {
       pRC: form.RepContrasena,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/cambiarpass")
+    Responses.consultas(data, endpoints.cambiarPass)
       .then((response) => {
         if (Responses.status === 200) {
           setTexto(response.Mensaje);
           setOpen(true);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.Error === undefined) {
             setTexto(response.CI);
@@ -138,31 +106,50 @@ export default function ResetPass() {
             setErrors({ ...errors, RepContrasena: response.RepContrasena });
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
   return (
-    <div>
-      <Grid>
-        <Paper sx={estiloPaper}>
-          <Grid align="center" sx={estiloHeader}>
-            <AccountCircleIcon fontSize="large" />
-            <Typography variant="h5">Restaurar Contraseña</Typography>
-          </Grid>
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="baseline"
+            sx={{ mb: { xs: -0.5, sm: 0.6 } }}
+          >
+            <Typography variant="h5">Resetear contraseña</Typography>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="baseline"
+            sx={{ mb: { xs: -0.5, sm: 0.5 } }}
+          >
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.subtitle1secondary" }}
+            >
+              Ingrese la nueva contraseña y su confirmación.
+            </Typography>
+          </Stack>
+        </Grid>
 
-          <Grid sx={estiloContent}>
-            <Box sx={estiloBoxForm}>
-              <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+        <Grid item xs={12}>
+          <Grid>
+            <Box sx={{ ...estiloBoxForm, mt: 0 }}>
+              <LockOutlinedIcon sx={{ color: "icons.main", mr: 1, my: 0.5 }} />
               <FormControl
                 sx={estiloFormControl}
                 error={errors.Contrasena ? true : false}
               >
-                <InputLabel htmlFor="Contrasena">Nueva Contraseña</InputLabel>
+                <InputLabel htmlFor="Contrasena">Nueva contraseña</InputLabel>
                 <Input
                   id="Contrasena"
                   name="Contrasena"
@@ -212,9 +199,9 @@ export default function ResetPass() {
                         onClick={handleClickMostrarContrasenia}
                       >
                         {mostrarContrasenia ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -227,13 +214,13 @@ export default function ResetPass() {
             </FormHelperText>
 
             <Box sx={estiloBoxForm}>
-              <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <LockOutlinedIcon sx={{ color: "icons.main", mr: 1, my: 0.5 }} />
               <FormControl
                 sx={estiloFormControl}
                 error={errors.RepContrasena ? true : false}
               >
                 <InputLabel htmlFor="RepContrasena">
-                  Confirmar Contraseña
+                  Confirmar contraseña
                 </InputLabel>
                 <Input
                   id="RepContrasena"
@@ -276,9 +263,9 @@ export default function ResetPass() {
                         onClick={handleClickMostrarContrasenia2}
                       >
                         {mostrarContrasenia2 ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -299,10 +286,10 @@ export default function ResetPass() {
               onClick={CambiarPass}
               // disabled={loading1 && loading2 ? true : false}
             >
-              Cambiar contraseña
+              Aceptar
             </Button>
           </Grid>
-        </Paper>
+        </Grid>
       </Grid>
 
       <Dialog
@@ -316,13 +303,17 @@ export default function ResetPass() {
         <DialogTitle id="alert-dialog-title">{"Información"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {texto}
+            <MensajeFeedback tipo="info" alertTitleVisible={false}>
+              {texto}
+            </MensajeFeedback>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Aceptar</Button>
+          <Button variant="outlined" onClick={handleClose}>
+            Aceptar
+          </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

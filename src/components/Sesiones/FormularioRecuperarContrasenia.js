@@ -23,6 +23,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import AuthWrapper from "./AuthWrapper";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
+import MensajeFeedback from "../MensajeFeedback";
+import { routes } from "../../routes";
 
 const estiloPaper = {
   height: "auto",
@@ -86,7 +89,7 @@ function FormularioRecuperarContrasenia() {
 
   const handleClose = () => {
     setOpen(false);
-    navegar("/ingreso");
+    navegar(routes.iniciarSesion);
   };
 
   return (
@@ -199,7 +202,7 @@ function FormularioRecuperarContrasenia() {
         </Grid>
 
         <div>
-          <Dialog
+          <DialogCustom
             open={open}
             onClose={handleClose}
             aria-labelledby="alert-dialog-title"
@@ -210,13 +213,17 @@ function FormularioRecuperarContrasenia() {
             <DialogTitle id="alert-dialog-title">{"Información"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                {texto}
+                <MensajeFeedback tipo="info" alertTitleVisible={false}>
+                  {texto}
+                </MensajeFeedback>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose}>Aceptar</Button>
+              <Button variant="outlined" onClick={handleClose}>
+                Aceptar
+              </Button>
             </DialogActions>
-          </Dialog>
+          </DialogCustom>
         </div>
       </Grid>
     </AuthWrapper>

@@ -40,6 +40,7 @@ import PaginaDocentesNotas from "./pages/PaginaDocentesNotas.js";
 import FormularioIniciarSesionSuper from "./components/Sesiones/FormularioIniciarSesionSuper.js";
 import PaginaDocentesNavegacion from "./components/NavegacionDocente/PaginaDocentesNavegacion.js";
 import PaginaActivarCuenta from "./pages/PaginaActivarCuenta.js";
+import PaginaResetPass from "./pages/PaginaResetPass.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -93,7 +94,7 @@ export default function App() {
               Ruta: Resetear contraseña*/}
               <Route
                 path="/reset_pass/:codigoActivacion"
-                element={<ResetPass />}
+                element={<PaginaResetPass />}
               ></Route>
 
               {/*****************************************************
