@@ -1,12 +1,11 @@
 import React from "react";
-import { Edit, Fullscreen } from "@mui/icons-material";
+import { Edit, EditOutlined } from "@mui/icons-material";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogTitle,
   TextField,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
@@ -111,7 +110,7 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
     <>
       <Button
         variant="contained"
-        startIcon={<Edit />}
+        startIcon={<EditOutlined />}
         // fullWidth
         onClick={handleOpen}
       >
@@ -128,7 +127,7 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
         }}
       >
         <DialogTitle display="flex" flexDirection="row">
-          <Edit sx={{ alignSelf: "center", marginRight: 1 }} />
+          <EditOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
           Modificar perfil
         </DialogTitle>
         <DialogContent>

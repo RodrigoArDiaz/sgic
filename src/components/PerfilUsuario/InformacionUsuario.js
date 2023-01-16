@@ -2,36 +2,26 @@ import {
   Avatar,
   CardActions,
   CardContent,
-  CardHeader,
   Chip,
   Divider,
-  FormControl,
-  Grid,
-  InputLabel,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useSelector } from "react-redux";
-import { blue, orange } from "@mui/material/colors";
 import { Box } from "@mui/material";
 import React from "react";
-import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { OutlinedInputOnlyRead } from "../Material UI - Componentes Modificados/TextfieldVariantes";
 // import ModificarContrasenia from "./PanelSeguridad";
 import ModificarPerfilUsuario from "./ModificarPerfilUsuario";
 import { useTheme } from "@emotion/react";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { useSearchParams } from "react-router-dom";
 
 const InformacionUsuario = () => {
   const { user } = useSelector((state) => state.user);
   //
   const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   //Se chequea si el usuario es un alumno
   const esAlumno = user.Tipo == "A" ? true : false;
+  // const esAlumno = true;
 
   return (
     <CardMainPage visibleHeader={false}>
@@ -82,7 +72,7 @@ const InformacionUsuario = () => {
           </Typography>
 
           <Chip
-            label={user.Usuario ? user.Usuario : "username"}
+            label={user.Usuario ? user.Usuario : "johnsmith"}
             size="small"
             sx={{
               width: "max-content",
@@ -119,7 +109,7 @@ const InformacionUsuario = () => {
           <Box display="flex" flexDirection="row" gap={2} mt={1.5}>
             <Typography variant="subtitle2">Nombre de usuario:</Typography>
             <Typography sx={{ color: "text.subtitle2secondary" }}>
-              {user.Usuario ? user.Usuario : "username"}
+              {user.Usuario ? user.Usuario : "johnsmith"}
             </Typography>
           </Box>
 

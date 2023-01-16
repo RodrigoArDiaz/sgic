@@ -135,7 +135,7 @@ export const CrearContacto = ({ crearContacto }) => {
       >
         <DialogTitle display="flex" flexDirection="row">
           <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
-          Crear nuevo contacto
+          Crear contacto
         </DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
@@ -178,7 +178,7 @@ export const CrearContacto = ({ crearContacto }) => {
             onClick={formik.handleSubmit}
             disabled={isLoading ? true : false}
           >
-            Crear
+            Aceptar
           </Button>
           <Button
             onClick={() => {

@@ -21,6 +21,7 @@ import { useModal } from "../../hooks/useModal";
 //Peticiones
 import { peticionModificarContacto } from "../../api/alumnos/gestionContactosApi";
 import { blue } from "@mui/material/colors";
+import { EditOutlined } from "@mui/icons-material";
 
 const validaciones = yup.object({
   perfil: yup.string().required("Este campo es obligatorio"),
@@ -127,7 +128,10 @@ export const ModificarContacto = ({ contacto, modificarContacto }) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar contacto</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <EditOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar contacto
+        </DialogTitle>
         <DialogContent>
           <form onSubmit={formik.handleSubmit}>
             <TextField
@@ -171,6 +175,7 @@ export const ModificarContacto = ({ contacto, modificarContacto }) => {
             Aceptar
           </Button>
           <Button
+            variant="outlined"
             onClick={() => {
               handleClose();
               formik.resetForm();

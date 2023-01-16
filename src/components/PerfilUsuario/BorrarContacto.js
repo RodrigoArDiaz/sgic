@@ -82,7 +82,10 @@ export const BorrarContacto = ({ contacto, borrarContacto }) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Borrar contacto</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar contacto
+        </DialogTitle>
         <DialogContent>
           <Typography>¿Seguro que desea borrar este contacto?</Typography>
         </DialogContent>
@@ -92,9 +95,11 @@ export const BorrarContacto = ({ contacto, borrarContacto }) => {
             onClick={handleBorrarContacto}
             disabled={isLoading ? true : false}
           >
-            Borrar
+            Aceptar
           </Button>
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button variant="outlined" onClick={handleClose}>
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

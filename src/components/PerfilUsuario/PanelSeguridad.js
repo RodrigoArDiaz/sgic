@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Edit, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
+import { EditOutlined } from "@mui/icons-material";
 import {
   Alert,
   AlertTitle,
   Button,
   CardContent,
   CardHeader,
-  Dialog,
   DialogActions,
-  DialogTitle,
   Divider,
   Grid,
   IconButton,
@@ -18,7 +16,9 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import DialogContent from "@mui/material/DialogContent";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
@@ -177,9 +177,9 @@ const PanelSeguridad = () => {
                         }
                       >
                         {mostrarContrasenia ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -219,9 +219,9 @@ const PanelSeguridad = () => {
                         }
                       >
                         {mostrarContraseniaNueva ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -262,9 +262,9 @@ const PanelSeguridad = () => {
                         }
                       >
                         {mostrarRepetirContrasenia ? (
-                          <VisibilityOff />
+                          <VisibilityOffOutlinedIcon />
                         ) : (
-                          <Visibility />
+                          <VisibilityOutlinedIcon />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -295,7 +295,7 @@ const PanelSeguridad = () => {
           variant="contained"
           onClick={formik.handleSubmit}
           disabled={isLoading ? true : false}
-          startIcon={<Edit />}
+          startIcon={<EditOutlined />}
         >
           Modificar contraseña
         </Button>

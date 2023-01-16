@@ -5,13 +5,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 //Componentes propios
-import PanelDatosPersonales from "./PanelDatosPersonales";
 import PanelInformacionDeContactos from "./PanelInformacionContactos";
 import PanelSeguridad from "./PanelSeguridad";
+import { useSelector } from "react-redux";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,11 +42,19 @@ function a11yProps(index) {
 }
 
 export default function TabsInformacionUsuario() {
+  const { user } = useSelector((state) => state.user);
+
+  //Se chequea si el usuario es un alumno
+  const esAlumno = user.Tipo == "A" ? true : false;
+  // const esAlumno = true;
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //Tabs no admite fragmento como children
 
   return (
     <>
@@ -61,39 +68,54 @@ export default function TabsInformacionUsuario() {
           scrollButtons
           allowScrollButtonsMobile
           aria-label="basic tabs example"
-          centered
+          // centered
         >
-          {/* <Tab
-            icon={<InfoOutlinedIcon />}
-            iconPosition="start"
-            label="Datos personales"
-            {...a11yProps(0)}
-          /> */}
-          <Tab
-            icon={<PermContactCalendarOutlinedIcon />}
-            iconPosition="start"
-            label="Informacion de contacto"
-            {...a11yProps(0)}
-          />
-          <Tab
-            icon={<LockOutlinedIcon />}
-            iconPosition="start"
-            label="Seguridad"
-            {...a11yProps(1)}
-          />
+          {esAlumno && (
+            <Tab
+              icon={<PermContactCalendarOutlinedIcon />}
+              iconPosition="start"
+              label="Informacion de contacto"
+              {...a11yProps(0)}
+            />
+          )}
+
+          {esAlumno && (
+            <Tab
+              icon={<LockOutlinedIcon />}
+              iconPosition="start"
+              label="Seguridad"
+              {...a11yProps(1)}
+            />
+          )}
+
+          {!esAlumno && (
+            <Tab
+              icon={<LockOutlinedIcon />}
+              iconPosition="start"
+              label="Seguridad"
+              {...a11yProps(0)}
+            />
+          )}
         </Tabs>
       </Box>
       {/* Paneles */}
       <Grid item xs={12}>
-        {/* <TabPanel value={value} index={0}>
-          <PanelDatosPersonales />
-        </TabPanel> */}
-        <TabPanel value={value} index={0}>
-          <PanelInformacionDeContactos />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <PanelSeguridad />
-        </TabPanel>
+        {esAlumno && (
+          <TabPanel value={value} index={0}>
+            <PanelInformacionDeContactos />
+          </TabPanel>
+        )}
+        {esAlumno && (
+          <TabPanel value={value} index={1}>
+            <PanelSeguridad />
+          </TabPanel>
+        )}
+
+        {!esAlumno && (
+          <TabPanel value={value} index={0}>
+            <PanelSeguridad />
+          </TabPanel>
+        )}
       </Grid>
     </>
   );

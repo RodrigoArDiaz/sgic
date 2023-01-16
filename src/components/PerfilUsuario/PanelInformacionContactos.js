@@ -42,18 +42,18 @@ import { MoonLoader } from "react-spinners";
 const contactosPrueba = [
   {
     Nombre: "Facebook",
-    Perfil: "https://www.facebook.com/sinnombre.nn.90",
+    Perfil: "https://www.facebook.com/jonhsmith",
   },
-  { Nombre: "Whatsapp", Perfil: "+5493815746160" },
-  { Nombre: "Whatsapp", Perfil: "+549386421392" },
+  { Nombre: "Whatsapp", Perfil: "+549381102030" },
+  // { Nombre: "Whatsapp", Perfil: "+549386421392" },
   { Nombre: "Github", Perfil: "https://github.com/..." },
-  { Nombre: "Slack", Perfil: "https://github.com/..." },
-  { Nombre: "LinkedIn", Perfil: "https://github.com/..." },
-  { Nombre: "Twitter", Perfil: "https://github.com/..." },
-  { Nombre: "Gmail", Perfil: "https://github.com/..." },
-  { Nombre: "Outlook", Perfil: "https://github.com/..." },
-  { Nombre: "Telefono", Perfil: "+549386421392" },
-  { Nombre: "Correo", Perfil: "diaz" },
+  { Nombre: "Slack", Perfil: "https://slack.com/..." },
+  { Nombre: "LinkedIn", Perfil: "https://linkedin.com/..." },
+  // { Nombre: "Twitter", Perfil: "https://github.com/..." },
+  { Nombre: "Gmail", Perfil: "jonhsmith2@gmail.com" },
+  // { Nombre: "Outlook", Perfil: "jonhsmith2" },
+  { Nombre: "Telefono", Perfil: "+549381102030" },
+  // { Nombre: "Correo", Perfil: "diaz" },
 ];
 
 //Estilos para filas de la tabla
