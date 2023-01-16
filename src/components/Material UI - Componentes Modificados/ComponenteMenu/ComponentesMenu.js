@@ -65,18 +65,39 @@ export const AppBar = styled(MuiAppBar, {
   // paddingLeft: "5.5rem",
   // paddingLeft: `${drawerWidth}px`,
 
+  // //Ancho del menu minimmizado
+  // [theme.breakpoints.up("sm")]: {
+  //   ...(!open && {
+  //     paddingLeft: `calc(${theme.spacing(10.5)} + 1px)`,
+  //   }),
+  // },
+
   //Ancho del menu minimmizado
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     ...(!open && {
-      paddingLeft: `calc(${theme.spacing(10.5)} + 1px)`,
+      paddingLeft: `calc(${theme.spacing(9)} + 1px)`,
     }),
   },
 
-  //Estilo AppBar en pantallas < md
-  [theme.breakpoints.down("md")]: {
-    paddingLeft: "0",
-    width: "100%",
+  [theme.breakpoints.up("lg")]: {
+    ...(!open && {
+      paddingLeft: `calc(${theme.spacing(16)} + 1px)`,
+    }),
   },
+
+  //Ancho del menu minimmizado
+
+  // [theme.breakpoints.up("lg")]: {
+  //   ...(open && {
+  //     paddingLeft: `calc(${theme.spacing(16)} + 1px)`,
+  //   }),
+  // },
+
+  // //Estilo AppBar en pantallas < md
+  // [theme.breakpoints.down("md")]: {
+  //   paddingLeft: "0",
+  //   width: "100%",
+  // },
 
   //Estilo Appbar cuando menu lateral esta abierto
   ...(open && {
@@ -91,6 +112,10 @@ export const AppBar = styled(MuiAppBar, {
     [theme.breakpoints.down("sm")]: {
       paddingLeft: "0",
       width: "100%",
+    },
+
+    [theme.breakpoints.up("lg")]: {
+      paddingLeft: `calc(${theme.spacing(7)} + 1px)`,
     },
   }),
 
