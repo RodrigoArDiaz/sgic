@@ -133,7 +133,7 @@ export default function Menu() {
           >
             {titulo}
           </TypographyTitulo>
-          <DarkModeButton />
+          {/* <DarkModeButton /> */}
           <FullScreen />
           <MenuUsuarioDesplegable />
         </Toolbar>
