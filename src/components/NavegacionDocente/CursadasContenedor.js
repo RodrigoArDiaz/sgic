@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function CursadasContenedor(props) {
   const navegar = useNavigate();
@@ -56,24 +57,26 @@ export default function CursadasContenedor(props) {
 
   return (
     <>
-      <Grid container justifyContent="flex-end" marginBottom={2}>
-        {EAC === "S" && cargando === "2" && (
+      {EAC === "S" && cargando === "2" && (
+        <Grid container justifyContent="flex-end" marginBottom={2}>
           <Grid item xs={12} sm={4} md={3} lg={2}>
             <GestionarCursadas
               idmateria={props.idmateriaprincipal}
               Materia={props.Materia}
             />
           </Grid>
-        )}
-      </Grid>
+        </Grid>
+      )}
 
       {cargando === "3" && (
         <ListItem key="0" disablePadding>
           <ListItemText>
-            <Alert severity="info" variant="outlined">
+            <MensajeFeedback>
               <AlertTitle>La materia aún no tiene cursadas.</AlertTitle>
-              {/* Puede crear cursadas con el boton "Gestionar cursadas" */}
-            </Alert>
+              {EAC === "S"
+                ? `Puede crear cursadas con el boton 'Gestionar cursadas'.`
+                : "Comuníquese con el administrador de la cátedra si necesita crear una cursada."}
+            </MensajeFeedback>
           </ListItemText>
         </ListItem>
       )}
@@ -88,13 +91,14 @@ export default function CursadasContenedor(props) {
 
       <Grid container pt={2}>
         <Button
+          variant="outlined"
           onClick={() => {
             props.salto("2");
             props.setT("Seleccione la materia");
           }}
           startIcon={<ArrowBackIcon />}
         >
-          VOLVER
+          Volver
         </Button>
       </Grid>
     </>

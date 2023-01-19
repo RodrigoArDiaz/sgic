@@ -1,22 +1,14 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+//MUI
+import { AlertTitle, ListItem, ListItemText } from "@mui/material";
 import { Grid } from "@mui/material";
-import MateriasLista from "./MateriasLista";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import Button from "@mui/material/Button";
+//
 import { useNavigate } from "react-router-dom";
-
 import * as Responses from "../Responses";
+import MensajeFeedback from "../MensajeFeedback";
+import MateriasLista from "./MateriasLista";
 
 export default function MateriasContenedor(props) {
   const navegar = useNavigate();
@@ -58,11 +50,11 @@ export default function MateriasContenedor(props) {
       {cargando === "3" && (
         <ListItem key="0" disablePadding>
           <ListItemText>
-            <Alert severity="info" variant="outlined">
+            <MensajeFeedback>
               <AlertTitle>La catedra no tiene materias asociadas.</AlertTitle>
               Si es administrador de la catedra, comuníquese con el
               superadministrador para añadir materias.
-            </Alert>
+            </MensajeFeedback>
           </ListItemText>
         </ListItem>
       )}
@@ -80,13 +72,14 @@ export default function MateriasContenedor(props) {
 
       <Grid container pt={2}>
         <Button
+          variant="outlined"
           onClick={() => {
             props.salto("1");
             props.setT("Seleccione la cátedra");
           }}
           startIcon={<ArrowBackIcon />}
         >
-          VOLVER
+          Volver
         </Button>
       </Grid>
     </>
