@@ -2,11 +2,11 @@
  *  Lista de items para superadministrador
  */
 
-//Lista antes de seleccionar catedra
+//Lista antes de seleccionar cátedra
 const listaItemsMenuSuper = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
+    key: "Inicio",
+    itemText: "Inicio",
     to: "",
     icono: "",
     dividerTop: false,
@@ -16,9 +16,9 @@ const listaItemsMenuSuper = [
     esTitle: true,
   },
   {
-    key: "mis_catedras",
-    itemText: "Mis catedras",
-    // to: "docentes/mis_catedras",
+    key: "mis_cátedras",
+    itemText: "Mis cátedras",
+    // to: "docentes/mis_cátedras",
     to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
@@ -40,9 +40,9 @@ const listaItemsMenuSuper = [
     esTitle: true,
   },
   {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "superadministrador/gestion_catedras",
+    key: "cátedras",
+    itemText: "Cátedras",
+    to: "superadministrador/gestion_cátedras",
     icono: "account_balance",
     dividerTop: false,
     dividerBottom: false,
@@ -97,11 +97,11 @@ const listaItemsMenuSuper = [
   },
 ];
 
-//Lista despues de seleccinar la catedra
+//Lista despues de seleccinar la cátedra
 const listaItemsMenuSuperConCursada = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
+    key: "Inicio",
+    itemText: "Inicio",
     to: "",
     icono: "",
     dividerTop: false,
@@ -112,9 +112,9 @@ const listaItemsMenuSuperConCursada = [
   },
 
   {
-    key: "mis_catedras",
-    itemText: "Mis catedras",
-    // to: "docentes/mis_catedras",
+    key: "mis_cátedras",
+    itemText: "Mis cátedras",
+    // to: "docentes/mis_cátedras",
     to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
@@ -123,6 +123,19 @@ const listaItemsMenuSuperConCursada = [
     sublist: [],
     esTitle: false,
   },
+
+  {
+    key: "Gestión cursada",
+    itemText: "Gestión cursada",
+    to: "",
+    icono: "",
+    dividerTop: false,
+    dividerBottom: false,
+    esSublist: true,
+    sublist: [],
+    esTitle: true,
+  },
+
   {
     key: "info_cursada",
     itemText: "Informacion cursada",
@@ -202,9 +215,9 @@ const listaItemsMenuSuperConCursada = [
     esTitle: true,
   },
   {
-    key: "catedras",
-    itemText: "Catedras",
-    to: "superadministrador/gestion_catedras",
+    key: "cátedras",
+    itemText: "Cátedras",
+    to: "superadministrador/gestion_cátedras",
     icono: "account_balance",
     dividerTop: false,
     dividerBottom: false,
@@ -268,8 +281,8 @@ const listaItemsMenuSuperConCursada = [
   //   esTitle: false,
   //   sublist: [
   //     {
-  //       key: "catedras",
-  //       itemText: "Catedras",
+  //       key: "cátedras",
+  //       itemText: "cátedras",
   //       to: "superadministrador/gestion_catedras",
   //       icono: "account_balance",
   //       dividerTop: false,
@@ -304,11 +317,11 @@ const listaItemsMenuSuperConCursada = [
 /*****************************************
  *  Lista de items para docentes
  */
-//Lista docentes antes de seleccionar la catedra
+//Lista docentes antes de seleccionar la cátedra
 const listaItemsMenuDocente = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
+    key: "Inicio",
+    itemText: "Inicio",
     to: "",
     icono: "",
     dividerTop: false,
@@ -319,9 +332,9 @@ const listaItemsMenuDocente = [
   },
   ,
   {
-    key: "mis_catedras",
-    itemText: "Mis catedras",
-    // to: "docentes/mis_catedras",
+    key: "mis_cátedras",
+    itemText: "Mis cátedras",
+    // to: "docentes/mis_cátedras",
     to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
@@ -353,11 +366,11 @@ const listaItemsMenuDocente = [
   },
 ];
 
-//Lista despues de seleccinar la catedra
+//Lista despues de seleccinar la cátedra
 const listaItemsMenuDocenteConCursada = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
+    key: "Inicio",
+    itemText: "Inicio",
     to: "",
     icono: "",
     dividerTop: false,
@@ -367,9 +380,9 @@ const listaItemsMenuDocenteConCursada = [
     esTitle: true,
   },
   {
-    key: "mis_catedras",
-    itemText: "Mis catedras",
-    // to: "docentes/mis_catedras",
+    key: "mis_cátedras",
+    itemText: "Mis cátedras",
+    // to: "docentes/mis_cátedras",
     to: "/inicio/docentes/ingreso",
     icono: "assured_workload",
     dividerTop: false,
@@ -377,6 +390,18 @@ const listaItemsMenuDocenteConCursada = [
     esSublist: false,
     sublist: [],
     esTitle: false,
+  },
+
+  {
+    key: "Gestión cursada",
+    itemText: "Gestión cursada",
+    to: "",
+    icono: "",
+    dividerTop: false,
+    dividerBottom: false,
+    esSublist: true,
+    sublist: [],
+    esTitle: true,
   },
   {
     key: "info_cursada",
@@ -473,8 +498,8 @@ const listaItemsMenuDocenteConCursada = [
  */
 const listaItemsMenuAlumno = [
   {
-    key: "dashboard",
-    itemText: "dashboard",
+    key: "Inicio",
+    itemText: "Inicio",
     to: "",
     icono: "",
     dividerTop: false,
