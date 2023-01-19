@@ -150,7 +150,7 @@ export default function Menu() {
           display: { xs: "none", sm: "none", md: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            borderRadius: "0 13px 13px 0",
+            borderRadius: "0 4px 4px 0",
             backgroundColor: "#fff",
             ...estiloScrollbar,
           },
@@ -380,12 +380,15 @@ export default function Menu() {
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,
-            borderRadius: "0 13px 13px 0",
+            borderRadius: "0 4px 4px 0",
           },
         }}
       >
-        <DrawerHeader>
+        <DrawerHeader sx={{ justifyContent: "center" }}>
           <Logo />
+          <Box>
+            <LogoAppName />
+          </Box>
           <ButtonMenu disableRipple onClick={handleDrawerToggle}>
             <CloseIcon />
           </ButtonMenu>

@@ -154,10 +154,15 @@ export const Drawer = styled(MuiDrawer, {
  * Componente personalizado del boton de menu
  */
 export const ButtonMenu = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.primary.main,
+  marginLeft: "auto",
+  color: theme.palette.icons.main,
+  marginX: "1rem",
+  borderRadius: "4px",
+  backgroundColor: theme.palette.icons.bg,
+  // color: theme.palette.primary.main,
   // backgroundColor: "rgba(0, 0, 0, 0.04)",
-  borderRadius: "10px",
-  border: `1px solid ${teal[300]}`,
+  // borderRadius: "10px",
+  // border: `1px solid ${teal[300]}`,
   // "&:hover": {
   //   boxShadow: "rgb(99 99 99 / 20%) 0px 2px 8px 0px",
   // },

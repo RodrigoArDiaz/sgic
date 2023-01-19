@@ -80,7 +80,6 @@ const MenuUsuarioDesplegable = () => {
         <IconButton
           aria-describedby={id}
           aria-label="Menú"
-          sx={{ backgroundColor: "#fff", color: "inherit" }}
           onClick={handleClick}
         >
           <MoreIcon />
