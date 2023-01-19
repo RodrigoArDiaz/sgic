@@ -132,6 +132,10 @@ const theme = createTheme({
           "&:hover": {
             boxShadow: "none",
           },
+          textTransform: "capitalize",
+        },
+        outlined: {
+          textTransform: "capitalize",
         },
       },
     },
