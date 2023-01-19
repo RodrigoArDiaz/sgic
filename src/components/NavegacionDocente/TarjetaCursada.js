@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import CardActions from "@mui/material/CardActions";
+//MUI
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Box, Divider, Grid, IconButton } from "@mui/material";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+//React router
 import { useNavigate } from "react-router-dom";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { red } from "@mui/material/colors";
 
 //Redux - Sesion
 import { useDispatch } from "react-redux";
@@ -38,62 +38,133 @@ export default function TarjetaCursada(props) {
   const { jsonMateria } = useSelector((state) => state.materia);
 
   return (
-    <CardMainPage
-      icon="auto_stories"
-      // title={props.catedra}
-      bgColorIcon={red[500]}
-      titleTextAlign="left"
-      dividerVisible={false}
+    <Box
+      onClick={() => {
+        localStorage.jsoncursada = JSON.stringify(props.cur);
+        //Actualizo datos cursada
+        dispatch(actualizarCursada(props.cur));
+
+        //Actualizo titulo
+        dispatch(
+          actualizarTitulo(jsonMateria.Materia + " - " + props.cur.Anio)
+        );
+        //Actualizo items del menu
+        if (esSuper === "S")
+          dispatch(actualizarMenu(listaItemsMenuSuperConCursada));
+        else dispatch(actualizarMenu(listaItemsMenuDocenteConCursada));
+
+        // navegar("/docentes/cursadas");
+        navegar("/inicio/docentes/cursada/info_cursada");
+      }}
+      sx={{
+        borderRadius: "4px",
+        height: "100%",
+
+        "&:hover": {
+          cursor: "pointer",
+          "&  svg": {
+            transform: "scale(1.2)",
+            transition: "transform 0.7s ease",
+          },
+        },
+      }}
     >
-      <CardContent sx={{ paddingY: "0" }}>
-        <Typography
-          sx={{ mb: 1.5 }}
-          align="center"
-          variant="h5"
-          component="div"
-        >
-          {props.fila}
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Año: {props.anio}
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Semestre: {props.sem}
-          </Typography>
-        </Typography>
-      </CardContent>
-      <CardActions
+      <CardMainPage
+        dividerVisible={false}
+        visibleIcon={false}
+        visibleHeader={false}
         sx={{
-          align: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
+          height: "100%",
+          borderRightWidth: "3px",
+          borderRightColor: "#3d5afe",
         }}
       >
-        <Button
-          size="large"
-          variant="outlined"
-          onClick={() => {
-            localStorage.jsoncursada = JSON.stringify(props.cur);
-            //Actualizo datos cursada
-            dispatch(actualizarCursada(props.cur));
+        <Grid container sx={{ height: "100%" }}>
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                // bgcolor: "rgb(24, 144, 255)",
+                bgcolor: "#3d5afe",
+                borderRadius: "4px 0 0 4px",
 
-            //Actualizo titulo
-            dispatch(
-              actualizarTitulo(jsonMateria.Materia + " - " + props.cur.Anio)
-            );
-            //Actualizo items del menu
-            if (esSuper === "S")
-              dispatch(actualizarMenu(listaItemsMenuSuperConCursada));
-            else dispatch(actualizarMenu(listaItemsMenuDocenteConCursada));
+                height: "100%",
+                width: "100%",
+              }}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Box alignSelf="center">
+                <IconButton disableRipple>
+                  <AutoStoriesOutlinedIcon
+                    sx={{ color: "rgb(255,255,255)" }}
+                    fontSize="large"
+                  />
+                </IconButton>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={8}>
+            <Box
+              sx={{
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center!important",
+                flexDirection: "column",
+              }}
+            >
+              <CardContent
+                sx={{
+                  paddingY: 2,
+                  paddingBottom: 1,
+                  // height: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  // sx={{ mb: 1.5 }}
+                  align="center"
+                  variant="h6"
+                  component="div"
+                >
+                  {props.fila}
+                  {/* <Divider /> */}
+                </Typography>
+                <Typography
+                  // variant="h6"
+                  sx={{ mb: 0, fontSize: "1.10rem" }}
+                  textAlign="center"
+                >
+                  Año: {props.anio}
+                </Typography>
+                <Typography
+                  sx={{ mb: 0, fontSize: "1.10rem" }}
+                  textAlign="center"
+                >
+                  Semestre: {props.sem}
+                </Typography>
+              </CardContent>
 
-            // navegar("/docentes/cursadas");
-            navegar("/inicio/docentes/cursada/info_cursada");
-          }}
-          endIcon={<ArrowForwardIcon />}
-        >
-          Ingresar
-        </Button>
-      </CardActions>
-    </CardMainPage>
+              <CardContent
+                sx={{ width: "100%", paddingTop: 0, paddingBottom: 0 }}
+              >
+                <Divider />
+              </CardContent>
+
+              <Box textAlign="center" sx={{ p: 1 }}>
+                <Typography
+                  variant="text"
+                  sx={{ color: "text.subtitle1secondary" }}
+                >
+                  Ingresar &rarr;
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </CardMainPage>
+    </Box>
   );
 }

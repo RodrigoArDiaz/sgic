@@ -16,18 +16,16 @@ const CardMainPage = ({
   visibleHeader,
   titleTextAlign,
   dividerVisible,
+  sx,
 }) => {
   return (
     <CardMain
       sx={{
         overflow: "visible",
-
-        // boxShadow: (theme) => theme.customShadows.z1,
-        // border: "none",
-
         borderRadius: "4px",
         boxShadow: "none !important",
         border: "1px solid rgb(230, 235, 241)",
+        ...sx,
       }}
     >
       {visibleHeader && (
