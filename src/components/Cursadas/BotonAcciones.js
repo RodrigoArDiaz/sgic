@@ -8,7 +8,7 @@ import { ClonarCursada } from "./Opciones/ClonarCursada";
 
 export const BotonAcciones = (props) => {
   return (
-    <Grid container justifyContent="space-between">
+    <Grid container justifyContent="space-between" flexWrap="nowrap">
       <Grid item xs={12} sm="auto">
         <AgregarParametro
           anio={props.anio}
@@ -62,7 +62,7 @@ export const BotonAcciones = (props) => {
 
       <Grid item xs={12} sm="auto">
         <BorrarCursada
-          anio={props.Anio}
+          anio={props.anio}
           idcursada={props.idcursada}
           semestre={props.semestre}
           Materia={props.Materia}

@@ -14,6 +14,8 @@ import BotonSemestre from "./BotonSemestre";
 import BotonTieneGrupo from "./BotonTieneGrupo";
 import BotonTipoCalculo from "./BotonTipoCalculo";
 import Calendario from "./Calendario";
+import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import { FormHelperText } from "@mui/material";
 import {
@@ -446,7 +448,11 @@ export const CrearCursada = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Crear cursada</DialogTitle>
+        {" "}
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear cursada
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para crear la cursada.
@@ -535,6 +541,7 @@ export const CrearCursada = (props) => {
                 (eprograma === "1" && <BotonEstadoRegistro estado={"1"} />) ||
                 (eprograma === "2" && <BotonEstadoRegistro estado={"2"} />)
               }
+              startAdornment={<AddLinkOutlinedIcon sx={{ marginRight: 1 }} />}
             />
 
             {/* {eprograma === "1" && <BotonEstadoRegistro estado={"1"} />}

@@ -1,5 +1,13 @@
 import { createTheme } from "@mui/material/styles";
-import { blue, cyan, indigo, teal } from "@mui/material/colors";
+import {
+  blue,
+  cyan,
+  green,
+  indigo,
+  lightBlue,
+  red,
+  teal,
+} from "@mui/material/colors";
 import { blueGrey } from "@mui/material/colors";
 import { NoEncryption } from "@mui/icons-material";
 
@@ -32,30 +40,30 @@ const theme = createTheme({
     //Paleta del color secondario
     secondary: {
       //Principales
-      main: indigo[400],
+      main: blue[700],
       light: "#8e99f3",
       dark: "#26418f",
 
       //Escalas
-      light400: indigo[400],
-      light200: indigo[200],
-      light100: indigo[100],
-      light50: indigo[50],
+      light400: blue[400],
+      light200: blue[200],
+      light100: blue[100],
+      light50: blue[50],
       //Escalas
-      main50: indigo[50],
-      main100: indigo[100],
-      main200: indigo[200],
-      main300: indigo[300],
-      main400: indigo[400],
-      main500: indigo[500],
-      main600: indigo[600],
-      main700: indigo[700],
-      main800: indigo[800],
-      main900: indigo[900],
-      mainA100: indigo["A100"],
-      mainA200: indigo["A200"],
-      mainA400: indigo["A400"],
-      mainA700: indigo["A700"],
+      main50: blue[50],
+      main100: blue[100],
+      main200: blue[200],
+      main300: blue[300],
+      main400: blue[400],
+      main500: blue[500],
+      main600: blue[600],
+      main700: blue[700],
+      main800: blue[800],
+      main900: blue[900],
+      mainA100: blue["A100"],
+      mainA200: blue["A200"],
+      mainA400: blue["A400"],
+      mainA700: blue["A700"],
     },
 
     error: {
@@ -101,7 +109,12 @@ const theme = createTheme({
     icons: {
       // main: "rgba(58, 53, 65, 0.87)",
       main: "rgb(38, 38, 38)",
+      secondary: "rgb(38, 38, 38)",
       bg: "rgb(245, 245, 245)",
+      error: red[500],
+      edit: blue[500],
+      add: green[500],
+      list: indigo[500],
     },
 
     borders: {
@@ -117,7 +130,7 @@ const theme = createTheme({
 
     background: {
       // default: "#e3f2fd",
-      default: "rgb(242, 245, 249)",
+      default: "rgb(243, 244, 249)",
     },
   },
 

@@ -19,6 +19,7 @@ import { FormControl, InputLabel, Input, Typography } from "@mui/material";
 
 import * as Responses from "../../Responses";
 import { useNavigate } from "react-router-dom";
+import { EditOutlined } from "@mui/icons-material";
 
 export const ModificarParametro = (props) => {
   const navegar = useNavigate();
@@ -115,7 +116,7 @@ export const ModificarParametro = (props) => {
               });
           }}
         >
-          Modificar
+          Aceptar
         </Button>
       );
     } else {
@@ -196,21 +197,26 @@ export const ModificarParametro = (props) => {
     <>
       <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <EditIcon />
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={handleOpen}
+            // sx={{ color: "icons.edit" }}
+          >
+            <EditOutlined />
           </IconButton>
         </span>
       </Tooltip>
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
-        <DialogTitle>
-          Modificar parámetro de examen - {props.Materia} - {props.anio} -{" "}
-          {props.semestre}
+        <DialogTitle display="flex" flexDirection="row">
+          <EditOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar parámetro
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Ingrese los datos para modificar del parámetro de examen.
+            {props.Materia} - {props.anio} - {props.semestre}
           </DialogContentText>
 
           <FormControl
@@ -380,7 +386,9 @@ export const ModificarParametro = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

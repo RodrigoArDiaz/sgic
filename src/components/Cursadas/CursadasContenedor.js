@@ -21,6 +21,7 @@ import * as Responses from "../Responses";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
+import MensajeFeedback from "../MensajeFeedback.js";
 
 export default function CursadasContenedor(props) {
   const color = teal[400];
@@ -29,7 +30,7 @@ export default function CursadasContenedor(props) {
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -184,11 +185,12 @@ export default function CursadasContenedor(props) {
 
   return (
     <CardMainPage
-      icon="build"
-      title={"Gestión de Cursadas - " + props.Materia}
-      bgColorIcon="cyan.main300"
+      // icon="build"
+      // title={"Gestión de Cursadas - " + props.Materia}
+      // bgColorIcon="cyan.main300"
+      visibleHeader={false}
     >
-      <CardContent>
+      <CardContent sx={{ paddingRight: 0, paddingLeft: 0 }}>
         <Grid container>
           <Grid container direction="row-reverse">
             <Grid item xs={12} sm={6} md={3.5} lg={2.5} xl={2}>
@@ -199,7 +201,7 @@ export default function CursadasContenedor(props) {
                 paddingBottom={1}
                 justifyContent="flex-end"
               >
-                <Grid item xs={12}>
+                <Grid item xs={12} lg={9}>
                   <CrearCursada
                     refrescar={Refrescar}
                     abrir={setAbrir}
@@ -230,13 +232,13 @@ export default function CursadasContenedor(props) {
           </Grid>
 
           {cargando === "3" && (
-            <Grid container pt={2}>
+            <Grid container p={2}>
               <Grid item xs={12}>
                 <ListItem key="0" disablePadding>
                   <ListItemText>
-                    <Alert severity="info" variant="outlined">
-                      <AlertTitle>No se encontraron resultados</AlertTitle>
-                    </Alert>
+                    <MensajeFeedback>
+                      No se encontraron resultados
+                    </MensajeFeedback>
                   </ListItemText>
                 </ListItem>
               </Grid>
@@ -254,7 +256,7 @@ export default function CursadasContenedor(props) {
             </Grid>
           )}
           {cargando === "2" && (
-            <Grid container pt={2}>
+            <Grid container pt={1}>
               <CursadaLista
                 filas={filas}
                 filasxpagina={filasxpagina}

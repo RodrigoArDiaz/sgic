@@ -1,16 +1,22 @@
 import React from "react";
+//MUI
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { DeleteOutlineOutlined } from "@mui/icons-material";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+//
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
+//
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
 export const BorrarCursada = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -22,7 +28,7 @@ export const BorrarCursada = (props) => {
       IdCursada: props.idcursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borrarcursada")
+    Responses.consultas(data, endpoints.borrarCursada)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -31,18 +37,18 @@ export const BorrarCursada = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
           props.mensaje(response.Error);
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -50,8 +56,14 @@ export const BorrarCursada = (props) => {
     <>
       <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <DeleteIcon />
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={handleOpen}
+            // sx={{ color: "icons.error" }}
+          >
+            <DeleteOutlineOutlined />
+            {/* <DeleteTwoToneIcon /> */}
           </IconButton>
         </span>
       </Tooltip>
@@ -66,19 +78,25 @@ export const BorrarCursada = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>
-          Borrar cursada - {props.Materia} - {props.anio} - {props.semestre}
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlineOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar cursada
         </DialogTitle>
+
         <DialogContent>
           <DialogContentText>
-            ¿Seguro que desea borrar la cursada?
+            ¿Seguro que desea borrar la cursada{" "}
+            <b>
+              {props.Materia} - {props.anio} - {props.semestre}
+            </b>
+            ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={BorrarCursada}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

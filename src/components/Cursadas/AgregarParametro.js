@@ -10,9 +10,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import { Grid } from "@mui/material";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, AddCircleOutline } from "@mui/icons-material";
 import { FormHelperText } from "@mui/material";
 import { FormControl, InputLabel, Input } from "@mui/material";
+import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
 //Elementos propios
 import BotonTipoCalculo from "./BotonTipoCalculo";
 import BotonTipoExamen from "./BotonTipoExamen";
@@ -134,20 +135,9 @@ export const AgregarParametro = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
   const estiloFormControl = {
     width: "100%",
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   const estiloFormControlSelect = {
@@ -203,8 +193,13 @@ export const AgregarParametro = (props) => {
     <>
       <Tooltip title="Agregar parámetro" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <AddCircle />
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={handleOpen}
+            // sx={{ color: "icons.secondary" }}
+          >
+            <AddCircleOutline />
           </IconButton>
         </span>
       </Tooltip>
@@ -219,11 +214,15 @@ export const AgregarParametro = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>
-          Agregar parámetro de examen - {props.Materia} - {props.anio} -{" "}
-          {props.semestre}
+        <DialogTitle display="flex" flexDirection="row">
+          <AddCircleOutline sx={{ alignSelf: "center", marginRight: 1 }} />
+          Agregar parámetro de examen
         </DialogTitle>
+
         <DialogContent>
+          <DialogContentText marginBottom={1}>
+            {props.Materia} - {props.anio} - {props.semestre}
+          </DialogContentText>
           <DialogContentText>
             Ingrese los datos para agregar el parámetro de examen.
           </DialogContentText>
@@ -385,7 +384,9 @@ export const AgregarParametro = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

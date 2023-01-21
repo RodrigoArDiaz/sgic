@@ -31,7 +31,7 @@ const CardMain = styled(Card)(({ theme }) => ({
 // /**Componente Busqueda*/
 const OutlinedInputSearch = styled(OutlinedInput)(({ theme }) => ({
   paddingRight: 0,
-  borderRadius: "10px",
+  borderRadius: "4px",
   border: "none",
   backgroundColor: "rgba(0, 0, 0, 0.04)",
   "& .MuiOutlinedInput-notchedOutline": {

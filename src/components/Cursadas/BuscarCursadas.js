@@ -89,7 +89,7 @@ export default function BuscarCatedras(props) {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="anio"
@@ -97,7 +97,7 @@ export default function BuscarCatedras(props) {
             placeholder="Año"
             size="small"
             startAdornment={
-              <InputAdornment position="start">
+              <InputAdornment position="start" sx={{ color: "icons.main" }}>
                 <Search />
               </InputAdornment>
             }
@@ -123,7 +123,7 @@ export default function BuscarCatedras(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="semestre"
@@ -156,7 +156,12 @@ export default function BuscarCatedras(props) {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox defaultChecked name="bajas" onChange={handleChecked} />
+              <Checkbox
+                defaultChecked
+                name="bajas"
+                onChange={handleChecked}
+                color="primary"
+              />
             }
             label="Incluir bajas"
           />
@@ -165,14 +170,14 @@ export default function BuscarCatedras(props) {
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
         <Button
-          startIcon={<SearchIcon />}
+          // startIcon={<SearchIcon />}
           color="primary"
           variant="outlined"
           onClick={() => {
             manejador();
           }}
         >
-          Buscar
+          <SearchIcon></SearchIcon>
         </Button>
       </Grid>
     </Grid>

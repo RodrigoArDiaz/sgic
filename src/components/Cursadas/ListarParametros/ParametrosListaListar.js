@@ -67,9 +67,9 @@ export default function StickyHeadTable(props) {
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   return (
-    <TableContainer sx={{ maxHeight: "none" }}>
+    <TableContainer sx={{ maxHeight: "none", mt: 2 }}>
       <Table aria-label="Lista de parametros" sx={{ mb: "1rem" }} size="small">
-        <TableHead>
+        <TableHead sx={{ backgroundColor: "icons.bg" }}>
           <TableRow>
             {columns.map((column) => (
               <TableCell

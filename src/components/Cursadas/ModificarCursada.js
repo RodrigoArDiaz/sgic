@@ -22,6 +22,9 @@ import * as Responses from "../Responses";
 
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { EditOutlined } from "@mui/icons-material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
 
 export const ModificarCursada = (props) => {
   //Para estilos segun tamaño screen
@@ -260,13 +263,13 @@ export const ModificarCursada = (props) => {
     ) {
       return (
         <Button variant="contained" onClick={Modificar}>
-          Modificar
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Modificar
+          Aceptar
         </Button>
       );
     }
@@ -446,8 +449,14 @@ export const ModificarCursada = (props) => {
     <>
       <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <EditIcon />
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={handleOpen}
+            // sx={{ color: "icons.edit" }}
+          >
+            {/* <EditTwoToneIcon /> */}
+            <EditOutlined />
           </IconButton>
         </span>
       </Tooltip>
@@ -463,11 +472,14 @@ export const ModificarCursada = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar cursada</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <EditOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar cursada
+        </DialogTitle>
         <DialogContent>
-          {/* <DialogContentText>
-            Ingrese los datos para crear la cursada.
-          </DialogContentText> */}
+          <DialogContentText>
+            {props.Materia} - {props.anio} - {props.semestre}
+          </DialogContentText>
 
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -564,6 +576,7 @@ export const ModificarCursada = (props) => {
                 (eprograma === "1" && <BotonEstadoRegistro estado={"1"} />) ||
                 (eprograma === "2" && <BotonEstadoRegistro estado={"2"} />)
               }
+              startAdornment={<AddLinkOutlinedIcon sx={{ marginRight: 1 }} />}
             />
 
             {/* {eprograma === "1" && <BotonEstadoRegistro estado={"1"} />}
@@ -799,7 +812,9 @@ export const ModificarCursada = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

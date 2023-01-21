@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, DialogContentText, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import ViewListIcon from "@mui/icons-material/ViewList";
@@ -10,6 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useModal } from "../../useModal";
 import ParametrosContenedorLista from "./ParametrosContenedorLista";
 import { useTheme } from "@emotion/react";
+import { ViewListOutlined } from "@mui/icons-material";
 
 export const ListarParametros = (props) => {
   //Para estilos segun tamaño screen
@@ -22,8 +23,13 @@ export const ListarParametros = (props) => {
     <>
       <Tooltip title="Listar parámetros" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
-            <ViewListIcon />
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={handleOpen}
+            // sx={{ color: "icons.secondary" }}
+          >
+            <ViewListOutlined />
           </IconButton>
         </span>
       </Tooltip>
@@ -38,10 +44,14 @@ export const ListarParametros = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>
-          Parametros de {props.Materia} - {props.anio}- {props.semestre}
+        <DialogTitle display="flex" flexDirection="row">
+          <ViewListOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Lista de parámetros
         </DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            {props.Materia} - {props.anio} - {props.semestre}
+          </DialogContentText>
           <ParametrosContenedorLista
             idcursada={props.idcursada}
             semestre={props.semestre}
@@ -50,8 +60,8 @@ export const ListarParametros = (props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
-            Cerrar
+          <Button variant="contained" color="primary" onClick={handleClose}>
+            Aceptar
           </Button>
         </DialogActions>
       </Dialog>

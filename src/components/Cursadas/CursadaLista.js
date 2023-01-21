@@ -15,10 +15,11 @@ import { BotonPrograma } from "./BotonPrograma.js";
 import { BotonTipo } from "./BotonTipo.js";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 import FilasPorPagina from "./FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -34,6 +35,13 @@ const columns = [
   {
     id: "Semestre",
     label: "Semestre",
+    minWidth: 20,
+    align: "center",
+  },
+
+  {
+    id: "Estado",
+    label: "Estado",
     minWidth: 20,
     align: "center",
   },
@@ -66,15 +74,8 @@ const columns = [
   },
 
   {
-    id: "EscalaPracticos",
-    label: "Escala",
-    minWidth: 20,
-    align: "center",
-  },
-
-  {
-    id: "PorcentajeNotaTotalPracticos",
-    label: "%/Total",
+    id: "MaximoIntGrupos",
+    label: "Máximo integrantes",
     minWidth: 20,
     align: "center",
   },
@@ -87,15 +88,15 @@ const columns = [
   },
 
   {
-    id: "MaximoIntGrupos",
-    label: "Máximo integrantes",
+    id: "EscalaPracticos",
+    label: "Escala",
     minWidth: 20,
     align: "center",
   },
 
   {
-    id: "Estado",
-    label: "Estado",
+    id: "PorcentajeNotaTotalPracticos",
+    label: "%/Total",
     minWidth: 20,
     align: "center",
   },
@@ -120,9 +121,10 @@ export default function StickyHeadTable(props) {
 
   return (
     <>
+      {/* Tabla  */}
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de cursadas" sx={{ mb: "1rem" }} size="small">
-          <TableHead>
+        <Table aria-label="Lista de cursadas" size="small">
+          <TableHead sx={{ backgroundColor: "icons.bg" }}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
@@ -220,6 +222,20 @@ export default function StickyHeadTable(props) {
                       );
                     }
 
+                    if (column.id === "MaximoIntGrupos") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          sx={estilosCell}
+                          align={column.align}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    }
+
                     if (column.id === "CalculoPracticos") {
                       return (
                         <TableCell
@@ -264,14 +280,17 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      {/* Paginacion */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -280,49 +299,33 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </Grid>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
-          Resultados: {props.resultados}
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </>
