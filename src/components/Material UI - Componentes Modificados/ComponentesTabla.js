@@ -39,10 +39,37 @@ const TableCell1em = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const TableCellHead = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.icons.bg,
+    // color: theme.palette.common.white,
+    // borderTop: "rgba(224, 224, 224, 1)",
+    borderTop: "1px solid rgba(224, 224, 224, 1)",
+  },
+  [`&.${tableCellClasses.body}`]: {
+    // fontSize: 14,
+    // borderTop: "rgba(224, 224, 224, 1)",
+  },
+}));
+
+const TableRowHead = styled(TableRow)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    // backgroundColor: theme.palette.icons.bg,
+    // color: theme.palette.common.white,
+    border: "rgba(224, 224, 224, 1)",
+  },
+  [`&.${tableCellClasses.body}`]: {
+    // fontSize: 14,
+    border: "rgba(224, 224, 224, 1)",
+  },
+}));
+
 export {
   TableRowElevacion,
   TableCellMedium,
   TableCellDestacada,
   TableCellComun,
   TableCell1em,
+  TableCellHead,
+  TableRowHead,
 };

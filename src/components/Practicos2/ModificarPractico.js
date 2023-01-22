@@ -153,24 +153,17 @@ export const ModificarPractico = (props) => {
     if (epractico === "1" && enotaminima === "1") {
       return (
         <Button variant="contained" onClick={Modificar}>
-          Modificar
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Modificar
+          Aceptar
         </Button>
       );
     }
   }
-
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
 
   const estiloFormControl = {
     width: "100%",
@@ -180,10 +173,6 @@ export const ModificarPractico = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioFV(param) {
@@ -215,7 +204,10 @@ export const ModificarPractico = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar trabajo práctico</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar trabajo práctico
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para modificar el trabajo práctico.

@@ -74,7 +74,10 @@ export const BorrarPractico = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Borrar trabajo práctico</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar trabajo práctico
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar el trabajo práctico?

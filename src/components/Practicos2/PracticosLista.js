@@ -11,15 +11,22 @@ import { esES } from "@mui/material/locale";
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import Pagination from "@mui/material/Pagination";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 // import FilasPorPagina from "../Catedras/FilasPorPagina";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
-import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCellHead,
+  TableRowElevacion,
+  TableRowHead,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
 import { estilosBotonNavegacion } from "../../styles/EstilosPaginacion";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
 import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
+import { validateYupSchema } from "formik";
+import { ChipCustom } from "../Material UI - Componentes Modificados/ChipCustom";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -88,19 +95,19 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de practicos" sx={{ mb: "1rem" }} size="small">
-          <TableHead>
-            <TableRow>
+        <Table aria-label="Lista de practicos" size="small">
+          <TableHead sx={{ backgroundColor: "icons.bg" }}>
+            <TableRowHead>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
-            </TableRow>
+            </TableRowHead>
           </TableHead>
           <TableBody>
             {props.filas.res.map((row) => {
@@ -143,9 +150,34 @@ export default function StickyHeadTable(props) {
                           align={column.align}
                           sx={estilosCell}
                         >
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+
+                          {/* Compruebo si es fecha */}
+                          {!value || value.split("-").length < 3 ? (
+                            <ChipCustom
+                              size="large"
+                              // icon={<CalendarTodayIcon fontSize="small" />}
+                              label="-"
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          ) : (
+                            <ChipCustom
+                              size="large"
+                              icon={<CalendarTodayIcon fontSize="small" />}
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          )}
                         </TableCell>
                       );
                     }
@@ -157,9 +189,33 @@ export default function StickyHeadTable(props) {
                           align={column.align}
                           sx={estilosCell}
                         >
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+
+                          {!value || value.split("-").length < 3 ? (
+                            <ChipCustom
+                              size="large"
+                              // icon={<CalendarTodayIcon fontSize="small" />}
+                              label="-"
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          ) : (
+                            <ChipCustom
+                              size="large"
+                              icon={<CalendarTodayIcon fontSize="small" />}
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          )}
                         </TableCell>
                       );
                     }
@@ -223,8 +279,17 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+
+      {/* Paginacion */}
+
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -235,7 +300,40 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <ContenedorFilasPorPagina>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
+
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* <ContenedorFilasPorPagina>
           Filas por página:
           {
             <FilasPorPagina
@@ -247,7 +345,7 @@ export default function StickyHeadTable(props) {
 
         <ContenedorResultados>
           Resultados: {props.resultados}
-        </ContenedorResultados>
+        </ContenedorResultados> */}
       </Grid>
     </>
   );

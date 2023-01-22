@@ -69,7 +69,7 @@ export default function BuscarPracticos(props) {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="practico"
@@ -97,7 +97,7 @@ export default function BuscarPracticos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="orden"
@@ -129,7 +129,12 @@ export default function BuscarPracticos(props) {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox defaultChecked name="bajas" onChange={handleChecked} />
+              <Checkbox
+                defaultChecked
+                name="bajas"
+                color="primary"
+                onChange={handleChecked}
+              />
             }
             label="Incluir bajas"
           />
@@ -138,14 +143,14 @@ export default function BuscarPracticos(props) {
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
         <Button
-          startIcon={<SearchIcon />}
+          // startIcon={<SearchIcon />}
           color="primary"
           variant="outlined"
           onClick={() => {
             manejador();
           }}
         >
-          Buscar
+          <SearchIcon />
         </Button>
       </Grid>
     </Grid>

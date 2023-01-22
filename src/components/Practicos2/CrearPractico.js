@@ -121,13 +121,13 @@ export const CrearPractico = (props) => {
     if (epractico === "1" && enotaminima === "1") {
       return (
         <Button variant="contained" onClick={Crear}>
-          Crear
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Crear
+          Aceptar
         </Button>
       );
     }
@@ -184,7 +184,10 @@ export const CrearPractico = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Crear trabajo práctico</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear trabajo práctico
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para crear el trabajo práctico.
@@ -274,7 +277,7 @@ export const CrearPractico = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <FormControl
                 fullWidth
                 sx={estiloFormControlSelect}
@@ -286,7 +289,7 @@ export const CrearPractico = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <FormControl
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}

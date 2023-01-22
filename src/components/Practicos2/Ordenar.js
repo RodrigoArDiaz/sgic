@@ -99,7 +99,10 @@ export default function Ordenar(props) {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Ordenar trabajos prácticos</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <SortIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Ordenar trabajos prácticos
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Arrastre el trabajo práctico hacia el lugar deseado.
@@ -142,7 +145,7 @@ export default function Ordenar(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
-            Volver
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>

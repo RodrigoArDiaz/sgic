@@ -14,7 +14,10 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Grid } from "@mui/material";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
-import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCellHead,
+  TableRowElevacion,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
 import { TableCell1em } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
@@ -94,13 +97,13 @@ export default function StickyHeadTable(props) {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
