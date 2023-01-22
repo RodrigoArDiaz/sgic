@@ -16,9 +16,12 @@ const theme = createTheme({
     //Paleta del color primario
     primary: {
       //Principales
-      main: teal[800],
-      light: "#4fb3bf",
-      dark: "#005662",
+      // main: teal[800],
+      // light: "#4fb3bf",
+      // dark: "#005662",
+      main: teal[500],
+      light: "#52c7b8",
+      dark: "#00675b",
       //Escalas
       light50: teal[50],
       main50: teal[50],
@@ -41,8 +44,8 @@ const theme = createTheme({
     secondary: {
       //Principales
       main: blue[700],
-      light: "#8e99f3",
-      dark: "#26418f",
+      light: "#63a3ff",
+      dark: "#004a9f",
 
       //Escalas
       light400: blue[400],
