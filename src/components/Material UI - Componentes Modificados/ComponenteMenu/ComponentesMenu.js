@@ -181,12 +181,12 @@ export const ListMenu = styled(List)(({ theme }) => ({
 export const ListItemMenu = styled(ListItem)(({ theme }) => ({
   boxSizing: "border-box",
 
-  borderRadius: "10px",
+  borderRadius: "4px",
   marginTop: "0.5rem",
   border: "1px solid rgba(0, 0, 0, 0)",
 
   "&:hover": {
-    borderRadius: "10px",
+    borderRadius: "4px",
 
     // borderColor: `${teal[300]}`,
     // "& .MuiListItemIcon-root": { color: `${teal[300]}` },
