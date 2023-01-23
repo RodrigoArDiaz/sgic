@@ -184,24 +184,17 @@ export const ModificarExamen = (props) => {
     if (eexamen === "1" && enotaminima === "1" && etipo === "1") {
       return (
         <Button variant="contained" onClick={Modificar}>
-          Modificar
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Modificar
+          Aceptar
         </Button>
       );
     }
   }
-
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
 
   const estiloFormControl = {
     width: "100%",
@@ -211,10 +204,6 @@ export const ModificarExamen = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioFV(param) {
@@ -257,7 +246,10 @@ export const ModificarExamen = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar examen</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar examen
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para modificar el examen.
@@ -345,7 +337,7 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <FormControl
                 fullWidth
                 sx={estiloFormControlSelect}
@@ -361,7 +353,7 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <FormControl
                 fullWidth
                 sx={estiloFormControlSelect}
@@ -380,7 +372,7 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <FormControl
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}

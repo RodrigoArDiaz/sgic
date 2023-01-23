@@ -97,7 +97,10 @@ export default function OrdenarTipo(props) {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Seleccione el tipo de examen</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <SortIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Seleccione el tipo de examen
+        </DialogTitle>
         <DialogContent>
           <Grid>
             {cargando === "1" && (
@@ -132,7 +135,7 @@ export default function OrdenarTipo(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
-            Cerrar
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>

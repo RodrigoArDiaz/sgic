@@ -12,7 +12,7 @@ import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableCellHead,
@@ -22,6 +22,8 @@ import { TableCell1em } from "../Material UI - Componentes Modificados/Component
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
 import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
+import { ChipCustom } from "../Material UI - Componentes Modificados/ChipCustom";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 const columns = [
   {
@@ -81,6 +83,12 @@ export default function StickyHeadTable(props) {
     if (param === "F") return "Final";
   }
 
+  function TipoChip(param) {
+    if (param === "P") return "info";
+    if (param === "Q") return "warning";
+    if (param === "F") return "success";
+  }
+
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
@@ -93,7 +101,7 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de examenes" sx={{ mb: "1rem" }} size="small">
+        <Table aria-label="Lista de examenes" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -136,9 +144,15 @@ export default function StickyHeadTable(props) {
                     if (column.id === "Tipo") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : Tipo(value)}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            <Chip
+                              variant="outlined"
+                              color={TipoChip(value)}
+                              label={Tipo(value)}
+                            />
+                          )}
                         </TableCell1em>
                       );
                     }
@@ -146,9 +160,32 @@ export default function StickyHeadTable(props) {
                     if (column.id === "FechaVencimiento") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+                          {!value || value.split("-").length < 3 ? (
+                            <ChipCustom
+                              size="large"
+                              // icon={<CalendarTodayIcon fontSize="small" />}
+                              label="-"
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          ) : (
+                            <ChipCustom
+                              size="large"
+                              icon={<CalendarTodayIcon fontSize="small" />}
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          )}
                         </TableCell1em>
                       );
                     }
@@ -203,8 +240,14 @@ export default function StickyHeadTable(props) {
       </TableContainer>
 
       {/* Paginación */}
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -215,6 +258,39 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
+
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
+        {/* 
         <ContenedorFilasPorPagina>
           Filas por página:
           {
@@ -227,7 +303,7 @@ export default function StickyHeadTable(props) {
 
         <ContenedorResultados>
           Resultados: {props.resultados}
-        </ContenedorResultados>
+        </ContenedorResultados> */}
       </Grid>
     </>
   );

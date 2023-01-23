@@ -12,6 +12,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Grid, Paper } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import SortIcon from "@mui/icons-material/Sort";
 import { useTheme } from "@emotion/react";
 //Responses
 import * as Responses from "../Responses";
@@ -98,7 +99,10 @@ export default function Ordenar(props) {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Ordenar exámenes</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <SortIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Ordenar exámenes
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Arrastre el examen hacia el lugar deseado.
@@ -143,7 +147,9 @@ export default function Ordenar(props) {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Volver</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Volver
+          </Button>
         </DialogActions>
       </Dialog>
     </>

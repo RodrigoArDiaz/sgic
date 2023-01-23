@@ -75,7 +75,10 @@ export const BorrarExamen = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Borrar examen</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar examen
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar el examen?
@@ -85,7 +88,7 @@ export const BorrarExamen = (props) => {
           <Button variant="contained" onClick={BorrarExamen}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

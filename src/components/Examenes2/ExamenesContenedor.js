@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContent, Box } from "@mui/material";
+import { CardContent, Box, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import ExamenesLista from "./ExamenesLista";
 import { CrearExamen } from "./CrearExamen";
@@ -211,116 +211,133 @@ export default function ExamenesContenedor(props) {
   }, []);
 
   return (
-    <CardMainPage icon="assignment" title="Exámenes" bgColorIcon={blue[500]}>
-      <CardContent>
-        <Grid container>
-          <Grid container direction="row-reverse">
-            {/* CrearExamen */}
-            <Grid item xs={12} sm={2} md={2}>
-              <Grid
-                container
-                paddingX={2}
-                // paddingY={1}
-                paddingBottom={1}
-                justifyContent="flex-end"
-              >
-                <Grid item xs={12}>
-                  <CrearExamen
-                    refrescar={Refrescar}
-                    parametros={parametros}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    cursada={cursada}
-                  />
+    <>
+      <Box paddingBottom={2}>
+        <Typography
+          variant="h2"
+          sx={{
+            margin: "0px",
+            fontWeight: "500",
+            fontSize: "1.775rem",
+            lineHeight: "1.27",
+            fontFamily: "Public Sans, sans-serif",
+          }}
+        >
+          Exámenes
+        </Typography>
+      </Box>
+      <CardMainPage visibleHeader={false}>
+        <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
+          <Grid container>
+            <Grid container direction="row-reverse">
+              {/* CrearExamen */}
+              <Grid item>
+                <Grid
+                  container
+                  paddingX={2}
+                  // paddingY={1}
+                  paddingBottom={1}
+                  justifyContent="flex-end"
+                >
+                  <Grid item xs={12}>
+                    <CrearExamen
+                      refrescar={Refrescar}
+                      parametros={parametros}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                      cursada={cursada}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            {/* <OrdenarPracticos /> */}
-            <Grid item xs={12} sm={2} md={1}>
-              <Grid
-                container
-                paddingX={2}
-                // paddingY={1}
-                paddingBottom={1}
-                justifyContent="flex-end"
-              >
-                <Grid item xs={12}>
-                  <OrdenarTipo
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    cursada={cursada}
-                  />
+              {/* <OrdenarPracticos /> */}
+              <Grid item>
+                <Grid
+                  container
+                  paddingX={2}
+                  // paddingY={1}
+                  paddingBottom={1}
+                  justifyContent="flex-end"
+                >
+                  <Grid item xs={12}>
+                    <OrdenarTipo
+                      refrescar={Refrescar}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                      cursada={cursada}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
+              {/* Buscar practicos */}
+              <Grid
+                item
+                // xs={12}
+                // sm={12}
+                // md={8}
+                // lg={9}
+                // xl={10}
+                // paddingY={1}
+                paddingBottom={1}
+                paddingX={2}
+                marginRight="auto"
+              >
+                <BuscarExamenes
+                  cursada={cursada}
+                  actualizar={BuscarAl}
+                  filasxpagina={filasxpagina}
+                />
+              </Grid>
             </Grid>
-            {/* Buscar practicos */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              lg={9}
-              // xl={10}
-              // paddingY={1}
-              paddingBottom={1}
-              paddingX={2}
-            >
-              <BuscarExamenes
-                cursada={cursada}
-                actualizar={BuscarAl}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
+
+            {cargando === "4" && <h4>Debe configurar parámetros de examen</h4>}
+
+            {cargando === "3" && <h4>No se encontraron resultados</h4>}
+
+            {cargando === "1" && (
+              <Grid container paddingTop={1}>
+                <Grid item xs={12}>
+                  <Box component="div" display="flex" justifyContent="center">
+                    {/* <PropagateLoader color={color} size={15} /> */}
+                    <MoonLoader color={color} size={60} />
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+
+            {cargando === "2" && (
+              <Grid container pt={1}>
+                <ExamenesLista
+                  filas={filas}
+                  filasxpagina={filasxpagina}
+                  pagina={pagina}
+                  paginacion={paginacion}
+                  resultados={resultados}
+                  actualizarpagina={CambioPagina}
+                  actualizarfilas={CambioFPP}
+                  refrescar={Refrescar}
+                  cursada={cursada}
+                  abrir={setAbrir}
+                  mensaje={setMensaje}
+                  tipo={setTipo}
+                  parametros={parametros}
+                />
+              </Grid>
+            )}
+
+            <div>
+              <SnackMensajes
+                abrir={abrir}
+                mensaje={mensaje}
+                tipo={tipo}
+                cerrar={setAbrir}
+              />{" "}
+            </div>
           </Grid>
-
-          {cargando === "4" && <h4>Debe configurar parámetros de examen</h4>}
-
-          {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
-          {cargando === "1" && (
-            <Grid container paddingTop={2}>
-              <Grid item xs={12}>
-                <Box component="div" display="flex" justifyContent="center">
-                  {/* <PropagateLoader color={color} size={15} /> */}
-                  <MoonLoader color={color} size={60} />
-                </Box>
-              </Grid>
-            </Grid>
-          )}
-
-          {cargando === "2" && (
-            <Grid container pt={2}>
-              <ExamenesLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                cursada={cursada}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-                parametros={parametros}
-              />
-            </Grid>
-          )}
-
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMainPage>
+        </CardContent>
+      </CardMainPage>
+    </>
   );
 }
