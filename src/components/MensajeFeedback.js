@@ -3,7 +3,7 @@ import { Alert, AlertTitle, ListItem, ListItemText } from "@mui/material";
 
 const MensajeFeedback = ({ tipo, children, alertTitleVisible }) => {
   return (
-    <ListItem key="0" sx={{ paddingX: "0" }}>
+    <ListItem key="0" sx={{ paddingX: "0", paddingY: "0" }}>
       <ListItemText>
         <Alert
           severity={tipo}

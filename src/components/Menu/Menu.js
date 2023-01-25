@@ -89,8 +89,8 @@ export default function Menu() {
         open={open}
         // color="primary"
         sx={{
-          // paddingLeft: "5.5px",
-          // backgroundColor: "transparent",
+          // color: "rgb(255,255,255)",
+          // backgroundColor: "secondary.main",
           backgroundColor: "#fff",
           boxShadow: "none",
           backdropFilter: "blur(6px)",
@@ -103,22 +103,33 @@ export default function Menu() {
           <IconButton
             size="medium"
             // color="inherit"
-            color="tertiary"
+            // color="tertiary"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
             edge="center"
             sx={{
-              // marginRight: "36px",
-              color: "text.bodysecondary",
               borderRadius: "4px",
               backgroundColor: "icons.bg",
+              // backgroundColor: "primary.main600",
             }}
             disableFocusRipple
           >
             {open ? (
-              <MenuOpenIcon sx={{ fontSize: 24, color: "icons.main" }} />
+              <MenuOpenIcon
+                sx={{
+                  fontSize: 24,
+                  color: "icons.main",
+                  // color: "rgb(255,255,255)",
+                }}
+              />
             ) : (
-              <MenuIcon sx={{ fontSize: 24, color: "icons.main" }} />
+              <MenuIcon
+                sx={{
+                  fontSize: 24,
+                  color: "icons.main",
+                  // color: "rgb(255,255,255)",
+                }}
+              />
             )}
           </IconButton>
           <TypographyTitulo
@@ -129,6 +140,7 @@ export default function Menu() {
               flexGrow: "1",
               // paddingX: { xs: 0, sm: 3 },
               marginLeft: 1,
+              // color: "rgb(255,255,255)",
             }}
           >
             {titulo}

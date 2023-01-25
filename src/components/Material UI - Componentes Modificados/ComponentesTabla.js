@@ -42,8 +42,9 @@ const TableCell1em = styled(TableCell)(({ theme }) => ({
 const TableCellHead = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.icons.bg,
-    // color: theme.palette.common.white,
-    // borderTop: "rgba(224, 224, 224, 1)",
+    // backgroundColor: theme.palette.primary.main,
+    // color: "rgb(255,255,255)",
+
     borderTop: "1px solid rgba(224, 224, 224, 1)",
   },
   [`&.${tableCellClasses.body}`]: {

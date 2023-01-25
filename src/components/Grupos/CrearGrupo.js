@@ -94,13 +94,13 @@ export const CrearGrupo = (props) => {
     if (egrupo === "1" && emodulo === "1" && etema === "1") {
       return (
         <Button variant="contained" onClick={Crear}>
-          Crear
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Crear
+          Aceptar
         </Button>
       );
     }
@@ -133,7 +133,10 @@ export const CrearGrupo = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Crear grupo</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear grupo
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para crear el grupo.

@@ -73,7 +73,7 @@ export default function BuscarGrupos(props) {
   return (
     <>
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <Grid item>
           <FormControl fullWidth>
             <OutlinedInputSearch
               id="grupo"
@@ -101,7 +101,7 @@ export default function BuscarGrupos(props) {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <Grid item>
           <FormControl fullWidth>
             <OutlinedInputSearch
               id="tema"
@@ -129,7 +129,7 @@ export default function BuscarGrupos(props) {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6} lg={3} xl={3}>
+        <Grid item>
           <FormControl fullWidth>
             <OutlinedInputSearch
               id="modulo"
@@ -174,14 +174,14 @@ export default function BuscarGrupos(props) {
 
         <Grid item xs="auto" sm="auto" alignSelf="center">
           <Button
-            startIcon={<SearchIcon />}
+            // startIcon={<SearchIcon />}
             color="primary"
             variant="outlined"
             onClick={() => {
               manejador();
             }}
           >
-            Buscar
+            <SearchIcon />
           </Button>
         </Grid>
       </Grid>

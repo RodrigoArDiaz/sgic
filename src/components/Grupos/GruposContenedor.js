@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { CardContent, Paper, Typography, Box } from "@mui/material";
+import { CardContent, Paper, Typography, Box, AlertTitle } from "@mui/material";
 import { Grid } from "@mui/material";
 import { blue, teal } from "@mui/material/colors";
 //
@@ -13,6 +13,7 @@ import * as Responses from "../Responses";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function InscripcionesContenedor(props) {
   const color = teal[400];
@@ -176,125 +177,123 @@ export default function InscripcionesContenedor(props) {
       });
   }, []);
 
-  if (cursada.TieneGrupos === "N") {
-    return (
-      <Paper
-        component="div"
-        sx={{
-          p: "4px 4px",
-          // display: 'flex',
-          alignItems: "center",
-          width: "95%",
-          mt: "10px",
-          px: 2,
-          pb: 3,
-          // minHeight: "75vh",
-        }}
-        elevation={3}
-      >
-        <Grid container pt={30} spacing={8}>
-          <Grid item xs={9}>
-            <Typography variant="h4">La cursada no admite grupos</Typography>
-          </Grid>
-        </Grid>
-
-        <Grid container pt={30} spacing={8}>
-          <Grid item xs={9}>
-            <Typography variant="h4"></Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    );
-  }
-
   return (
-    <CardMainPage
-      icon="supervisor_account"
-      title="Grupos"
-      bgColorIcon={blue[500]}
-    >
-      <CardContent>
-        <Grid container>
-          <Grid container direction="row-reverse">
-            {/* Crear grupo */}
-            <Grid item xs={12} sm={2} md={2}>
-              <Grid
-                container
-                paddingX={2}
-                // paddingY={1}
-                paddingBottom={1}
-                justifyContent="flex-end"
-              >
-                <Grid item xs={12}>
-                  <CrearGrupo
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    cursada={cursada}
-                  />
+    <>
+      <>
+        <Box paddingBottom={2}>
+          <Typography
+            variant="h2"
+            sx={{
+              margin: "0px",
+              fontWeight: "500",
+              fontSize: "1.775rem",
+              lineHeight: "1.27",
+              fontFamily: "Public Sans, sans-serif",
+            }}
+          >
+            Grupos
+          </Typography>
+        </Box>
+
+        {cursada.TieneGrupos === "N" ? (
+          <MensajeFeedback>
+            {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+            La cursada no admite grupos
+          </MensajeFeedback>
+        ) : (
+          <CardMainPage visibleHeader={false}>
+            <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
+              <Grid container>
+                <Grid container direction="row-reverse">
+                  {/* Crear grupo */}
+                  <Grid item>
+                    <Grid
+                      container
+                      paddingX={2}
+                      // paddingY={1}
+                      paddingBottom={1}
+                      justifyContent="flex-end"
+                    >
+                      <Grid item xs={12}>
+                        <CrearGrupo
+                          refrescar={Refrescar}
+                          abrir={setAbrir}
+                          mensaje={setMensaje}
+                          tipo={setTipo}
+                          cursada={cursada}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  {/* Buscar grupo */}
+                  <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
+                    <BuscarGrupos
+                      cursada={cursada}
+                      actualizar={BuscarAl}
+                      filasxpagina={filasxpagina}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            {/* Buscar grupo */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              lg={10}
-              // xl={10}
-              // paddingY={1}
-              paddingBottom={1}
-              paddingX={2}
-            >
-              <BuscarGrupos
-                cursada={cursada}
-                actualizar={BuscarAl}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
-          </Grid>
 
-          {cargando === "3" && <h4>No se encontraron resultados</h4>}
-          {cargando === "1" && (
-            <Grid container paddingTop={2}>
-              <Grid item xs={12}>
-                <Box component="div" display="flex" justifyContent="center">
-                  <MoonLoader color={color} size={60} />
-                </Box>
-              </Grid>
-            </Grid>
-          )}
-          {cargando === "2" && (
-            <Grid container pt={2}>
-              <GruposLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                cursada={cursada}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-              />
-            </Grid>
-          )}
+                {cargando === "1" && (
+                  <Grid container paddingTop={1}>
+                    <Grid item xs={12}>
+                      <Box
+                        component="div"
+                        display="flex"
+                        justifyContent="center"
+                      >
+                        <MoonLoader color={color} size={60} />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                )}
 
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMainPage>
+                {cargando === "2" && (
+                  <Grid container pt={1}>
+                    <GruposLista
+                      filas={filas}
+                      filasxpagina={filasxpagina}
+                      pagina={pagina}
+                      paginacion={paginacion}
+                      resultados={resultados}
+                      actualizarpagina={CambioPagina}
+                      actualizarfilas={CambioFPP}
+                      refrescar={Refrescar}
+                      cursada={cursada}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                    />
+                  </Grid>
+                )}
+
+                {cargando === "3" && (
+                  <Grid container paddingTop={1}>
+                    <Grid item xs={12}>
+                      <Box paddingX={2}>
+                        <MensajeFeedback>
+                          {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                          No se encontraron resultados.
+                        </MensajeFeedback>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                )}
+
+                <div>
+                  <SnackMensajes
+                    abrir={abrir}
+                    mensaje={mensaje}
+                    tipo={tipo}
+                    cerrar={setAbrir}
+                  />{" "}
+                </div>
+              </Grid>
+            </CardContent>
+          </CardMainPage>
+        )}
+      </>
+    </>
   );
 }

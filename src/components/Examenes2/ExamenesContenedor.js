@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { blue, teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function ExamenesContenedor(props) {
   const color = teal[400];
@@ -226,6 +227,7 @@ export default function ExamenesContenedor(props) {
           Exámenes
         </Typography>
       </Box>
+
       <CardMainPage visibleHeader={false}>
         <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
           <Grid container>
@@ -292,10 +294,6 @@ export default function ExamenesContenedor(props) {
               </Grid>
             </Grid>
 
-            {cargando === "4" && <h4>Debe configurar parámetros de examen</h4>}
-
-            {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
             {cargando === "1" && (
               <Grid container paddingTop={1}>
                 <Grid item xs={12}>
@@ -324,6 +322,32 @@ export default function ExamenesContenedor(props) {
                   tipo={setTipo}
                   parametros={parametros}
                 />
+              </Grid>
+            )}
+
+            {cargando === "3" && (
+              <Grid container paddingTop={1}>
+                <Grid item xs={12}>
+                  <Box paddingX={2}>
+                    <MensajeFeedback>
+                      {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                      No se encontraron resultados.
+                    </MensajeFeedback>
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+
+            {cargando === "4" && (
+              <Grid container paddingTop={1}>
+                <Grid item xs={12}>
+                  <Box paddingX={2}>
+                    <MensajeFeedback>
+                      {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                      Debe configurar los parámetros de los exámenes.
+                    </MensajeFeedback>
+                  </Box>
+                </Grid>
               </Grid>
             )}
 

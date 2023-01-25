@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 //Componentes propios
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
@@ -19,6 +19,7 @@ import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableRowElevacion,
   TableCell1em,
+  TableCellHead,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
@@ -73,17 +74,17 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de grupos" sx={{ mb: "1rem" }} size="small">
+        <Table aria-label="Lista de grupos" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -106,9 +107,10 @@ export default function StickyHeadTable(props) {
                     if (column.id === "Tema") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+                          {!value || value.length == 0 ? "-" : value}
                         </TableCell1em>
                       );
                     }
@@ -116,9 +118,10 @@ export default function StickyHeadTable(props) {
                     if (column.id === "Modulo") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+                          {!value || value.length == 0 ? "-" : value}
                         </TableCell1em>
                       );
                     }
@@ -160,8 +163,14 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -172,19 +181,38 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <ContenedorFilasPorPagina>
-          Filas por página:
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </ContenedorFilasPorPagina>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <ContenedorResultados>
-          Resultados: {props.resultados}
-        </ContenedorResultados>
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );

@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { blue, teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function PracticosContenedor(props) {
   const color = teal[400];
@@ -271,8 +272,6 @@ export default function PracticosContenedor(props) {
               </Grid>
             </Grid>
 
-            {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
             {cargando === "1" && (
               <Grid container paddingTop={4}>
                 <Grid item xs={12}>
@@ -305,6 +304,19 @@ export default function PracticosContenedor(props) {
             )}
           </Grid>
 
+          {cargando === "3" && (
+            <Grid container paddingTop={1}>
+              <Grid item xs={12}>
+                <Box paddingX={2}>
+                  <MensajeFeedback>
+                    {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                    No se encontraron resultados.
+                  </MensajeFeedback>
+                </Box>
+              </Grid>
+            </Grid>
+          )}
+
           <div>
             <SnackMensajes
               abrir={abrir}
@@ -314,81 +326,6 @@ export default function PracticosContenedor(props) {
             />{" "}
           </div>
         </CardContent>
-
-        {/* <Grid container pt={10} spacing={8}>
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <CrearPractico
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            // cursada={props.cursada}
-            cursada={cursada}
-          />
-        </Grid>
-
-        <Grid sx={{ mt: 1 }} item xs={3}>
-          <Ordenar
-            refrescar={Refrescar}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-            // cursada={props.cursada}
-            cursada={cursada}
-          />
-        </Grid>
-      </Grid> */}
-
-        {/* <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-        <Grid item xs={12}>
-          <BuscarPracticos
-            // cursada={props.cursada}
-            cursada={cursada}
-            actualizar={BuscarAl}
-            filasxpagina={filasxpagina}
-          />
-        </Grid>
-      </Grid> */}
-
-        {/* {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
-      {cargando === "1" && (
-        <Grid container pt={2}>
-          <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-            <LinearProgress color="inherit" />
-          </Stack>
-        </Grid>
-      )}
-      {cargando === "2" && (
-        <Grid container pt={2}>
-          <PracticosLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            // cursada={props.cursada}
-            cursada={cursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
-      )}
-
-      <div>
-        <SnackMensajes
-          abrir={abrir}
-          mensaje={mensaje}
-          tipo={tipo}
-          cerrar={setAbrir}
-        />{" "}
-      </div> */}
       </CardMainPage>
     </>
   );

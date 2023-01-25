@@ -138,14 +138,14 @@ export default function BuscarExamenes(props) {
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
         <Button
-          startIcon={<SearchIcon />}
+          // startIcon={<SearchIcon />}
           color="primary"
           variant="outlined"
           onClick={() => {
             manejador();
           }}
         >
-          Buscar
+          <SearchIcon />
         </Button>
       </Grid>
     </Grid>

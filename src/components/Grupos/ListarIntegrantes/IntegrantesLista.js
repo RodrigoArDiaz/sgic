@@ -10,7 +10,10 @@ import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 //
 import { BorrarDeGrupo } from "./BorrarDeGrupo";
-import { TableRowElevacion } from "../../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCellHead,
+  TableRowElevacion,
+} from "../../Material UI - Componentes Modificados/ComponentesTabla";
 
 const columns = [
   {
@@ -65,21 +68,17 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table
-          aria-label="Lista de integrantes"
-          sx={{ mb: "1rem" }}
-          size="small"
-        >
+        <Table aria-label="Lista de integrantes" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>

@@ -91,13 +91,13 @@ export const ModificarGrupo = (props) => {
     if (egrupo === "1" && emodulo === "1" && etema === "1") {
       return (
         <Button variant="contained" onClick={Modificar}>
-          Modificar
+          Aceptar
         </Button>
       );
     } else {
       return (
         <Button variant="contained" disabled onClick={handleClose}>
-          Modificar
+          Aceptar
         </Button>
       );
     }
@@ -129,7 +129,10 @@ export const ModificarGrupo = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Modificar grupo</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar grupo
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para modificar el grupo.

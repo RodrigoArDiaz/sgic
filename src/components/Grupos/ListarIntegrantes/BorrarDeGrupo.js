@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import DoNotDisturbOnOutlinedIcon from "@mui/icons-material/DoNotDisturbOnOutlined";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import * as Responses from "../../Responses";
 
 export const BorrarDeGrupo = (props) => {
@@ -82,7 +83,12 @@ export const BorrarDeGrupo = (props) => {
               backdropFilter: "blur(0.8px)",
             }}
           >
-            <DialogTitle>Borrar integrante</DialogTitle>
+            <DialogTitle display="flex" flexDirection="row">
+              <DoNotDisturbOnOutlinedIcon
+                sx={{ alignSelf: "center", marginRight: 1 }}
+              />
+              Borrar integrante
+            </DialogTitle>
             <DialogContent>
               <DialogContentText>
                 ¿Seguro que desea borrar el alumno del grupo?
@@ -107,8 +113,8 @@ export const BorrarDeGrupo = (props) => {
 
       {est === "2" && (
         <Tooltip title="Borrado">
-          <IconButton aria-label="error" size="small">
-            <Brightness1Icon />
+          <IconButton aria-label="error" size="small" color="error">
+            <HighlightOffIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -116,7 +122,7 @@ export const BorrarDeGrupo = (props) => {
       {est === "3" && (
         <Tooltip title="Cargando">
           <IconButton aria-label="esperando" size="small">
-            <CircularProgress />
+            <CircularProgress size={21} />
           </IconButton>
         </Tooltip>
       )}

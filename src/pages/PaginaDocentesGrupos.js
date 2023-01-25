@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
 import GruposContenedor from "../components/Grupos/GruposContenedor";
-import BuscarGrupos from "../components/Grupos/BuscarGrupos";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
@@ -27,19 +26,25 @@ export default function PaginaDocentesGrupos() {
     };
   }, []);
 
+  //Ruta para breadcrumbs
+  const crumbs = [
+    {
+      nombreRuta: "Inicio",
+      to: "/inicio/docentes/ingreso",
+    },
+    {
+      nombreRuta: "Grupos",
+      to: "",
+    },
+  ];
+
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container rowSpacing={1}>
       <Grid item xs={12}>
         <GridBreadCrumbs container>
-          <BreadCrumbs />
+          <BreadCrumbs crumbs={crumbs} />
         </GridBreadCrumbs>
       </Grid>
-      {/* 
-            <Grid 
-                item xs={12} sm={12} md={10} lg={10}
-            >
-                 <BuscarGrupos/>
-            </Grid> */}
 
       <Grid item xs={12}>
         <GruposContenedor />

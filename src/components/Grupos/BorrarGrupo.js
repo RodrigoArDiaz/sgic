@@ -41,7 +41,7 @@ export const BorrarGrupo = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          // navegar("/ingreso");
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
@@ -77,7 +77,10 @@ export const BorrarGrupo = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Borrar grupo</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar grupo
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar el grupo?

@@ -18,6 +18,7 @@ import * as Responses from "../../Responses";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
 import { teal } from "@mui/material/colors";
+import MensajeFeedback from "../../MensajeFeedback";
 
 export default function ListarIntegrantesContenedor(props) {
   const color = teal[400];
@@ -61,24 +62,25 @@ export default function ListarIntegrantesContenedor(props) {
 
   return (
     <CardMainPage
-      icon="supervisor_account"
-      title={"Integrantes de " + props.grupo.Grupo}
-      bgColorIcon="cyan.main300"
+      // icon="supervisor_account"
+      // title={"Integrantes de " + props.grupo.Grupo}
+      // bgColorIcon="cyan.main300"
+      visibleHeader={false}
     >
-      <CardContent>
+      <CardContent
+        sx={{
+          paddingRight: 0,
+          paddingLeft: 0,
+          "& .MuiCardContent-root:last-child": { paddingBottom: 0 },
+        }}
+      >
         <Grid container>
           {cargando === "3" && (
-            <Grid container pt={2}>
-              <Grid item xs={12}>
-                <ListItem key="0" disablePadding>
-                  <ListItemText>
-                    <Alert severity="info" variant="outlined">
-                      <AlertTitle>No se encontraron resultados</AlertTitle>
-                    </Alert>
-                  </ListItemText>
-                </ListItem>
-              </Grid>
-            </Grid>
+            <Box paddingX={2} sx={{ width: "100%" }}>
+              <MensajeFeedback>
+                El grupo aún no tiene integrantes.
+              </MensajeFeedback>
+            </Box>
           )}
 
           {cargando === "1" && (
@@ -92,7 +94,7 @@ export default function ListarIntegrantesContenedor(props) {
           )}
 
           {cargando === "2" && (
-            <Grid container pt={2}>
+            <Grid container pt={1}>
               <IntegrantesLista
                 filas={filas}
                 cursada={props.cursada}

@@ -11,13 +11,11 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 //
 import ListarIntegrantesContenedor from "./ListarIntegrantes/ListarIntegrantesContenedor";
+import DialogFullCustom from "../Material UI - Componentes Modificados/DialogFullCustom";
 
 export const ListarIntegrantes = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
-  function Volver() {
-    handleClose();
-  }
   return (
     <>
       <Tooltip title="Listar integrantes" TransitionComponent={Zoom} arrow>
@@ -34,27 +32,18 @@ export const ListarIntegrantes = (props) => {
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} fullScreen>
-        {/* <DialogTitle>Integrantes de {props.grupo.Grupo}</DialogTitle> */}
-
-        <DialogContent>
-          <ListarIntegrantesContenedor
-            cursada={props.cursada}
-            grupo={props.grupo}
-          />
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={() => {
-              Volver();
-            }}
-          >
-            Volver
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DialogFullCustom
+        open={isOpen}
+        onClose={handleClose}
+        title="Listar integrantes"
+        subtitle={"Integrantes: " + props.grupo.Grupo}
+        icon="supervisor_account_outlined"
+      >
+        <ListarIntegrantesContenedor
+          cursada={props.cursada}
+          grupo={props.grupo}
+        />
+      </DialogFullCustom>
     </>
   );
 };

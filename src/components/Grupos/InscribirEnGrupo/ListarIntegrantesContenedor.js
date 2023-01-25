@@ -16,6 +16,7 @@ import * as Responses from "../../Responses";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
 import { teal } from "@mui/material/colors";
+import MensajeFeedback from "../../MensajeFeedback";
 
 export default function ListarIntegrantesContenedor(props) {
   const color = teal[400];
@@ -24,7 +25,7 @@ export default function ListarIntegrantesContenedor(props) {
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -186,16 +187,12 @@ export default function ListarIntegrantesContenedor(props) {
   }, []);
 
   return (
-    <CardMainPage
-      icon="redo"
-      title={"Inscribir alumno - " + props.grupo.Grupo}
-      bgColorIcon="cyan.main300"
-    >
-      <CardContent>
+    <CardMainPage visibleHeader={false}>
+      <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
         <Grid container>
-          <Grid container direction="row-reverse">
+          <Grid container direction="row-reverse" justifyContent="start">
             {/* Buscar alumno */}
-            <Grid item xs={12} sm={12} paddingBottom={1} paddingX={2}>
+            <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
               <BuscarAlumnos
                 grupo={props.grupo}
                 cursada={props.cursada}
@@ -206,15 +203,19 @@ export default function ListarIntegrantesContenedor(props) {
           </Grid>
 
           {cargando === "3" && (
-            <Grid container pt={2}>
+            <Grid container pt={1}>
               <Grid item xs={12}>
-                <ListItem key="0" disablePadding>
-                  <ListItemText>
-                    <Alert severity="info" variant="outlined">
-                      <AlertTitle>No se encontraron resultados</AlertTitle>
-                    </Alert>
-                  </ListItemText>
-                </ListItem>
+                <Box paddingX={2}>
+                  <ListItem key="0" disablePadding>
+                    <ListItemText>
+                      <MensajeFeedback>
+                        <AlertTitle> No se encontraron resultados.</AlertTitle>
+                        Todos los alumnos inscriptos en la cursada ya se
+                        encuentran inscripto en un grupo.
+                      </MensajeFeedback>
+                    </ListItemText>
+                  </ListItem>
+                </Box>
               </Grid>
             </Grid>
           )}
@@ -230,7 +231,7 @@ export default function ListarIntegrantesContenedor(props) {
           )}
 
           {cargando === "2" && (
-            <Grid container pt={2}>
+            <Grid container pt={1}>
               <IntegrantesLista
                 filas={filas}
                 filasxpagina={filasxpagina}

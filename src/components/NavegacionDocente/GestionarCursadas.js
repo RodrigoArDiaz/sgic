@@ -3,18 +3,15 @@ import {
   AppBar,
   Box,
   Button,
-  Grid,
   IconButton,
   Toolbar,
   Typography,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useModal } from "../useModal";
 
 import CursadasContenedor from "../Cursadas/CursadasContenedor";
-import BuildIcon from "@mui/icons-material/Build";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
@@ -32,7 +29,6 @@ export const GestionarCursadas = (props) => {
       <Button
         variant="contained"
         startIcon={<SettingsOutlinedIcon />}
-        //size='small'
         fullWidth
         color="primary"
         onClick={handleOpen}
@@ -45,8 +41,6 @@ export const GestionarCursadas = (props) => {
         <AppBar
           sx={{
             position: "relative",
-            // paddingLeft: "5.5px",
-            // backgroundColor: "transparent",
             backgroundColor: "#fff",
             boxShadow: "none",
             backdropFilter: "blur(6px)",
@@ -58,10 +52,8 @@ export const GestionarCursadas = (props) => {
           <Toolbar>
             <IconButton
               size="medium"
-              // color="inherit"
               color="tertiary"
               aria-label="open drawer"
-              // onClick={handleDrawerToggle}
               edge="center"
               sx={{
                 // marginRight: "36px",
@@ -98,11 +90,6 @@ export const GestionarCursadas = (props) => {
             idmateria={jsonMateria.IdMateria}
           />
         </DialogContent>
-        {/* <DialogActions>
-          <Button variant="outlined" color="primary" onClick={handleClose}>
-            Volver
-          </Button>
-        </DialogActions> */}
       </Dialog>
     </>
   );
