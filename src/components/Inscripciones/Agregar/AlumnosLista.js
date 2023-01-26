@@ -11,16 +11,26 @@ import { esES } from "@mui/material/locale";
 import { BotonAcciones } from "./BotonAcciones";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 // import  FilasPorPagina  from '../../Catedras/FilasPorPagina';
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableCell1em,
+  TableCellHead,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import { estilosBotonNavegacion } from "../../../styles/EstilosPaginacion";
+import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
+import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
+import { Typography } from "@mui/material";
 
 const columns = [
+  {
+    id: "#",
+    label: "",
+    minWidth: 10,
+    align: "left",
+  },
   {
     id: "Apellidos",
     label: "Apellidos",
@@ -77,17 +87,17 @@ export default function AlumnosLista(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de alumnos" sx={{ mb: "1rem" }} size="small">
+        <Table aria-label="Lista de alumnos" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -97,6 +107,21 @@ export default function AlumnosLista(props) {
                 <TableRowElevacion key={row.IdCatedra}>
                   {columns.map((column) => {
                     const value = row[column.id];
+
+                    if (column.id === "#") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          <AvatarCustom
+                            // value={value}
+                            valueOne={row["Apellidos"]}
+                            valueTwo={row["Nombres"]}
+                            outlined={true}
+                            // defineColor={randomColor()}
+                          />
+                        </TableCell1em>
+                      );
+                    }
+
                     if (column.id === "Apellidos") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
@@ -172,14 +197,18 @@ export default function AlumnosLista(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={6} sx={{ mt: 1 }}>
+
+      {/* Paginación */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -188,37 +217,37 @@ export default function AlumnosLista(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={estilosBotonNavegacion}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </Grid>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <Grid
-          item
-          xs={2}
-          sx={estilosBotonNavegacion}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
-          Resultados: {props.resultados}
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </>

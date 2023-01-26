@@ -9,6 +9,7 @@ const CopiarButton = ({ textoCopiar }) => {
       title={copiar ? "¡Copiado!" : "Copiar"}
       TransitionComponent={Zoom}
       onBlur={() => setCopiar(false)}
+      arrow
     >
       <span>
         <IconButton

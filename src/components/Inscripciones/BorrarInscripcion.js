@@ -69,7 +69,10 @@ export const BorrarInscripcion = (props) => {
         fullWidth
         sx={estiloModalMain}
       >
-        <DialogTitle>Borrar inscripción</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar inscripción
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar la inscripción?
@@ -79,7 +82,7 @@ export const BorrarInscripcion = (props) => {
           <Button variant="contained" onClick={BorrarAlumno}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

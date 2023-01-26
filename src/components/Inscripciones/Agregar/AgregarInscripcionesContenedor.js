@@ -195,21 +195,21 @@ export default function AgregarInscripcionesContenedor(props) {
   }, []);
 
   return (
-    <CardMainPage
-      icon="add"
-      title="Agregar inscripción"
-      bgColorIcon="cyan.main300"
-    >
-      <CardContent>
+    <CardMainPage visibleHeader={false}>
+      <CardContent
+        sx={{
+          paddingRight: 0,
+          paddingLeft: 0,
+          "& .MuiCardContent-root:last-child": { paddingBottom: 0 },
+        }}
+      >
         <Grid container>
-          <Grid container pt={1} justifyContent="flex-end" spacing={8}>
-            <Grid item xs={12}>
-              <BuscarAlumnos
-                cursada={cursada}
-                actualizar={BuscarAl}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
+          <Grid item paddingBottom={1} paddingX={2}>
+            <BuscarAlumnos
+              cursada={cursada}
+              actualizar={BuscarAl}
+              filasxpagina={filasxpagina}
+            />
           </Grid>
 
           {cargando === "3" && (
@@ -236,7 +236,7 @@ export default function AgregarInscripcionesContenedor(props) {
             </Grid>
           )}
           {cargando === "2" && (
-            <Grid container pt={2}>
+            <Grid container pt={1}>
               <AlumnosLista
                 filas={filas}
                 filasxpagina={filasxpagina}

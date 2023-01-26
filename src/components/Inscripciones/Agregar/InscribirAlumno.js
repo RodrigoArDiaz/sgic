@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import AddIcon from "@mui/icons-material/Add";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
 //Responses
 import * as Responses from "../../Responses";
 
@@ -49,12 +52,12 @@ export const InscribirAlumno = (props) => {
             <IconButton
               aria-label="verificado"
               size="small"
-              color="success"
+              color="secondary"
               onClick={() => {
                 Inscribir();
               }}
             >
-              <AddIcon />
+              <AddCircleOutlineIcon />
             </IconButton>
           </span>
         </Tooltip>
@@ -63,8 +66,8 @@ export const InscribirAlumno = (props) => {
       {est === "2" && (
         <Tooltip title="Inscripto" TransitionComponent={Zoom} arrow>
           <span>
-            <IconButton aria-label="error" size="small">
-              <Brightness1Icon />
+            <IconButton color="success" size="small">
+              <CheckCircleOutlineIcon />
             </IconButton>
           </span>
         </Tooltip>
@@ -74,7 +77,7 @@ export const InscribirAlumno = (props) => {
         <Tooltip title="Cargando" TransitionComponent={Zoom} arrow>
           <span>
             <IconButton aria-label="esperando" size="small">
-              <CircularProgress />
+              <CircularProgress size={21} />
             </IconButton>
           </span>
         </Tooltip>

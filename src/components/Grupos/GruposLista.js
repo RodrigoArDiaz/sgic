@@ -22,8 +22,6 @@ import {
   TableCellHead,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
-import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
 
 const columns = [
   {
@@ -163,6 +161,8 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Paginación */}
       <Grid
         justifyContent="space-between"
         container

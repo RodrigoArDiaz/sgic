@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Tooltip, Zoom } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
 import Add from "@mui/icons-material/Add";
@@ -8,6 +8,7 @@ import {
   faFileExport,
   faSheetPlastic,
 } from "@fortawesome/free-solid-svg-icons";
+import TextSnippetOutlinedIcon from "@mui/icons-material/TextSnippetOutlined";
 
 export const GenerarCuadricula = (props) => {
   const navegar = useNavigate();
@@ -52,14 +53,20 @@ export const GenerarCuadricula = (props) => {
 
   return (
     <>
-      <Button
-        variant="outlined"
-        startIcon={<FontAwesomeIcon icon={faSheetPlastic} />}
-        fullWidth
-        onClick={() => Cuadricula()}
-      >
-        Generar Cuadrícula
-      </Button>
+      <Tooltip title="Generar cuadrícula" TransitionComponent={Zoom} arrow>
+        <span>
+          <Button
+            variant="outlined"
+            // startIcon={<FontAwesomeIcon icon={faSheetPlastic} />}
+            sx={{ minWidth: "20px", paddingX: "10px" }}
+            fullWidth
+            onClick={() => Cuadricula()}
+          >
+            <TextSnippetOutlinedIcon />
+            {/* Generar Cuadrícula */}
+          </Button>
+        </span>
+      </Tooltip>
     </>
   );
 };

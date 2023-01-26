@@ -21,6 +21,7 @@ import {
   colorMainSpinner,
   sizeMainSpinner,
 } from "../../styles/EstilosSpinners";
+import MensajeFeedback from "../MensajeFeedback";
 
 export default function InscripcionesContenedor(props) {
   //Recupero informacion de la cursada
@@ -190,115 +191,140 @@ export default function InscripcionesContenedor(props) {
   }, []);
 
   return (
-    <CardMainPage
-      icon="co_present"
-      title="Inscripciones"
-      bgColorIcon={blue[500]}
-    >
-      <CardContent>
-        <Grid container>
-          <Grid container direction="row-reverse">
-            {/* */}
-            <Grid item xs={12} sm={12} md={2}>
+    <>
+      <Box paddingBottom={2}>
+        <Typography
+          variant="h2"
+          sx={{
+            margin: "0px",
+            fontWeight: "500",
+            fontSize: "1.775rem",
+            lineHeight: "1.27",
+            fontFamily: "Public Sans, sans-serif",
+          }}
+        >
+          Inscripciones
+        </Typography>
+      </Box>
+      <CardMainPage visibleHeader={false}>
+        <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
+          <Grid container>
+            <Grid container direction="row-reverse">
+              {/* */}
+              <Grid item>
+                <Grid
+                  container
+                  paddingX={2}
+                  // paddingY={1}
+                  paddingBottom={1}
+                  justifyContent="flex-end"
+                  spacing={1}
+                >
+                  <Grid item>
+                    <ExportarInfoAlumnos
+                      // idcursada={props.cursada.IdCursada}
+                      idcursada={cursada.IdCursada}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                    />
+                  </Grid>
+
+                  <Grid item>
+                    <GenerarCuadricula
+                      // idcursada={props.cursada.IdCursada}
+                      idcursada={cursada.IdCursada}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                    />
+                  </Grid>
+
+                  {/* Agregar inscripcion */}
+                  <Grid item>
+                    <CrearInscripcion
+                      refrescar={Refrescar}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                      cursada={props.cursada}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              {/* Buscar alumnos */}
               <Grid
-                container
-                paddingX={2}
-                // paddingY={1}
+                item
+                // xs={8}
                 paddingBottom={1}
-                justifyContent="flex-end"
-                spacing={1}
+                paddingX={2}
+                marginRight="auto"
               >
-                <Grid item xs={12}>
-                  <CrearInscripcion
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    cursada={props.cursada}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <ExportarInfoAlumnos
-                    // idcursada={props.cursada.IdCursada}
-                    idcursada={cursada.IdCursada}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <GenerarCuadricula
-                    // idcursada={props.cursada.IdCursada}
-                    idcursada={cursada.IdCursada}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                  />
-                </Grid>
+                <BuscarAlumnos
+                  cursada={cursada}
+                  actualizar={BuscarAl}
+                  filasxpagina={filasxpagina}
+                />
               </Grid>
             </Grid>
 
-            {/* Buscar alumnos */}
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8}
-              lg={10}
-              paddingBottom={1}
-              paddingX={2}
-            >
-              <BuscarAlumnos
-                cursada={cursada}
-                actualizar={BuscarAl}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
+            {cargando === "1" && (
+              <Grid container pt={1}>
+                <Grid item xs={12}>
+                  <Box component="div" display="flex" justifyContent="center">
+                    <MoonLoader
+                      color={colorMainSpinner}
+                      size={sizeMainSpinner}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+
+            {cargando === "2" && (
+              <Grid container pt={1}>
+                <AlumnosLista
+                  filas={filas}
+                  filasxpagina={filasxpagina}
+                  pagina={pagina}
+                  paginacion={paginacion}
+                  resultados={resultados}
+                  actualizarpagina={CambioPagina}
+                  actualizarfilas={CambioFPP}
+                  refrescar={Refrescar}
+                  cursada={cursada}
+                  abrir={setAbrir}
+                  mensaje={setMensaje}
+                  tipo={setTipo}
+                />
+              </Grid>
+            )}
+
+            {cargando === "3" && (
+              <Grid container paddingTop={1}>
+                <Grid item xs={12}>
+                  <Box paddingX={2}>
+                    <MensajeFeedback>
+                      {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                      No se encontraron resultados.
+                    </MensajeFeedback>
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+
+            <div>
+              <SnackMensajes
+                abrir={abrir}
+                mensaje={mensaje}
+                tipo={tipo}
+                cerrar={setAbrir}
+              />{" "}
+            </div>
           </Grid>
-
-          {cargando === "3" && <h4>No se encontraron resultados</h4>}
-
-          {cargando === "1" && (
-            <Grid container pt={2}>
-              <Grid item xs={12}>
-                <Box component="div" display="flex" justifyContent="center">
-                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
-                </Box>
-              </Grid>
-            </Grid>
-          )}
-
-          {cargando === "2" && (
-            <Grid container pt={2}>
-              <AlumnosLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                cursada={cursada}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-              />
-            </Grid>
-          )}
-
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMainPage>
+        </CardContent>
+      </CardMainPage>
+    </>
   );
 }

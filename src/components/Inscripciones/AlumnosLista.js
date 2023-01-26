@@ -1,37 +1,38 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonISW } from "./BotonISW";
 import { BotonIS } from "./BotonIS";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 // import  FilasPorPagina  from '../Catedras/FilasPorPagina';
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableCell1em,
+  TableCellHead,
   TableRowElevacion,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
-import { estilosBotonNavegacion } from "../../styles/EstilosPaginacion";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
-import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
+import { ChipCustom } from "../Material UI - Componentes Modificados/ChipCustom";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { randomColor } from "../../helpers/randomColor";
+import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
+import CopiarButton from "../CopiarButton";
 
 const columns = [
+  {
+    id: "#",
+    label: "",
+    minWidth: 10,
+    align: "center",
+  },
   {
     id: "Apellidos",
     label: "Apellidos",
@@ -101,6 +102,10 @@ export default function AlumnosLista(props) {
     props.actualizarpagina(page);
   }
 
+  React.useEffect(() => {
+    console.log(randomColor());
+  });
+
   const theme = createTheme(esES);
 
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
@@ -109,21 +114,17 @@ export default function AlumnosLista(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table
-          aria-label="Lista de inscriptos"
-          sx={{ mb: "1rem" }}
-          size="small"
-        >
+        <Table aria-label="Lista de inscriptos" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -133,12 +134,31 @@ export default function AlumnosLista(props) {
                 <TableRowElevacion key={row.IdCatedra}>
                   {columns.map((column) => {
                     const value = row[column.id];
+
+                    if (column.id === "#") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          <Box display="flex" gap={1} alignItems="center">
+                            <AvatarCustom
+                              // value={value}
+                              valueOne={row["Apellidos"]}
+                              valueTwo={row["Nombres"]}
+                              outlined={true}
+                              // defineColor={randomColor()}
+                            />
+                          </Box>
+                        </TableCell1em>
+                      );
+                    }
+
                     if (column.id === "Apellidos") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          <Box display="flex" gap={1} alignItems="center">
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </Box>
                         </TableCell1em>
                       );
                     }
@@ -175,7 +195,14 @@ export default function AlumnosLista(props) {
 
                     if (column.id === "Email") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1em key={column.id} align="left">
+                          <CopiarButton
+                            textoCopiar={
+                              column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value
+                            }
+                          />
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
@@ -186,9 +213,32 @@ export default function AlumnosLista(props) {
                     if (column.id === "FechaInscripcion") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
+                          {/* {column.format && typeof value === "number"
                             ? column.format(value)
-                            : value}
+                            : value} */}
+                          {!value || value.split("-").length < 3 ? (
+                            <ChipCustom
+                              size="large"
+                              // icon={<CalendarTodayIcon fontSize="small" />}
+                              label="-"
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          ) : (
+                            <ChipCustom
+                              size="large"
+                              icon={<CalendarTodayIcon fontSize="small" />}
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          )}
                         </TableCell1em>
                       );
                     }
@@ -261,8 +311,14 @@ export default function AlumnosLista(props) {
         </Table>
       </TableContainer>
       {/* Paginación */}
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -273,19 +329,38 @@ export default function AlumnosLista(props) {
           </Stack>
         </Grid>
 
-        <ContenedorFilasPorPagina>
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </ContenedorFilasPorPagina>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <ContenedorResultados>
-          Resultados: {props.resultados}
-        </ContenedorResultados>
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );

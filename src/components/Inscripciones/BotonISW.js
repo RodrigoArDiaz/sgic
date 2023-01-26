@@ -3,11 +3,13 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip, Zoom } from "@mui/material";
+import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import * as Responses from "../Responses";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 export const BotonISW = (props) => {
   const navegar = useNavigate();
@@ -79,34 +81,24 @@ export const BotonISW = (props) => {
     <>
       {salto === "S" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="Inscripto" TransitionComponent={Zoom} arrow>
-            <span>
-              <IconButton
-                aria-label="estado"
-                size="small"
-                color="success"
-                onClick={() => manejador()}
-              >
-                <CheckIcon />
-              </IconButton>
-            </span>
-          </Tooltip>
+          <Chip
+            variant="outlined"
+            color="success"
+            label="Inscripto"
+            icon={<CheckCircleOutlineOutlined />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "N" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="No inscripto" TransitionComponent={Zoom} arrow>
-            <span>
-              <IconButton
-                aria-label="estado2"
-                size="small"
-                color="error"
-                onClick={() => manejador()}
-              >
-                <CloseIcon />
-              </IconButton>
-            </span>
-          </Tooltip>
+          <Chip
+            variant="outlined"
+            color="error"
+            label="No inscripto"
+            icon={<HighlightOffOutlinedIcon />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "C" && (

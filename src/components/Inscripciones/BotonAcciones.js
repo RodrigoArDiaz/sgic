@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import { BorrarInscripcion } from "./BorrarInscripcion";
 //Redux
 import { useSelector } from "react-redux";
+import VerInformacionContacto from "./Contactos/VerInformacionContacto";
 
 export const BotonAcciones = (props) => {
   //Recupero informacion de la cursada
@@ -10,6 +11,13 @@ export const BotonAcciones = (props) => {
 
   return (
     <Grid container justifyContent="space-evenly">
+      <Grid item xs={12} sm="auto">
+        <VerInformacionContacto
+          alumno={props.alumno}
+          idAlumno={props.alumno.IdUsuario}
+        />
+      </Grid>
+
       <Grid item xs={12} sm="auto">
         <BorrarInscripcion
           refrescar={props.refrescar}

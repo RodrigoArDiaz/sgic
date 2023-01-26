@@ -6,6 +6,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 //Componentes propios
 import PanelInformacionDeContactos from "./PanelInformacionContactos";
@@ -45,8 +46,8 @@ export default function TabsInformacionUsuario() {
   const { user } = useSelector((state) => state.user);
 
   //Se chequea si el usuario es un alumno
-  const esAlumno = user.Tipo == "A" ? true : false;
-  // const esAlumno = true;
+  // const esAlumno = user.Tipo == "A" ? true : false;
+  const esAlumno = true;
 
   const [value, setValue] = React.useState(0);
 
@@ -72,7 +73,7 @@ export default function TabsInformacionUsuario() {
         >
           {esAlumno && (
             <Tab
-              icon={<PermContactCalendarOutlinedIcon />}
+              icon={<ContactsOutlinedIcon />}
               iconPosition="start"
               label="Informacion de contacto"
               {...a11yProps(0)}

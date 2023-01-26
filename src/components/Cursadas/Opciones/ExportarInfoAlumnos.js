@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Tooltip, Zoom } from "@mui/material";
 import { useModal } from "../../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,13 +9,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
-import Add from "@mui/icons-material/Add";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFileExcel,
   faFileExport,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 export const ExportarInfoAlumnos = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -88,14 +88,18 @@ export const ExportarInfoAlumnos = (props) => {
 
   return (
     <>
-      <Button
-        variant="outlined"
-        startIcon={<FontAwesomeIcon icon={faFileExport} />}
-        fullWidth
-        onClick={handleOpen}
-      >
-        Exportar Información
-      </Button>
+      <Tooltip title="Exportar información" TransitionComponent={Zoom} arrow>
+        <span>
+          <Button
+            variant="outlined"
+            // startIcon={<FontAwesomeIcon icon={faFileExport} />}
+            sx={{ minWidth: "20px", paddingX: "10px" }}
+            onClick={handleOpen}
+          >
+            <FileDownloadOutlinedIcon />
+          </Button>
+        </span>
+      </Tooltip>
 
       {/* Ventana modal */}
       <Dialog
@@ -107,11 +111,16 @@ export const ExportarInfoAlumnos = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Exportar Información</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <FileDownloadOutlinedIcon
+            sx={{ alignSelf: "center", marginRight: 1 }}
+          />
+          Exportar Información
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>Seleccione el formato:</DialogContentText>
 
-          <Grid container justifyContent="space-evenly" spacing={2} pt={1}>
+          <Grid container justifyContent="space-evenly" spacing={2} pt={2}>
             <Grid item xs={6} textAlign="center">
               <Button
                 variant="outlined"
@@ -136,7 +145,9 @@ export const ExportarInfoAlumnos = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cerrar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>
