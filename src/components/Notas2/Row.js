@@ -23,12 +23,26 @@ import {
   Avatar,
   CardContent,
   CardHeader,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
   Paper,
+  Tooltip,
+  Zoom,
 } from "@mui/material";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import { blue, deepOrange, orange, red } from "@mui/material/colors";
+import { useModal } from "../../hooks/useModal";
+import DialogFullCustom from "../Material UI - Componentes Modificados/DialogFullCustom";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
+import { MoonLoader } from "react-spinners";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
+import BotonListarIntegrantesGrupo from "./BotonListarIntegrantesGrupo";
 
 //Retorna un color
 const RandomColor = (num) => {
@@ -57,6 +71,9 @@ export default function Row(props) {
   const [est, setE] = React.useState("1");
   const [grupos, setG] = React.useState();
 
+  //
+  const [isOpen, handleOpen, handleClose] = useModal(false);
+
   React.useEffect(() => {
     console.log(props.res2.length);
   }, []);
@@ -69,10 +86,10 @@ export default function Row(props) {
           //   // borderBottom: "unset",
           //   borderBottom: "1px solid black",
           // },
-          borderTop: "1px solid #e0e0e0",
-          borderBottom: "none",
-          borderLeft: open ? "2px solid" : "none",
-          borderLeftColor: "secondary.main",
+          // borderTop: "1px solid #e0e0e0",
+          borderBottom: "1px solid #e0e0e0",
+          // borderLeft: open ? "2px solid" : "none",
+          borderLeftColor: "secondary.light",
         }}
       >
         {props.res2.map((column) => {
@@ -85,53 +102,65 @@ export default function Row(props) {
                 align={column.align}
                 sx={{ borderBottom: "0" }}
               >
-                <IconButton
-                  aria-label="expand row"
-                  size="small"
-                  onClick={() => {
-                    if (est === "2") {
-                      setOpen(false);
-                      setE("1");
-                    } else if (est === "1" && grupos !== undefined) {
-                      setOpen(true);
-                      setE("2");
-                    } else {
-                      var data = {
-                        pidG: props.IdGrupo,
-                        Offset: 0,
-                        pidCu: props.cursada.IdCursada,
-                      };
-                      setE("3");
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/listarintegrantes"
-                      )
-                        .then((response) => {
-                          if (Responses.status === 200) {
-                            setG(response.res);
-                            setE("2");
-                            setOpen(true);
-                          } else if (Responses.status === 401) {
-                            navegar("/ingreso");
-                          } else {
-                            navegar("/error");
-                          }
-                        })
-                        .catch((error) => {
-                          navegar("/error");
-                        });
-                    }
-                  }}
+                <BotonListarIntegrantesGrupo
+                  IdGrupo={props.IdGrupo}
+                  IdCursada={props.cursada.IdCursada}
+                  NombreGrupo={value}
+                />
+                {/* <Tooltip
+                  title="Listar integrantes"
+                  TransitionComponent={Zoom}
+                  arrow
                 >
-                  {est === "1" && <KeyboardArrowDownIcon />}
-                  {est === "2" && <KeyboardArrowUpIcon />}
-                  {est === "3" && <KeyboardArrowDownIcon />}
-                  {/* {est === "3" && <CircularProgress />} */}
-                </IconButton>
-                {/* {column.format && typeof value === "number"
-                  ? column.format(value)
-                  : value} */}
-                <Typography display="inline-flex" variant="p">
+                  <IconButton
+                    color="secondary"
+                    aria-label="expand row"
+                    size="small"
+                    onClick={() => {
+                      //se abre modal
+                      handleOpen();
+
+                      //Peticion
+                      if (est === "2") {
+                        setOpen(false);
+                        setE("1");
+                      } else if (est === "1" && grupos !== undefined) {
+                        setOpen(true);
+                        setE("2");
+                      } else {
+                        var data = {
+                          pidG: props.IdGrupo,
+                          Offset: 0,
+                          pidCu: props.cursada.IdCursada,
+                        };
+                        setE("3");
+                        Responses.consultas(
+                          data,
+                          "http://127.0.0.1:8000/api/listarintegrantes"
+                        )
+                          .then((response) => {
+                            if (Responses.status === 200) {
+                              setG(response.res);
+                              setE("2");
+                              setOpen(true);
+                            } else if (Responses.status === 401) {
+                              navegar("/ingreso");
+                            } else {
+                              navegar("/error");
+                            }
+                          })
+                          .catch((error) => {
+                            navegar("/error");
+                          });
+                      }
+                    }}
+                  >
+                    {est === "1" && <GroupsOutlinedIcon />}
+                    {est === "2" && <GroupsOutlinedIcon />}
+                    {est === "3" && <GroupsOutlinedIcon />}
+                  </IconButton>
+                </Tooltip> */}
+                <Typography display="inline-flex" variant="p" marginLeft={1}>
                   {value}
                 </Typography>
               </TableCell1em>
@@ -164,12 +193,84 @@ export default function Row(props) {
         })}
       </TableRowElevacion>
 
-      <TableRow
+      {/* Ventana modal
+      <DialogCustom open={isOpen} onClose={handleClose}>
+        <DialogTitle display="flex" flexDirection="row">
+          <GroupsOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Integrantes
+        </DialogTitle>
+        <DialogContent>
+          {est == 1 && (
+            <Box component="div" display="flex" justifyContent="center">
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+            </Box>
+          )}
+
+          {est == 3 && (
+            <Box component="div" display="flex" justifyContent="center">
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
+            </Box>
+          )}
+
+          {est == 2 && (
+            <Table
+              size="small"
+              aria-label="purchases"
+              sx={{ borderCollapse: "collapse" }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Apellidos</TableCell>
+                  <TableCell>Nombres</TableCell>
+                  <TableCell align="right">Libreta</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {est === "2" &&
+                  grupos.map((g, index) => (
+                    <TableRow
+                      hover
+                      key={g.Libreta}
+                      sx={{
+                        borderTop: "1px solid #e0e0e0",
+                        borderBottom: "none",
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        <Avatar
+                          sx={{
+                            width: 24,
+                            height: 24,
+                            fontSize: "0.7em",
+                            display: "inline-flex",
+                            marginRight: "0.5rem",
+                            bgcolor: RandomColor(index),
+                          }}
+                        >
+                          {g.Apellidos &&
+                            g.Nombres &&
+                            g.Apellidos.toString().charAt(0) +
+                              "" +
+                              g.Nombres.toString().charAt(0)}
+                        </Avatar>
+                        {g.Apellidos}
+                      </TableCell>
+                      <TableCell>{g.Nombres}</TableCell>
+                      <TableCell align="right">{g.Libreta}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          )}
+        </DialogContent>
+      </DialogCustom> */}
+
+      {/* <TableRow
         sx={{
           borderBottom: "none",
           borderLeft: "1px solid black",
           borderLeft: open ? "2px solid" : "none",
-          borderLeftColor: "secondary.main",
+          borderLeftColor: "secondary.light",
         }}
       >
         <TableCell
@@ -180,13 +281,10 @@ export default function Row(props) {
           }}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {/* <Box sx={{ margin: 1 }}> */}
-            {/* <Box paddingY={2} paddingX={4}> */}
             <Grid container>
               <Grid item xs={12} md={9} lg={6} paddingY={1} paddingX={4}>
                 <Paper variant="outlined">
                   <CardHeader
-                    // title="Integrantes"
                     title={<Typography variant="h6">Integrantes</Typography>}
                     avatar={<GroupsOutlinedIcon sx={{ color: "icons.main" }} />}
                     sx={{ paddingY: "10px" }}
@@ -196,10 +294,7 @@ export default function Row(props) {
                     <Table
                       size="small"
                       aria-label="purchases"
-                      sx={{
-                        // mb: "1rem",
-                        borderCollapse: "collapse",
-                      }}
+                      sx={{ borderCollapse: "collapse" }}
                     >
                       <TableHead>
                         <TableRow>
@@ -248,11 +343,9 @@ export default function Row(props) {
                 </Paper>
               </Grid>
             </Grid>
-
-            {/* </Box> */}
           </Collapse>
         </TableCell>
-      </TableRow>
+      </TableRow> */}
     </>
   );
 }

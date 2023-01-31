@@ -36,13 +36,13 @@ const isValidUrl = (urlString) => {
 const contactosPrueba = [
   {
     Nombre: "Facebook",
-    Perfil: "https://www.facebook.com/jonhsmith",
+    Perfil: "https://www.facebook.com/userejemplo10",
   },
   { Nombre: "Whatsapp", Perfil: "+549381102030" },
-  { Nombre: "Github", Perfil: "https://github.com/..." },
-  { Nombre: "Slack", Perfil: "https://slack.com/..." },
-  { Nombre: "LinkedIn", Perfil: "https://linkedin.com/..." },
-  { Nombre: "Gmail", Perfil: "jonhsmith2@gmail.com" },
+  { Nombre: "Github", Perfil: "https://github.com/userejemplo10" },
+  { Nombre: "Slack", Perfil: "https://slack.com/userejemplo10" },
+  { Nombre: "LinkedIn", Perfil: "https://linkedin.com/userejemplo10" },
+  { Nombre: "Gmail", Perfil: "userejemplo10@gmail.com" },
   { Nombre: "Telefono", Perfil: "+549381102030" },
 ];
 

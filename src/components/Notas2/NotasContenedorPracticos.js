@@ -1,11 +1,9 @@
 import React from "react";
-import { Alert, AlertTitle, Box, Paper, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Grid } from "@mui/material";
 import NotasPracticosLista from "./NotasPracticosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
 import BuscarGrupos from "./BuscarGrupos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../Responses";
@@ -180,15 +178,7 @@ export default function NotasContenedorPracticos(props) {
 
   return (
     <>
-      {/* <Grid container pt={1} spacing={8}>
-        <Grid item xs={12}>
-          <Typography variant="h5" sx={{ ml: 55 }}>
-            {props.titulo}
-          </Typography>
-        </Grid>
-      </Grid> */}
-
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
+      <Grid container p={1} justifyContent="flex-end">
         <Grid item xs={12}>
           {props.cursada.TieneGrupos === "N" && (
             <BuscarAlumnos

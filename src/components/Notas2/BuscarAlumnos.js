@@ -68,7 +68,7 @@ export default function BuscarAlumnos(props) {
   };
 
   return (
-    <Box paddingX={2} paddingY={1}>
+    <Box paddingX={2} paddingY={2}>
       <Grid container spacing={1}>
         <Grid item xs={11} sm={5} lg={2.5} xl={2}>
           <FormControl fullWidth>

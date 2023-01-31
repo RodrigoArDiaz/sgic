@@ -1,67 +1,52 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import { Grid } from '@mui/material';
-
-
-
+import React from "react";
+import TextField from "@mui/material/TextField";
+import { Grid } from "@mui/material";
 
 export const PracticoCorEnc = (props) => {
+  const [enunciados, setEnc] = React.useState("");
+  const [correcciones, setCor] = React.useState("");
 
-    
-    const [enunciados, setEnc] = React.useState('');
-    const [correcciones, setCor] = React.useState('');
-    
-    const handleEnc = (event) => {
-        setEnc(event.target.value);
-       
-        props.CambioEnc(event.target.value);
-      };
+  const handleEnc = (event) => {
+    setEnc(event.target.value);
 
+    props.CambioEnc(event.target.value);
+  };
 
-      const handleCor = (event) => {
-        setCor(event.target.value);
-       
-        props.CambioCor(event.target.value);
-      };
+  const handleCor = (event) => {
+    setCor(event.target.value);
 
+    props.CambioCor(event.target.value);
+  };
 
-    return (
-    
-            <Grid container
-              pt={2}
-              justifyContent="flex-start"  spacing={2}>
- 
-        
-      <Grid item xs={6} >
-        <TextField 
+  return (
+    <Grid container justifyContent="flex-start" spacing={2}>
+      <Grid item xs={12} md={6}>
+        <TextField
           id="outlined-multiline-static1"
           label="Enunciado"
           multiline
           fullWidth
-          color="success"
-          
-          rows={2}
+          color="primary"
           value={enunciados}
           onChange={handleEnc}
           //defaultValue="Default Value"
+          size="small"
         />
-</Grid>
+      </Grid>
 
-<Grid item xs={6} >
-<TextField sx={{mr: 1}}
+      <Grid item xs={12} md={6}>
+        <TextField
+          sx={{ mr: 1 }}
           id="outlined-multiline-static2"
           label="Correcciones"
           multiline
           fullWidth
-          rows={2}
           value={correcciones}
           onChange={handleCor}
           //defaultValue="Default Value"
+          size="small"
         />
-</Grid>
-      
-
-            </Grid>
-  
-        )
-}
+      </Grid>
+    </Grid>
+  );
+};

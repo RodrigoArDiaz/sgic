@@ -1,23 +1,29 @@
 import React from "react";
-import { Chip, IconButton, Tooltip, Typography, Zoom } from "@mui/material";
+import {
+  Button,
+  Chip,
+  Divider,
+  IconButton,
+  Tooltip,
+  Typography,
+  Zoom,
+} from "@mui/material";
 import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
 import CopiarButton from "../../CopiarButton";
 import { isValidUrl } from "../../../helpers/valiidarUrl";
 
-//Componente
-export default function ECVisual({ label, type, ...props }) {
+export default function CorreccionesVisual({ label, type, ...props }) {
   React.useEffect(() => {
     console.log(props.valor);
   }, []);
 
   return (
     <>
-      {props.valor == "-" || props.valor.trim() == "" ? (
+      {props.valor == "-" ? (
         <Chip label={label} variant="outlined" color={type} />
       ) : (
         <>
           <Typography variant="body1">{props.valor}</Typography>
-
           {isValidUrl(props.valor) && (
             <Tooltip
               title={"Ir a " + props.valor}
@@ -34,8 +40,6 @@ export default function ECVisual({ label, type, ...props }) {
               </IconButton>
             </Tooltip>
           )}
-
-          <CopiarButton textoCopiar={props.valor} />
         </>
       )}
     </>

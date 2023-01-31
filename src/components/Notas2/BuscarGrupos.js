@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
@@ -67,7 +67,7 @@ export default function BuscarGrupos(props) {
   };
 
   return (
-    <Box paddingX={2} paddingY={1}>
+    <Box paddingX={2} paddingY={2}>
       <Grid container spacing={1}>
         <Grid item xs={11} sm={5} lg={2.5} xl={2}>
           <FormControl fullWidth>
@@ -98,16 +98,24 @@ export default function BuscarGrupos(props) {
         </Grid>
 
         <Grid item xs="auto" sm="auto" alignSelf="center">
-          <CustomerToggleButton
+          {/* <CustomerToggleButton
             value="check"
             size="small"
             selected={false}
             onClick={() => {
               manejador();
             }}
+          > */}
+          <Button
+            variant="outlined"
+            onClick={() => {
+              manejador();
+            }}
           >
             <SearchIcon color="primary" />
-          </CustomerToggleButton>
+          </Button>
+
+          {/* </CustomerToggleButton> */}
         </Grid>
       </Grid>
     </Box>

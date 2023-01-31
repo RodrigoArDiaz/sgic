@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import { Box, CardContent, Divider, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import ECPracticosLista from "./ECPracticosLista";
 import { PracticoCorEnc } from "./PracticoCorEnc";
@@ -18,6 +18,16 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import * as Responses from "../../Responses";
+import { Zoom } from "@mui/material";
+// import {DialogFullCustom} from "../"
+import DialogFullCustom from "../../Material UI - Componentes Modificados/DialogFullCustom";
+import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
+import MensajeFeedback from "../../MensajeFeedback";
+import { MoonLoader } from "react-spinners";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
 export default function ECContenedorPracticos(props) {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -25,7 +35,7 @@ export default function ECContenedorPracticos(props) {
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -173,6 +183,7 @@ export default function ECContenedorPracticos(props) {
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
+          console.log(response);
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
           setCargando("2");
@@ -191,101 +202,141 @@ export default function ECContenedorPracticos(props) {
 
   return (
     <>
-      <Tooltip title="Enunciados y correcciones" fullWidth>
-        <Button onClick={handleOpen} size="small">
+      <Tooltip
+        title="Enunciados y correcciones"
+        fullWidth
+        TransitionComponent={Zoom}
+        arrow
+        placement="top"
+      >
+        <Button
+          onClick={handleOpen}
+          size="small"
+          // variant="outlined"
+          variant="contained"
+          // color="secondary"
+          color="primary"
+        >
           {props.nombre}
         </Button>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog open={isOpen} onClose={handleClose} fullScreen>
-        <DialogTitle>Enunciados y Correcciones - {props.Nombre}</DialogTitle>
-        <DialogContent>
-          <Paper
-            component="div"
-            sx={{
-              p: "4px 4px",
-              // display: 'flex',
-              alignItems: "center",
-              width: "95%",
-              mt: "10px",
-              px: 2,
-              pb: 3,
-              // minHeight: "75vh",
-            }}
-            elevation={3}
-          >
-            <Grid container pt={1} justifyContent="flex-end" spacing={2}>
-              <Grid item xs={12}>
-                <PracticoCorEnc CambioEnc={setEnc} CambioCor={setCor} />
-              </Grid>
-
-              <Grid item xs={12}>
-                {props.cursada.TieneGrupos === "N" && (
-                  <BuscarAlumnos
-                    cursada={props.cursada}
-                    actualizar={BuscarAl}
-                    filasxpagina={filasxpagina}
-                  />
-                )}
-
-                {props.cursada.TieneGrupos === "S" && (
-                  <BuscarGrupos
-                    cursada={props.cursada}
-                    actualizar={BuscarAl}
-                    filasxpagina={filasxpagina}
-                  />
-                )}
-              </Grid>
-            </Grid>
-
-            {cargando === "3" && <h4>No se encontraron resultados</h4>}
-            {cargando === "1" && (
-              <Grid container pt={2}>
-                <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}>
-                  <LinearProgress color="inherit" />
-                  <LinearProgress color="inherit" />
-                  <LinearProgress color="inherit" />
-                </Stack>
-              </Grid>
-            )}
-            {cargando === "2" && (
-              <>
-                <Grid container pt={2}>
-                  <ECPracticosLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    cursada={props.cursada}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    enc={enunciado}
-                    cor={correccion}
-                  />
+      <DialogFullCustom
+        open={isOpen}
+        onClose={handleClose}
+        title="Enunciados y Correcciones"
+        subtitle={props.Nombre}
+        icon="add"
+      >
+        <DialogContent sx={{ padding: 0 }}>
+          <CardMainPage visibleHeader={false}>
+            <CardContent
+              sx={{
+                paddingRight: 0,
+                paddingLeft: 0,
+                "& .MuiCardContent-root:last-child": { paddingBottom: 0 },
+              }}
+            >
+              <Grid container>
+                <Grid item xs={12}>
+                  <Grid container paddingX={2}>
+                    <PracticoCorEnc CambioEnc={setEnc} CambioCor={setCor} />
+                  </Grid>
                 </Grid>
-              </>
-            )}
 
-            <div>
-              <SnackMensajes
-                abrir={abrir}
-                mensaje={mensaje}
-                tipo={tipo}
-                cerrar={setAbrir}
-              />{" "}
-            </div>
-          </Paper>
+                <Grid item xs={12} mt={2}>
+                  <Divider />
+                </Grid>
+
+                <Grid item xs={12}>
+                  {props.cursada.TieneGrupos === "N" && (
+                    <BuscarAlumnos
+                      cursada={props.cursada}
+                      actualizar={BuscarAl}
+                      filasxpagina={filasxpagina}
+                    />
+                  )}
+
+                  {props.cursada.TieneGrupos === "S" && (
+                    <BuscarGrupos
+                      cursada={props.cursada}
+                      actualizar={BuscarAl}
+                      filasxpagina={filasxpagina}
+                    />
+                  )}
+                </Grid>
+
+                {cargando === "1" && (
+                  <Grid container paddingTop={2}>
+                    <Grid item xs={12}>
+                      <Box
+                        component="div"
+                        display="flex"
+                        justifyContent="center"
+                      >
+                        <MoonLoader
+                          color={colorMainSpinner}
+                          size={sizeMainSpinner}
+                        />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                )}
+
+                {cargando === "2" && (
+                  <>
+                    <Grid container>
+                      <ECPracticosLista
+                        filas={filas}
+                        filasxpagina={filasxpagina}
+                        pagina={pagina}
+                        paginacion={paginacion}
+                        resultados={resultados}
+                        actualizarpagina={CambioPagina}
+                        actualizarfilas={CambioFPP}
+                        refrescar={Refrescar}
+                        cursada={props.cursada}
+                        abrir={setAbrir}
+                        mensaje={setMensaje}
+                        tipo={setTipo}
+                        enc={enunciado}
+                        cor={correccion}
+                      />
+                    </Grid>
+                  </>
+                )}
+
+                {cargando === "3" && (
+                  <Grid container paddingTop={2}>
+                    <Grid item xs={12}>
+                      <Box
+                        component="div"
+                        display="flex"
+                        justifyContent="center"
+                        paddingX={2}
+                      >
+                        <MensajeFeedback>
+                          No se encontraron resultados
+                        </MensajeFeedback>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                )}
+
+                <div>
+                  <SnackMensajes
+                    abrir={abrir}
+                    mensaje={mensaje}
+                    tipo={tipo}
+                    cerrar={setAbrir}
+                  />{" "}
+                </div>
+              </Grid>
+            </CardContent>
+          </CardMainPage>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Volver</Button>
-        </DialogActions>
-      </Dialog>
+      </DialogFullCustom>
     </>
   );
 }

@@ -52,6 +52,7 @@ export default function BotonTipo(props) {
               onChange={handleChange}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
+              size="small"
             >
               <MenuItem value={25}>Seleccione el tipo de examen</MenuItem>
               {props.parametros.res.map((row) => {

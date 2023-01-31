@@ -21,7 +21,7 @@ import OutlinedInputEditableNote from "../Material UI - Componentes Modificados/
 export const BotonNotaGrupo = (props) => {
   //Para estilos
   const theme = useTheme();
-  const colorBgSpinner = theme.palette.secondary.main;
+  const colorBgSpinner = theme.palette.primary.main;
 
   //Navegacion React Router
   const navegar = useNavigate();

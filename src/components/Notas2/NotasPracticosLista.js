@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { BotonNota } from "./BotonNota";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import ECContenedorPracticos from "./EnCorPracticos/ECContenedorPracticos";
 import Row from "./Row";
@@ -17,6 +17,7 @@ import PaginationCustom from "../Material UI - Componentes Modificados/Component
 import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
 import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
 import { estiloScrollbar } from "../../styles/EstilosScrollBar";
+import { TableCellHead } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
 export default function NotasPracticosLista(props) {
   var columns = [
@@ -197,8 +198,19 @@ export default function NotasPracticosLista(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2}>
-          <Grid item xs={6} sx={{ mt: 1 }}>
+
+        {/* Paginación */}
+        <Grid
+          justifyContent="space-between"
+          container
+          pt={2.2}
+          paddingX={2}
+          sx={{
+            justifyContent: { xs: "center", md: "space-between" },
+            gap: 2.5,
+          }}
+        >
+          <Grid item>
             <Stack spacing={2}>
               <Pagination
                 variant="outlined"
@@ -210,7 +222,40 @@ export default function NotasPracticosLista(props) {
             </Stack>
           </Grid>
 
-          <Grid item xs={3} sx={{ mt: 1 }}>
+          <Grid item>
+            <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+              <Box display="flex" textAlign="end" alignItems="center">
+                <Typography
+                  variant="text"
+                  sx={{
+                    color: "text.subtitle1secondary",
+                    marginRight: 1,
+                    // fontSize: "",
+                  }}
+                >
+                  Filas por página:
+                </Typography>
+                {
+                  <FilasPorPagina
+                    actualizarfilas={props.actualizarfilas}
+                    fpp={props.filasxpagina}
+                  />
+                }
+              </Box>
+
+              <Box>
+                <Typography
+                  variant="text"
+                  sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+                >
+                  Resultados:
+                </Typography>
+                {props.resultados}
+              </Box>
+            </Box>
+          </Grid>
+
+          {/* <Grid item xs={3} sx={{ mt: 1 }}>
             Filas por página:{" "}
             {
               <FilasPorPagina
@@ -222,9 +267,8 @@ export default function NotasPracticosLista(props) {
 
           <Grid item xs={3} sx={{ mt: 1 }}>
             Resultados: {props.resultados}
-          </Grid>
+          </Grid> */}
         </Grid>
-        <Grid justifyContent="center" container pt={2} />
       </>
     );
   }
@@ -240,23 +284,23 @@ export default function NotasPracticosLista(props) {
             sx={{
               mb: "1rem",
               borderCollapse: "collapse",
-              "& .MuiTableContainer": {
-                backgroundColor: "red",
-                "&::-webkit-scrollbar": {
-                  width: "0.25em",
-                },
-                "&::-webkit-scrollbar-track": {
-                  // boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-                  // webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  // backgroundColor: "rgba(0,0,0,0.1)",
-                  backgroundColor: "secondary.light100",
-                  "&:hover": {},
-                  // outline: "1px solid rgba(0,0,0,0.3)",
-                  borderRadius: "10px",
-                },
-              },
+              // "& .MuiTableContainer": {
+              //   backgroundColor: "red",
+              //   "&::-webkit-scrollbar": {
+              //     width: "0.25em",
+              //   },
+              //   "&::-webkit-scrollbar-track": {
+              //     // boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+              //     // webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+              //   },
+              //   "&::-webkit-scrollbar-thumb": {
+              //     // backgroundColor: "rgba(0,0,0,0.1)",
+              //     backgroundColor: "secondary.light100",
+              //     "&:hover": {},
+              //     // outline: "1px solid rgba(0,0,0,0.3)",
+              //     borderRadius: "10px",
+              //   },
+              // },
             }}
             size="small"
           >
@@ -266,20 +310,22 @@ export default function NotasPracticosLista(props) {
                 {columns2.map((column) => {
                   if (column.id === "Grupo") {
                     return (
-                      <TableCell
+                      <TableCellHead
                         key={column.id}
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
+                        sx={{ paddingY: "3px" }}
                       >
                         {column.label}
-                      </TableCell>
+                      </TableCellHead>
                     );
                   } else {
                     return (
-                      <TableCell
+                      <TableCellHead
                         key={column.id}
                         align={column.align}
                         style={{ width: column.minWidth }}
+                        sx={{ paddingY: "3px" }}
                       >
                         <ECContenedorPracticos
                           nombre={column.label}
@@ -287,7 +333,7 @@ export default function NotasPracticosLista(props) {
                           cursada={props.cursada}
                           Nombre={column.label}
                         />
-                      </TableCell>
+                      </TableCellHead>
                     );
                   }
                 })}
@@ -310,8 +356,19 @@ export default function NotasPracticosLista(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2} paddingX={2}>
-          <Grid item xs={8} sx={{ mt: 1 }}>
+
+        {/* Paginacion */}
+        <Grid
+          justifyContent="space-between"
+          container
+          // pt={2.2}
+          paddingX={2}
+          sx={{
+            justifyContent: { xs: "center", md: "space-between" },
+            gap: 2.5,
+          }}
+        >
+          <Grid item>
             <Stack spacing={2}>
               <PaginationCustom
                 defaultPage={1}
@@ -322,19 +379,38 @@ export default function NotasPracticosLista(props) {
             </Stack>
           </Grid>
 
-          <ContenedorFilasPorPagina>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </ContenedorFilasPorPagina>
+          <Grid item>
+            <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+              <Box display="flex" textAlign="end" alignItems="center">
+                <Typography
+                  variant="text"
+                  sx={{
+                    color: "text.subtitle1secondary",
+                    marginRight: 1,
+                    // fontSize: "",
+                  }}
+                >
+                  Filas por página:
+                </Typography>
+                {
+                  <FilasPorPagina
+                    actualizarfilas={props.actualizarfilas}
+                    fpp={props.filasxpagina}
+                  />
+                }
+              </Box>
 
-          <ContenedorResultados>
-            Resultados: {props.resultados}
-          </ContenedorResultados>
+              <Box>
+                <Typography
+                  variant="text"
+                  sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+                >
+                  Resultados:
+                </Typography>
+                {props.resultados}
+              </Box>
+            </Box>
+          </Grid>
         </Grid>
       </>
     );

@@ -6,6 +6,11 @@ const endpoints = {
 
   //Gestionar cursadas (superadministrador)
   borrarCursada: rootUrl + "/borrarcursada",
+
+  //Gestion notas
+  listarIntegrantes: rootUrl + "/listarintegrantes",
+  //
+  modificarecpra: rootUrl + "/modificarecpra",
 };
 
 export { endpoints };

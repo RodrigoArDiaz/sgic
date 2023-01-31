@@ -27,13 +27,24 @@ export default function PaginaDocentesNotas() {
     };
   }, []);
 
+  const crumbs = [
+    {
+      nombreRuta: "Inicio",
+      to: "/inicio/docentes/ingreso",
+    },
+    {
+      nombreRuta: "Notas",
+      to: "",
+    },
+  ];
+
   return (
     <Grid container rowSpacing={3}>
-      {/* <Grid item xs={12}>
+      <Grid item xs={12}>
         <GridBreadCrumbs container>
-          <BreadCrumbs />
+          <BreadCrumbs crumbs={crumbs} />
         </GridBreadCrumbs>
-      </Grid> */}
+      </Grid>
 
       <Grid item xs={12}>
         <NotasContenedor />

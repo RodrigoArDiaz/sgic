@@ -21,7 +21,7 @@ const InputEditable = styled(Input)(({ theme }) => ({
 /*******************************
  * Componente Busqueda*/
 const OutlinedInputEditable = styled(OutlinedInput)(({ theme }) => ({
-  borderRadius: "5px",
+  borderRadius: "0px",
   "& fieldset.MuiOutlinedInput-notchedOutline": {
     outlineColor: "rgba(0,0,0,0.10)",
     borderColor: "rgba(0,0,0,0)",

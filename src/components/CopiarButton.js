@@ -10,6 +10,7 @@ const CopiarButton = ({ textoCopiar }) => {
       TransitionComponent={Zoom}
       onBlur={() => setCopiar(false)}
       arrow
+      placement="top"
     >
       <span>
         <IconButton
