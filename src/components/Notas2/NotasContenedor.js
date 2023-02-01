@@ -117,7 +117,10 @@ export default function NotasContenedor(props) {
                       />
                     </TabPanel>
 
-                    <TabPanel value="2" sx={{ paddingX: "0", paddingTop: 1 }}>
+                    <TabPanel
+                      value="2"
+                      sx={{ paddingX: "0", paddingTop: 0, paddingBottom: 0 }}
+                    >
                       <NotasContenedorExamenes
                         cursada={cursada}
                         titulo="Exámenes"

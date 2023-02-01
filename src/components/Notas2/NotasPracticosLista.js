@@ -1,34 +1,24 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { BotonNota } from "./BotonNota";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import ECContenedorPracticos from "./EnCorPracticos/ECContenedorPracticos";
 import Row from "./Row";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import ContenedorFilasPorPagina from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
-import ContenedorResultados from "../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
-import { estiloScrollbar } from "../../styles/EstilosScrollBar";
-import { TableCellHead } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCell1em,
+  TableCellHead,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
+import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
 
 export default function NotasPracticosLista(props) {
   var columns = [
-    {
-      id: "Nombres",
-      label: "Nombres",
-      minWidth: 20,
-      align: "left",
-      idp: 0,
-    },
-
     {
       id: "Apellidos",
       label: "Apellidos",
@@ -38,8 +28,16 @@ export default function NotasPracticosLista(props) {
     },
 
     {
-      id: "Libreta",
-      label: "Libreta",
+      id: "Nombres",
+      label: "Nombres",
+      minWidth: 20,
+      align: "left",
+      idp: 0,
+    },
+
+    {
+      id: "Documento",
+      label: "Documento",
       minWidth: 20,
       idp: 0,
     },
@@ -98,27 +96,28 @@ export default function NotasPracticosLista(props) {
     return (
       <>
         <TableContainer sx={{ maxHeight: "none" }}>
-          <Table aria-label="sticky table">
+          <Table aria-label="sticky table" size="small">
             <TableHead>
               <TableRow>
                 {columns.map((column) => {
                   if (
                     column.id === "Apellidos" ||
                     column.id === "Nombres" ||
-                    column.id === "Libreta"
+                    column.id === "Documento" ||
+                    column.id === "avatar"
                   ) {
                     return (
-                      <TableCell
+                      <TableCellHead
                         key={column.id}
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
                       >
                         {column.label}
-                      </TableCell>
+                      </TableCellHead>
                     );
                   } else {
                     return (
-                      <TableCell
+                      <TableCellHead
                         key={column.id}
                         align={column.align}
                         style={{ width: column.minWidth }}
@@ -129,7 +128,7 @@ export default function NotasPracticosLista(props) {
                           cursada={props.cursada}
                           Nombre={column.label}
                         />
-                      </TableCell>
+                      </TableCellHead>
                     );
                   }
                 })}
@@ -149,31 +148,40 @@ export default function NotasPracticosLista(props) {
 
                       if (column.id === "Apellidos") {
                         return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
+                          <TableCell1em key={column.id} align={column.align}>
+                            <Box display="flex" gap={1} alignItems="center">
+                              <AvatarCustom
+                                // value={value}
+                                valueOne={row["Apellidos"]}
+                                valueTwo={row["Nombres"]}
+                                outlined={true}
+                                // defineColor={randomColor()}
+                              />
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </Box>
+                          </TableCell1em>
                         );
                       } else if (column.id === "Nombres") {
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell1em key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}
-                          </TableCell>
+                          </TableCell1em>
                         );
-                      } else if (column.id === "Libreta") {
+                      } else if (column.id === "Documento") {
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell1em key={column.id} align={column.align}>
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}
-                          </TableCell>
+                          </TableCell1em>
                         );
                       } else {
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell1em key={column.id} align={column.align}>
                             {column.format && typeof value === "number" ? (
                               column.format(value)
                             ) : (
@@ -188,7 +196,7 @@ export default function NotasPracticosLista(props) {
                                 NMA={column.NMA}
                               />
                             )}
-                          </TableCell>
+                          </TableCell1em>
                         );
                       }
                     })}
@@ -212,8 +220,7 @@ export default function NotasPracticosLista(props) {
         >
           <Grid item>
             <Stack spacing={2}>
-              <Pagination
-                variant="outlined"
+              <PaginationCustom
                 defaultPage={1}
                 count={props.paginacion}
                 page={props.pagina}
@@ -254,20 +261,6 @@ export default function NotasPracticosLista(props) {
               </Box>
             </Box>
           </Grid>
-
-          {/* <Grid item xs={3} sx={{ mt: 1 }}>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </Grid>
-
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Resultados: {props.resultados}
-          </Grid> */}
         </Grid>
       </>
     );
@@ -284,23 +277,6 @@ export default function NotasPracticosLista(props) {
             sx={{
               mb: "1rem",
               borderCollapse: "collapse",
-              // "& .MuiTableContainer": {
-              //   backgroundColor: "red",
-              //   "&::-webkit-scrollbar": {
-              //     width: "0.25em",
-              //   },
-              //   "&::-webkit-scrollbar-track": {
-              //     // boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-              //     // webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
-              //   },
-              //   "&::-webkit-scrollbar-thumb": {
-              //     // backgroundColor: "rgba(0,0,0,0.1)",
-              //     backgroundColor: "secondary.light100",
-              //     "&:hover": {},
-              //     // outline: "1px solid rgba(0,0,0,0.3)",
-              //     borderRadius: "10px",
-              //   },
-              // },
             }}
             size="small"
           >

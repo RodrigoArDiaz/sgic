@@ -45,7 +45,7 @@ export default function BotonTipo(props) {
   return (
     <Box paddingX={2} paddingY={1}>
       <Grid container spacing={1}>
-        <Grid item xs={8} sx={6} md={3} lg={2}>
+        <Grid item>
           <FormControl fullWidth>
             <Select
               value={anio}

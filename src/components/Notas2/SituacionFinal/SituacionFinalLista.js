@@ -46,8 +46,8 @@ export default function SituacionFinalLista(props) {
     },
 
     {
-      id: "Libreta",
-      label: "Libreta",
+      id: "Documento",
+      label: "Documento",
       minWidth: 20,
       idp: 0,
     },
@@ -169,7 +169,7 @@ export default function SituacionFinalLista(props) {
                             : value}
                         </TableCell1em>
                       );
-                    } else if (column.id === "Libreta") {
+                    } else if (column.id === "Documento") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"

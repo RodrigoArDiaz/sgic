@@ -1,29 +1,32 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 import ECContenedorExamenes from "../EnCorExamenes/ECContenedorExamenes";
 import { BotonNota } from "./BotonNota";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import ContenedorFilasPorPagina from "../../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina";
-import ContenedorResultados from "../../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados";
 import {
   TableCell1em,
+  TableCellHead,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
+import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 
-export default function StickyHeadTable(props) {
+export default function NotasExamenesLista(props) {
+  //
   var columns = [
+    {
+      id: "Apellidos",
+      label: "Apellidos",
+      minWidth: 20,
+      align: "left",
+      idp: 0,
+    },
     {
       id: "Nombres",
       label: "Nombres",
@@ -33,16 +36,8 @@ export default function StickyHeadTable(props) {
     },
 
     {
-      id: "Apellidos",
-      label: "Apellidos",
-      minWidth: 20,
-      align: "left",
-      idp: 0,
-    },
-
-    {
-      id: "Libreta",
-      label: "Libreta",
+      id: "Documento",
+      label: "Documento",
       minWidth: 20,
       idp: 0,
     },
@@ -68,35 +63,33 @@ export default function StickyHeadTable(props) {
     props.actualizarpagina(page);
   }
 
-  const theme = createTheme(esES);
-
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }}>
-        <Table aria-label="Lista de finales" sx={{ mb: "1rem" }} size="small">
+        <Table aria-label="Lista de finales" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => {
                 if (
                   column.id === "Apellidos" ||
                   column.id === "Nombres" ||
-                  column.id === "Libreta"
+                  column.id === "Documento"
                 ) {
                   return (
-                    <TableCell
+                    <TableCellHead
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
                     >
                       {column.label}
-                    </TableCell>
+                    </TableCellHead>
                   );
                 } else {
                   return (
-                    <TableCell
+                    <TableCellHead
                       key={column.id}
                       align={column.align}
                       style={{ width: column.minWidth }}
@@ -107,7 +100,7 @@ export default function StickyHeadTable(props) {
                         cursada={props.cursada}
                         Nombre={column.label}
                       />
-                    </TableCell>
+                    </TableCellHead>
                   );
                 }
               })}
@@ -123,9 +116,17 @@ export default function StickyHeadTable(props) {
                     if (column.id === "Apellidos") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          <Box display="flex" gap={1} alignItems="center">
+                            <AvatarCustom
+                              // value={value}
+                              valueOne={row["Apellidos"]}
+                              valueTwo={row["Nombres"]}
+                              outlined={true}
+                            />
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </Box>
                         </TableCell1em>
                       );
                     } else if (column.id === "Nombres") {
@@ -136,7 +137,7 @@ export default function StickyHeadTable(props) {
                             : value}
                         </TableCell1em>
                       );
-                    } else if (column.id === "Libreta") {
+                    } else if (column.id === "Documento") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
@@ -172,8 +173,18 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2} paddingRight={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      {/* Paginación */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{
+          justifyContent: { xs: "center", md: "space-between" },
+          gap: 2.5,
+        }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -184,19 +195,38 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <ContenedorFilasPorPagina>
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </ContenedorFilasPorPagina>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <ContenedorResultados>
-          Resultados: {props.resultados}
-        </ContenedorResultados>
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );

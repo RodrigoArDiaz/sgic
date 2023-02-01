@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
@@ -155,7 +155,19 @@ export default function BuscarAlumnos(props) {
         </Grid>
 
         <Grid item xs="auto" sm="auto" alignSelf="center">
-          <CustomerToggleButton
+          <Box>
+            <Button
+              variant="outlined"
+              size="medium"
+              // startIcon={<SearchIcon />}
+              onClick={() => {
+                manejador();
+              }}
+            >
+              <SearchIcon />
+            </Button>
+          </Box>
+          {/* <CustomerToggleButton
             value="check"
             size="small"
             selected={false}
@@ -164,7 +176,7 @@ export default function BuscarAlumnos(props) {
             }}
           >
             <SearchIcon color="primary" />
-          </CustomerToggleButton>
+          </CustomerToggleButton> */}
         </Grid>
       </Grid>
     </Box>

@@ -161,7 +161,7 @@ export default function NotasContenedorPracticos(props) {
           setFilas(response);
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-
+          console.log("Filas", filas);
           setCargando("2");
         } else if (Responses.status === 401) {
           navegar("/ingreso");

@@ -1,11 +1,9 @@
 import React from "react";
 //
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Divider } from "@mui/material";
 import NotasExamenesLista from "./NotasExamenesLista";
 import BuscarAlumnos from "../BuscarAlumnos";
 import BotonTipo from "./BotonTipo";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../../Responses";
@@ -174,6 +172,10 @@ export default function NotasContenedorExamenes(props) {
       });
   }, []);
 
+  React.useEffect(() => {
+    console.log(expandir);
+  }, [expandir]);
+
   /********************************************************************************/
   /* Componente
    */
@@ -194,7 +196,7 @@ export default function NotasContenedorExamenes(props) {
 
       {expandir === "1" && (
         <>
-          <Grid container pt={1} justifyContent="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item xs={12}>
               <BotonTipo
                 cursada={props.cursada}
@@ -204,6 +206,11 @@ export default function NotasContenedorExamenes(props) {
                 botb={setBB}
               />
             </Grid>
+
+            <Box sx={{ width: "100%" }}>
+              {" "}
+              <Divider flexItem />
+            </Box>
 
             {botonbusqueda === "1" && (
               <Grid item xs={12}>

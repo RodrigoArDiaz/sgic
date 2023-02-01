@@ -184,7 +184,7 @@ export default function ECContenedorExamenes(props) {
   return (
     <>
       <Tooltip title="Enunciados y correcciones" fullWidth>
-        <Button onClick={handleOpen} size="small">
+        <Button onClick={handleOpen} size="small" variant="contained">
           {props.nombre}
         </Button>
       </Tooltip>

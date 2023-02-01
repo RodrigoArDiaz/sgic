@@ -27,6 +27,10 @@ import PaginationCustom from "../../Material UI - Componentes Modificados/Compon
 import MensajeFeedback from "../../MensajeFeedback";
 
 export default function StickyHeadTable(props) {
+  React.useEffect(() => {
+    console.log(props.cursada);
+  }, []);
+
   var columns = [
     {
       id: "Nombres",
@@ -104,18 +108,18 @@ export default function StickyHeadTable(props) {
     return (
       <>
         <TableContainer sx={{ maxHeight: "none" }}>
-          <Table stickyHeader aria-label="sticky table">
+          <Table stickyHeader aria-label="sticky table" size="small">
             <TableHead>
               <TableRow>
                 {columns.map((column) => {
                   return (
-                    <TableCell
+                    <TableCellHead
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
                     >
                       {column.label}
-                    </TableCell>
+                    </TableCellHead>
                   );
                 })}
               </TableRow>
@@ -170,6 +174,7 @@ export default function StickyHeadTable(props) {
                                 abrir={props.abrir}
                                 mensaje={props.mensaje}
                                 tipo2={props.tipo}
+                                cursada={props.cursada}
                               />
                             }
                           </TableCell>
@@ -188,6 +193,7 @@ export default function StickyHeadTable(props) {
                                 abrir={props.abrir}
                                 mensaje={props.mensaje}
                                 tipo2={props.tipo}
+                                cursada={props.cursada}
                               />
                             }
                           </TableCell>
@@ -200,11 +206,21 @@ export default function StickyHeadTable(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid justifyContent="flex-start" container pt={2}>
-          <Grid item xs={6} sx={{ mt: 1 }}>
+
+        {/* Paginación */}
+        <Grid
+          justifyContent="space-between"
+          container
+          pt={2.2}
+          paddingX={2}
+          sx={{
+            justifyContent: { xs: "center", md: "space-between" },
+            gap: 2.5,
+          }}
+        >
+          <Grid item>
             <Stack spacing={2}>
-              <Pagination
-                variant="outlined"
+              <PaginationCustom
                 defaultPage={1}
                 count={props.paginacion}
                 page={props.pagina}
@@ -213,21 +229,39 @@ export default function StickyHeadTable(props) {
             </Stack>
           </Grid>
 
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Filas por página:{" "}
-            {
-              <FilasPorPagina
-                actualizarfilas={props.actualizarfilas}
-                fpp={props.filasxpagina}
-              />
-            }
-          </Grid>
+          <Grid item>
+            <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+              <Box display="flex" textAlign="end" alignItems="center">
+                <Typography
+                  variant="text"
+                  sx={{
+                    color: "text.subtitle1secondary",
+                    marginRight: 1,
+                    // fontSize: "",
+                  }}
+                >
+                  Filas por página:
+                </Typography>
+                {
+                  <FilasPorPagina
+                    actualizarfilas={props.actualizarfilas}
+                    fpp={props.filasxpagina}
+                  />
+                }
+              </Box>
 
-          <Grid item xs={3} sx={{ mt: 1 }}>
-            Resultados: {props.resultados}
+              <Box>
+                <Typography
+                  variant="text"
+                  sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+                >
+                  Resultados:
+                </Typography>
+                {props.resultados}
+              </Box>
+            </Box>
           </Grid>
         </Grid>
-        <Grid justifyContent="center" container pt={2} />
       </>
     );
   }
