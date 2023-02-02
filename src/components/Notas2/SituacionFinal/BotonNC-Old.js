@@ -10,10 +10,8 @@ import { green, red } from "@mui/material/colors";
 /*****************************
  * Determinar Estilo del input
  */
-const determinarEstilo = (condicion, nota) => {
+const determinarEstilo = (condicion) => {
   if (condicion === undefined) {
-    return {};
-  } else if (nota == 0 || nota == "-") {
     return {};
   } else if (condicion > 0) {
     return {
@@ -129,7 +127,7 @@ export default function ECVisual(props) {
     // </FormControl>
     <FormControl sx={{ m: 1, width: 51 }} variant="outlined">
       <OutlinedInputEditable
-        sx={determinarEstilo(props.Cond, props.Nota)}
+        sx={determinarEstilo(props.Cond)}
         id="outlined-adornment-weight"
         value={Transformar(props.Nota)}
         size="small"

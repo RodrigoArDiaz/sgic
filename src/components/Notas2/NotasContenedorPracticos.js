@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import NotasPracticosLista from "./NotasPracticosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
@@ -13,6 +13,7 @@ import {
   sizeMainSpinner,
 } from "../../styles/EstilosSpinners";
 import MensajeFeedback from "../MensajeFeedback";
+import { green, red } from "@mui/material/colors";
 
 export default function NotasContenedorPracticos(props) {
   const navegar = useNavigate();
@@ -207,22 +208,74 @@ export default function NotasContenedorPracticos(props) {
         </Grid>
       )}
       {cargando === "2" && (
-        <Grid container pt={0}>
-          <NotasPracticosLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            cursada={props.cursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
+        <>
+          <Box
+            display="flex"
+            p={2}
+            pt={0}
+            gap={3}
+            justifyContent="end"
+            sx={{ marginTop: { xs: "0px", md: "-40px" } }}
+          >
+            <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+              Requisito de aprobación:
+            </Typography>
+            <Box
+              display="inline-flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+            >
+              <Box
+                sx={{
+                  width: "20px",
+                  height: "6px",
+                  borderRadius: "20px",
+                  bgcolor: green[900],
+                }}
+                component="span"
+              ></Box>
+              <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                Cumple
+              </Typography>
+            </Box>
+            <Box
+              display="inline-flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+            >
+              <Box
+                sx={{
+                  width: "20px",
+                  height: "6px",
+                  borderRadius: "20px",
+                  bgcolor: red["A700"],
+                }}
+                component="span"
+              ></Box>
+              <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                No cumple
+              </Typography>
+            </Box>
+          </Box>
+          <Grid container p={0}>
+            <NotasPracticosLista
+              filas={filas}
+              filasxpagina={filasxpagina}
+              pagina={pagina}
+              paginacion={paginacion}
+              resultados={resultados}
+              actualizarpagina={CambioPagina}
+              actualizarfilas={CambioFPP}
+              refrescar={Refrescar}
+              cursada={props.cursada}
+              abrir={setAbrir}
+              mensaje={setMensaje}
+              tipo={setTipo}
+            />
+          </Grid>
+        </>
       )}
 
       {cargando === "3" && (

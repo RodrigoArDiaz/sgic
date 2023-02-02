@@ -1,6 +1,6 @@
 import React from "react";
 //
-import { Grid, Box, Divider } from "@mui/material";
+import { Grid, Box, Divider, Typography } from "@mui/material";
 import NotasExamenesLista from "./NotasExamenesLista";
 import BuscarAlumnos from "../BuscarAlumnos";
 import BotonTipo from "./BotonTipo";
@@ -13,6 +13,7 @@ import {
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners.js";
 import MensajeFeedback from "../../MensajeFeedback";
+import { green, red } from "@mui/material/colors";
 
 export default function NotasContenedorExamenes(props) {
   const [expandir, setExp] = React.useState("2");
@@ -250,22 +251,74 @@ export default function NotasContenedorExamenes(props) {
           )}
 
           {cargando === "2" && (
-            <Grid container>
-              <NotasExamenesLista
-                filas={filas}
-                filasxpagina={filasxpagina}
-                pagina={pagina}
-                paginacion={paginacion}
-                resultados={resultados}
-                actualizarpagina={CambioPagina}
-                actualizarfilas={CambioFPP}
-                refrescar={Refrescar}
-                cursada={props.cursada}
-                abrir={setAbrir}
-                mensaje={setMensaje}
-                tipo={setTipo}
-              />
-            </Grid>
+            <>
+              <Box
+                display="flex"
+                p={2}
+                pt={0}
+                gap={3}
+                justifyContent="end"
+                sx={{ marginTop: { xs: "0px", lg: "-35px" } }}
+              >
+                <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                  Requisito de aprobación:
+                </Typography>
+                <Box
+                  display="inline-flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Box
+                    sx={{
+                      width: "20px",
+                      height: "6px",
+                      borderRadius: "20px",
+                      bgcolor: green[900],
+                    }}
+                    component="span"
+                  ></Box>
+                  <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                    Cumple
+                  </Typography>
+                </Box>
+                <Box
+                  display="inline-flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Box
+                    sx={{
+                      width: "20px",
+                      height: "6px",
+                      borderRadius: "20px",
+                      bgcolor: red["A700"],
+                    }}
+                    component="span"
+                  ></Box>
+                  <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                    No cumple
+                  </Typography>
+                </Box>
+              </Box>
+              <Grid container>
+                <NotasExamenesLista
+                  filas={filas}
+                  filasxpagina={filasxpagina}
+                  pagina={pagina}
+                  paginacion={paginacion}
+                  resultados={resultados}
+                  actualizarpagina={CambioPagina}
+                  actualizarfilas={CambioFPP}
+                  refrescar={Refrescar}
+                  cursada={props.cursada}
+                  abrir={setAbrir}
+                  mensaje={setMensaje}
+                  tipo={setTipo}
+                />
+              </Grid>
+            </>
           )}
         </>
       )}

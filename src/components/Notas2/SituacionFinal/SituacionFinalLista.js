@@ -1,17 +1,20 @@
 import * as React from "react";
 //MUI
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  OutlinedInput,
+  Typography,
+} from "@mui/material";
 //Componentes propios
 import BotonEstados from "./BotonEstados.js";
 import BotonNC from "./BotonNC.js";
@@ -19,27 +22,34 @@ import { BotonAsistencia } from "./BotonAsistencia.js";
 import { BotonNFL } from "./BotonNFL.js";
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom.js";
-import ContenedorFilasPorPagina from "../../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorFilasPorPagina.js";
-import ContenedorResultados from "../../Material UI - Componentes Modificados/ComponentePaginacion/ContenedorResultados.js";
-import { TableCell1em } from "../../Material UI - Componentes Modificados/ComponentesTabla.js";
+import {
+  TableCell1em,
+  TableCellHead,
+} from "../../Material UI - Componentes Modificados/ComponentesTabla.js";
 import { TableCellEditable } from "../../Material UI - Componentes Modificados/ComponentesNotas/ComponentesNotas.js";
+import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom.js";
+import { blue } from "@mui/material/colors";
 
 /********************************************************************
  * Componente
  */
 export default function SituacionFinalLista(props) {
+  React.useEffect(() => {
+    console.log(props.filas.res2);
+  }, []);
+
   var columns = [
     {
-      id: "Nombres",
-      label: "Nombres",
+      id: "Apellidos",
+      label: "Apellidos",
       minWidth: 20,
       align: "left",
       idp: 0,
     },
 
     {
-      id: "Apellidos",
-      label: "Apellidos",
+      id: "Nombres",
+      label: "Nombres",
       minWidth: 20,
       align: "left",
       idp: 0,
@@ -56,7 +66,7 @@ export default function SituacionFinalLista(props) {
   var columns2 = [
     {
       id: "Asistencia",
-      label: "Asistencia",
+      label: "Condición de asistencia",
       minWidth: 20,
       align: "center",
       idp: 0,
@@ -119,23 +129,23 @@ export default function SituacionFinalLista(props) {
       <TableContainer sx={{ maxHeight: "none" }} size="medium">
         <Table
           aria-label="Lista de alumnos y su situacion final"
-          sx={{
-            mb: "1rem",
-            borderCollapse: "collapse",
-          }}
+          // sx={{
+          //   mb: "1rem",
+          //   borderCollapse: "collapse",
+          // }}
           size="small"
         >
           <TableHead>
             <TableRow>
               {columns.map((column) => {
                 return (
-                  <TableCell
+                  <TableCellHead
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
                     {column.label}
-                  </TableCell>
+                  </TableCellHead>
                 );
               })}
             </TableRow>
@@ -156,9 +166,17 @@ export default function SituacionFinalLista(props) {
                     if (column.id === "Apellidos") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          <Box display="flex" gap={1} alignItems="center">
+                            <AvatarCustom
+                              // value={value}
+                              valueOne={row["Apellidos"]}
+                              valueTwo={row["Nombres"]}
+                              outlined={true}
+                            />
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </Box>
                         </TableCell1em>
                       );
                     } else if (column.id === "Nombres") {
@@ -250,11 +268,41 @@ export default function SituacionFinalLista(props) {
                     } else if (column.id === "NotaFinal") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {column.format && typeof value === "number" ? (
+                          {/* {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : (
                             <BotonNC Nota={row.NotaFinal} />
-                          )}
+                          )} */}
+                          {/* 
+                          {Number.parseFloat(row.NotaFinal).toFixed(2)} */}
+
+                          <FormControl
+                            sx={{ m: 1, width: 60 }}
+                            variant="outlined"
+                          >
+                            <OutlinedInput
+                              sx={{
+                                color: blue[900],
+
+                                borderRadius: "0px",
+                                "&>input": { paddingX: 0, textAlign: "center" },
+                                "& fieldset.MuiOutlinedInput-notchedOutline": {
+                                  borderWidth: "2px solid",
+                                  borderColor: blue[700] + "!important",
+                                  borderRadius: 0,
+                                },
+                              }}
+                              id="outlined-adornment-weight"
+                              value={Number.parseFloat(row.NotaFinal).toFixed(
+                                2
+                              )}
+                              size="small"
+                              aria-describedby="outlined-weight-helper-text"
+                              inputProps={{
+                                readOnly: true,
+                              }}
+                            />
+                          </FormControl>
                         </TableCell1em>
                       );
                     } else if (column.id === "NotaFinalLibreta") {
@@ -303,8 +351,19 @@ export default function SituacionFinalLista(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2} paddingX={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+
+      {/* Paginacion */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{
+          justifyContent: { xs: "center", md: "space-between" },
+          gap: 2.5,
+        }}
+      >
+        <Grid item>
           <Stack spacing={2}>
             <PaginationCustom
               defaultPage={1}
@@ -315,19 +374,38 @@ export default function SituacionFinalLista(props) {
           </Stack>
         </Grid>
 
-        <ContenedorFilasPorPagina>
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </ContenedorFilasPorPagina>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <ContenedorResultados>
-          Resultados: {props.resultados}
-        </ContenedorResultados>
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );

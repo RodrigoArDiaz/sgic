@@ -1,12 +1,12 @@
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip, Zoom } from "@mui/material";
+import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import * as Responses from "../../Responses";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 export const BotonAsistencia = (props) => {
   const navegar = useNavigate();
@@ -75,7 +75,7 @@ export const BotonAsistencia = (props) => {
     <>
       {salto === "C" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="Cumple condición" TransitionComponent={Zoom} arrow>
+          {/* <Tooltip title="Cumple condición" TransitionComponent={Zoom} arrow>
             <span>
               <IconButton
                 aria-label="estado"
@@ -86,12 +86,19 @@ export const BotonAsistencia = (props) => {
                 <CheckIcon />
               </IconButton>
             </span>
-          </Tooltip>
+          </Tooltip> */}
+          <Chip
+            variant="outlined"
+            color="success"
+            label="Cumple "
+            icon={<CheckCircleOutlineOutlined />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "N" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="No cumple condición" TransitionComponent={Zoom} arrow>
+          {/* <Tooltip title="No cumple condición" TransitionComponent={Zoom} arrow>
             <span>
               <IconButton
                 aria-label="estado2"
@@ -102,7 +109,14 @@ export const BotonAsistencia = (props) => {
                 <CloseIcon />
               </IconButton>
             </span>
-          </Tooltip>
+          </Tooltip> */}
+          <Chip
+            variant="outlined"
+            color="error"
+            label="No cumple"
+            icon={<HighlightOffOutlinedIcon />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "S" && (

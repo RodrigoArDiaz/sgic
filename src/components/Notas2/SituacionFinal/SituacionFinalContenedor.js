@@ -14,6 +14,7 @@ import {
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners";
 import MensajeFeedback from "../../MensajeFeedback";
+import { green, red } from "@mui/material/colors";
 
 /********************************************************************************/
 /* Componente
@@ -49,11 +50,11 @@ export default function SituacionFinalContenedor(props) {
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          // navegar("/error");
         }
       })
       .catch((error) => {
-        navegar("/error");
+        // navegar("/error");
       });
   }
 
@@ -79,11 +80,11 @@ export default function SituacionFinalContenedor(props) {
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          // navegar("/error");
         }
       })
       .catch((error) => {
-        navegar("/error");
+        // navegar("/error");
       });
   }
 
@@ -159,6 +160,8 @@ export default function SituacionFinalContenedor(props) {
     setPagina(1);
     setDC(data);
 
+    console.log(data);
+
     Responses.consultas(data, "http://127.0.0.1:8000/api/buscarsituacionfinal")
       .then((response) => {
         if (Responses.status === 200) {
@@ -171,17 +174,17 @@ export default function SituacionFinalContenedor(props) {
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          // navegar("/error");
         }
       })
       .catch((error) => {
-        navegar("/error");
+        // navegar("/error");
       });
   }, []);
 
   return (
     <>
-      <Grid container pt={1} justifyContent="flex-end" spacing={8}>
+      <Grid container justifyContent="flex-end">
         <Grid item xs={12}>
           <BuscarAlumnos
             cursada={props.cursada}
@@ -202,22 +205,74 @@ export default function SituacionFinalContenedor(props) {
       )}
 
       {cargando === "2" && (
-        <Grid container pt={2}>
-          <SituacionFinalLista
-            filas={filas}
-            filasxpagina={filasxpagina}
-            pagina={pagina}
-            paginacion={paginacion}
-            resultados={resultados}
-            actualizarpagina={CambioPagina}
-            actualizarfilas={CambioFPP}
-            refrescar={Refrescar}
-            cursada={props.cursada}
-            abrir={setAbrir}
-            mensaje={setMensaje}
-            tipo={setTipo}
-          />
-        </Grid>
+        <>
+          <Box
+            display="flex"
+            p={2}
+            pt={0}
+            gap={3}
+            justifyContent="end"
+            sx={{ marginTop: { xs: "0px", lg: "-35px" } }}
+          >
+            <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+              Requisito de aprobación:
+            </Typography>
+            <Box
+              display="inline-flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+            >
+              <Box
+                sx={{
+                  width: "20px",
+                  height: "6px",
+                  borderRadius: "20px",
+                  bgcolor: green[900],
+                }}
+                component="span"
+              ></Box>
+              <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                Cumple
+              </Typography>
+            </Box>
+            <Box
+              display="inline-flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+            >
+              <Box
+                sx={{
+                  width: "20px",
+                  height: "6px",
+                  borderRadius: "20px",
+                  bgcolor: red["A700"],
+                }}
+                component="span"
+              ></Box>
+              <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                No cumple
+              </Typography>
+            </Box>
+          </Box>
+          <Grid container pt={1}>
+            <SituacionFinalLista
+              filas={filas}
+              filasxpagina={filasxpagina}
+              pagina={pagina}
+              paginacion={paginacion}
+              resultados={resultados}
+              actualizarpagina={CambioPagina}
+              actualizarfilas={CambioFPP}
+              refrescar={Refrescar}
+              cursada={props.cursada}
+              abrir={setAbrir}
+              mensaje={setMensaje}
+              tipo={setTipo}
+            />
+          </Grid>
+        </>
       )}
 
       {cargando === "3" && (
