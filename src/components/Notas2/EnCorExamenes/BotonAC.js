@@ -2,12 +2,16 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip } from "@mui/material";
+import { Box, Divider, Tooltip, Zoom } from "@mui/material";
 import BotonAceptar from "./BotonAceptar";
 import ECVisual from "./ECVisual";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../../Responses";
+import {
+  CheckCircleOutlineOutlined,
+  DeleteOutlineOutlined,
+} from "@mui/icons-material";
 
 export const BotonAC = (props) => {
   const navegar = useNavigate();
@@ -28,6 +32,7 @@ export const BotonAC = (props) => {
             pEnc: props.param1,
             pCor: Transformar(props.correcciones),
             pidER: props.IdExamenResultado,
+            pidCu: props.cursada.IdCursada,
           };
           setSalto(false);
           Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
@@ -40,16 +45,28 @@ export const BotonAC = (props) => {
 
                 setSalto(props.param1);
               } else if (Responses.status === 401) {
-                navegar("/ingreso");
+                // navegar("/ingreso");
               } else {
-                navegar("/error");
+                // navegar("/error");
               }
             })
             .catch((error) => {
-              navegar("/error");
+              // navegar("/error");
             });
         }
+      } else {
+        props.mensaje(
+          "No se puede cargar enunciado: el campo 'Enunciado' esta vacio"
+        );
+        props.abrir(true);
+        props.tipo2("error");
       }
+    } else {
+      props.mensaje(
+        "No se puede cargar enunciado: el campo 'Enunciado' esta vacio"
+      );
+      props.abrir(true);
+      props.tipo2("error");
     }
 
     if (variable === "2") {
@@ -57,6 +74,7 @@ export const BotonAC = (props) => {
         pEnc: "",
         pCor: Transformar(props.correcciones),
         pidER: props.IdExamenResultado,
+        pidCu: props.cursada.IdCursada,
       };
 
       setSalto(false);
@@ -91,6 +109,7 @@ export const BotonAC = (props) => {
             pEnc: Transformar(props.enunciado),
             pCor: props.param2,
             pidER: props.IdExamenResultado,
+            pidCu: props.cursada.IdCursada,
           };
           setSalto2(false);
           Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
@@ -112,16 +131,29 @@ export const BotonAC = (props) => {
               navegar("/error");
             });
         }
+      } else {
+        props.mensaje(
+          "No se puede cargar corrección: el campo 'Correcciones' esta vacio"
+        );
+        props.abrir(true);
+        props.tipo2("error");
       }
+    } else {
+      props.mensaje(
+        "No se puede cargar corrección: el campo 'Correcciones' esta vacio"
+      );
+      props.abrir(true);
+      props.tipo2("error");
     }
 
     if (variable === "2") {
-      var data =
-        {
-          pEnc: Transformar(props.enunciado),
-          pCor: "",
-          pidER: props.IdExamenResultado,
-        } / setSalto2(false);
+      var data = {
+        pEnc: Transformar(props.enunciado),
+        pCor: "",
+        pidER: props.IdExamenResultado,
+        pidCu: props.cursada.IdCursada,
+      };
+      setSalto2(false);
       Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
         .then((response) => {
           if (Responses.status === 200) {
@@ -132,7 +164,7 @@ export const BotonAC = (props) => {
 
             props.tipo2("warning");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            // navegar("/ingreso");
           } else {
             navegar("/error");
           }
@@ -142,120 +174,154 @@ export const BotonAC = (props) => {
         });
     }
   }
-
-  // Manejador
-
+  //*********************************************** */
+  //Verificando
   if (salto === false && props.tipo === "Enunciado") {
     return (
-      <Tooltip title="Verificando">
-        <IconButton aria-label="estado3" size="small" color="inherit">
-          <CircularProgress />
-        </IconButton>
-      </Tooltip>
+      <IconButton aria-label="estado3" size="small" color="inherit">
+        <CircularProgress size={25} color="primary" />
+      </IconButton>
     );
   }
 
   if (salto2 === false && props.tipo === "Correcciones") {
     return (
-      <Tooltip title="Verificando">
-        <IconButton aria-label="estado3" size="small" color="inherit">
-          <CircularProgress />
-        </IconButton>
-      </Tooltip>
+      <IconButton aria-label="estado3" size="small" color="inherit">
+        <CircularProgress size={25} color="primary" />
+      </IconButton>
     );
   }
 
+  //*********************************************** */
+  //Con enunciado
   if (salto !== "-" && props.tipo === "Enunciado") {
     return (
-      <div>
+      <Box
+        display="inline-flex"
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
         <ECVisual valor={salto} />
+
+        <Divider orientation="vertical" flexItem />
+
         <BotonAceptar Operacion={manejador} />
 
-        <Tooltip title="Borrar enunciado">
+        <Tooltip title="Borrar enunciado" TransitionComponent={Zoom} arrow>
           <IconButton
             aria-label="enunciado2"
             size="small"
             onClick={() => manejador("2")}
           >
-            <CloseIcon />
+            <DeleteOutlineOutlined color="secondary" />
           </IconButton>
         </Tooltip>
-      </div>
+      </Box>
     );
   }
 
+  //*********************************************** */
+  //SIN enunciado
   if (salto === "-" && props.tipo === "Enunciado") {
     return (
-      <div>
-        <ECVisual valor={salto} />
+      <Box
+        display="inline-flex"
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <ECVisual valor={salto} label="Sin enunciado" type="error" />
 
-        <Tooltip title="Cargar enunciado">
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ marginLeft: 2, marginRight: 1 }}
+        />
+
+        <Tooltip title="Cargar enunciado" TransitionComponent={Zoom} arrow>
           <IconButton
             aria-label="enunciado1"
             size="small"
             onClick={() => manejador("1")}
           >
-            <CheckIcon />
+            <CheckCircleOutlineOutlined color="secondary" />
           </IconButton>
         </Tooltip>
-
-        <Tooltip title="Sin enunciado">
-          <IconButton aria-label="enunciado2" size="small" color="error">
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
+      </Box>
     );
   }
 
+  //*********************************************** */
+  //Con correcciones
   if (salto2 !== "-" && props.tipo === "Correcciones") {
     return (
-      <div>
+      <Box
+        display="inline-flex"
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
         <ECVisual valor={salto2} />
-        <Tooltip title="Recargar correcciones">
+
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ marginLeft: 2, marginRight: 1 }}
+        />
+
+        <Tooltip title="Recargar correcciones" TransitionComponent={Zoom} arrow>
           <IconButton
             aria-label="correcciones1"
             size="small"
             color="success"
             onClick={() => manejador2("1")}
           >
-            <CheckIcon />
+            <CheckCircleOutlineOutlined color="secondary" />
           </IconButton>
         </Tooltip>
 
-        <Tooltip title="Borrar correcciones">
+        <Tooltip title="Borrar correcciones" TransitionComponent={Zoom} arrow>
           <IconButton
             aria-label="correcciones2"
             size="small"
             onClick={() => manejador2("2")}
           >
-            <CloseIcon />
+            <DeleteOutlineOutlined color="secondary" />
           </IconButton>
         </Tooltip>
-      </div>
+      </Box>
     );
   }
 
+  //*********************************************** */
+  //SIN correcciones
   if (salto2 === "-" && props.tipo === "Correcciones") {
     return (
-      <div>
-        <ECVisual valor={salto2} />
-        <Tooltip title="Cargar correciones">
+      <Box
+        display="inline-flex"
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <ECVisual valor={salto2} label="Sin correcciones" type="info" />
+
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ marginLeft: 2, marginRight: 1 }}
+        />
+
+        <Tooltip title="Cargar correciones" TransitionComponent={Zoom} arrow>
           <IconButton
             aria-label="correcciones1"
             size="small"
             onClick={() => manejador2("1")}
           >
-            <CheckIcon />
+            <CheckCircleOutlineOutlined color="secondary" />
           </IconButton>
         </Tooltip>
-
-        <Tooltip title="Sin correcciones">
-          <IconButton aria-label="correcciones2" size="small" color="error">
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
+      </Box>
     );
   }
 };
