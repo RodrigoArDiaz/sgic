@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -14,6 +14,7 @@ import { DeleteOutlined } from "@mui/icons-material";
 import { useModal } from "../useModal";
 //React router dom
 import { useNavigate } from "react-router-dom";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const BorrarAlumno = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -68,23 +69,18 @@ export const BorrarAlumno = (props) => {
     <>
       <Tooltip title="Borrar" TransitionComponent={Zoom}>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        maxWidth="xs"
-        fullWidth
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
-      >
-        <DialogTitle>Borrar alumno</DialogTitle>
+      <DialogCustom open={isOpen} onClose={handleClose} maxWidth="xs">
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar alumno
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar al alumno?
@@ -94,11 +90,11 @@ export const BorrarAlumno = (props) => {
           <Button variant="contained" onClick={BorrarAlumno}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

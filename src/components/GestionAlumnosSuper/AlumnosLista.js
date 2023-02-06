@@ -10,16 +10,28 @@ import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 //
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
-import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCell1em,
+  TableCellHead,
+  TableRowElevacion,
+} from "../Material UI - Componentes Modificados/ComponentesTabla";
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import MensajeFeedback from "../MensajeFeedback";
 import CopiarButton from "../CopiarButton";
+import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
+import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
 const columns = [
+  {
+    id: "#",
+    label: "",
+    minWidth: 10,
+    align: "center",
+  },
   {
     id: "Apellidos",
     label: "Apellidos",
@@ -108,54 +120,32 @@ export default function StickyHeadTable(props) {
 
   if (props.filas.res === undefined)
     return (
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          border: "1px solid",
-          borderColor: "secondary.light100",
-          textAlign: "center",
-          paddingX: "1rem",
-        }}
-      >
-        <Grid container>
-          <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
-        </Grid>
-      </Box>
+      <Grid container>
+        <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
+      </Grid>
     );
 
   if (props.filas.res.length < 1)
     return (
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          border: "1px solid",
-          borderColor: "secondary.light100",
-          textAlign: "center",
-          paddingX: "1rem",
-        }}
-      >
-        <Grid container>
-          <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
-        </Grid>
-      </Box>
+      <Grid container>
+        <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
+      </Grid>
     );
 
   return (
     <>
-      <TableContainer sx={{ overflowX: "auto" }}>
-        <Table aria-label="Lista de Catedras" sx={{ mb: "1rem" }} size="small">
+      <TableContainer sx={{ overflowX: "auto", maxHeight: "none" }}>
+        <Table aria-label="Lista de Catedras" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -165,23 +155,40 @@ export default function StickyHeadTable(props) {
                 <TableRowElevacion key={row.IdCatedra}>
                   {columns.map((column) => {
                     const value = row[column.id];
+
+                    if (column.id === "#") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          <Box display="flex" gap={1} alignItems="center">
+                            <AvatarCustom
+                              // value={value}
+                              valueOne={row["Apellidos"]}
+                              valueTwo={row["Nombres"]}
+                              outlined={true}
+                              // defineColor={randomColor()}
+                            />
+                          </Box>
+                        </TableCell1em>
+                      );
+                    }
+
                     if (column.id === "Apellidos") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
-                          sx={estilosCell}
+                          // sx={estilosCell}
                         >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Nombres") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -189,13 +196,13 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Libreta") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -203,13 +210,13 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Documento") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -217,13 +224,13 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Email") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -238,13 +245,13 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Usuario") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -252,25 +259,25 @@ export default function StickyHeadTable(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "Estado") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
                         >
                           <BotonEstado estado={row.Estado} />
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
 
                     if (column.id === "acciones") {
                       return (
-                        <TableCell
+                        <TableCell1em
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -286,7 +293,7 @@ export default function StickyHeadTable(props) {
                               alumno={row}
                             />
                           )}
-                        </TableCell>
+                        </TableCell1em>
                       );
                     }
                   })}
@@ -296,14 +303,18 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+
+      {/* Paginación */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -312,49 +323,37 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </Grid>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
-          Resultados: {props.resultados}
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid, Tooltip, Zoom } from "@mui/material";
+import { Button, Grid, Tooltip, Zoom } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
@@ -84,7 +84,7 @@ export default function BuscarAlumnos(props) {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="apellidos"
@@ -113,7 +113,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="nombres"
@@ -142,7 +142,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="dni"
@@ -171,7 +171,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="email"
@@ -200,7 +200,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="libreta"
@@ -229,7 +229,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs={12} sm={1.5}>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="usuario"
@@ -258,7 +258,7 @@ export default function BuscarAlumnos(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={0.5} lg={0.5} xl={0.5}>
+      <Grid item>
         <FormGroup>
           <FormControlLabel
             control={
@@ -276,18 +276,15 @@ export default function BuscarAlumnos(props) {
       </Grid>
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
-        <Box>
-          <IconButton
-            // type="submit"
-            sx={{ p: "10px" }}
-            aria-label="Buscar usuarios"
-            onClick={() => {
-              manejador();
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Box>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            manejador();
+          }}
+        >
+          <SearchIcon />
+        </Button>
       </Grid>
     </Grid>
   );

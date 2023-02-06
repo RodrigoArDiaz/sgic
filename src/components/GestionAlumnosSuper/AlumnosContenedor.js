@@ -12,6 +12,8 @@ import BuscarAlumnos from "./BuscarAlumnos";
 import SnackMensajes from "../../components/GestionCatedrasSuper/SnackMensajes";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { MoonLoader } from "react-spinners";
+import { teal } from "@mui/material/colors";
 
 export default function AlumnosContenedor() {
   const navegar = useNavigate();
@@ -24,6 +26,7 @@ export default function AlumnosContenedor() {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
+  const color = teal[400];
   //SnackBar
 
   const [mensaje, setMensaje] = React.useState();
@@ -178,61 +181,71 @@ export default function AlumnosContenedor() {
   }, []);
 
   return (
-    <CardMainPage
-      icon="school"
-      title="Gestión Alumnos"
-      bgColorIcon="cyan.main300"
-    >
-      <CardContent>
-        <Grid container>
+    <>
+      <Box paddingBottom={2}>
+        <Typography
+          variant="h2"
+          sx={{
+            margin: "0px",
+            fontWeight: "500",
+            fontSize: "1.775rem",
+            lineHeight: "1.27",
+            fontFamily: "Public Sans, sans-serif",
+          }}
+        >
+          Gestión alumnos
+        </Typography>
+      </Box>
+      <CardMainPage visibleHeader={false}>
+        <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
           <Grid container>
-            <Grid item xs={12} sm={12} xl={12} paddingBottom={1} paddingX={2}>
-              <BuscarAlumnos
-                actualizar={BuscarAl}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
-          </Grid>
-
-          {cargando === true && (
-            <Grid item xs={12} paddingX={1}>
-              <Box sx={{ width: "100%" }} padding={2}>
-                <LinearProgress />
-              </Box>
-            </Grid>
-          )}
-          {cargando === false && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <AlumnosLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                  />
-                </Grid>
+            <Grid container>
+              <Grid item paddingBottom={1} paddingX={2}>
+                <BuscarAlumnos
+                  actualizar={BuscarAl}
+                  filasxpagina={filasxpagina}
+                />
               </Grid>
             </Grid>
-          )}
 
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMainPage>
+            {cargando === true && (
+              <Grid container paddingTop={3}>
+                <Grid item xs={12}>
+                  <Box component="div" display="flex" justifyContent="center">
+                    <MoonLoader color={color} size={60} />
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+            {cargando === false && (
+              <Grid container pt={1}>
+                <AlumnosLista
+                  filas={filas}
+                  filasxpagina={filasxpagina}
+                  pagina={pagina}
+                  paginacion={paginacion}
+                  resultados={resultados}
+                  actualizarpagina={CambioPagina}
+                  actualizarfilas={CambioFPP}
+                  refrescar={Refrescar}
+                  abrir={setAbrir}
+                  mensaje={setMensaje}
+                  tipo={setTipo}
+                />
+              </Grid>
+            )}
+
+            <div>
+              <SnackMensajes
+                abrir={abrir}
+                mensaje={mensaje}
+                tipo={tipo}
+                cerrar={setAbrir}
+              />{" "}
+            </div>
+          </Grid>
+        </CardContent>
+      </CardMainPage>
+    </>
   );
 }

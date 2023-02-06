@@ -3,7 +3,6 @@ import React from "react";
 import { Button, InputAdornment, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -15,6 +14,7 @@ import { useTheme } from "@emotion/react";
 import { useModal } from "../useModal";
 //Componentes propios
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const ModificarAlumno = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -157,28 +157,25 @@ export const ModificarAlumno = (props) => {
     <>
       <Tooltip title="Modificar" TransitionComponent={Zoom}>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <ModeEditOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
+      <DialogCustom
         open={isOpen}
         onClose={(event, reason) => {
-          // Evita el cierre de la ventana modal al hacer clik fuera de la misma
           if (reason && reason == "backdropClick") return;
           handleClose();
         }}
         maxWidth="xs"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
       >
-        <DialogTitle>Modificar alumno</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar alumno
+        </DialogTitle>
         <DialogContent>
           <FormControl
             error={errors.nombres ? true : false}
@@ -595,11 +592,11 @@ export const ModificarAlumno = (props) => {
         <DialogActions>
           {DevolverBoton()}
 
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };
