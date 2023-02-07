@@ -12,6 +12,7 @@ import { DeleteOutlined } from "@mui/icons-material";
 //
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const BorrarCatedra = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -64,39 +65,34 @@ export const BorrarCatedra = (props) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <DeleteOutlined />
           </IconButton>
         </span>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        maxWidth="xs"
-        fullWidth
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
-      >
-        <DialogTitle>Borrar cátedra - {props.nombre}</DialogTitle>
+      <DialogCustom open={isOpen} onClose={handleClose} maxWidth="xs">
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar cátedra
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ¿Seguro que desea borrar la catedra?
+            ¿Seguro que desea borrar la cátedra <b>{props.nombre}</b>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={BorrarCatedra}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

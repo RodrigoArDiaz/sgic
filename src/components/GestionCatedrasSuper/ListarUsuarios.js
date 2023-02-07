@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  useMediaQuery,
+  Zoom,
+} from "@mui/material";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,6 +14,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useTheme } from "@emotion/react";
 import { useModal } from "../useModal";
 import CatedrasUsuariosContenedorLista from "./ListarUsuarios/CatedrasUsuariosContenedorLista";
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const ListarUsuarios = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -17,17 +25,16 @@ export const ListarUsuarios = (props) => {
 
   return (
     <>
-      <Button
-        startIcon={<ViewListIcon />}
-        size="small"
-        color="secondary"
-        onClick={handleOpen}
-      >
-        Listar Usuarios
-      </Button>
+      <Tooltip title="Listar usuarios" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <PeopleAltOutlinedIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
+      <DialogCustom
         open={isOpen}
         onClose={(event, reason) => {
           // Evita el cierre de la ventana modal al hacer clik fuera de la misma
@@ -35,22 +42,22 @@ export const ListarUsuarios = (props) => {
           handleClose();
         }}
         maxWidth="lg"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
       >
-        <DialogTitle>Usuarios de la cátedra - {props.catedra}</DialogTitle>
-        <DialogContent>
+        {/* <DialogTitle>Usuarios de la cátedra - {props.catedra}</DialogTitle> */}
+        <DialogTitle display="flex" flexDirection="row">
+          <PeopleAltOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Lista de usuarios - {props.catedra}
+        </DialogTitle>
+
+        <DialogContent sx={{ paddingX: 0 }}>
           <CatedrasUsuariosContenedorLista idcatedra={props.idcatedra} />
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cerrar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

@@ -114,9 +114,9 @@ export const ModificarRolUsuario = (props) => {
 
   return (
     <>
-      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <EditOutlined />
           </IconButton>
         </span>
@@ -124,7 +124,11 @@ export const ModificarRolUsuario = (props) => {
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
-        <DialogTitle>Seleccione el nuevo rol del usuario</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <EditOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Seleccione el nuevo rol del usuario
+        </DialogTitle>
+
         <DialogContent>
           <FormControl variant="standard" fullWidth>
             <InputLabel id="demo-simple-select-standard-label">Rol</InputLabel>
@@ -147,7 +151,7 @@ export const ModificarRolUsuario = (props) => {
           {erol === "2" && <BotonEstadoRegistro estado={"2"} />}
 
           {DevolverBoton()}
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cerrar
           </Button>
         </DialogActions>

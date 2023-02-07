@@ -1,16 +1,23 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  useMediaQuery,
+  Zoom,
+} from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { AddCircle } from "@mui/icons-material";
+import { AddCardOutlined, AddCircle } from "@mui/icons-material";
 //Hooks personalizados
 import { useModal } from "../useModal";
 //Componentes propios
 import CatedrasMateriasContenedor from "./AgregarMaterias/CatedrasMateriasContenedor";
 import { useTheme } from "@emotion/react";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 export const AgregarMaterias = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -20,14 +27,13 @@ export const AgregarMaterias = (props) => {
 
   return (
     <>
-      <Button
-        startIcon={<AddCircle />}
-        size="small"
-        color="secondary"
-        onClick={handleOpen}
-      >
-        Agregar materias
-      </Button>
+      <Tooltip title="Agregar materias" TransitionComponent={Zoom} arrow>
+        <span>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
+            <AddCircleOutlineOutlinedIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
 
       {/* Ventana modal */}
       <Dialog
@@ -44,12 +50,17 @@ export const AgregarMaterias = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Agregar Materia - {props.catedra}</DialogTitle>
-        <DialogContent>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddCircleOutlineOutlinedIcon
+            sx={{ alignSelf: "center", marginRight: 1 }}
+          />
+          Agregar Materia - {props.catedra}
+        </DialogTitle>
+        <DialogContent sx={{ px: 0, pb: 0 }}>
           <CatedrasMateriasContenedor idcatedra={props.idcatedra} />
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cerrar
           </Button>
         </DialogActions>

@@ -25,11 +25,23 @@ export default function PaginaCatedras() {
     };
   }, []);
 
+  //Ruta para breadcrumbs
+  const crumbs = [
+    {
+      nombreRuta: "Inicio",
+      to: "/inicio/docentes/ingreso",
+    },
+    {
+      nombreRuta: "Gestión cátedras",
+      to: "",
+    },
+  ];
+
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container rowSpacing={1}>
       <Grid item xs={12}>
         <GridBreadCrumbs>
-          <BreadCrumbs />
+          <BreadCrumbs crumbs={crumbs} />
         </GridBreadCrumbs>
       </Grid>
 

@@ -14,7 +14,10 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 //Componentes propios
 import { BotonAcciones } from "./BotonAcciones";
-import { TableRowElevacion } from "../../Material UI - Componentes Modificados/ComponentesTabla";
+import {
+  TableCellHead,
+  TableRowElevacion,
+} from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../../MensajeFeedback";
 
 const columns = [
@@ -89,21 +92,17 @@ export default function StickyHeadTable(props) {
 
   return (
     <TableContainer sx={{ overflowX: "auto" }}>
-      <Table
-        aria-label="Lista de materias de la catedra"
-        sx={{ mb: "1rem" }}
-        size="small"
-      >
+      <Table aria-label="Lista de materias de la catedra" size="small">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
-              <TableCell
+              <TableCellHead
                 key={column.id}
                 align={column.align}
                 style={{ minWidth: column.minWidth }}
               >
                 {column.label}
-              </TableCell>
+              </TableCellHead>
             ))}
           </TableRow>
         </TableHead>

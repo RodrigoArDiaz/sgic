@@ -2,29 +2,36 @@ import * as React from "react";
 //MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { Tooltip, Zoom } from "@mui/material";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import { AgregarUsuarioCatedra } from "./AgregarUsuarioCatedra";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 //Componentes
 import FilasPorPagina from "./FilasPorPagina";
 import {
+  TableCell1em,
+  TableCellHead,
   TableCellMedium,
   TableRowElevacion,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../MensajeFeedback";
+import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
+import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
 
 const columns = [
+  {
+    id: "#",
+    label: "",
+    minWidth: 20,
+    align: "left",
+  },
+
   {
     id: "Apellidos",
     label: "Apellidos",
@@ -110,21 +117,17 @@ export default function StickyHeadTable(props) {
   return (
     <>
       <TableContainer sx={{ overflowX: "auto" }}>
-        <Table
-          aria-label="Lista de materias de la catedra"
-          sx={{ mb: "1rem" }}
-          size="small"
-        >
+        <Table aria-label="Lista de materias de la catedra" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -134,6 +137,23 @@ export default function StickyHeadTable(props) {
                 <TableRowElevacion key={row.IdCatedra}>
                   {columns.map((column) => {
                     const value = row[column.id];
+
+                    if (column.id === "#") {
+                      return (
+                        <TableCell1em key={column.id} align={column.align}>
+                          <Box display="flex" gap={1} alignItems="center">
+                            <AvatarCustom
+                              // value={value}
+                              valueOne={row["Apellidos"]}
+                              valueTwo={row["Nombres"]}
+                              outlined={true}
+                              // defineColor={randomColor()}
+                            />
+                          </Box>
+                        </TableCell1em>
+                      );
+                    }
+
                     if (column.id === "Apellidos") {
                       return (
                         <TableCellMedium key={column.id} align={column.align}>
@@ -178,30 +198,20 @@ export default function StickyHeadTable(props) {
                       return (
                         <TableCellMedium key={column.id} align={column.align}>
                           {value === "A" && (
-                            <Tooltip title="Activa" TransitionComponent={Zoom}>
-                              <span>
-                                <IconButton
-                                  aria-label="estado"
-                                  size="small"
-                                  color="success"
-                                >
-                                  <CheckCircleOutlinedIcon />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                            <Chip
+                              variant="outlined"
+                              color="success"
+                              label="Alta"
+                              icon={<CheckCircleOutlinedIcon />}
+                            />
                           )}
                           {value === "B" && (
-                            <Tooltip title="Baja" TransitionComponent={Zoom}>
-                              <span>
-                                <IconButton
-                                  aria-label="estado2"
-                                  size="small"
-                                  color="error"
-                                >
-                                  <CancelOutlinedIcon />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                            <Chip
+                              variant="outlined"
+                              color="error"
+                              label="Baja"
+                              icon={<HighlightOffOutlinedIcon />}
+                            />
                           )}
                         </TableCellMedium>
                       );
@@ -234,14 +244,18 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+
+      {/* Paginación */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -250,52 +264,39 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </Grid>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
-          Resultados: {props.resultados}
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
-      <Grid justifyContent="center" container pt={2} />
     </>
   );
 }

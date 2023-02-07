@@ -1,16 +1,14 @@
 import * as React from "react";
 //MUI
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip, Zoom } from "@mui/material";
+import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 //React router dom
 import { useNavigate } from "react-router-dom";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 
 export const BotonEstado = (props) => {
   const navegar = useNavigate();
@@ -75,50 +73,40 @@ export const BotonEstado = (props) => {
     <>
       {salto === "A" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="Activo" TransitionComponent={Zoom}>
-            <span>
-              <IconButton
-                aria-label="estado"
-                size="large"
-                color="success"
-                onClick={() => manejador()}
-              >
-                <CheckCircleOutlinedIcon />
-              </IconButton>
-            </span>
-          </Tooltip>
+          <Chip
+            variant="outlined"
+            color="success"
+            label="Alta"
+            icon={<CheckCircleOutlineOutlined />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "B" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="Baja" TransitionComponent={Zoom}>
-            <span>
-              <IconButton
-                aria-label="estado2"
-                size="large"
-                color="error"
-                onClick={() => manejador()}
-              >
-                <CancelOutlinedIcon />
-              </IconButton>
-            </span>
-          </Tooltip>
+          <Chip
+            variant="outlined"
+            color="error"
+            label="Baja"
+            icon={<HighlightOffOutlinedIcon />}
+            onClick={() => manejador()}
+          />
         </Grid>
       )}
       {salto === "C" && (
         <Grid item xs={12} sm="auto">
-          <Tooltip title="Verificando" TransitionComponent={Zoom}>
-            <span>
-              <IconButton
-                aria-label="estado3"
-                size="large"
-                color="inherit"
-                onClick={() => manejador()}
-              >
-                <CircularProgress size={21} />
-              </IconButton>
-            </span>
-          </Tooltip>
+          {/* <Tooltip title="Verificando" TransitionComponent={Zoom}> */}
+          <span>
+            <IconButton
+              aria-label="estado3"
+              size="large"
+              color="inherit"
+              onClick={() => manejador()}
+            >
+              <CircularProgress size={21} />
+            </IconButton>
+          </span>
+          {/* </Tooltip> */}
         </Grid>
       )}
     </>

@@ -118,9 +118,9 @@ export const AgregarUsuarioCatedra = (props) => {
 
   return (
     <>
-      <Tooltip title="Agregar usuario" TransitionComponent={Zoom}>
+      <Tooltip title="Agregar usuario" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <AddCircleOutlineOutlinedIcon />
           </IconButton>
         </span>
@@ -164,7 +164,7 @@ export const AgregarUsuarioCatedra = (props) => {
 
           {DevolverBoton()}
 
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

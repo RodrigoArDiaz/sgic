@@ -62,9 +62,9 @@ export const BorrarMateria = (props) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <DeleteOutlined />
           </IconButton>
         </span>
@@ -74,13 +74,16 @@ export const BorrarMateria = (props) => {
       <Dialog
         open={isOpen}
         onClose={handleClose}
-        maxWidth="xs"
+        maxWidth="sm"
         fullWidth
         sx={{
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Borrar materia - {props.nombremateria}</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar materia - {props.nombremateria}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea quitar la materia de la catedra?
@@ -90,7 +93,7 @@ export const BorrarMateria = (props) => {
           <Button variant="contained" onClick={BorrarMateria}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

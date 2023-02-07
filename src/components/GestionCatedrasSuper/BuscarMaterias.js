@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -69,7 +69,7 @@ export default function BuscarMaterias(props) {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="materia"
@@ -98,7 +98,7 @@ export default function BuscarMaterias(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="carrera"
@@ -127,7 +127,7 @@ export default function BuscarMaterias(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="plan"
@@ -156,7 +156,7 @@ export default function BuscarMaterias(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={2}>
+      <Grid item>
         <FormGroup>
           <FormControlLabel
             control={
@@ -167,19 +167,17 @@ export default function BuscarMaterias(props) {
         </FormGroup>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={1}>
-        <Box>
-          <IconButton
-            // type="submit"
-            sx={{ p: "10px" }}
-            aria-label="Buscar materias"
-            onClick={() => {
-              manejador();
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Box>
+      <Grid item>
+        <Button
+          variant="outlined"
+          aria-label="Buscar materias"
+          onClick={() => {
+            manejador();
+          }}
+        >
+          {" "}
+          <SearchIcon />
+        </Button>
       </Grid>
     </Grid>
   );

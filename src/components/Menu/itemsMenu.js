@@ -42,7 +42,7 @@ const listaItemsMenuSuper = [
   {
     key: "cátedras",
     itemText: "Cátedras",
-    to: "superadministrador/gestion_cátedras",
+    to: "superadministrador/gestion_catedras",
     icono: "account_balance",
     dividerTop: false,
     dividerBottom: false,
@@ -217,7 +217,7 @@ const listaItemsMenuSuperConCursada = [
   {
     key: "cátedras",
     itemText: "Cátedras",
-    to: "superadministrador/gestion_cátedras",
+    to: "superadministrador/gestion_catedras",
     icono: "account_balance",
     dividerTop: false,
     dividerBottom: false,

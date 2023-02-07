@@ -10,13 +10,15 @@ import SnackMensajes from "../SnackMensajes";
 import MateriasLista from "./MateriasLista";
 import BuscarMaterias from "../BuscarMaterias";
 import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+import { MoonLoader } from "react-spinners";
+import { teal } from "@mui/material/colors";
 
 export default function CatedrasMateriasContenedor(props) {
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(1); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -171,60 +173,58 @@ export default function CatedrasMateriasContenedor(props) {
       });
   }, []);
 
-  return (
-    <CardMain>
-      <CardContent>
-        <Grid container>
-          <Grid container>
-            <Grid item xs={12} sm={12} xl={12} paddingY={1} paddingX={2}>
-              <BuscarMaterias
-                actualizar={BuscarMat}
-                filasxpagina={filasxpagina}
-                idcatedra={props.idcatedra}
-              />
-            </Grid>
-          </Grid>
+  const color = teal[700];
 
-          {cargando === true && (
-            <Grid item xs={12} paddingX={1}>
-              <Box sx={{ width: "100%" }} padding={2}>
-                <LinearProgress />
+  return (
+    <CardContent sx={{ px: 0 }}>
+      <Grid container>
+        <Grid container>
+          <Grid item paddingBottom={2} paddingX={2}>
+            <BuscarMaterias
+              actualizar={BuscarMat}
+              filasxpagina={filasxpagina}
+              idcatedra={props.idcatedra}
+            />
+          </Grid>
+        </Grid>
+
+        {cargando === true && (
+          <Grid container paddingTop={2}>
+            <Grid item xs={12}>
+              <Box component="div" display="flex" justifyContent="center">
+                <MoonLoader color={color} size={60} />
               </Box>
             </Grid>
-          )}
-          {cargando === false && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <MateriasLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    idcatedra={props.idcatedra}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          )}
+          </Grid>
+        )}
+        {cargando === false && (
+          <Grid item xs={12}>
+            <MateriasLista
+              filas={filas}
+              filasxpagina={filasxpagina}
+              pagina={pagina}
+              paginacion={paginacion}
+              resultados={resultados}
+              actualizarpagina={CambioPagina}
+              actualizarfilas={CambioFPP}
+              refrescar={Refrescar}
+              abrir={setAbrir}
+              mensaje={setMensaje}
+              tipo={setTipo}
+              idcatedra={props.idcatedra}
+            />
+          </Grid>
+        )}
 
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMain>
+        <div>
+          <SnackMensajes
+            abrir={abrir}
+            mensaje={mensaje}
+            tipo={tipo}
+            cerrar={setAbrir}
+          />{" "}
+        </div>
+      </Grid>
+    </CardContent>
   );
 }

@@ -20,6 +20,7 @@ import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { useModal } from "../useModal";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import { useTheme } from "@emotion/react";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const ModificarCatedra = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -104,16 +105,16 @@ export const ModificarCatedra = (props) => {
 
   return (
     <>
-      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <ModeEditOutlinedIcon />
           </IconButton>
         </span>
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
+      <DialogCustom
         open={isOpen}
         onClose={(event, reason) => {
           // Evita el cierre de la ventana modal al hacer clik fuera de la misma
@@ -121,13 +122,11 @@ export const ModificarCatedra = (props) => {
           handleClose();
         }}
         maxWidth="sm"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
       >
-        <DialogTitle>Modificar catedra</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar cátedra
+        </DialogTitle>
         <DialogContent>
           <FormControl
             error={errors.nombre ? true : false}
@@ -205,11 +204,11 @@ export const ModificarCatedra = (props) => {
         <DialogActions>
           {DevolverBoton()}
 
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

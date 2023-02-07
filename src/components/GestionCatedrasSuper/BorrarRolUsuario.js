@@ -63,9 +63,9 @@ export const BorrarRolUsuario = (props) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <DeleteOutlined />
           </IconButton>
         </span>
@@ -73,17 +73,21 @@ export const BorrarRolUsuario = (props) => {
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
-        <DialogTitle>Borrar rol usuario</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar rol usuario
+        </DialogTitle>
+
         <DialogContent>
           <DialogContentText>
-            ¿Seguro que desea quitar al usuario de la catedra?
+            ¿Seguro que desea quitar al usuario de la cátedra?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={BorrarRolUsuario}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

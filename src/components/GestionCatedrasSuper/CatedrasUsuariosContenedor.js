@@ -9,13 +9,15 @@ import { useNavigate } from "react-router-dom";
 import SnackMensajes from "./SnackMensajes";
 import BuscarUsuarios from "./BuscarUsuarios";
 import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+import { MoonLoader } from "react-spinners";
+import { teal } from "@mui/material/colors";
 
 export default function CatedrasUsuariosContenedor(props) {
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
-  const [filasxpagina, setFXP] = React.useState(5); //filas x pagina
+  const [filasxpagina, setFXP] = React.useState(10); //filas x pagina
   const [pagina, setPagina] = React.useState(1); //pagina actual
   const [paginacion, setPaginacion] = React.useState(); // cantidad de paginas a mostrar
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
@@ -166,12 +168,14 @@ export default function CatedrasUsuariosContenedor(props) {
       });
   }, []);
 
+  const color = teal[700];
+
   return (
-    <CardMain>
-      <CardContent>
+    <>
+      <CardContent sx={{ paddingX: 0 }}>
         <Grid container>
-          <Grid container>
-            <Grid item xs={12} sm={12} xl={12} paddingY={1} paddingX={2}>
+          <Grid container paddingX={3} paddingBottom={2}>
+            <Grid item xs={12}>
               <BuscarUsuarios
                 actualizar={BuscarUsCat}
                 filasxpagina={filasxpagina}
@@ -181,32 +185,30 @@ export default function CatedrasUsuariosContenedor(props) {
           </Grid>
 
           {cargando === true && (
-            <Grid item xs={12} paddingX={1}>
-              <Box sx={{ width: "100%" }} padding={2}>
-                <LinearProgress />
-              </Box>
+            <Grid container paddingTop={2}>
+              <Grid item xs={12}>
+                <Box component="div" display="flex" justifyContent="center">
+                  <MoonLoader color={color} size={60} />
+                </Box>
+              </Grid>
             </Grid>
           )}
           {cargando === false && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <UsuariosLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                    idcatedra={props.idcatedra}
-                  />
-                </Grid>
-              </Grid>
+            <Grid item xs={12}>
+              <UsuariosLista
+                filas={filas}
+                filasxpagina={filasxpagina}
+                pagina={pagina}
+                paginacion={paginacion}
+                resultados={resultados}
+                actualizarpagina={CambioPagina}
+                actualizarfilas={CambioFPP}
+                refrescar={Refrescar}
+                abrir={setAbrir}
+                mensaje={setMensaje}
+                tipo={setTipo}
+                idcatedra={props.idcatedra}
+              />
             </Grid>
           )}
 
@@ -220,6 +222,6 @@ export default function CatedrasUsuariosContenedor(props) {
           </div>
         </Grid>
       </CardContent>
-    </CardMain>
+    </>
   );
 }

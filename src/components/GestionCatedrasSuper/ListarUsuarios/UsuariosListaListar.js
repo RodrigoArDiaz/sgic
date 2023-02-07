@@ -8,25 +8,33 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
-import IconButton from "@mui/material/IconButton";
-import { Grid, Tooltip } from "@mui/material";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { Box, Chip, Grid } from "@mui/material";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 //
 import { BotonAcciones } from "./BotonAcciones";
 import {
+  TableCell1em,
+  TableCellHead,
   TableCellMedium,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../../MensajeFeedback";
+import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 
 const columns = [
+  {
+    id: "#",
+    label: "",
+    minWidth: 20,
+    align: "left",
+  },
+
   {
     id: "Apellidos",
     label: "Apellidos",
     minWidth: 20,
     align: "left",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -34,7 +42,6 @@ const columns = [
     label: "Nombres",
     minWidth: 20,
     align: "left",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -42,7 +49,6 @@ const columns = [
     label: "Documento",
     minWidth: 20,
     align: "left",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -50,7 +56,6 @@ const columns = [
     label: "Correo",
     minWidth: 20,
     align: "left",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -58,7 +63,6 @@ const columns = [
     label: "Rol",
     minWidth: 20,
     align: "left",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -66,7 +70,6 @@ const columns = [
     label: "Estado",
     minWidth: 20,
     align: "center",
-    //format: (value) => value.toFixed(2),
   },
 
   {
@@ -74,13 +77,11 @@ const columns = [
     label: "Acciones",
     minWidth: 20,
     align: "center",
-    //format: (value) => value.toFixed(2),
   },
 ];
 
 export default function StickyHeadTable(props) {
   function CambiarPagina(e, page) {
-    //console.log(page);
     props.actualizarpagina(page);
   }
 
@@ -113,8 +114,6 @@ export default function StickyHeadTable(props) {
       </Grid>
     );
 
-  //console.log(props.filas.res);
-
   return (
     <TableContainer sx={{ overflowX: "auto" }}>
       <Table
@@ -125,13 +124,13 @@ export default function StickyHeadTable(props) {
         <TableHead>
           <TableRow>
             {columns.map((column) => (
-              <TableCell
+              <TableCellHead
                 key={column.id}
                 align={column.align}
                 style={{ minWidth: column.minWidth }}
               >
                 {column.label}
-              </TableCell>
+              </TableCellHead>
             ))}
           </TableRow>
         </TableHead>
@@ -141,6 +140,21 @@ export default function StickyHeadTable(props) {
               <TableRowElevacion key={row.IdCatedra}>
                 {columns.map((column) => {
                   const value = row[column.id];
+
+                  if (column.id === "#") {
+                    return (
+                      <TableCell1em key={column.id} align={column.align}>
+                        <Box display="flex" gap={1} alignItems="center">
+                          <AvatarCustom
+                            valueOne={row["Apellidos"]}
+                            valueTwo={row["Nombres"]}
+                            outlined={true}
+                          />
+                        </Box>
+                      </TableCell1em>
+                    );
+                  }
+
                   if (column.id === "Apellidos") {
                     return (
                       <TableCellMedium key={column.id} align={column.align}>
@@ -195,30 +209,20 @@ export default function StickyHeadTable(props) {
                     return (
                       <TableCellMedium key={column.id} align={column.align}>
                         {value === "A" && (
-                          <Tooltip title="Activo">
-                            <span>
-                              <IconButton
-                                aria-label="estado"
-                                size="small"
-                                color="success"
-                              >
-                                <CheckCircleOutlinedIcon />
-                              </IconButton>
-                            </span>
-                          </Tooltip>
+                          <Chip
+                            variant="outlined"
+                            color="success"
+                            label="Alta"
+                            icon={<CheckCircleOutlinedIcon />}
+                          />
                         )}
                         {value === "B" && (
-                          <Tooltip title="Baja">
-                            <span>
-                              <IconButton
-                                aria-label="estado2"
-                                size="small"
-                                color="error"
-                              >
-                                <CancelOutlinedIcon />
-                              </IconButton>
-                            </span>
-                          </Tooltip>
+                          <Chip
+                            variant="outlined"
+                            color="error"
+                            label="Baja"
+                            icon={<HighlightOffOutlinedIcon />}
+                          />
                         )}
                       </TableCellMedium>
                     );

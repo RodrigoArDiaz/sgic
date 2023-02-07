@@ -1,26 +1,22 @@
 import React from "react";
 //MUI
-import {
-  Box,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
 //REact router dom
 import { useNavigate } from "react-router-dom";
 //Componentes propios
 import SnackMensajes from "./SnackMensajes";
-import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { CrearCatedra } from "./CrearCatedra";
 import BuscarCatedras from "./BuscarCatedras";
 import CatedraLista from "./CatedraLista";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { MoonLoader } from "react-spinners";
+import { teal } from "@mui/material/colors";
 
 export default function CatedrasContenedor() {
+  const color = teal[400];
+
   const navegar = useNavigate();
   //Recupero token
   const { token } = useSelector((state) => state.login);
@@ -181,91 +177,89 @@ export default function CatedrasContenedor() {
   }, []);
 
   return (
-    <CardMainPage
-      icon="engineering"
-      title="Gestión Catedras"
-      bgColorIcon="cyan.main300"
-    >
-      <CardContent>
-        <Grid container>
-          <Grid container direction="row-reverse">
-            <Grid item xs={12} sm={6} md={3.5} lg={2.5} xl={2}>
-              <Grid
-                container
-                paddingX={2}
-                // paddingY={1}
-                paddingBottom={1}
-                justifyContent="flex-end"
-              >
+    <>
+      <Box paddingBottom={2}>
+        <Typography
+          variant="h2"
+          sx={{
+            margin: "0px",
+            fontWeight: "500",
+            fontSize: "1.775rem",
+            lineHeight: "1.27",
+            fontFamily: "Public Sans, sans-serif",
+          }}
+        >
+          Gestión cátedras
+        </Typography>
+      </Box>
+      <CardMainPage visibleHeader={false}>
+        <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
+          <Grid container>
+            <Grid container direction="row-reverse">
+              <Grid item>
+                <Grid
+                  container
+                  paddingX={2}
+                  paddingBottom={1}
+                  justifyContent="flex-end"
+                >
+                  <Grid item xs={12}>
+                    <CrearCatedra
+                      refrescar={Refrescar}
+                      abrir={setAbrir}
+                      mensaje={setMensaje}
+                      tipo={setTipo}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
+                <BuscarCatedras
+                  actualizar={BuscarCat}
+                  filasxpagina={filasxpagina}
+                />
+              </Grid>
+            </Grid>
+
+            {cargando === true && (
+              <Grid container paddingTop={1}>
                 <Grid item xs={12}>
-                  <CrearCatedra
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                  />
+                  <Box component="div" display="flex" justifyContent="center">
+                    <MoonLoader color={color} size={60} />
+                  </Box>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={8.5}
-              lg={9.5}
-              xl={10}
-              // paddingY={1}
-              paddingBottom={1}
-              paddingX={2}
-            >
-              <BuscarCatedras
-                actualizar={BuscarCat}
-                filasxpagina={filasxpagina}
-              />
-            </Grid>
+            )}
+
+            {cargando === false && (
+              <Grid container pt={1}>
+                <CatedraLista
+                  filas={filas}
+                  filasxpagina={filasxpagina}
+                  pagina={pagina}
+                  paginacion={paginacion}
+                  resultados={resultados}
+                  actualizarpagina={CambioPagina}
+                  actualizarfilas={CambioFPP}
+                  refrescar={Refrescar}
+                  abrir={setAbrir}
+                  mensaje={setMensaje}
+                  tipo={setTipo}
+                />
+              </Grid>
+            )}
+
+            <div>
+              <SnackMensajes
+                abrir={abrir}
+                mensaje={mensaje}
+                tipo={tipo}
+                cerrar={setAbrir}
+              />{" "}
+            </div>
           </Grid>
-
-          {cargando === true && (
-            <Grid item xs={12} paddingX={1}>
-              {/* <Stack sx={{ width: "100%", color: "grey.500" }} spacing={2}> */}
-              <Box sx={{ width: "100%" }} padding={2}>
-                <LinearProgress />
-              </Box>
-              {/* </Stack> */}
-            </Grid>
-          )}
-          {cargando === false && (
-            <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
-              <Grid container justifyContent="end" sx={{ overflowX: "auto" }}>
-                <Grid item xs={12} sx={{ overflowX: "auto" }}>
-                  <CatedraLista
-                    filas={filas}
-                    filasxpagina={filasxpagina}
-                    pagina={pagina}
-                    paginacion={paginacion}
-                    resultados={resultados}
-                    actualizarpagina={CambioPagina}
-                    actualizarfilas={CambioFPP}
-                    refrescar={Refrescar}
-                    abrir={setAbrir}
-                    mensaje={setMensaje}
-                    tipo={setTipo}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          )}
-
-          <div>
-            <SnackMensajes
-              abrir={abrir}
-              mensaje={mensaje}
-              tipo={tipo}
-              cerrar={setAbrir}
-            />{" "}
-          </div>
-        </Grid>
-      </CardContent>
-    </CardMainPage>
+        </CardContent>
+      </CardMainPage>
+    </>
   );
 }

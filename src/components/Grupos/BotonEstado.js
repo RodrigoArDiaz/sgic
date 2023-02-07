@@ -63,18 +63,6 @@ export const BotonEstado = (props) => {
     <>
       {salto === "A" && (
         <Grid item xs={12} sm="auto">
-          {/* <Tooltip title="Activo" TransitionComponent={Zoom} arrow>
-            <span>
-              <IconButton
-                aria-label="estado"
-                size="small"
-                color="success"
-                onClick={() => manejador()}
-              >
-                <CheckIcon />
-              </IconButton>
-            </span>
-          </Tooltip> */}
           <Chip
             variant="outlined"
             color="success"

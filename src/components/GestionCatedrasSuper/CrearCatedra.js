@@ -119,7 +119,10 @@ export const CrearCatedra = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>Crear catedra</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear catedra
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ingrese los datos para crear la catedra.

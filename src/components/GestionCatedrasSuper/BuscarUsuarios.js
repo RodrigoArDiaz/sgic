@@ -2,7 +2,7 @@ import React, { useState } from "react";
 //MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
@@ -74,7 +74,7 @@ export default function BuscarUsuarios(props) {
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="apellidos"
@@ -103,7 +103,7 @@ export default function BuscarUsuarios(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="nombres"
@@ -132,7 +132,7 @@ export default function BuscarUsuarios(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="dni"
@@ -161,7 +161,7 @@ export default function BuscarUsuarios(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="email"
@@ -190,7 +190,7 @@ export default function BuscarUsuarios(props) {
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormGroup>
           <FormControlLabel
             control={
@@ -202,18 +202,15 @@ export default function BuscarUsuarios(props) {
       </Grid>
 
       <Grid item xs="auto" sm="auto" alignSelf="center">
-        <Box>
-          <IconButton
-            // type="submit"
-            sx={{ p: "10px" }}
-            aria-label="Buscar usuarios"
-            onClick={() => {
-              manejador();
-            }}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Box>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            manejador();
+          }}
+        >
+          <SearchIcon />
+        </Button>
       </Grid>
     </Grid>
   );

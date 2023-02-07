@@ -64,9 +64,9 @@ export const AgregarMateriaCatedra = (props) => {
 
   return (
     <>
-      <Tooltip title="Agregar materia" TransitionComponent={Zoom}>
+      <Tooltip title="Agregar materia" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             <AddCircleOutlineOutlinedIcon />
           </IconButton>
         </span>
@@ -82,7 +82,12 @@ export const AgregarMateriaCatedra = (props) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle>{props.nombremateria}</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddCircleOutlineOutlinedIcon
+            sx={{ alignSelf: "center", marginRight: 1 }}
+          />
+          {props.nombremateria}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea agregar la materia a la catedra?
@@ -92,7 +97,7 @@ export const AgregarMateriaCatedra = (props) => {
           <Button variant="contained" onClick={AgregarMateria}>
             Agregar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

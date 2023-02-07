@@ -10,7 +10,7 @@ import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip, Zoom } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -19,10 +19,12 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import FilasPorPagina from "../FilasPorPagina";
 import { BotonAcciones } from "./BotonAcciones";
 import {
+  TableCellHead,
   TableCellMedium,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../../MensajeFeedback";
+import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
 const columns = [
   {
@@ -106,13 +108,13 @@ export default function StickyHeadTable(props) {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
+                <TableCellHead
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
-                </TableCell>
+                </TableCellHead>
               ))}
             </TableRow>
           </TableHead>
@@ -137,7 +139,11 @@ export default function StickyHeadTable(props) {
                             </Tooltip>
                           )}
                           {row.MEstado === "B" && (
-                            <Tooltip title="Baja" TransitionComponent={Zoom}>
+                            <Tooltip
+                              title="Baja"
+                              TransitionComponent={Zoom}
+                              arrow
+                            >
                               <IconButton
                                 aria-label="estado2"
                                 size="small"
@@ -170,7 +176,11 @@ export default function StickyHeadTable(props) {
                             </Tooltip>
                           )}
                           {row.CEstado === "B" && (
-                            <Tooltip title="Baja" TransitionComponent={Zoom}>
+                            <Tooltip
+                              title="Baja"
+                              TransitionComponent={Zoom}
+                              arrow
+                            >
                               <IconButton
                                 aria-label="estado2"
                                 size="small"
@@ -192,7 +202,11 @@ export default function StickyHeadTable(props) {
                       return (
                         <TableCellMedium key={column.id} align={column.align}>
                           {row.PEstado === "A" && (
-                            <Tooltip title="Activo" TransitionComponent={Zoom}>
+                            <Tooltip
+                              title="Activo"
+                              TransitionComponent={Zoom}
+                              arrow
+                            >
                               <IconButton
                                 aria-label="estado"
                                 size="small"
@@ -253,14 +267,17 @@ export default function StickyHeadTable(props) {
         </Table>
       </TableContainer>
 
-      <Grid justifyContent="flex-start" container pt={2}>
-        <Grid item xs={8} sx={{ mt: 1 }}>
+      {/* Paginacion */}
+      <Grid
+        justifyContent="space-between"
+        container
+        pt={2.2}
+        paddingX={2}
+        sx={{ justifyContent: { xs: "center", md: "space-between" }, gap: 2.5 }}
+      >
+        <Grid item>
           <Stack spacing={2}>
-            <Pagination
-              size="large"
-              color="info"
-              sx={{ "& .MuiPagination-ul": { gap: "0.5rem" } }}
-              variant="outlined"
+            <PaginationCustom
               defaultPage={1}
               count={props.paginacion}
               page={props.pagina}
@@ -269,49 +286,37 @@ export default function StickyHeadTable(props) {
           </Stack>
         </Grid>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          gap={1}
-          paddingY={1}
-        >
-          Filas por página:{" "}
-          {
-            <FilasPorPagina
-              actualizarfilas={props.actualizarfilas}
-              fpp={props.filasxpagina}
-            />
-          }
-        </Grid>
+        <Grid item>
+          <Box display="flex" textAlign="end" alignItems="center" gap={4}>
+            <Box display="flex" textAlign="end" alignItems="center">
+              <Typography
+                variant="text"
+                sx={{
+                  color: "text.subtitle1secondary",
+                  marginRight: 1,
+                  // fontSize: "",
+                }}
+              >
+                Filas por página:
+              </Typography>
+              {
+                <FilasPorPagina
+                  actualizarfilas={props.actualizarfilas}
+                  fpp={props.filasxpagina}
+                />
+              }
+            </Box>
 
-        <Grid
-          item
-          xs={2}
-          sx={{
-            mt: 1,
-            verticalAlign: "middle",
-            color: "rgba(0, 0, 0, 0.80)",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-          }}
-          textAlign="end"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="end"
-        >
-          Resultados: {props.resultados}
+            <Box>
+              <Typography
+                variant="text"
+                sx={{ color: "text.subtitle1secondary", marginRight: 1 }}
+              >
+                Resultados:
+              </Typography>
+              {props.resultados}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </>

@@ -97,7 +97,7 @@ props.actualizar(response);
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormControl fullWidth>
           <OutlinedInputSearch
             id="standard-adornment-password"
@@ -148,7 +148,7 @@ props.actualizar(response);
         </FormControl>
       </Grid>
 
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item>
         <FormGroup>
           <FormControlLabel
             control={
@@ -164,15 +164,15 @@ props.actualizar(response);
           />
         </FormGroup>
       </Grid>
-      <Grid item xs={12} sm={6} lg={3} xl={3}>
+      <Grid item xs="auto" sm="auto" alignSelf="center">
         <Button
-          startIcon={<SearchIcon />}
-          color="secondary"
+          color="primary"
+          variant="outlined"
           onClick={() => {
             manejador();
           }}
         >
-          Buscar
+          <SearchIcon />
         </Button>
       </Grid>
     </Grid>
