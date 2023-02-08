@@ -16,6 +16,11 @@ const modificarDocenteUrl = rootUrl + "/modificar_docente";
  * @returns
  */
 export const peticionCrearDocente = (frmData, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     Usuario: frmData.Usuario,
@@ -48,6 +53,11 @@ export const peticionCrearDocente = (frmData, token) => {
  * @returns
  */
 export const peticionBuscarDocente = (frmData, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     // Usuario: frmData.Usuario,
@@ -81,6 +91,11 @@ export const peticionBuscarDocente = (frmData, token) => {
  * @returns
  */
 export const peticionAltaDocente = (IdUsuario, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -107,6 +122,11 @@ export const peticionAltaDocente = (IdUsuario, token) => {
  * @returns
  */
 export const peticionBajaDocente = (IdUsuario, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -133,6 +153,11 @@ export const peticionBajaDocente = (IdUsuario, token) => {
  * @returns
  */
 export const peticionBorrarDocente = (IdUsuario, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -159,6 +184,11 @@ export const peticionBorrarDocente = (IdUsuario, token) => {
  * @returns
  */
 export const peticionModificarDocente = (formData, token) => {
+  //Si token (de redux) esta vacion, lo busca en localStorage
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(modificarDocenteUrl, formData, {

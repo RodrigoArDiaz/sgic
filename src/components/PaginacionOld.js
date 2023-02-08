@@ -11,22 +11,10 @@ import {
 import { Box } from "@mui/material";
 import PaginationCustom from "./Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
-const Paginacion = ({
-  paginacion,
-  setPaginaActual,
-  setFilasPorPagina,
-  cantidadResultados,
-}) => {
+const Paginacion = ({ paginacion, setPaginaActual }) => {
   const handleChangePaginacion = (event, value) => {
     // actualizaDatosPaginacion({ paginaActual: value });
     setPaginaActual(value);
-  };
-
-  //
-  const handleChangeFilasPorPagina = (event, value) => {
-    setFilasPorPagina(value.props.value);
-    console.log(value.props.value);
-    setPaginaActual(1);
   };
 
   React.useEffect(() => {
@@ -36,17 +24,22 @@ const Paginacion = ({
   return (
     <>
       {/* Paginacion se muestra solo si el total de paginas es mayor a 1*/}
-
+      {/* {paginacion.totalPaginas > 1 && ( */}
       <Grid item>
         <Stack spacing={2}>
           <PaginationCustom
+            // count={paginacion.totalPaginas != 0 ? paginacion.totalPaginas : 1}
             count={paginacion.totalPaginas}
             page={paginacion.paginaActual}
             siblingCount={0}
+            // count={4}
+            // page={1}
+            // defaultPage={1}
             onChange={handleChangePaginacion}
           />
         </Stack>
       </Grid>
+      {/* )} */}
 
       <Grid item>
         <Box display="flex" textAlign="end" alignItems="center" gap={4}>
@@ -56,6 +49,7 @@ const Paginacion = ({
               sx={{
                 color: "text.subtitle1secondary",
                 marginRight: 1,
+                // fontSize: "",
               }}
             >
               Filas por página:
@@ -67,14 +61,16 @@ const Paginacion = ({
               }}
               size="small"
             >
+              {/* <InputLabel id="demo-select-small">Age</InputLabel> */}
               <Select
                 labelId="demo-select-small"
                 id="demo-select-small"
-                value={paginacion.filasPorPagina}
+                value={10}
                 // label="Age"
                 autoWidth
-                onChange={handleChangeFilasPorPagina}
+                // onChange={handleChange}
                 sx={{
+                  // "& .MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": {
                   "& div": {
                     padding: "5px 14px",
                     paddingLeft: "3px",
@@ -97,7 +93,7 @@ const Paginacion = ({
             >
               Resultados:
             </Typography>
-            {cantidadResultados}
+            2
           </Box>
         </Box>
       </Grid>

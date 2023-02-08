@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -16,6 +14,7 @@ import { useSnackbar } from "notistack";
 import { peticionBorrarDocente } from "../../api/super/gestionDocentesApi";
 import { useSelector } from "react-redux";
 import { DeleteOutlined } from "@mui/icons-material";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -52,13 +51,13 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
           {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
           <IconButton
             color="secondary"
             onClick={handleOpen}
-            size="large"
+            size="small"
             disabled={isLoading ? true : false} //Deshabilito boton al hacer la peticion
           >
             {/* <DeleteIcon /> */}
@@ -68,16 +67,11 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        maxWidth="xs"
-        fullWidth
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
-      >
-        <DialogTitle>Borrar docente</DialogTitle>
+      <DialogCustom open={isOpen} onClose={handleClose} maxWidth="xs">
+        <DialogTitle display="flex" flexDirection="row">
+          <DeleteOutlined sx={{ alignSelf: "center", marginRight: 1 }} />
+          Borrar docente
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea borrar al docente?
@@ -87,11 +81,11 @@ export const BorrarDocente = ({ docente, handleRefrescarPagina }) => {
           <Button variant="contained" onClick={handleBorrarDocente}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

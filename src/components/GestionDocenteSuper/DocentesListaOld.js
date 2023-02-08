@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
 //MUI
 import Table from "@mui/material/Table";
@@ -50,24 +50,13 @@ import {
 import CopiarButton from "../CopiarButton";
 import MensajeFeedback from "../MensajeFeedback";
 import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
-import { PaginacionContext } from "./PaginacionContext";
 
 export default function DocentesLista({
   docentes,
-  // paginacion,
-  // actualizaDatosPaginacion,
+  paginacion,
+  actualizaDatosPaginacion,
   handleRefrescarPagina,
 }) {
-  //Recuperacion de variables de contexto PaginacionContext
-  const {
-    filasPorPagina,
-    totalPaginas,
-    paginaActual,
-    setPaginaActual,
-    setFilasPorPagina,
-    cantidadResultados,
-  } = useContext(PaginacionContext);
-
   const theme = useTheme();
   const esXs = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -91,11 +80,12 @@ export default function DocentesLista({
   return (
     <>
       {docentes.length == 0 ? (
-        <Grid container>
-          <Grid item xs={12} paddingX={2}>
-            <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
-          </Grid>
-        </Grid>
+        <>
+          <MensajeFeedback>
+            {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+            No se encontraron resultados.
+          </MensajeFeedback>
+        </>
       ) : (
         <>
           {/* {!esXs ? ( */}
@@ -123,6 +113,7 @@ export default function DocentesLista({
                     <TableCell1em>
                       <Box display="flex" gap={1} alignItems="center">
                         <AvatarCustom
+                          // value={value}
                           valueOne={docente.Apellidos}
                           valueTwo={docente.Nombres}
                           outlined={true}
@@ -147,6 +138,13 @@ export default function DocentesLista({
                     </TableCell1em>
 
                     <TableCell component="th" scope="row" align="center">
+                      {/* {docente.Estado} */}
+                      {/* <Chip
+                        variant="outlined"
+                        color={docente.Estado == "A" ? "success" : "error"}
+                        size="medium"
+                        label={decidirEstado(docente.Estado)}
+                      /> */}
                       <AltaBajaDocente
                         docente={docente}
                         handleRefrescarPagina={handleRefrescarPagina}
@@ -161,6 +159,13 @@ export default function DocentesLista({
                             handleRefrescarPagina={handleRefrescarPagina}
                           />
                         </Grid>
+
+                        {/* <Grid item xs={12} sm="auto">
+                          <AltaBajaDocente
+                            docente={docente}
+                            handleRefrescarPagina={handleRefrescarPagina}
+                          />
+                        </Grid> */}
 
                         <Grid item xs={12} sm="auto">
                           <BorrarDocente
@@ -187,10 +192,8 @@ export default function DocentesLista({
               }}
             >
               <Paginacion
-                paginacion={{ filasPorPagina, totalPaginas, paginaActual }}
-                setPaginaActual={setPaginaActual}
-                setFilasPorPagina={setFilasPorPagina}
-                cantidadResultados={cantidadResultados}
+                paginacion={paginacion}
+                actualizaDatosPaginacion={actualizaDatosPaginacion}
               />
             </Grid>
           </TableContainer>

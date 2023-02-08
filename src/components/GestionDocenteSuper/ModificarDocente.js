@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import { peticionModificarDocente } from "../../api/super/gestionDocentesApi";
 import { useTheme } from "@emotion/react";
 import { regexSoloNumeros } from "../../helpers/regex";
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 //Validaciones usadas por Formik
 const validaciones = yup.object({
@@ -108,9 +109,9 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
-          <IconButton color="secondary" size="large" onClick={handleOpen}>
+          <IconButton color="secondary" size="small" onClick={handleOpen}>
             {/* <EditIcon /> */}
             <ModeEditOutlinedIcon />
           </IconButton>
@@ -118,7 +119,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
       </Tooltip>
 
       {/* Ventana modal */}
-      <Dialog
+      <DialogCustom
         open={isOpen}
         onClose={(event, reason) => {
           // Evita el cierre de la ventana modal al hacer clik fuera de la misma
@@ -126,13 +127,11 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
           handleClose();
         }}
         maxWidth="xs"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
       >
-        <DialogTitle>Modificar Docente </DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <ModeEditOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Modificar docente
+        </DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
@@ -209,7 +208,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
           </Button>
           <Button
             variant="outlined"
-            color="secondary"
+            color="primary"
             onClick={() => {
               handleClose();
               formik.resetForm();
@@ -218,7 +217,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

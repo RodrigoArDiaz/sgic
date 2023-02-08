@@ -41,26 +41,7 @@ import { LightbulbOutlined, LightbulbSharp } from "@mui/icons-material";
 //
 // import { withStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
-
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  "& label": {
-    width: "100%",
-    textAlign: "center",
-    transformOrigin: "center",
-    "&.Mui-focused": {
-      transformOrigin: "center",
-    },
-  },
-}));
-
-const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
-  width: "100%",
-  textAlign: "center",
-  transformOrigin: "center",
-  "&.Mui-focused": {
-    transformOrigin: "center",
-  },
-}));
+import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
 const valoresInicialesForm = {
   Apellidos: "",
@@ -92,7 +73,8 @@ export const CrearDocente = () => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen
   const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+  // console.log(theme);
+  // const esXs = useMediaQuery(theme.breakpoints.down("sm"));
   //Variable de estado para manejo de snackbar
   const { enqueueSnackbar } = useSnackbar();
   //Indica si se esta realizando la peticion
@@ -129,10 +111,15 @@ export const CrearDocente = () => {
       enqueueSnackbar("Se creo el docente con exito.", {
         variant: "success",
       });
+      console.log(respuesta);
     } catch (error) {
       //Ocurrio un error
       const response = error.response.data;
-      setErrors(response.data);
+      if (response.data) {
+        setErrors(response.data);
+      }
+
+      console.log(response);
     }
 
     setIsLoading(false);
@@ -140,20 +127,6 @@ export const CrearDocente = () => {
 
   return (
     <>
-      {/* {esXs ? (
-        <Fab
-          size="medium"
-          color="primary"
-          aria-label="crear docente"
-          onClick={handleOpen}
-          sx={{
-            boxShadow:
-              "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
-          }}
-        >
-          <AddIcon />
-        </Fab>
-      ) : ( */}
       <Button
         variant="contained"
         startIcon={<AddIcon />}
@@ -165,7 +138,7 @@ export const CrearDocente = () => {
       {/* )} */}
 
       {/* Ventana modal */}
-      <Dialog
+      <DialogCustom
         open={isOpen}
         onClose={(event, reason) => {
           // Evita el cierre de la ventana modal al hacer clik fuera de la misma
@@ -174,27 +147,15 @@ export const CrearDocente = () => {
         }}
         disableEscapeKeyDown //Evita que se cierre la ventana con la tecla ESC
         maxWidth="xs"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
       >
-        <DialogTitle>Crear docente</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <AddIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Crear docente
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Las credenciales de acceso seran enviadas al email del docente.
           </DialogContentText>
-          {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <StyledInputLabel htmlFor="outlined-adornment-password">
-              Password
-            </StyledInputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type="text"
-              label="Password"
-            />
-          </FormControl> */}
 
           <TextField
             autoFocus
@@ -319,7 +280,7 @@ export const CrearDocente = () => {
             onClick={formik.handleSubmit}
             disabled={isLoading ? true : false}
           >
-            Crear
+            Aceptar
           </Button>
           <Button
             variant="outlined"
@@ -332,7 +293,7 @@ export const CrearDocente = () => {
             Cancelar
           </Button>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </>
   );
 };

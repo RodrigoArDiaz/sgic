@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -23,7 +23,6 @@ import { useSelector } from "react-redux";
 import { peticionBuscarDocente } from "../../api/super/gestionDocentesApi";
 import { useTheme } from "@emotion/react";
 import SearchIcon from "@mui/icons-material/Search";
-import { PaginacionContext } from "./PaginacionContext";
 
 //Valor inicial del formulario de busqueda
 const valoresInicialesForm = {
@@ -44,7 +43,7 @@ const validaciones = yup.object({
 });
 
 export default function BuscarDocentes({
-  // resultadoBusqueda,
+  resultadoBusqueda,
   peticionIniciada,
   peticionFinalizada,
   modificarDatosBusqueda,
@@ -52,16 +51,6 @@ export default function BuscarDocentes({
 }) {
   //Recupero token
   const { token } = useSelector((state) => state.login);
-
-  //Recuperacion de variables de contexto PaginacionContext
-  const {
-    filasPorPagina,
-    totalPaginas,
-    paginaActual,
-    setPaginaActual,
-    setFilasPorPagina,
-    cantidadResultados,
-  } = useContext(PaginacionContext);
 
   //Para estilos
   const theme = useTheme();
@@ -73,55 +62,54 @@ export default function BuscarDocentes({
     validationSchema: validaciones,
     onSubmit: (values) => {
       modificarDatosBusqueda(values);
-      // handleBuscarDocentes(values);
-      // setPaginaActual(1);
+      handleBuscarDocentes(values);
     },
   });
 
-  // //Funcion manejo de busqueda
-  // const handleBuscarDocentes = async (values) => {
-  //   //Reseteo los valores del resultado de la busqueda anterior
-  //   resultadoBusqueda({
-  //     docentes: [],
-  //     totalPaginas: 0,
-  //   });
+  //Funcion manejo de busqueda
+  const handleBuscarDocentes = async (values) => {
+    //Reseteo los valores del resultado de la busqueda anterior
+    resultadoBusqueda({
+      docentes: [],
+      totalPaginas: 0,
+    });
 
-  //   //Acondiciono valores
-  //   const pag = {
-  //     Offset: 0,
-  //     Limite: paginacion.filasPorPagina,
-  //   };
-  //   //Concateno los valores de busqueda y los de paginacion
-  //   const datosAEnviar = Object.assign(values, pag);
-  //   //Muesto loader o spinner
-  //   peticionIniciada();
-  //   try {
-  //     const respuesta = await peticionBuscarDocente(datosAEnviar, token);
-  //     //Respuesta OK
-  //     const resultados = respuesta.data.data.resultados;
-  //     const totalFilas = respuesta.data.data.filas;
-  //     //Calculo del numero total de paginas
-  //     const totalPaginas = Math.ceil(totalFilas / paginacion.filasPorPagina);
+    //Acondiciono valores
+    const pag = {
+      Offset: 0,
+      Limite: paginacion.filasPorPagina,
+    };
+    //Concateno los valores de busqueda y los de paginacion
+    const datosAEnviar = Object.assign(values, pag);
+    //Muesto loader o spinner
+    peticionIniciada();
+    try {
+      const respuesta = await peticionBuscarDocente(datosAEnviar, token);
+      //Respuesta OK
+      const resultados = respuesta.data.data.resultados;
+      const totalFilas = respuesta.data.data.filas;
+      //Calculo del numero total de paginas
+      const totalPaginas = Math.ceil(totalFilas / paginacion.filasPorPagina);
 
-  //     //Acondiciono resultado
-  //     const resultadoBusq = {
-  //       docentes: resultados,
-  //       totalPaginas: totalPaginas,
-  //       paginaActual: 1,
-  //     };
-  //     //Actualizo resultado
-  //     resultadoBusqueda(resultadoBusq);
-  //   } catch (error) {
-  //     //Ocurrio un error
-  //     resultadoBusqueda({
-  //       docentes: [],
-  //       totalPaginas: 0,
-  //       paginaActual: 1,
-  //     });
-  //   }
-  //   //
-  //   peticionFinalizada();
-  // };
+      //Acondiciono resultado
+      const resultadoBusq = {
+        docentes: resultados,
+        totalPaginas: totalPaginas,
+        paginaActual: 1,
+      };
+      //Actualizo resultado
+      resultadoBusqueda(resultadoBusq);
+    } catch (error) {
+      //Ocurrio un error
+      resultadoBusqueda({
+        docentes: [],
+        totalPaginas: 0,
+        paginaActual: 1,
+      });
+    }
+    //
+    peticionFinalizada();
+  };
 
   //Limpiar campo
   const limpiarCampo = (nombre, valor) => {
@@ -293,9 +281,9 @@ export default function BuscarDocentes({
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => {
-            formik.handleSubmit();
-          }}
+          // onClick={() => {
+          //   manejador();
+          // }}
         >
           <SearchIcon />
         </Button>

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 //MUI
-import { Button, Chip, Grid, Zoom } from "@mui/material";
-
+import { Button, Zoom } from "@mui/material";
+import { Tooltip } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { CheckCircle } from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
-import { CheckCircleOutlineOutlined } from "@mui/icons-material";
-
+import CancelIcon from "@mui/icons-material/Cancel";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 //Hooks personalizados
 import { useModal } from "../../hooks/useModal";
 //
@@ -82,29 +84,33 @@ export const AltaBajaDocente = ({ docente, handleRefrescarPagina }) => {
 
   return (
     <>
-      {docente.Estado === "A" && (
-        <Grid item xs={12} sm="auto">
-          <Chip
-            variant="outlined"
-            color="success"
-            label="Alta"
-            icon={<CheckCircleOutlineOutlined />}
-            onClick={handleOpen}
-          />
-        </Grid>
-      )}
-
-      {docente.Estado === "B" && (
-        <Grid item xs={12} sm="auto">
-          <Chip
-            variant="outlined"
-            color="error"
-            label="Baja"
-            icon={<HighlightOffOutlinedIcon />}
-            onClick={handleOpen}
-          />
-        </Grid>
-      )}
+      <Tooltip
+        title={
+          (docente.Estado == "A" && "Dar de baja") ||
+          (docente.Estado == "B" && "Dar de alta")
+        }
+        TransitionComponent={Zoom}
+      >
+        <span>
+          {/** span: Para prevenir error de eventos provocado por el componente Tooltip cuando Button esta en estado disabled */}
+          <IconButton color="secondary" onClick={handleOpen} size="large">
+            {(docente.Estado == "A" && (
+              // <CancelIcon />
+              <CancelOutlinedIcon
+              //color="error"
+              // sx={{ color: "error.light" }}
+              />
+            )) ||
+              (docente.Estado == "B" && (
+                //<CheckCircle />
+                <CheckCircleOutlinedIcon
+                //color="success"
+                // sx={{ color: "success.light" }}
+                />
+              ))}
+          </IconButton>
+        </span>
+      </Tooltip>
 
       {/* Ventana modal */}
       <Dialog
@@ -116,22 +122,11 @@ export const AltaBajaDocente = ({ docente, handleRefrescarPagina }) => {
           backdropFilter: "blur(0.8px)",
         }}
       >
-        <DialogTitle display="flex" flexDirection="row">
-          {(docente.Estado == "A" && (
-            <HighlightOffOutlinedIcon
-              sx={{ alignSelf: "center", marginRight: 1 }}
-            />
-          )) ||
-            (docente.Estado == "B" && (
-              <CheckCircleOutlineOutlined
-                sx={{ alignSelf: "center", marginRight: 1 }}
-              />
-            ))}
+        <DialogTitle>
           {(docente.Estado == "A" && "Baja") ||
             (docente.Estado == "B" && "Alta")}{" "}
           docente
         </DialogTitle>
-
         <DialogContent>
           <DialogContentText>
             ¿Seguro que desea dar de{" "}
@@ -144,7 +139,7 @@ export const AltaBajaDocente = ({ docente, handleRefrescarPagina }) => {
           <Button variant="contained" onClick={handleClik}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="primary" onClick={handleClose}>
+          <Button variant="outlined" color="secondary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>
