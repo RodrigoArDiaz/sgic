@@ -173,7 +173,8 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
           localStorage.setItem("EsSA", response.SuperAdmin);
 
           if (response.Alumno === "S") {
-            navegar("/alumnos/inscripciones");
+            navegar("/inicio/alumnos/mis_cursadas");
+            dispatch(actualizarMenu(listaItemsMenuAlumno));
           } else {
             navegar("/inicio/docentes/ingreso");
             //Actualizo titulo

@@ -1,25 +1,32 @@
 import React from "react";
-import { Card, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Breadcrumbs from "../components/BreadCrumbs";
-import ListaCursadasInscripcion from "../components/ListaCursadasInscripcion";
+import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
+import CursadasInscripcionContenedor from "../components/InscripcionCursadas/CursadasInscripcionContenedor";
+
+//Ruta para breadcrumbs
+const crumbs = [
+  {
+    nombreRuta: "Inicio",
+    to: "/inicio/alumnos/mis_cursadas",
+  },
+  {
+    nombreRuta: "Inscripción a cursadas",
+    to: "",
+  },
+];
 
 export default function PaginaInscripcionesCursadas() {
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container rowSpacing={1}>
       <Grid item xs={12}>
-        <Grid container sx={{ backgroundColor: "#fff", borderRadius: "10px" }}>
-          <Breadcrumbs />
-        </Grid>
+        <GridBreadCrumbs>
+          <Breadcrumbs crumbs={crumbs} />
+        </GridBreadCrumbs>
       </Grid>
 
       <Grid item xs={12}>
-        {/* <Grid
-          container
-          sx={{ backgroundColor: "#fff", borderRadius: "10px" }}
-          component={Card}
-        > */}
-        <ListaCursadasInscripcion />
-        {/* </Grid> */}
+        <CursadasInscripcionContenedor />
       </Grid>
     </Grid>
   );
