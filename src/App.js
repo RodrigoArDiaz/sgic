@@ -41,6 +41,7 @@ import FormularioIniciarSesionSuper from "./components/Sesiones/FormularioInicia
 import PaginaDocentesNavegacion from "./components/NavegacionDocente/PaginaDocentesNavegacion.js";
 import PaginaActivarCuenta from "./pages/PaginaActivarCuenta.js";
 import PaginaResetPass from "./pages/PaginaResetPass.js";
+import PaginaAlumnoMisCursadas from "./pages/PaginaAlumnoMisCursadas.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -131,30 +132,10 @@ export default function App() {
                   element={<PaginaDocentesNavegacion />}
                 />
 
-                {/* <Route
-                  path="docentes/mis_catedras"
-                  element={<PaginaDocentesInicio />}
-                /> */}
-
-                {/* <Route
-                  path="docentes/cursadas"
-                  element={<PaginaDocentesCursadas />}
-                /> */}
-
-                {/* <Route
-                  path="docentes/cursada/info_cursada"
-                  element={<PaginaDocentesCursadasCuerpo />}
-                /> */}
-
                 <Route
                   path="docentes/cursada/info_cursada"
                   element={<PaginaDocentesCursadasCuerpo />}
                 />
-                {/* 
-                <Route
-                  path="docentes/cursada/practicos"
-                  element={<PaginaDocentesPracticos />}
-                /> */}
 
                 <Route
                   path="docentes/cursada/practicos"
@@ -184,7 +165,12 @@ export default function App() {
 
                 {/* Alumnos */}
                 <Route
-                  path="inscripciones_cursadas"
+                  path="alumnos/mis_cursadas"
+                  element={<PaginaAlumnoMisCursadas />}
+                />
+
+                <Route
+                  path="alumnos/inscripciones_cursadas"
                   element={<PaginaInscripcionesCursadas />}
                 />
                 {/* Todos los usuarios */}

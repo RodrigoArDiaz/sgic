@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { rootUrl } from "../rootUrl";
 
 //Endpoints
-const rootUrl = "http://127.0.0.1:8000/api";
+// const rootUrl = "http://127.0.0.1:8000/api";
 const crearDocenteUrl = rootUrl + "/crear_docente";
 const buscarDocenteUrl = rootUrl + "/buscar_docente";
 const altaDocenteUrl = rootUrl + "/alta_docente";

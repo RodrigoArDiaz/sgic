@@ -1,7 +1,8 @@
 import axios from "axios";
+import { rootUrl } from "./rootUrl";
 
 //Endpoints
-const rootUrl = "http://127.0.0.1:8000/api";
+// const rootUrl = "http://127.0.0.1:8000/api";
 const loginUsuarioUrl = rootUrl + "/acceso";
 const loginAlumnoUrl = rootUrl + "/acceso/alumnos";
 const loginDocenteUrl = rootUrl + "/acceso/docentes";

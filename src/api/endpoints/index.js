@@ -1,4 +1,6 @@
-const rootUrl = "http://127.0.0.1:8000/api";
+import { rootUrl } from "../rootUrl";
+
+// const rootUrl = "http://127.0.0.1:8000/api";
 
 const endpoints = {
   activarCuenta: rootUrl + "/activarcuenta",

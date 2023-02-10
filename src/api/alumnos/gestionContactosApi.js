@@ -1,11 +1,16 @@
 import axios from "axios";
+import { rootUrl } from "../rootUrl";
 
 //Endpoints
-const rootUrl = "http://127.0.0.1:8000/api";
+// const rootUrl = "http://127.0.0.1:8000/api";
 const listarContactosAlumnoUrl = rootUrl + "/listar_contactos";
 const agregarContactoAlumnoUrl = rootUrl + "/agregar_contacto";
 const borrarContactoAlumnoUrl = rootUrl + "/borrar_contacto";
 const modificarContactoAlumnoUrl = rootUrl + "/modificar_contacto";
+
+// const buscarMisCursadasUrl = rootUrl + "/buscarmiscursadas";
+// const buscarCursadasInscripcionUrl = rootUrl + "/buscarcursadaseninscripcion";
+// const inscribirmeEnCursadaUrl = rootUrl + "/inscribirme";
 
 /****************************************************
  * Peticion para el listado de contactos de un usuario
