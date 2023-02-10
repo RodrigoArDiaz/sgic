@@ -13,16 +13,9 @@ export default function PaginaAlumnoMisCursadas() {
   const dispatch = useDispatch();
 
   //Actualiza el titulo al montar la pagina
-  //   useEffect(() => {
-  //     dispatch(actualizarTitulo("Superadministrador"));
-  //   }, []);
-
-  //   //Actualiza el titulo al desmontar la pagina
-  //   useEffect(() => {
-  //     return () => {
-  //       dispatch(actualizarTitulo(""));
-  //     };
-  //   }, []);
+  useEffect(() => {
+    dispatch(actualizarTitulo(""));
+  }, []);
 
   //Ruta para breadcrumbs
   const crumbs = [
