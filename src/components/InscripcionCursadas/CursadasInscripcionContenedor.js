@@ -98,7 +98,7 @@ const CursadasInscripcionContenedor = () => {
         </Typography>
       </Box>
       {/* Buscar cursadas en inscripcion */}
-      <CardMainPage visibleHeader={false}>
+      <CardMainPage visibleHeader={false} sx={{ width: "max-content" }}>
         <CardContent
           sx={{
             "&.MuiCardContent-root:last-child": { paddingBottom: "16px" },

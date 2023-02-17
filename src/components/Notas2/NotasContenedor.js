@@ -1,37 +1,20 @@
 import React from "react";
-import {
-  Box,
-  CardContent,
-  CardHeader,
-  Divider,
-  Icon,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, Divider, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import NotasContenedorPracticos from "./NotasContenedorPracticos";
 import NotasContenedorExamenes from "./NotasExamenes/NotasContenedorExamenes";
 import SituacionFinalContenedor from "./SituacionFinal/SituacionFinalContenedor";
 import { useSelector } from "react-redux";
-import { blue } from "@mui/material/colors";
-
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 // import TabContext from "@mui/lab/TabContext";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import {
-  Article,
   ArticleOutlined,
-  Assignment,
   AssignmentOutlined,
-  FactCheck,
   GradingOutlined,
 } from "@mui/icons-material";
-import CardMainPageHeader from "../Material UI - Componentes Modificados/CardMainPageHeader";
 import { TabCustom } from "../Material UI - Componentes Modificados/TabCustom";
 
 export default function NotasContenedor(props) {

@@ -159,6 +159,8 @@ export default function NotasContenedorExamenes(props) {
       .then((response) => {
         if (Responses.status === 200) {
           setParam(response);
+
+          console.log(response);
           setExp("1");
         } else if (Responses.status === 401) {
           navegar("/ingreso");

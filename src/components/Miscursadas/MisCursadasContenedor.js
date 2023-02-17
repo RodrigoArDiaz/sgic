@@ -33,6 +33,7 @@ import {
 } from "../../styles/EstilosSpinners";
 import { DriveFileRenameOutline } from "@mui/icons-material";
 import { routes } from "../../routes/index";
+import { actualizarMateria } from "../../store/slices/materiaSlice";
 
 const MisCursadasContenedor = () => {
   //Variable de estado que indica el estado de la peticion
@@ -76,6 +77,7 @@ const MisCursadasContenedor = () => {
     localStorage.jsoncursada = JSON.stringify(cursada);
     //Actualizo datos cursada
     dispatch(actualizarCursada(cursada));
+    dispatch(actualizarMateria(cursada.Materia));
     //Actualizo titulo
     dispatch(
       actualizarTitulo(
@@ -88,8 +90,8 @@ const MisCursadasContenedor = () => {
     );
     //Actualizo items del menu
     dispatch(actualizarMenu(listaItemsMenuAlumnoConCursada));
-    //  navegar("/docentes/cursadas");
-    console.log(cursada);
+    //Redirigo
+    navegar("/inicio/alumnos/mis_notas");
   };
 
   return (

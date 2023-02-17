@@ -151,11 +151,9 @@ export default function NotasPracticosLista(props) {
                           <TableCell1em key={column.id} align={column.align}>
                             <Box display="flex" gap={1} alignItems="center">
                               <AvatarCustom
-                                // value={value}
                                 valueOne={row["Apellidos"]}
                                 valueTwo={row["Nombres"]}
                                 outlined={true}
-                                // defineColor={randomColor()}
                               />
                               {column.format && typeof value === "number"
                                 ? column.format(value)

@@ -42,6 +42,7 @@ import PaginaDocentesNavegacion from "./components/NavegacionDocente/PaginaDocen
 import PaginaActivarCuenta from "./pages/PaginaActivarCuenta.js";
 import PaginaResetPass from "./pages/PaginaResetPass.js";
 import PaginaAlumnoMisCursadas from "./pages/PaginaAlumnoMisCursadas.js";
+import PaginaAlumnosMisNotas from "./pages/PaginaAlumnoMisNotas.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -172,6 +173,11 @@ export default function App() {
                 <Route
                   path="alumnos/inscripciones_cursadas"
                   element={<PaginaInscripcionesCursadas />}
+                />
+
+                <Route
+                  path="alumnos/mis_notas"
+                  element={<PaginaAlumnosMisNotas />}
                 />
                 {/* Todos los usuarios */}
                 <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />

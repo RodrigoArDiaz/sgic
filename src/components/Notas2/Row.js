@@ -74,10 +74,6 @@ export default function Row(props) {
   //
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
-  React.useEffect(() => {
-    console.log(props.res2.length);
-  }, []);
-
   return (
     <>
       <TableRowElevacion
@@ -94,7 +90,8 @@ export default function Row(props) {
       >
         {props.res2.map((column) => {
           const value = props.res[column.id];
-
+          console.log("Row: ", props.res);
+          console.log("id: ", column.id);
           if (column.id === "Grupo") {
             return (
               <TableCell1em
@@ -107,66 +104,13 @@ export default function Row(props) {
                   IdCursada={props.cursada.IdCursada}
                   NombreGrupo={value}
                 />
-                {/* <Tooltip
-                  title="Listar integrantes"
-                  TransitionComponent={Zoom}
-                  arrow
-                >
-                  <IconButton
-                    color="secondary"
-                    aria-label="expand row"
-                    size="small"
-                    onClick={() => {
-                      //se abre modal
-                      handleOpen();
 
-                      //Peticion
-                      if (est === "2") {
-                        setOpen(false);
-                        setE("1");
-                      } else if (est === "1" && grupos !== undefined) {
-                        setOpen(true);
-                        setE("2");
-                      } else {
-                        var data = {
-                          pidG: props.IdGrupo,
-                          Offset: 0,
-                          pidCu: props.cursada.IdCursada,
-                        };
-                        setE("3");
-                        Responses.consultas(
-                          data,
-                          "http://127.0.0.1:8000/api/listarintegrantes"
-                        )
-                          .then((response) => {
-                            if (Responses.status === 200) {
-                              setG(response.res);
-                              setE("2");
-                              setOpen(true);
-                            } else if (Responses.status === 401) {
-                              navegar("/ingreso");
-                            } else {
-                              navegar("/error");
-                            }
-                          })
-                          .catch((error) => {
-                            navegar("/error");
-                          });
-                      }
-                    }}
-                  >
-                    {est === "1" && <GroupsOutlinedIcon />}
-                    {est === "2" && <GroupsOutlinedIcon />}
-                    {est === "3" && <GroupsOutlinedIcon />}
-                  </IconButton>
-                </Tooltip> */}
                 <Typography display="inline-flex" variant="p" marginLeft={1}>
                   {value}
                 </Typography>
               </TableCell1em>
             );
           } else {
-            console.log(column.NMA);
             return (
               <TableCellEditable
                 key={column.id}
