@@ -43,6 +43,7 @@ import PaginaActivarCuenta from "./pages/PaginaActivarCuenta.js";
 import PaginaResetPass from "./pages/PaginaResetPass.js";
 import PaginaAlumnoMisCursadas from "./pages/PaginaAlumnoMisCursadas.js";
 import PaginaAlumnosMisNotas from "./pages/PaginaAlumnoMisNotas.js";
+import PaginaAlumnosInfoCursada from "./pages/PaginaAlumnoInfoCursada.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -178,6 +179,11 @@ export default function App() {
                 <Route
                   path="alumnos/mis_notas"
                   element={<PaginaAlumnosMisNotas />}
+                />
+
+                <Route
+                  path="alumnos/info_cursada"
+                  element={<PaginaAlumnosInfoCursada />}
                 />
                 {/* Todos los usuarios */}
                 <Route path="mi_perfil" element={<PaginaPerfilUsuario />} />

@@ -5,20 +5,21 @@ import { GridBreadCrumbs } from "../components/Material UI - Componentes Modific
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 import MisNotasContenedor from "../components/Alumnos/MisNotas/MisNotasContenedor";
+import InfoCursadaContenedor from "../components/Alumnos/InfoCursada/InfoCursadaContenedor";
 
 //Ruta para breadcrumbs
 const crumbs = [
   {
     nombreRuta: "Inicio",
-    to: "/inicio/alumnos/mis_cursadas",
+    to: "/inicio/alumnos/info_cursada",
   },
   {
-    nombreRuta: "Mis Notas",
+    nombreRuta: "Información de la cursada",
     to: "",
   },
 ];
 
-export default function PaginaAlumnosMisNotas() {
+export default function PaginaAlumnosInfoCursada() {
   //
   const { materia } = useSelector((state) => state.materia);
   const { cursada } = useSelector((state) => state.cursada);
@@ -51,7 +52,7 @@ export default function PaginaAlumnosMisNotas() {
       </Grid>
 
       <Grid item xs={12}>
-        <MisNotasContenedor />
+        <InfoCursadaContenedor />
       </Grid>
     </Grid>
   );
