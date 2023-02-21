@@ -2,14 +2,9 @@ import React from "react";
 //Tema principal
 import temaConfig from "./temaConfig.js";
 //MUI
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 //React router dom
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //Reac redux
 import { useSelector } from "react-redux";
 //Notisctack
@@ -17,19 +12,15 @@ import { SnackbarProvider } from "notistack";
 //Componentes
 import Menu from "./components/Menu/Menu.js";
 import IconButtonNotiStack from "./components/Material UI - Componentes Modificados/IconButtonNotiStack.js";
-import ResetPass from "./components/Sesiones/ResetPass.js";
 // import ActivarCuenta from "./components/Sesiones/ActivarCuenta.js";
 //Paginas
 import PaginaRecuperarContrasenia from "./pages/PaginaRecuperarContrasenia.js";
 import PaginaCatedras from "./pages/PaginaCatedras.js";
 import PaginaDocentes from "./pages/PaginaDocentes.js";
 import PaginaAlumnos from "./pages/PaginaAlumnos.js";
-import PaginaInicioSesion from "./pages/PaginaInicioSesion.js";
 import PaginaRegistrarse from "./pages/PaginaRegistrarse.js";
-import PaginaDocentesCursadas from "./pages/PaginaDocentesCursadas.js";
 import PaginaPerfilUsuario from "./pages/PaginaPerfilUsuario.js";
 import PaginaInscripcionesCursadas from "./pages/PaginaInscripcionesCursadas.js";
-import PaginaDocentesInicio from "./components/NavegacionDocente/PaginaDocentesInicio.js";
 import PaginaDocentesCursadasCuerpo from "./pages/PaginaDocentesCursadasCuerpo.js";
 import PaginaDocentesPracticos from "./pages/PaginaDocentesPracticos.js";
 import PaginaDocentesExamenes from "./pages/PaginaDocentesExamenes.js";
