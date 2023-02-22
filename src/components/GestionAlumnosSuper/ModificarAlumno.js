@@ -15,7 +15,9 @@ import { useModal } from "../useModal";
 //Componentes propios
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente BotonEstado ***/
 export const ModificarAlumno = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -101,7 +103,7 @@ export const ModificarAlumno = (props) => {
       pidUs: props.alumno.IdUsuario,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/modificaralumno")
+    consultas(data, endpoints.modificarAlumno)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -112,11 +114,8 @@ export const ModificarAlumno = (props) => {
           props.mensaje("Alumno modificado con éxito");
           props.tipo("success");
           props.refrescar();
-
-          //console.log(response);
         } else {
           // Aqui actualizo los errores
-
           if (response.ErrNombre !== undefined) {
             setErrors({ ...errors, nombres: response.Error });
             setNom("2");
@@ -148,9 +147,7 @@ export const ModificarAlumno = (props) => {
           }
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   return (
@@ -326,11 +323,10 @@ export const ModificarAlumno = (props) => {
                     pidUs: props.alumno.IdUsuario,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultarus")
+                  consultas(data, endpoints.registroConsultarus)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setUs("1");
-                        console.log(response);
                       } else {
                         setUs("2");
                         setErrors({
@@ -339,9 +335,7 @@ export const ModificarAlumno = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
               }}
               value={form.usuario}
@@ -401,11 +395,10 @@ export const ModificarAlumno = (props) => {
                     pidUs: props.alumno.IdUsuario,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultarmail")
+                  consultas(data, endpoints.registroConsultarmail)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setEm("1");
-                        console.log(response);
                       } else {
                         setEm("2");
                         setErrors({
@@ -414,9 +407,7 @@ export const ModificarAlumno = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
 
                 //setEm('3') ;
@@ -482,11 +473,10 @@ export const ModificarAlumno = (props) => {
                     pidUs: props.alumno.IdUsuario,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultardni")
+                  consultas(data, endpoints.registroConsultadni)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setDn("1");
-                        console.log(response);
                       } else {
                         setDn("2");
                         setErrors({
@@ -495,9 +485,7 @@ export const ModificarAlumno = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
               }}
               value={form.dni}
@@ -560,11 +548,10 @@ export const ModificarAlumno = (props) => {
                     pidUs: props.alumno.IdUsuario,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultarlib")
+                  consultas(data, endpoints.registroConsultarlib)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setLib("1");
-                        console.log(response);
                       } else {
                         setLib("2");
                         setErrors({
@@ -573,9 +560,7 @@ export const ModificarAlumno = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
               }}
               value={form.libreta}
@@ -600,5 +585,3 @@ export const ModificarAlumno = (props) => {
     </>
   );
 };
-
-//<Button variant='contained' disabled onClick={handleClose}>Aceptar</Button>

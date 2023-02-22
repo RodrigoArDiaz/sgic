@@ -1,7 +1,5 @@
 import { rootUrl } from "../rootUrl";
 
-// const rootUrl = "http://127.0.0.1:8000/api";
-
 const endpoints = {
   //Sesion
   acceso: rootUrl + "/acceso",
@@ -33,6 +31,12 @@ const endpoints = {
   modificarCatedra: rootUrl + "/modificarcatedra",
   consultarNomCat: rootUrl + "/consultarnomcat",
   borrarCatedra: rootUrl + "/borrarcatedra",
+  //**Alumnos
+  buscarAlumnos: rootUrl + "/buscaralumnos",
+  bajaAlumno: rootUrl + "/bajaalumno",
+  altaAlumno: rootUrl + "/altaalumno",
+  modificarAlumno: rootUrl + "/modificaralumno",
+  borrarAlumno: rootUrl + "/borraralumno",
 
   //Gestionar cursadas (superadministrador)
 

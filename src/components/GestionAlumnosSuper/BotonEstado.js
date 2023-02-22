@@ -4,14 +4,15 @@ import IconButton from "@mui/material/IconButton";
 import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 //React router dom
 import { useNavigate } from "react-router-dom";
-import { CheckCircle, CheckCircleOutlineOutlined } from "@mui/icons-material";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente BotonEstado ***/
 export const BotonEstado = (props) => {
   const navegar = useNavigate();
   const [salto, setSalto] = React.useState(props.estado);
@@ -36,37 +37,29 @@ export const BotonEstado = (props) => {
 
     if (salto === "A") {
       setSalto("C");
-      consultas(data, "http://127.0.0.1:8000/api/bajaalumno")
+      consultas(data, endpoints.bajaAlumno)
         .then((response) => {
           if (response.Error === undefined) {
             setSalto("B");
           } else {
-            console.log(response.Error);
           }
         })
         .catch((error) => {
-          console.log("Error de conexión" + error);
-          navegar("/registrarse");
+          navegar(routes.iniciarSesion);
         });
-
-      //setSalto('B');
     } else {
       if (salto === "B") {
         setSalto("C");
-        consultas(data, "http://127.0.0.1:8000/api/altaalumno")
+        consultas(data, endpoints.altaAlumno)
           .then((response) => {
             if (response.Error === undefined) {
               setSalto("A");
             } else {
-              console.log(response.Error);
             }
           })
           .catch((error) => {
-            console.log("Error de conexión" + error);
-            navegar("/registrarse");
+            navegar(routes.iniciarSesion);
           });
-
-        //  setSalto('A');
       }
     }
   }
@@ -75,18 +68,6 @@ export const BotonEstado = (props) => {
     <>
       {salto === "A" && (
         <Grid item xs={12} sm="auto">
-          {/* <Tooltip title="Activo" TransitionComponent={Zoom}>
-            <span>
-              <IconButton
-                aria-label="estado"
-                size="small"
-                color="success"
-                onClick={() => manejador()}
-              >
-                <CheckCircleOutlinedIcon />
-              </IconButton>
-            </span>
-          </Tooltip> */}
           <Chip
             variant="outlined"
             color="success"
@@ -98,18 +79,6 @@ export const BotonEstado = (props) => {
       )}
       {salto === "B" && (
         <Grid item xs={12} sm="auto">
-          {/* <Tooltip title="Baja" TransitionComponent={Zoom}>
-            <span>
-              <IconButton
-                aria-label="estado2"
-                size="large"
-                color="error"
-                onClick={() => manejador()}
-              >
-                <CancelOutlinedIcon />
-              </IconButton>
-            </span>
-          </Tooltip> */}
           <Chip
             variant="outlined"
             color="error"

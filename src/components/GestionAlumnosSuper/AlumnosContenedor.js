@@ -1,7 +1,6 @@
 import React from "react";
 //MUI
 import { CardContent, CardHeader, Divider, Typography } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Box } from "@mui/material";
 import { Grid } from "@mui/material";
 //React router dom
@@ -10,11 +9,16 @@ import { useNavigate } from "react-router-dom";
 import AlumnosLista from "./AlumnosLista";
 import BuscarAlumnos from "./BuscarAlumnos";
 import SnackMensajes from "../../components/GestionCatedrasSuper/SnackMensajes";
-import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
+/*** Componente AlumnosContenedor ***/
 export default function AlumnosContenedor() {
   const navegar = useNavigate();
 
@@ -26,9 +30,7 @@ export default function AlumnosContenedor() {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
-  const color = teal[400];
   //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
@@ -48,7 +50,7 @@ export default function AlumnosContenedor() {
 
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscaralumnos")
+    consultas(datosconsulta, endpoints.buscarAlumnos)
       .then((response) => {
         setFilas(response);
         setCargando(false);
@@ -59,8 +61,7 @@ export default function AlumnosContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -70,7 +71,7 @@ export default function AlumnosContenedor() {
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscaralumnos")
+    consultas(parametro, endpoints.buscarAlumnos)
       .then((response) => {
         setFilas(response);
 
@@ -84,8 +85,7 @@ export default function AlumnosContenedor() {
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -96,14 +96,13 @@ export default function AlumnosContenedor() {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscaralumnos")
+    consultas(datosconsulta, endpoints.buscarAlumnos)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
@@ -119,7 +118,7 @@ export default function AlumnosContenedor() {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscaralumnos")
+    consultas(datos, endpoints.buscarAlumnos)
       .then((response) => {
         setFilas(response);
 
@@ -130,9 +129,7 @@ export default function AlumnosContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -147,18 +144,11 @@ export default function AlumnosContenedor() {
       piB: "B",
       Offset: 0,
       Limite: filasxpagina,
-      //pidCa:props.idcatedra,
-
-      /*
-        Catedra:'',
-        Bajas:'B',
-        Offset:0,
-    Limite:filasxpagina,*/
     };
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/buscaralumnos")
+    consultas(data, endpoints.buscarAlumnos)
       .then((response) => {
         setFilas(response);
 
@@ -175,8 +165,7 @@ export default function AlumnosContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }, []);
 
@@ -212,7 +201,10 @@ export default function AlumnosContenedor() {
               <Grid container paddingTop={3}>
                 <Grid item xs={12}>
                   <Box component="div" display="flex" justifyContent="center">
-                    <MoonLoader color={color} size={60} />
+                    <MoonLoader
+                      color={colorMainSpinner}
+                      size={sizeMainSpinner}
+                    />
                   </Box>
                 </Grid>
               </Grid>

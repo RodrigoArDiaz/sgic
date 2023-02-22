@@ -2,13 +2,9 @@ import * as React from "react";
 //MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
 //
@@ -25,6 +21,7 @@ import CopiarButton from "../CopiarButton";
 import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
+//Datos columna tabla
 const columns = [
   {
     id: "#",
@@ -100,23 +97,11 @@ const columns = [
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
 
-export default function StickyHeadTable(props) {
+/*** Componente AlumnoLista ***/
+export default function AlumnoLista(props) {
   function CambiarPagina(e, page) {
-    //console.log(page);
     props.actualizarpagina(page);
   }
-
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
 
   if (props.filas.res === undefined)
     return (

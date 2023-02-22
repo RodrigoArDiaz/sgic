@@ -1,27 +1,18 @@
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Grid, Tooltip, Zoom } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+//
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-//Valor inicial del formulario
-/*const formInicial = {
-  apellidos: "",
-  nombres: "",
-  dni: "",
-  email: "",
-}
 
-*/
-
+/*** Componente BuscarAlumnos ***/
 export default function BuscarAlumnos(props) {
   //variable de estado del formulario
 
@@ -36,7 +27,6 @@ export default function BuscarAlumnos(props) {
       piB: form.bajas,
       Offset: 0,
       Limite: props.filasxpagina,
-      // pidCa:props.idcatedra,
     };
 
     props.actualizar(data);
