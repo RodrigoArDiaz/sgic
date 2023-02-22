@@ -1,8 +1,10 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
 import TarjetaCursada from "./TarjetaCursada";
 
-export default function StickyHeadTable(props) {
+/*** Componente CursadaLista ***/
+export default function CursadaLista(props) {
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 

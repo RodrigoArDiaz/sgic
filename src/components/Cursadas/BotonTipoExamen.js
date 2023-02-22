@@ -1,10 +1,11 @@
 import * as React from "react";
+//MUI
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+/*** Componente BotonTipoExamen ***/
 export default function BotonTipoExamen(props) {
   const [anio, setAnio] = React.useState(Valor(props.vpd));
 
@@ -22,12 +23,7 @@ export default function BotonTipoExamen(props) {
   return (
     <Box sx={{ minWidth: 50 }}>
       <FormControl fullWidth>
-        <Select
-          value={anio}
-          onChange={handleChange}
-          displayEmpty
-          //inputProps={{ 'aria-label': 'Without label' }}
-        >
+        <Select value={anio} onChange={handleChange} displayEmpty>
           <MenuItem value="">Tipo</MenuItem>
 
           <MenuItem value={"Q"}>Quiz</MenuItem>

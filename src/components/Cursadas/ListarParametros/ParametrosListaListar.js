@@ -1,14 +1,11 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 import { BotonTipo } from "../BotonTipo.js";
 import { BotonAcciones } from "./BotonAcciones";
 import {
@@ -16,6 +13,7 @@ import {
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla.js";
 
+//Datos columna
 const columns = [
   {
     id: "Tipo",
@@ -60,9 +58,8 @@ function Transformar(param) {
   if (param === "F") return "Final";
 }
 
-export default function StickyHeadTable(props) {
-  const theme = createTheme(esES);
-
+/*** Componente ParameetrosListaListar ***/
+export default function ParameetrosListaListar(props) {
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 

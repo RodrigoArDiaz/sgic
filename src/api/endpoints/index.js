@@ -37,6 +37,26 @@ const endpoints = {
   altaAlumno: rootUrl + "/altaalumno",
   modificarAlumno: rootUrl + "/modificaralumno",
   borrarAlumno: rootUrl + "/borraralumno",
+  buscarMateriasCat: rootUrl + "/buscarmateriascat",
+  buscarCursadas: rootUrl + "/buscarcursadas",
+
+  //Docentes
+  listarCatUs: rootUrl + "/listarcatus",
+  crearCursada: rootUrl + "/crearcursada",
+  consultarAnioSem: rootUrl + "/consultaraniosem",
+  agregarParametro: rootUrl + "/agregarparametro",
+  consultarTipoParam: rootUrl + "/consultartipoparam",
+  consultarPnt: rootUrl + "/consultarpnt",
+  listarParametros: rootUrl + "/listarparametros",
+  modificarParametro: rootUrl + "/modificarparametro",
+  consultarTipoParam: rootUrl + "/consultartipoparam",
+  borrarParametro: rootUrl + "/borrarparametro",
+  clonarCursada: rootUrl + "/clonarcursada",
+  consultarPntCur: rootUrl + "/consultarpntcur",
+  modificarCursada: rootUrl + "/modificarcursada",
+  altaCursada: rootUrl + "/altacursada",
+  bajaCursada: rootUrl + "/bajacursada",
+  abrirInscripcion: rootUrl + "/abririnscripcion",
 
   //Gestionar cursadas (superadministrador)
 

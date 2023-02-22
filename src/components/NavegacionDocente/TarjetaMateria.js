@@ -1,4 +1,5 @@
 import * as React from "react";
+//MUI
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
@@ -18,6 +19,7 @@ import {
 import { actualizarTitulo } from "../../store/slices/menuSlice";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
+/*** Comoponente TarjetaMateria ***/
 export default function TarjetaMateria(props) {
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();

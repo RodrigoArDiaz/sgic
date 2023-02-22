@@ -1,26 +1,27 @@
 import React from "react";
+//MUI
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { EditOutlined } from "@mui/icons-material";
+import { FormHelperText } from "@mui/material";
+import { FormControl, InputLabel, Input } from "@mui/material";
+//
 import { useModal } from "../../useModal";
-import Paper from "@mui/material/Paper";
-import { Grid } from "@mui/material";
 import BotonTipoCalculo from "../BotonTipoCalculo";
 import BotonTipoExamen from "../BotonTipoExamen";
 import { BotonEstadoRegistro } from "../BotonEstadoRegistro";
-import { FormHelperText } from "@mui/material";
-import { FormControl, InputLabel, Input, Typography } from "@mui/material";
-
 import * as Responses from "../../Responses";
 import { useNavigate } from "react-router-dom";
-import { EditOutlined } from "@mui/icons-material";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente ModificarParametro ***/
 export const ModificarParametro = (props) => {
   const navegar = useNavigate();
 
@@ -62,10 +63,7 @@ export const ModificarParametro = (props) => {
               IdCursada: props.idcursada,
             };
 
-            Responses.consultas(
-              data,
-              "http://127.0.0.1:8000/api/modificarparametro"
-            )
+            Responses.consultas(data, endpoints.modificarParametro)
               .then((response) => {
                 if (Responses.status === 200) {
                   setT("");
@@ -86,7 +84,7 @@ export const ModificarParametro = (props) => {
                   props.refrescar();
                   handleClose();
                 } else if (Responses.status === 401) {
-                  navegar("/ingreso");
+                  navegar(routes.iniciarSesion);
                 } else if (Responses.status === 460) {
                   if (response.tipo !== undefined) {
                     setErrors({ ...errors, tipo: response.tipo });
@@ -108,11 +106,11 @@ export const ModificarParametro = (props) => {
                     setEs("2");
                   }
                 } else {
-                  navegar("/error");
+                  navegar(routes.error);
                 }
               })
               .catch((error) => {
-                navegar("/error");
+                navegar(routes.error);
               });
           }}
         >
@@ -172,23 +170,23 @@ export const ModificarParametro = (props) => {
         IdParametro: props.parametro.IdParametro,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultartipoparam")
+      Responses.consultas(data, endpoints.consultarTipoParam)
         .then((response) => {
           if (Responses.status === 200) {
             setErrors({ ...errors, tipo: "" });
 
             setT("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setT("2");
             setErrors({ ...errors, tipo: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }
@@ -348,26 +346,23 @@ export const ModificarParametro = (props) => {
                     IdParametro: props.parametro.IdParametro,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarpnt"
-                  )
+                  Responses.consultas(data, endpoints.consultarPnt)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setErrors({ ...errors, pnt: "" });
 
                         setP("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.iniciarSesion);
                       } else if (Responses.status === 460) {
                         setP("2");
                         setErrors({ ...errors, pnt: response.Error });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}

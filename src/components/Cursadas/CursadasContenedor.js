@@ -1,31 +1,26 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  CardContent,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+//MUI
+import { Box, CardContent, ListItem, ListItemText } from "@mui/material";
 import { Grid } from "@mui/material";
+//
 import CursadaLista from "./CursadaLista";
 import { CrearCursada } from "./CrearCursada";
 import BuscarCursadas from "./BuscarCursadas";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "./SnackMensajes";
 import * as Responses from "../Responses";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
 import MensajeFeedback from "../MensajeFeedback.js";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
+/*** Componente CursadasContenedor ***/
 export default function CursadasContenedor(props) {
-  const color = teal[400];
-
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -44,24 +39,21 @@ export default function CursadasContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarcursadas"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -71,7 +63,7 @@ export default function CursadasContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarcursadas")
+    Responses.consultas(parametro, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -80,15 +72,15 @@ export default function CursadasContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -101,21 +93,21 @@ export default function CursadasContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarcursadas")
+    Responses.consultas(datos, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -130,7 +122,7 @@ export default function CursadasContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarcursadas")
+    Responses.consultas(datos, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -138,15 +130,15 @@ export default function CursadasContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -163,7 +155,7 @@ export default function CursadasContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarcursadas")
+    Responses.consultas(data, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -171,25 +163,20 @@ export default function CursadasContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
   return (
-    <CardMainPage
-      // icon="build"
-      // title={"Gestión de Cursadas - " + props.Materia}
-      // bgColorIcon="cyan.main300"
-      visibleHeader={false}
-    >
+    <CardMainPage visibleHeader={false}>
       <CardContent sx={{ paddingRight: 0, paddingLeft: 0 }}>
         <Grid container>
           <Grid container direction="row-reverse">
@@ -250,7 +237,7 @@ export default function CursadasContenedor(props) {
               <Grid item xs={12}>
                 <Box component="div" display="flex" justifyContent="center">
                   {/* <PropagateLoader color={color} size={15} /> */}
-                  <MoonLoader color={color} size={60} />
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
                 </Box>
               </Grid>
             </Grid>

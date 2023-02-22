@@ -25,7 +25,9 @@ import {
   listaItemsMenuDocenteConCursada,
 } from "../Menu/itemsMenu";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
+import { routes } from "../../routes";
 
+/*** Componente TarjetaCursada ***/
 export default function TarjetaCursada(props) {
   const navegar = useNavigate();
   //
@@ -53,8 +55,7 @@ export default function TarjetaCursada(props) {
           dispatch(actualizarMenu(listaItemsMenuSuperConCursada));
         else dispatch(actualizarMenu(listaItemsMenuDocenteConCursada));
 
-        // navegar("/docentes/cursadas");
-        navegar("/inicio/docentes/cursada/info_cursada");
+        navegar(routes.docentesInfoCursada);
       }}
       sx={{
         borderRadius: "4px",

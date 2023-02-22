@@ -1,9 +1,5 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-//import {AltaGrupo} from './AltaGrupo';
-//import {BajaGrupo} from './BajaGrupo';
-
+//MUI
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";

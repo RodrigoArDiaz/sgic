@@ -9,7 +9,10 @@ import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import MensajeFeedback from "../MensajeFeedback";
 import MateriasLista from "./MateriasLista";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Comoponente PaginaDocentesInicio ***/
 export default function MateriasContenedor(props) {
   const navegar = useNavigate();
 
@@ -27,21 +30,21 @@ export default function MateriasContenedor(props) {
       pidCa: props.idcatedraprincipal,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarmateriascat")
+    Responses.consultas(data, endpoints.buscarMateriasCat)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

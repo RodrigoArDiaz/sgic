@@ -1,22 +1,20 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  ListItem,
-  ListItemText,
-  Paper,
-} from "@mui/material";
+//MUI
+import { AlertTitle, ListItem, ListItemText } from "@mui/material";
 import { Grid } from "@mui/material";
 import CursadasLista from "./CursadasLista";
-import { GestionarCursadas } from "./GestionarCursadas";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
-import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import * as Responses from "../Responses";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Button from "@mui/material/Button";
+//
+import { useNavigate } from "react-router-dom";
+//Componentes propios
+import { GestionarCursadas } from "./GestionarCursadas";
+import * as Responses from "../Responses";
 import MensajeFeedback from "../MensajeFeedback";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Comoponente CursadasContenedor ***/
 export default function CursadasContenedor(props) {
   const navegar = useNavigate();
 
@@ -36,22 +34,22 @@ export default function CursadasContenedor(props) {
       pidMat: props.idmateriaprincipal,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarcursadas")
+    Responses.consultas(data, endpoints.buscarCursadas)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setEAC(response.AdminCat);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

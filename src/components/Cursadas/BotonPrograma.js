@@ -1,9 +1,9 @@
 import * as React from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip } from "@mui/material";
 import { Grid } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
 import { Zoom } from "@mui/material";
@@ -15,6 +15,7 @@ const isEmpty = (string) => {
   return false;
 };
 
+/*** Componente BotonPrograma ***/
 export const BotonPrograma = (props) => {
   const [salto, setSalto] = React.useState(props.programa);
 
@@ -52,39 +53,4 @@ export const BotonPrograma = (props) => {
       )}
     </>
   );
-
-  /*
-if (salto ==='A') 
-{
-    return (
-      
-
-        
-        <Grid item xs={12} sm="auto">
-<Tooltip title="Activa">
-<IconButton aria-label="estado" size='small' color="success" onClick={()=>manejador()}>
-        <CheckIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-      
-
-  );}
-*/
-  /*
-  if (salto==='B') 
-  {
-      return (
-
-        
-        <Grid item xs={12} sm="auto">
-<Tooltip title="Baja">
-<IconButton aria-label="estado2"  size='small' color="error" onClick={()=>manejador()}>
-        <CloseIcon />
-      </IconButton>
-      </Tooltip>
-      </Grid>
-     
-    );}
-*/
 };

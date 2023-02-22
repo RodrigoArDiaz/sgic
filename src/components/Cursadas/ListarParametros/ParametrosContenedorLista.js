@@ -1,27 +1,21 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  Box,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+//MUI
+import { Alert, AlertTitle, Box, ListItem, ListItemText } from "@mui/material";
 import { Grid } from "@mui/material";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../SnackMensajes";
 import ParametrosListaListar from "./ParametrosListaListar";
-
 import * as Responses from "../../Responses";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
+/*** Componente ParametrosContenedorLista ***/
 export default function ParametrosContenedorLista(props) {
-  const color = teal[400];
-
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -36,24 +30,21 @@ export default function ParametrosContenedorLista(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/listarparametros"
-    )
+    Responses.consultas(datosconsulta, endpoints.listarParametros)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -65,21 +56,21 @@ export default function ParametrosContenedorLista(props) {
 
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarparametros")
+    Responses.consultas(data, endpoints.listarParametros)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -101,7 +92,7 @@ export default function ParametrosContenedorLista(props) {
         <Grid container paddingTop={0}>
           <Grid item xs={12}>
             <Box component="div" display="flex" justifyContent="center">
-              <MoonLoader color={color} size={60} />
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
             </Box>
           </Grid>
         </Grid>

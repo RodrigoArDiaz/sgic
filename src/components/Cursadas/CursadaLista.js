@@ -1,22 +1,19 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
+import Stack from "@mui/material/Stack";
+import { Box, Grid, Typography } from "@mui/material";
+//
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import { BotonGrupo } from "./BotonGrupo.js";
 import { BotonPrograma } from "./BotonPrograma.js";
 import { BotonTipo } from "./BotonTipo.js";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { Box, Grid, Typography } from "@mui/material";
-
 import FilasPorPagina from "./FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
@@ -24,6 +21,7 @@ import PaginationCustom from "../Material UI - Componentes Modificados/Component
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
 
+//Datos columna tabla
 const columns = [
   {
     id: "Anio",
@@ -109,9 +107,8 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
-  const theme = createTheme(esES);
-
+/*** Componente CursadaLista ***/
+export default function CursadaLista(props) {
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }

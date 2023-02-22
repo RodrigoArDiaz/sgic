@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../../store/slices/menuSlice";
 import MensajeFeedback from "../MensajeFeedback";
 
+/*** Componente CatedrasUsuarioLista ***/
 export default function CatedrasUsuarioLista(props) {
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();

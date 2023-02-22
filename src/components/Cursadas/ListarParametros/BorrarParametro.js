@@ -1,18 +1,22 @@
 import React from "react";
+//MUI
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import { DeleteOutlineOutlined } from "@mui/icons-material";
 import DialogTitle from "@mui/material/DialogTitle";
+//
 import { useModal } from "../../useModal";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../../Responses";
-import { DeleteOutlineOutlined } from "@mui/icons-material";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente BorrarParametro ***/
 export const BorrarParametro = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -24,7 +28,7 @@ export const BorrarParametro = (props) => {
       IdCursada: props.idcursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borrarparametro")
+    Responses.consultas(data, endpoints.borrarParametro)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -33,18 +37,18 @@ export const BorrarParametro = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
           props.mensaje(response.Error);
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

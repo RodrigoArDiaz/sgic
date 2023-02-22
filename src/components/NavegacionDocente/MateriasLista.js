@@ -1,8 +1,10 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
 import TarjetaMateria from "./TarjetaMateria";
 
-export default function StickyHeadTable(props) {
+/*** Comoponente PaginaDocentesInicio ***/
+export default function MateriasLista(props) {
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 

@@ -9,7 +9,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 //
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +17,7 @@ import * as Responses from "../Responses";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
 
+/*** Componente BorrarCursada ***/
 export const BorrarCursada = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 

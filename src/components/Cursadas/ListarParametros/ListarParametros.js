@@ -1,17 +1,18 @@
 import React from "react";
+//MUI
 import { Button, DialogContentText, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import ViewListIcon from "@mui/icons-material/ViewList";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../../useModal";
-import ParametrosContenedorLista from "./ParametrosContenedorLista";
 import { useTheme } from "@emotion/react";
 import { ViewListOutlined } from "@mui/icons-material";
+import ParametrosContenedorLista from "./ParametrosContenedorLista";
+import { useModal } from "../../useModal";
 
+/*** Componente ListarParametros ***/
 export const ListarParametros = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();

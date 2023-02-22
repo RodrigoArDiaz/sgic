@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../../store/slices/menuSlice";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
+/*** Componente TarjetaCatedra ***/
 export default function TarjetaCatedra(props) {
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();

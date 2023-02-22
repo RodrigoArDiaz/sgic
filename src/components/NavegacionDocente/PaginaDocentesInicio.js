@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  Grid,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
+//MUI
+import { Alert, AlertTitle, Grid, ListItem, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CatedrasUsuarioLista from "./CatedrasUsuarioLista";
 import MateriasContenedor from "./MateriasContenedor";
@@ -16,26 +8,18 @@ import CursadasContenedor from "./CursadasContenedor";
 import * as Responses from "../Responses";
 import { Box } from "@mui/material";
 //React spinner
-import { css } from "@emotion/react";
-import { FadeLoader } from "react-spinners";
-import { PropagateLoader } from "react-spinners";
 import { MoonLoader } from "react-spinners";
 //Theme provider
-import { useTheme } from "@mui/styles";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
-// const override = css`
-//   display: block;
-//   margin: 0 auto;
-//   border-color: red;
-// `;
-
-/****************************************************/
+/*** Comoponente PaginaDocentesInicio ***/
 export default function PaginaDocentesInicio(props) {
   const navegar = useNavigate();
-  //
-  // const theme = useTheme();
-  const color = teal[400];
 
   const [filas, setFilas] = React.useState({}); // datos a mostrar
   const [cargando, setCargando] = React.useState("1"); //Espera al consultar
@@ -48,21 +32,21 @@ export default function PaginaDocentesInicio(props) {
     };
 
     // Petición a API
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarcatus")
+    Responses.consultas(data, endpoints.listarCatUs)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.iniciarSesion);
       });
   }, []);
 
@@ -85,7 +69,7 @@ export default function PaginaDocentesInicio(props) {
           <Grid item xs={12}>
             <Box component="div" display="flex" justifyContent="center">
               {/* <PropagateLoader color={color} size={15} /> */}
-              <MoonLoader color={color} size={60} />
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
             </Box>
           </Grid>
         </Grid>

@@ -8,12 +8,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Paper from "@mui/material/Paper";
-import { Grid } from "@mui/material";
-import { AddCircle, AddCircleOutline } from "@mui/icons-material";
+import { AddCircleOutline } from "@mui/icons-material";
 import { FormHelperText } from "@mui/material";
 import { FormControl, InputLabel, Input } from "@mui/material";
-import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
 //Elementos propios
 import BotonTipoCalculo from "./BotonTipoCalculo";
 import BotonTipoExamen from "./BotonTipoExamen";
@@ -25,7 +22,10 @@ import { useModal } from "../useModal";
 //React redux
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente AgregarParametro ***/
 export const AgregarParametro = (props) => {
   const navegar = useNavigate();
   //Para estilos segun tamaño screen
@@ -60,7 +60,6 @@ export const AgregarParametro = (props) => {
           variant="contained"
           color="primary"
           fullWidth
-          //sx={estiloButton}
           onClick={() => {
             var data = {
               Tipo: form.tipo,
@@ -70,10 +69,7 @@ export const AgregarParametro = (props) => {
               IdCursada: props.idcursada,
             };
 
-            Responses.consultas(
-              data,
-              "http://127.0.0.1:8000/api/agregarparametro"
-            )
+            Responses.consultas(data, endpoints.agregarParametro)
               .then((response) => {
                 if (Responses.status === 200) {
                   setT("");
@@ -93,7 +89,7 @@ export const AgregarParametro = (props) => {
                   props.tipo("success");
                   handleClose();
                 } else if (Responses.status === 401) {
-                  navegar("/ingreso");
+                  navegar(routes.iniciarSesion);
                 } else if (Responses.status === 460) {
                   if (response.tipo !== undefined) {
                     setErrors({ ...errors, tipo: response.tipo });
@@ -115,11 +111,11 @@ export const AgregarParametro = (props) => {
                     setEs("2");
                   }
                 } else {
-                  navegar("/error");
+                  navegar(routes.error);
                 }
               })
               .catch((error) => {
-                navegar("/error");
+                navegar(routes.error);
               });
           }}
         >
@@ -168,23 +164,27 @@ export const AgregarParametro = (props) => {
         IdParametro: null,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultartipoparam")
+      Responses.consultas(
+        data,
+
+        endpoints.consultarTipoParam
+      )
         .then((response) => {
           if (Responses.status === 200) {
             setErrors({ ...errors, tipo: "" });
 
             setT("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setT("2");
             setErrors({ ...errors, tipo: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }
@@ -346,26 +346,23 @@ export const AgregarParametro = (props) => {
                     IdParametro: null,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarpnt"
-                  )
+                  Responses.consultas(data, endpoints.consultarPnt)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setErrors({ ...errors, pnt: "" });
 
                         setP("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.iniciarSesion);
                       } else if (Responses.status === 460) {
                         setP("2");
                         setErrors({ ...errors, pnt: response.Error });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}

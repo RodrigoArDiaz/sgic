@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import {
   AppBar,
   Box,
@@ -9,15 +10,17 @@ import {
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import { useModal } from "../useModal";
-
-import CursadasContenedor from "../Cursadas/CursadasContenedor";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+//Hooks modal
+import { useModal } from "../useModal";
+//Componentes propios
+import CursadasContenedor from "../Cursadas/CursadasContenedor";
 
 //Redux
 import { useSelector } from "react-redux";
 
+/*** Comoponente GestionarCursadas ***/
 export const GestionarCursadas = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 

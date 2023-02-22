@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
@@ -6,26 +7,26 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { FormHelperText } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { EditOutlined } from "@mui/icons-material";
+import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
+//
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import BotonAnio from "./BotonAnio";
 import BotonSemestre from "./BotonSemestre";
 import BotonTieneGrupo from "./BotonTieneGrupo";
 import BotonTipoCalculo from "./BotonTipoCalculo";
 import Calendario from "./Calendario";
-import { FormHelperText } from "@mui/material";
-import { FormControl, InputLabel, Input, Grid } from "@mui/material";
 import * as Responses from "../Responses";
-
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@emotion/react";
-import { EditOutlined } from "@mui/icons-material";
-import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
-import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente ModificarCursada ***/
 export const ModificarCursada = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -94,7 +95,7 @@ export const ModificarCursada = (props) => {
     fecha = fecha.concat("-", extraida);
 
     var fecha2 = fecha.concat("T00:00:00");
-    console.log(fecha2);
+
     return fecha2;
   }
 
@@ -178,7 +179,7 @@ export const ModificarCursada = (props) => {
       IdCursada: props.idcursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/modificarcursada")
+    Responses.consultas(data, endpoints.modificarCursada)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -188,7 +189,7 @@ export const ModificarCursada = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.anio !== undefined) {
             setErrors({ ...errors, anio: response.anio });
@@ -240,11 +241,11 @@ export const ModificarCursada = (props) => {
             setP("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -307,7 +308,7 @@ export const ModificarCursada = (props) => {
         IdCursada: props.idcursada,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultaraniosem")
+      Responses.consultas(data, endpoints.consultarAnioSem)
         .then((response) => {
           if (Responses.status === 200) {
             setErrors({ ...errors, semestre: "", anio: "" });
@@ -315,17 +316,17 @@ export const ModificarCursada = (props) => {
             setSem("1");
             setAn("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setAn("1");
             setSem("2");
             setErrors({ ...errors, semestre: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       if (param === "") {
@@ -349,23 +350,23 @@ export const ModificarCursada = (props) => {
         IdCursada: props.idcursada,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultaraniosem")
+      Responses.consultas(data, endpoints.consultarAnioSem)
         .then((response) => {
           if (Responses.status === 200) {
             setErrors({ ...errors, semestre: "" });
 
             setSem("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setSem("2");
             setErrors({ ...errors, semestre: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       setErrors({ ...errors, semestre: "" });
@@ -382,7 +383,7 @@ export const ModificarCursada = (props) => {
       setErrors({ ...errors, finicio: "", ffin: "" });
     }
     setFi("");
-    console.log(param);
+
     if (param === "" || param === null) {
       setErrors({ ...errors, finicio: "La fecha es inválida" });
       setForm({ ...form, finicio: "" });
@@ -401,7 +402,6 @@ export const ModificarCursada = (props) => {
   function CambioFf(param) {
     if (errors.ffin !== "") {
       setErrors({ ...errors, ffin: "" });
-      console.log(param);
     }
     setFf("");
 
@@ -535,8 +535,6 @@ export const ModificarCursada = (props) => {
                 error={errors.ffin ? true : false}
                 //disabled= {efinicio!=='1' ? true : false}
               >
-                {console.log(props.cursada.FechaFin)}
-                {console.log(form.FechaFin)}
                 <Calendario
                   Cambio={CambioFf}
                   label={"Fecha De Fin"}
@@ -776,24 +774,21 @@ export const ModificarCursada = (props) => {
                     IdCursada: props.idcursada,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarpntcur"
-                  )
+                  Responses.consultas(data, endpoints.consultarPntCur)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setP("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.iniciarSesion);
                       } else if (Responses.status === 460) {
                         setP("2");
                         setErrors({ ...errors, pnt: response.Error });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}

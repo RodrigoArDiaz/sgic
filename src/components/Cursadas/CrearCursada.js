@@ -1,36 +1,31 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
+import { FormHelperText } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+import { useTheme } from "@emotion/react";
+//
+import { useNavigate } from "react-router-dom";
+//Componentes
+import * as Responses from "../Responses";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import BotonAnio from "./BotonAnio";
 import BotonSemestre from "./BotonSemestre";
 import BotonTieneGrupo from "./BotonTieneGrupo";
 import BotonTipoCalculo from "./BotonTipoCalculo";
 import Calendario from "./Calendario";
-import AddLinkOutlinedIcon from "@mui/icons-material/AddLinkOutlined";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import { useModal } from "../../hooks/useModal";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
-import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
-
-import * as Responses from "../Responses";
-import { useNavigate } from "react-router-dom";
-import { useTheme } from "@emotion/react";
-
+/*** Componente CrearCursada ***/
 export const CrearCursada = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -123,10 +118,8 @@ export const CrearCursada = (props) => {
       IdMateria: props.idmateria,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/crearcursada")
+    Responses.consultas(data, endpoints.crearCursada)
       .then((response) => {
-        console.log(response);
-
         if (Responses.status === 200) {
           handleClose();
 
@@ -159,7 +152,7 @@ export const CrearCursada = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.anio !== undefined) {
             setErrors({ ...errors, anio: response.anio });
@@ -211,11 +204,11 @@ export const CrearCursada = (props) => {
             setP("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -246,13 +239,6 @@ export const CrearCursada = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
   const estiloFormControl = {
     width: "100%",
     mt: "25px",
@@ -261,10 +247,6 @@ export const CrearCursada = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioAnio(param) {
@@ -277,31 +259,25 @@ export const CrearCursada = (props) => {
         IdMateria: props.idmateria,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultaraniosem")
+      Responses.consultas(data, endpoints.consultarAnioSem)
         .then((response) => {
-          /*
-    console.log(response);
-   console.log(param);
-   console.log(form.semestre);
-*/
-
           if (Responses.status === 200) {
             setErrors({ ...errors, semestre: "", anio: "" });
 
             setSem("1");
             setAn("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setAn("1");
             setSem("2");
             setErrors({ ...errors, semestre: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       if (param === "") {
@@ -324,29 +300,23 @@ export const CrearCursada = (props) => {
         IdMateria: props.idmateria,
       };
 
-      Responses.consultas(data, "http://127.0.0.1:8000/api/consultaraniosem")
+      Responses.consultas(data, endpoints.consultarAnioSem)
         .then((response) => {
-          /*
-    console.log(form.anio);    
-    console.log(form.semestre);
-    console.log(response);
-    */
-
           if (Responses.status === 200) {
             setErrors({ ...errors, semestre: "" });
 
             setSem("1");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else if (Responses.status === 460) {
             setSem("2");
             setErrors({ ...errors, semestre: response.Error });
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       setErrors({ ...errors, semestre: "" });
@@ -363,7 +333,6 @@ export const CrearCursada = (props) => {
       setErrors({ ...errors, finicio: "", ffin: "" });
     }
     setFi("");
-    console.log(param);
     if (param === "" || param === null) {
       setErrors({ ...errors, finicio: "La fecha es inválida" });
       setForm({ ...form, finicio: "" });
@@ -382,7 +351,6 @@ export const CrearCursada = (props) => {
   function CambioFf(param) {
     if (errors.ffin !== "") {
       setErrors({ ...errors, ffin: "" });
-      console.log(param);
     }
     setFf("");
 
@@ -458,9 +426,6 @@ export const CrearCursada = (props) => {
             Ingrese los datos para crear la cursada.
           </DialogContentText>
 
-          {/* <Grid>
-            <Paper sx={estiloPaper}>
-              <Grid sx={estiloContent}> */}
           <Grid container spacing={2}>
             <Grid item xs={6} sx={{ mt: 2 }}>
               <FormControl
@@ -504,7 +469,6 @@ export const CrearCursada = (props) => {
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.ffin ? true : false}
-                //disabled= {efinicio!=='1' ? true : false}
               >
                 <Calendario Cambio={CambioFf} label={"Fecha De Fin"} />
 
@@ -741,9 +705,6 @@ export const CrearCursada = (props) => {
 
             <FormHelperText>{errors.pnt}</FormHelperText>
           </FormControl>
-          {/* </Grid>
-            </Paper>
-          </Grid> */}
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}

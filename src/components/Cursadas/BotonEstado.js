@@ -1,17 +1,19 @@
 import * as React from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import * as Responses from "../Responses";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
+//
+import { useNavigate } from "react-router-dom";
+import * as Responses from "../Responses";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente BotonEstado ***/
 export const BotonEstado = (props) => {
   const navegar = useNavigate();
   const [salto, setSalto] = React.useState(props.estado);
@@ -23,51 +25,51 @@ export const BotonEstado = (props) => {
 
     if (salto === "I") {
       setSalto("C");
-      Responses.consultas(data, "http://127.0.0.1:8000/api/altacursada")
+      Responses.consultas(data, endpoints.altaCursada)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("A");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
 
     if (salto === "A") {
       setSalto("C");
-      Responses.consultas(data, "http://127.0.0.1:8000/api/bajacursada")
+      Responses.consultas(data, endpoints.bajaCursada)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("B");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       if (salto === "B") {
         setSalto("C");
-        Responses.consultas(data, "http://127.0.0.1:8000/api/abririnscripcion")
+        Responses.consultas(data, endpoints.abrirInscripcion)
           .then((response) => {
             if (Responses.status === 200) {
               setSalto("I");
             } else if (Responses.status === 401) {
-              navegar("/ingreso");
+              navegar(routes.iniciarSesion);
             } else {
-              navegar("/error");
+              navegar(routes.error);
             }
           })
           .catch((error) => {
-            navegar("/error");
+            navegar(routes.error);
           });
       }
     }
