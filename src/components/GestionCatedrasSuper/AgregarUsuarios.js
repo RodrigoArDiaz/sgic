@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import {
   Button,
   IconButton,
@@ -6,16 +7,17 @@ import {
   useMediaQuery,
   Zoom,
 } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../useModal";
-import { PersonAdd, PersonAddOutlined } from "@mui/icons-material";
-import CatedrasUsuariosContenedor from "./CatedrasUsuariosContenedor";
+import { PersonAddOutlined } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
+//
+import CatedrasUsuariosContenedor from "./CatedrasUsuariosContenedor";
+import { useModal } from "../useModal";
 import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
+/*** Componente AgregarUsuarios ***/
 export const AgregarUsuarios = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen

@@ -282,9 +282,7 @@ export default function ResetPass() {
               color="primary"
               fullWidth
               sx={estiloButton}
-              //endIcon={<LoginIcon/>}
               onClick={CambiarPass}
-              // disabled={loading1 && loading2 ? true : false}
             >
               Aceptar
             </Button>

@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
+//Materia UI
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
-// import CatedrasContenedor from "../components/Catedras/CatedrasContenedor";
 import CatedrasContenedor from "../components/GestionCatedrasSuper/CatedrasContenedor";
-
+import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
+//Redux
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
-import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
-import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 
 export default function PaginaCatedras() {
   //Para el uso de funciones de los state de redux

@@ -1,17 +1,20 @@
 import React from "react";
 //MUI
-import { CardContent } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/material";
 //
 import UsuariosListaListar from "./UsuariosListaListar";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../SnackMensajes";
-import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
+/*** Componente CatedrasUsuariosContenedorLista ***/
 export default function CatedrasUsuariosContenedorLista(props) {
   const navegar = useNavigate();
 
@@ -44,14 +47,13 @@ export default function CatedrasUsuariosContenedorLista(props) {
 
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/listaruscat")
+    consultas(datosconsulta, endpoints.listarUsCat)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -61,10 +63,9 @@ export default function CatedrasUsuariosContenedorLista(props) {
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(parametro, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
-        console.log(response);
         if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
@@ -74,8 +75,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -86,14 +86,13 @@ export default function CatedrasUsuariosContenedorLista(props) {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(datosconsulta, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
@@ -109,7 +108,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(datos, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
 
@@ -120,32 +119,20 @@ export default function CatedrasUsuariosContenedorLista(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
   React.useEffect(() => {
     var data = {
-      /*
-      pUs:'',
-      pMail:'',
-      pDoc:'',
-      pNom:'',
-           pAp:'',
-           piB:'B',
-    Offset:0,
-    Limite:filasxpagina,*/
       pidCa: props.idcatedra,
     };
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/listaruscat")
+    consultas(data, endpoints.listarUsCat)
       .then((response) => {
         setFilas(response);
-        //console.log(response) ;
 
         if (response.res === undefined) {
           setCargando(true);
@@ -160,12 +147,9 @@ export default function CatedrasUsuariosContenedorLista(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }, []);
-
-  const color = teal[700];
 
   return (
     <>
@@ -174,7 +158,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
           <Grid container paddingTop={2}>
             <Grid item xs={12}>
               <Box component="div" display="flex" justifyContent="center">
-                <MoonLoader color={color} size={60} />
+                <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
               </Box>
             </Grid>
           </Grid>

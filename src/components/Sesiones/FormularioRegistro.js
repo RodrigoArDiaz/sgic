@@ -5,7 +5,6 @@ import {
   Input,
   Button,
   Grid,
-  Paper,
   Typography,
   Stack,
 } from "@mui/material";
@@ -13,8 +12,6 @@ import { Box } from "@mui/material";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FormHelperText } from "@mui/material";
 import { Link as LinkRouter } from "react-router-dom";
 import { BotonEstadoRegistro } from "../BotonEstadoRegistro";
@@ -26,13 +23,8 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
-const estiloPaper = {
-  height: "auto",
-  width: { xs: "100%", sm: "490px" },
-  margin: { xs: "0 auto", sm: "20px auto" },
-  boxShadow: { xs: 0, sm: 8 },
-};
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
 const estiloFormControl = {
   width: "100%",
@@ -86,10 +78,7 @@ function FormularioRegistro() {
               pLib: form.libreta,
             };
 
-            Responses.consultas(
-              data,
-              "http://127.0.0.1:8000/api/registroalumno"
-            )
+            Responses.consultas(data, endpoints.registroAlumno)
               .then((response) => {
                 if (Responses.status === 200) {
                   setNom("");
@@ -116,7 +105,7 @@ function FormularioRegistro() {
                   setMensaje("Usuario Registrado con éxito");
                   setTipo("success");
                 } else if (Responses.status === 401) {
-                  navegar("/ingreso");
+                  navegar(routes.docentesIngreso);
                 } else if (Responses.status === 460) {
                   if (response.nombres !== undefined) {
                     setErrors({ ...errors, nombres: response.nombres });
@@ -161,11 +150,11 @@ function FormularioRegistro() {
                     setRep("2");
                   }
                 } else {
-                  navegar("/error");
+                  navegar(routes.error);
                 }
               })
               .catch((error) => {
-                navegar("/error");
+                navegar(routes.error);
               });
           }}
         >
@@ -438,15 +427,12 @@ function FormularioRegistro() {
                       Usuario: form.usuario,
                     };
 
-                    Responses.consultas(
-                      data,
-                      "http://127.0.0.1:8000/api/consultarus"
-                    )
+                    Responses.consultas(data, endpoints.registroConsultarus)
                       .then((response) => {
                         if (Responses.status === 200) {
                           setUs("1");
                         } else if (Responses.status === 401) {
-                          navegar("/ingreso");
+                          navegar(routes.docentesIngreso);
                         } else if (Responses.status === 460) {
                           setUs("2");
                           setErrors({
@@ -454,11 +440,11 @@ function FormularioRegistro() {
                             [e.target.name]: response.Error,
                           });
                         } else {
-                          navegar("/error");
+                          navegar(routes.error);
                         }
                       })
                       .catch((error) => {
-                        navegar("/error");
+                        navegar(routes.error);
                       });
                   }
                 }}
@@ -535,15 +521,12 @@ function FormularioRegistro() {
                     Email: form.email,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarmail"
-                  )
+                  Responses.consultas(data, endpoints.registroConsultarmail)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setEm("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.docentesIngreso);
                       } else if (Responses.status === 460) {
                         setEm("2");
                         setErrors({
@@ -551,11 +534,11 @@ function FormularioRegistro() {
                           [e.target.name]: response.Error,
                         });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}
@@ -618,15 +601,12 @@ function FormularioRegistro() {
                     Documento: form.dni,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultardni"
-                  )
+                  Responses.consultas(data, endpoints.registroConsultadni)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setDn("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.docentesIngreso);
                       } else if (Responses.status === 460) {
                         setDn("2");
                         setErrors({
@@ -634,11 +614,11 @@ function FormularioRegistro() {
                           [e.target.name]: response.Error,
                         });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}
@@ -703,15 +683,12 @@ function FormularioRegistro() {
                     Libreta: form.libreta,
                   };
 
-                  Responses.consultas(
-                    data,
-                    "http://127.0.0.1:8000/api/consultarlib"
-                  )
+                  Responses.consultas(data, endpoints.registroConsultarlib)
                     .then((response) => {
                       if (Responses.status === 200) {
                         setLib("1");
                       } else if (Responses.status === 401) {
-                        navegar("/ingreso");
+                        navegar(routes.docentesIngreso);
                       } else if (Responses.status === 460) {
                         setLib("2");
                         setErrors({
@@ -719,11 +696,11 @@ function FormularioRegistro() {
                           [e.target.name]: response.Error,
                         });
                       } else {
-                        navegar("/error");
+                        navegar(routes.error);
                       }
                     })
                     .catch((error) => {
-                      navegar("/error");
+                      navegar(routes.error);
                     });
                 }
               }}

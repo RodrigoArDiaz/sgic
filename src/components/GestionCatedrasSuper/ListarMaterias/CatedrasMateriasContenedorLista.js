@@ -1,17 +1,20 @@
 import React from "react";
 //MUI
-import { CardContent } from "@mui/material";
 import { Grid } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Box } from "@mui/material";
 //
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../SnackMensajes";
 import MateriasListaListar from "./MateriasListaListar";
-import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
+/*** Componente CatedrasMateriasContenedorLista ***/
 export default function CatedrasMateriasContenedorLista(props) {
   const navegar = useNavigate();
 
@@ -43,14 +46,14 @@ export default function CatedrasMateriasContenedorLista(props) {
 
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/listarmaterias")
+    consultas(datosconsulta, endpoints.listarMaterias)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        // navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -60,10 +63,9 @@ export default function CatedrasMateriasContenedorLista(props) {
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscarmaterias")
+    consultas(parametro, endpoints.buscarMaterias)
       .then((response) => {
         setFilas(response);
-        console.log(response);
         if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
@@ -73,8 +75,8 @@ export default function CatedrasMateriasContenedorLista(props) {
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        // navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -85,14 +87,14 @@ export default function CatedrasMateriasContenedorLista(props) {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarmaterias")
+    consultas(datosconsulta, endpoints.buscarMaterias)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        // navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
@@ -108,7 +110,7 @@ export default function CatedrasMateriasContenedorLista(props) {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscarmaterias")
+    consultas(datos, endpoints.buscarMaterias)
       .then((response) => {
         setFilas(response);
 
@@ -119,33 +121,19 @@ export default function CatedrasMateriasContenedorLista(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
+        // navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
   React.useEffect(() => {
     var data = {
-      /*
-      pMat:'',
-      //pCSM:'',
-      pPla:'',
-      //pCSP:'',
-
-           pCar:'',
-        //   pCSC:'',
-
-           piB:'B',
-    Offset:0,
-    Limite:filasxpagina,*/
       pidCa: props.idcatedra,
-      //pidCa:props.idcatedra,
     };
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/listarmaterias")
+    consultas(data, endpoints.listarMaterias)
       .then((response) => {
         setFilas(response);
 
@@ -162,12 +150,10 @@ export default function CatedrasMateriasContenedorLista(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        // navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }, []);
-
-  const color = teal[700];
 
   return (
     <Grid container>
@@ -175,7 +161,7 @@ export default function CatedrasMateriasContenedorLista(props) {
         <Grid container paddingTop={2}>
           <Grid item xs={12}>
             <Box component="div" display="flex" justifyContent="center">
-              <MoonLoader color={color} size={60} />
+              <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
             </Box>
           </Grid>
         </Grid>

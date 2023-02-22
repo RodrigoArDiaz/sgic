@@ -22,6 +22,7 @@ import {
 import MensajeFeedback from "../../MensajeFeedback";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 
+//Data columna tabla
 const columns = [
   {
     id: "#",
@@ -80,27 +81,8 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
-  function CambiarPagina(e, page) {
-    props.actualizarpagina(page);
-  }
-
-  const theme = createTheme(esES);
-
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  var cuenta;
-
+/*** Componente CatedrasUsuariosContenedorLista ***/
+export default function UsuariosListaListar(props) {
   if (props.filas.res === undefined)
     return (
       <Grid container>

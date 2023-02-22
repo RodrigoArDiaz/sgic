@@ -1,17 +1,13 @@
 import * as React from "react";
+//Material UI
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-// import { Box } from "@mui/material";
 import { Box } from "@mui/material";
+//React router
 import { Link as RouterLink } from "react-router-dom";
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
-
+/*** Componente BreadCrumbs***/
 export default function BreadCrumbs({ crumbs }) {
   const last = crumbs ? crumbs.length - 1 : false;
 

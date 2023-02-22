@@ -2,16 +2,12 @@ import * as React from "react";
 //MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
-//
+//Componentes propios
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import FilasPorPagina from "./FilasPorPagina";
@@ -23,6 +19,7 @@ import {
 import MensajeFeedback from "../MensajeFeedback";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
+//Columnas tabla
 const columns = [
   {
     id: "Catedra",
@@ -49,26 +46,14 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
+/*** Componente CatedraLista ***/
+export default function CatedraLista(props) {
+  //
   function CambiarPagina(e, page) {
-    //console.log(page);
     props.actualizarpagina(page);
   }
 
-  const theme = createTheme(esES);
-
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
+  //
   if (props.filas.res === undefined)
     return (
       <Box

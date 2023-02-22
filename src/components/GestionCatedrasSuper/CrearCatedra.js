@@ -15,7 +15,9 @@ import { useTheme } from "@emotion/react";
 import { useModal } from "../../hooks/useModal";
 //Componentes propios
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente CrearCatedra ****/
 export const CrearCatedra = (props) => {
   //Variable de estado y handles de eventos para la ventana modal
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -33,6 +35,7 @@ export const CrearCatedra = (props) => {
     nombre: "",
   });
 
+  //Peticion
   async function consultas(data, cadena) {
     const response = await fetch(cadena, {
       method: "POST",
@@ -42,7 +45,6 @@ export const CrearCatedra = (props) => {
         Accept: "application/json",
       },
     });
-
     return response.json();
   }
 
@@ -52,7 +54,7 @@ export const CrearCatedra = (props) => {
       // IdCatedra:props.idcatedra,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/crearcatedra")
+    consultas(data, endpoints.crearCatedra)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -63,18 +65,13 @@ export const CrearCatedra = (props) => {
           props.mensaje("Cátedra creada con éxito");
           props.tipo("success");
           props.refrescar();
-
-          console.log(response);
         } else {
           // Aqui actualizo los errores
-
           setErrors({ nombre: response.Error });
           setNom("2");
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   function DevolverBoton() {
@@ -171,11 +168,10 @@ export const CrearCatedra = (props) => {
                     IdCatedra: undefined,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultarnomcat")
+                  consultas(data, endpoints.consultarNomCat)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setNom("1");
-                        // console.log(response);
                       } else {
                         setNom("2");
                         setErrors({
@@ -184,9 +180,7 @@ export const CrearCatedra = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
               }}
               value={form.nombre}

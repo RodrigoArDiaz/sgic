@@ -2,20 +2,16 @@ import * as React from "react";
 //MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip, Zoom } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-//
+//Componentes propios
 import FilasPorPagina from "../FilasPorPagina";
 import { BotonAcciones } from "./BotonAcciones";
 import {
@@ -26,6 +22,7 @@ import {
 import MensajeFeedback from "../../MensajeFeedback";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
+//Datos columna tabla
 const columns = [
   {
     id: "Materia",
@@ -60,28 +57,11 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
+/*** Componente MateriasLista ***/
+export default function MateriasLista(props) {
   function CambiarPagina(e, page) {
-    //console.log(page);
     props.actualizarpagina(page);
   }
-
-  const theme = createTheme(esES);
-
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  // if (props.filas.res === undefined) return  <h4>Error fatal</h4>;
-  // if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 
   if (props.filas.res === undefined)
     return (

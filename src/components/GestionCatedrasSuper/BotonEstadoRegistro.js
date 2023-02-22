@@ -6,6 +6,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip, Zoom } from "@mui/material";
 
 import CircularProgress from "@mui/material/CircularProgress";
+
+/*** Componente BotonEstadoRegistro ***/
 export const BotonEstadoRegistro = (props) => {
   const [salto, setSalto] = React.useState(props.estado);
 

@@ -12,14 +12,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import ApiIcon from "@mui/icons-material/Api";
 import {
   Collapse,
-  Fade,
-  Grid,
   Icon,
   ListItem,
-  SvgIcon,
   Tooltip,
   useMediaQuery,
 } from "@mui/material";
@@ -46,9 +42,7 @@ import { useDispatch, useSelector } from "react-redux";
 //Redux - Menu
 // import { actualizarMenu, menuReset } from "../../store/slices/menuSlice";
 import { ExpandMore } from "@mui/icons-material";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { useTheme } from "@emotion/react";
-import DarkModeButton from "../DarkModeButton";
 import { estiloScrollbar } from "../../styles/EstilosScrollBar";
 import Logo from "../Logo/Logo";
 import LogoAppName from "../Logo/LogoAppName";
@@ -89,8 +83,6 @@ export default function Menu() {
         open={open}
         // color="primary"
         sx={{
-          // color: "rgb(255,255,255)",
-          // backgroundColor: "secondary.main",
           backgroundColor: "#fff",
           boxShadow: "none",
           backdropFilter: "blur(6px)",
@@ -102,15 +94,12 @@ export default function Menu() {
         <Toolbar>
           <IconButton
             size="medium"
-            // color="inherit"
-            // color="tertiary"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
             edge="center"
             sx={{
               borderRadius: "4px",
               backgroundColor: "icons.bg",
-              // backgroundColor: "primary.main600",
             }}
             disableFocusRipple
           >
@@ -119,7 +108,6 @@ export default function Menu() {
                 sx={{
                   fontSize: 24,
                   color: "icons.main",
-                  // color: "rgb(255,255,255)",
                 }}
               />
             ) : (
@@ -127,7 +115,6 @@ export default function Menu() {
                 sx={{
                   fontSize: 24,
                   color: "icons.main",
-                  // color: "rgb(255,255,255)",
                 }}
               />
             )}
@@ -138,9 +125,7 @@ export default function Menu() {
             component="div"
             sx={{
               flexGrow: "1",
-              // paddingX: { xs: 0, sm: 3 },
               marginLeft: 1,
-              // color: "rgb(255,255,255)",
             }}
           >
             {titulo}
@@ -249,7 +234,6 @@ export default function Menu() {
                   <ListItemMenu
                     button
                     key={ele.key}
-                    // sx={{ paddingLeft: 3.1 }}
                     sx={{
                       flexDirection: open ? "row" : "column",
                       "& .MuiListItemIcon-root": {
@@ -306,7 +290,6 @@ export default function Menu() {
                         button
                         key={ele.key}
                         sx={{ paddingLeft: 3.1 }}
-                        // onClick={handleSubList}
                         onClick={() => handleSubList(index)}
                       >
                         <ListItemIcon>
@@ -517,7 +500,6 @@ export default function Menu() {
                         button
                         key={ele.key}
                         sx={{ paddingLeft: 3.1 }}
-                        // onClick={handleSubList}
                         onClick={() => handleSubList(index)}
                       >
                         <ListItemIcon>
@@ -597,8 +579,6 @@ export default function Menu() {
         component="main"
         sx={{
           flexGrow: 1,
-          // paddingX: { xs: 0, sm: 3 },
-          // paddingY: { xs: 2, sm: 1 },
           paddingX: { xs: 2, sm: 3, lg: 10 },
           paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },

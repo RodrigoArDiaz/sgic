@@ -12,10 +12,16 @@ import CatedraLista from "./CatedraLista";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente CatedrasContenedor ***/
 export default function CatedrasContenedor() {
-  const color = teal[400];
+  //Navegacion react router
 
   const navegar = useNavigate();
   //Recupero token
@@ -30,11 +36,11 @@ export default function CatedrasContenedor() {
   const [cargando, setCargando] = React.useState(true); //Espera al consultar
 
   //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
+  //Peticion
   async function consultas(data, cadena) {
     const response = await fetch(cadena, {
       method: "POST",
@@ -49,9 +55,10 @@ export default function CatedrasContenedor() {
     return response.json();
   }
 
+  //
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarcatedras")
+    consultas(datosconsulta, endpoints.buscarCatedras)
       .then((response) => {
         setFilas(response);
         setCargando(false);
@@ -62,18 +69,18 @@ export default function CatedrasContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
+        navegar(routes.iniciarSesion);
       });
   }
 
+  //
   function BuscarCat(parametro) {
     parametro.Offset = 0;
     parametro.Limite = filasxpagina;
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscarcatedras")
+    consultas(parametro, endpoints.buscarCatedras)
       .then((response) => {
         setFilas(response);
 
@@ -87,11 +94,11 @@ export default function CatedrasContenedor() {
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
+        navegar(routes.iniciarSesion);
       });
   }
 
+  //
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -99,19 +106,19 @@ export default function CatedrasContenedor() {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarcatedras")
+    consultas(datosconsulta, endpoints.buscarCatedras)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/");
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
   }
 
+  //
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -122,7 +129,7 @@ export default function CatedrasContenedor() {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscarcatedras")
+    consultas(datos, endpoints.buscarCatedras)
       .then((response) => {
         setFilas(response);
 
@@ -133,9 +140,7 @@ export default function CatedrasContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -149,11 +154,10 @@ export default function CatedrasContenedor() {
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/buscarcatedras")
+    consultas(data, endpoints.buscarCatedras)
       .then((response) => {
         if (response.message === "Unauthenticated.") {
-          //console.log(response.message);
-          navegar("/");
+          navegar(routes.iniciarSesion);
         }
 
         setFilas(response);
@@ -171,8 +175,7 @@ export default function CatedrasContenedor() {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión en useefect" + error);
-        navegar("/");
+        navegar(routes.iniciarSesion);
       });
   }, []);
 
@@ -225,7 +228,10 @@ export default function CatedrasContenedor() {
               <Grid container paddingTop={1}>
                 <Grid item xs={12}>
                   <Box component="div" display="flex" justifyContent="center">
-                    <MoonLoader color={color} size={60} />
+                    <MoonLoader
+                      color={colorMainSpinner}
+                      size={sizeMainSpinner}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -255,7 +261,7 @@ export default function CatedrasContenedor() {
                 mensaje={mensaje}
                 tipo={tipo}
                 cerrar={setAbrir}
-              />{" "}
+              />
             </div>
           </Grid>
         </CardContent>

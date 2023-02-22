@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 //
 import { BorrarMateria } from "./BorrarMateria";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   return (
     <Grid container justifyContent="center">

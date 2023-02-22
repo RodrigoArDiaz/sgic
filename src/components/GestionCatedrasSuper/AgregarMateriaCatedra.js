@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -7,9 +8,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../../hooks/useModal";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+//Hooks modal
+import { useModal } from "../../hooks/useModal";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente AgregarMateriaCatedra ***/
 export const AgregarMateriaCatedra = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -34,7 +38,7 @@ export const AgregarMateriaCatedra = (props) => {
       pCar: props.carrera,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/agregarmateria")
+    consultas(data, endpoints.agregarMateria)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -57,9 +61,7 @@ export const AgregarMateriaCatedra = (props) => {
           props.refrescar();
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   return (

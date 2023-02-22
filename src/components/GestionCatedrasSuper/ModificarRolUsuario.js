@@ -5,16 +5,18 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../useModal";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { FormHelperText } from "@mui/material";
+import { EditOutlined } from "@mui/icons-material";
 //
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
-import { EditOutlined } from "@mui/icons-material";
+import { useModal } from "../useModal";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente ModificarRolUsuario ***/
 export const ModificarRolUsuario = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -33,7 +35,7 @@ export const ModificarRolUsuario = (props) => {
         IdCatedra: props.idcatedra,
       };
 
-      consultas(data, "http://127.0.0.1:8000/api/consultaruscat")
+      consultas(data, endpoints.consultarUsCat)
         .then((response) => {
           if (response.Error === undefined) {
             setR("1");
@@ -42,9 +44,7 @@ export const ModificarRolUsuario = (props) => {
             setErrors({ rol: response.Error });
           }
         })
-        .catch((error) => {
-          console.log("Error de conexión" + error);
-        });
+        .catch((error) => {});
     } else {
       setErrors({ rol: "" });
       setR("1");
@@ -87,7 +87,7 @@ export const ModificarRolUsuario = (props) => {
       pidDoc: props.idusuario,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/modificaruscat")
+    consultas(data, endpoints.modificarUsCat)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -98,8 +98,6 @@ export const ModificarRolUsuario = (props) => {
           props.mensaje("Usuario modificado con éxito");
           props.tipo("success");
           props.refrescar();
-
-          console.log(response);
         } else {
           // Aqui actualizo los errores
 
@@ -107,9 +105,7 @@ export const ModificarRolUsuario = (props) => {
           setR("2");
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   return (

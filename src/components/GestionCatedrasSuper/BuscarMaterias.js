@@ -9,10 +9,10 @@ import Checkbox from "@mui/material/Checkbox";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box } from "@mui/material";
 //Componentes personalizados
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
+/*** Componente BuscarMaterias ***/
 export default function BuscarMaterias(props) {
   function manejador() {
     var data = {

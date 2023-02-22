@@ -5,17 +5,14 @@ import {
   Input,
   Button,
   Grid,
-  Paper,
   Typography,
   FormHelperText,
   Stack,
 } from "@mui/material";
 import { Box } from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { Link as LinkRouter } from "react-router-dom";
 import Link from "@mui/material/Link";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -26,14 +23,9 @@ import AuthWrapper from "./AuthWrapper";
 import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 import MensajeFeedback from "../MensajeFeedback";
 import { routes } from "../../routes";
+import { endpoints } from "../../api/endpoints";
 
-const estiloPaper = {
-  height: "auto",
-  width: { xs: "100%", sm: "490px" },
-  margin: { xs: "0 auto", sm: "100px auto" },
-  boxShadow: { xs: 0, sm: 8 },
-};
-
+//Estilos
 const estiloFormControl = {
   width: "100%",
   mt: "25px",
@@ -48,32 +40,13 @@ const estiloLink = {
   fontSize: ".9rem",
 };
 
-const estiloHeader = {
-  backgroundColor: "primary.main",
-  color: "white",
-  py: "15px",
-  borderRadius: { xs: "none", md: "4px 4px 0 0" },
-  mb: "10px",
-  borderBottom: "2px solid",
-  borderColor: "secondary.light",
-};
-
-const estiloContent = {
-  padding: "5px 40px 40px 40px ",
-};
-
 const estiloBoxForm = {
   display: "flex",
   alignItems: "flex-end",
-  // flexWrap: "wrap",
   width: "100%",
-  // mt: {xs: "42px", md: "25px"},
 };
 
-const estiloBoxRecuperar = {
-  // mt: { xs: "25px", md: "15px" },
-};
-
+//Componente
 function FormularioRecuperarContrasenia() {
   const [form, setForm] = React.useState({
     email: "",
@@ -106,7 +79,7 @@ function FormularioRecuperarContrasenia() {
         </Grid>
 
         <Grid item xs={12}>
-          <Box sx={estiloBoxRecuperar}>
+          <Box>
             <Typography variant="subtitle1">
               Ingrese la dirección de correo de su cuenta:
             </Typography>
@@ -159,21 +132,21 @@ function FormularioRecuperarContrasenia() {
                 Email: form.email,
               };
 
-              Responses.consultas(data, "http://127.0.0.1:8000/api/resetpass")
+              Responses.consultas(data, endpoints.registroResetPass)
                 .then((response) => {
                   if (Responses.status === 200) {
                     setTexto(response.Mensaje);
                     setOpen(true);
                   } else if (Responses.status === 401) {
-                    navegar("/ingreso");
+                    navegar(routes.iniciarSesion);
                   } else if (Responses.status === 460) {
                     setErrors({ ...errors, email: response.Error });
                   } else {
-                    navegar("/error");
+                    navegar(routes.error);
                   }
                 })
                 .catch((error) => {
-                  navegar("/error");
+                  navegar(routes.error);
                 });
             }}
           >

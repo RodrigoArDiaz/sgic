@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { BorrarRolUsuario } from "../BorrarRolUsuario";
 import { ModificarRolUsuario } from "../ModificarRolUsuario";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   return (
     <Grid container justifyContent="space-between">

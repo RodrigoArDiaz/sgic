@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import {
   Button,
   IconButton,
@@ -6,8 +7,6 @@ import {
   useMediaQuery,
   Zoom,
 } from "@mui/material";
-import ViewListIcon from "@mui/icons-material/ViewList";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -17,11 +16,11 @@ import CatedrasUsuariosContenedorLista from "./ListarUsuarios/CatedrasUsuariosCo
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
 
+/*** Componente ListarUsuarios ***/
 export const ListarUsuarios = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen
   const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <>

@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -9,9 +10,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { DeleteOutlined } from "@mui/icons-material";
+//Hooks modal
 import { useModal } from "../../useModal";
+//Router dom
 import { useNavigate } from "react-router-dom";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente BorrarMateria ***/
 export const BorrarMateria = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -36,8 +42,7 @@ export const BorrarMateria = (props) => {
       pMat: props.materia,
     };
 
-    //console.log(props.idcatedra+"ID de la catedra");
-    consultas(data, "http://127.0.0.1:8000/api/borrarmateria")
+    consultas(data, endpoints.borrarMateria)
       .then((response) => {
         console.log(response);
         if (response.Mensaje === "OK") {
@@ -46,17 +51,13 @@ export const BorrarMateria = (props) => {
           props.mensaje("Materia borrada con éxito");
           props.tipo("success");
           props.refrescar();
-          //console.log("Borrado");
         } else {
-          //console.log("No Borrado");
-          //setEstado('2');
           handleClose();
           props.refrescar();
         }
       })
       .catch((error) => {
-        console.log("Error de conexión en borrar" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 

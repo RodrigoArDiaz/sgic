@@ -16,7 +16,7 @@ import {
 import { MoonLoader } from "react-spinners";
 import { PaginacionContext } from "./PaginacionContext";
 
-//Componente
+/*** Componente DocentesContenedor ***/
 export default function DocentesContenedor() {
   //Recupero token
   const { token } = useSelector((state) => state.login);

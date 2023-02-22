@@ -3,15 +3,19 @@ import React from "react";
 import { Box, CardContent } from "@mui/material";
 import { Grid } from "@mui/material";
 import UsuariosLista from "./UsuariosLista";
-import LinearProgress from "@mui/material/LinearProgress";
 //
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "./SnackMensajes";
 import BuscarUsuarios from "./BuscarUsuarios";
-import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
+/*** Componente CatedrasUsuariosContenedor ***/
 export default function CatedrasUsuariosContenedor(props) {
   const navegar = useNavigate();
 
@@ -44,7 +48,7 @@ export default function CatedrasUsuariosContenedor(props) {
 
   function Refrescar() {
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(datosconsulta, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
         setCargando(false);
@@ -55,8 +59,7 @@ export default function CatedrasUsuariosContenedor(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -66,10 +69,9 @@ export default function CatedrasUsuariosContenedor(props) {
 
     setDC(parametro);
     setCargando(true);
-    consultas(parametro, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(parametro, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
-        console.log(response);
         if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
@@ -79,8 +81,7 @@ export default function CatedrasUsuariosContenedor(props) {
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -91,14 +92,13 @@ export default function CatedrasUsuariosContenedor(props) {
 
     setDC(datos);
     setCargando(true);
-    consultas(datosconsulta, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(datosconsulta, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
         setCargando(false);
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
@@ -114,7 +114,7 @@ export default function CatedrasUsuariosContenedor(props) {
 
     setCargando(true);
 
-    consultas(datos, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(datos, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
 
@@ -125,9 +125,7 @@ export default function CatedrasUsuariosContenedor(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -146,7 +144,7 @@ export default function CatedrasUsuariosContenedor(props) {
 
     setDC(data);
 
-    consultas(data, "http://127.0.0.1:8000/api/buscarusnocat")
+    consultas(data, endpoints.buscarUsNoCat)
       .then((response) => {
         setFilas(response);
 
@@ -163,12 +161,9 @@ export default function CatedrasUsuariosContenedor(props) {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }, []);
-
-  const color = teal[700];
 
   return (
     <>
@@ -188,7 +183,7 @@ export default function CatedrasUsuariosContenedor(props) {
             <Grid container paddingTop={2}>
               <Grid item xs={12}>
                 <Box component="div" display="flex" justifyContent="center">
-                  <MoonLoader color={color} size={60} />
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
                 </Box>
               </Grid>
             </Grid>

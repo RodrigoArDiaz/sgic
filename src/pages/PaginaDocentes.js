@@ -6,9 +6,9 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import DocentesContenedor from "../components/GestionDocenteSuper/DocentesContenedor";
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
-import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 
+/*** Componente PaginaDocente ***/
 export default function PaginaDocentes() {
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();

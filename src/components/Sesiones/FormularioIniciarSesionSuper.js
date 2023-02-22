@@ -6,29 +6,21 @@ import {
   Input,
   Button,
   Grid,
-  Paper,
   Typography,
   FormHelperText,
   Alert,
-  AlertTitle,
   Collapse,
   Stack,
+  Box,
 } from "@mui/material";
-import { Box } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import EmailIcon from "@mui/icons-material/Email";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginIcon from "@mui/icons-material/Login";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 //React router
 import { Link as LinkRouter } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -45,21 +37,10 @@ import {
   listaItemsMenuSuper,
 } from "../Menu/itemsMenu";
 import AuthWrapper from "./AuthWrapper";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
-//********************************************/
-const dataUser = window.localStorage.setItem(
-  "dataUser",
-  JSON.stringify({ nombre: "rodrigo" })
-);
-
-// Estilos
-const estiloPaper = {
-  height: "auto",
-  width: { xs: "100%", sm: "380px" },
-  margin: { xs: "0 auto", sm: "100px auto" },
-  boxShadow: { xs: 0, sm: 8 },
-};
-
+//Estilos
 const estiloFormControl = {
   width: "100%",
 };
@@ -80,37 +61,10 @@ const estiloLink = {
   fontSize: ".88rem",
 };
 
-const estiloIconoUsuario = {
-  width: "50px",
-  height: "50px",
-  bgcolor: "#000",
-};
-
-//
-const initialForm = {
-  Usuario: "",
-  Contrasena: "",
-};
-
-//Funciones de validacion
-const validationsForm = (form) => {
-  let errors = {};
-
-  if (!form.Usuario.trim()) {
-    errors.Usuario = "El campo 'Usuario o Correo' es requerido.";
-  }
-
-  if (!form.Contrasena.trim()) {
-    errors.Contrasena = "El campo 'Contraseña' es requerido.";
-  }
-
-  return errors;
-};
-
 /********************************************************************
  * componente FormularioIniciarSesion
  */
-function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
+function FormularioIniciarSesionSuper() {
   //variables de estado
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
@@ -155,14 +109,13 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
       return;
     }
 
-    //const navegar = useNavigate();
     const data = {
       Usuario: form.Usuario,
       Contrasena: form.Contrasena,
     };
 
-    //Consultas
-    Responses.consultas(data, "http://127.0.0.1:8000/api/acceso")
+    //Consulta
+    Responses.consultas(data, endpoints.acceso)
       .then((response) => {
         if (Responses.status === 200) {
           console.log(response);
@@ -173,10 +126,10 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
           localStorage.setItem("EsSA", response.SuperAdmin);
 
           if (response.Alumno === "S") {
-            navegar("/inicio/alumnos/mis_cursadas");
+            navegar(routes.alumnosMiscursadas);
             dispatch(actualizarMenu(listaItemsMenuAlumno));
           } else {
-            navegar("/inicio/docentes/ingreso");
+            navegar(routes.docentesIngreso);
             //Actualizo titulo
             dispatch(actualizarTitulo("Seleccione la catedra"));
             //Actualizo items del menu
@@ -189,11 +142,11 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
           setRes(true);
           setErrors(response.Error);
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   };
 
@@ -221,15 +174,6 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
             sx={{ mb: { xs: -0.5, sm: 0.6 } }}
           >
             <Typography variant="h5">Iniciar sesión</Typography>
-
-            <Box textAlign="center" sx={{ ...estiloLink, mt: "0.3rem" }}>
-              {/* <Typography
-                variant="text"
-                sx={{ color: "text.subtitle1secondary" }}
-              >
-                ¿No tenes cuenta?
-              </Typography> */}
-            </Box>
           </Stack>
         </Grid>
 
@@ -323,7 +267,6 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
               sx={estiloButton}
               endIcon={<LoginIcon />}
               onClick={loguear}
-              // disabled={loading1 && loading2 ? true : false}
             >
               Ingresar
             </Button>
@@ -365,7 +308,6 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
                 sx={{ ml: "0.5em" }}
               >
                 Registrate &rarr;
-                {/* ¿No tenes cuenta? */}
               </Link>
             </Box>
 
@@ -381,9 +323,5 @@ function FormularioIniciarSesionSuper({ mostrarRegistrarse, tipo }) {
     </AuthWrapper>
   );
 }
-
-FormularioIniciarSesionSuper.defaultProps = {
-  mostrarRegistrarse: true,
-};
 
 export default FormularioIniciarSesionSuper;

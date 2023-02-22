@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -7,10 +8,15 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../useModal";
-import { useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@mui/icons-material";
 
+//
+import { useModal } from "../useModal";
+import { useNavigate } from "react-router-dom";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+
+/*** Componente BorrarRolUsuario ***/
 export const BorrarRolUsuario = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -35,8 +41,7 @@ export const BorrarRolUsuario = (props) => {
       IdUsuario: props.idusuario,
     };
 
-    //console.log(props.idcatedra+"ID de la catedra");
-    consultas(data, "http://127.0.0.1:8000/api/borraruscat")
+    consultas(data, endpoints.borrarUsCat)
       .then((response) => {
         console.log(response);
         if (response.Mensaje === "OK") {
@@ -45,10 +50,7 @@ export const BorrarRolUsuario = (props) => {
           props.mensaje("Usuario borrado con éxito");
           props.tipo("success");
           props.refrescar();
-          //console.log("Borrado");
         } else {
-          //console.log("No Borrado");
-          //setEstado('2');
           handleClose();
           props.abrir(true);
           props.mensaje(response.Mensaje);
@@ -56,8 +58,7 @@ export const BorrarRolUsuario = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Error de conexión en borrar" + error);
-        navegar("/registrarse");
+        navegar(routes.iniciarSesion);
       });
   }
 

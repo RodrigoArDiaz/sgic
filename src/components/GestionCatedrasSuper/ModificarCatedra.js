@@ -8,25 +8,24 @@ import {
   Zoom,
 } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { FormControl, InputLabel, Input, Grid, Paper } from "@mui/material";
+import { FormControl, InputLabel, Input } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-//
+import { useTheme } from "@emotion/react";
+//Componentes propios
 import { useModal } from "../useModal";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
-import { useTheme } from "@emotion/react";
 import DialogCustom from "../Material UI - Componentes Modificados/DialogCustom";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente BotonAcciones ***/
 export const ModificarCatedra = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen
   const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [enombre, setNom] = React.useState("1");
   const [form, setForm] = React.useState({
@@ -50,11 +49,11 @@ export const ModificarCatedra = (props) => {
     return response.json();
   }
 
-  function BotonEstadoRegistroDevolver(param) {
-    if (param === "1") return <BotonEstadoRegistro estado={"1"} />;
+  // function BotonEstadoRegistroDevolver(param) {
+  //   if (param === "1") return <BotonEstadoRegistro estado={"1"} />;
 
-    if (param === "2") return <BotonEstadoRegistro estado={"2"} />;
-  }
+  //   if (param === "2") return <BotonEstadoRegistro estado={"2"} />;
+  // }
 
   function DevolverBoton() {
     if (enombre === "1") {
@@ -78,7 +77,7 @@ export const ModificarCatedra = (props) => {
       IdCatedra: props.idcatedra,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/modificarcatedra")
+    consultas(data, endpoints.modificarCatedra)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -89,8 +88,6 @@ export const ModificarCatedra = (props) => {
           props.mensaje("Cátedra modificada con éxito");
           props.tipo("success");
           props.refrescar();
-
-          console.log(response);
         } else {
           // Aqui actualizo los errores
 
@@ -98,9 +95,7 @@ export const ModificarCatedra = (props) => {
           setNom("2");
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   return (
@@ -171,11 +166,10 @@ export const ModificarCatedra = (props) => {
                     IdCatedra: props.idcatedra,
                   };
 
-                  consultas(data, "http://127.0.0.1:8000/api/consultarnomcat")
+                  consultas(data, endpoints.consultarNomCat)
                     .then((response) => {
                       if (response.Error === undefined) {
                         setNom("1");
-                        console.log(response);
                       } else {
                         setNom("2");
                         setErrors({
@@ -184,9 +178,7 @@ export const ModificarCatedra = (props) => {
                         });
                       }
                     })
-                    .catch((error) => {
-                      console.log("Error de conexión" + error);
-                    });
+                    .catch((error) => {});
                 }
               }}
               value={form.nombre}

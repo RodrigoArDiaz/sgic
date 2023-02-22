@@ -11,14 +11,14 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { AddCardOutlined, AddCircle } from "@mui/icons-material";
+import { useTheme } from "@emotion/react";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 //Hooks personalizados
 import { useModal } from "../useModal";
 //Componentes propios
 import CatedrasMateriasContenedor from "./AgregarMaterias/CatedrasMateriasContenedor";
-import { useTheme } from "@emotion/react";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
+/*** Componente AgregarMaterias ***/
 export const AgregarMaterias = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //Para estilos segun tamaño screen

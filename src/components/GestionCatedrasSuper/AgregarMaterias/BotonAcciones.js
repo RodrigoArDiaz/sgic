@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AgregarMateriaCatedra } from "../AgregarMateriaCatedra";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   return (
     <AgregarMateriaCatedra

@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -11,10 +12,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import { FormHelperText } from "@mui/material";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+//
+import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente AgregarUsuarioCatedra ***/
 export const AgregarUsuarioCatedra = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -26,9 +30,6 @@ export const AgregarUsuarioCatedra = (props) => {
   });
 
   function handleChange(e) {
-    //console.log(e.target.value);
-    console.log(props.idusuario);
-
     setAge(e.target.value);
 
     if (e.target.value === 2) {
@@ -36,19 +37,16 @@ export const AgregarUsuarioCatedra = (props) => {
         IdCatedra: props.idcatedra,
       };
 
-      consultas(data, "http://127.0.0.1:8000/api/consultaruscat")
+      consultas(data, endpoints.consultarUsCat)
         .then((response) => {
           if (response.Error === undefined) {
             setR("1");
-            console.log(response);
           } else {
             setR("2");
             setErrors({ rol: response.Error });
           }
         })
-        .catch((error) => {
-          console.log("Error de conexión" + error);
-        });
+        .catch((error) => {});
     } else {
       setErrors({ rol: "" });
       setR("1");
@@ -91,7 +89,7 @@ export const AgregarUsuarioCatedra = (props) => {
       IdDocente: props.idusuario,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/agregaruscat")
+    consultas(data, endpoints.agregarUsCat)
       .then((response) => {
         if (response.Error === undefined) {
           //aqui va el snack
@@ -102,18 +100,13 @@ export const AgregarUsuarioCatedra = (props) => {
           props.mensaje("Usuario agregado a la cátedra");
           props.tipo("success");
           props.refrescar();
-
-          console.log(response);
         } else {
           // Aqui actualizo los errores
-
           setErrors({ rol: response.Error });
           setR("2");
         }
       })
-      .catch((error) => {
-        console.log("Error de conexión" + error);
-      });
+      .catch((error) => {});
   }
 
   return (

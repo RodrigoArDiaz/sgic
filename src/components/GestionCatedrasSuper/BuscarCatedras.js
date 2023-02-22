@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
+import React, { useState } from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { Grid, Tooltip, Zoom } from "@mui/material";
@@ -8,34 +8,15 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button } from "@mui/material";
-import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { Search } from "@mui/icons-material";
+//Componentes propios
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
-//Valor inicial
-/*const formInicial = {
-  catedra: "",
-  bajas: false,
-}*/
-
+/*** Componente BuscarCatedras***/
 export default function BuscarCatedras(props) {
-  //variable de
-
-  async function consultas(data, cadena) {
-    const response = await fetch(cadena, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-
-    return response.json();
-  }
-
+  //Handle input buscar
   function manejador() {
     var data = {
       Catedra: form.catedra,
@@ -44,23 +25,13 @@ export default function BuscarCatedras(props) {
       Limite: props.filasxpagina,
     };
     props.actualizar(data);
-    /*
-consultas(data,'http://127.0.0.1:8000/api/buscarcatedras').then(response=>{
-//console.log(response);
-props.actualizar(response);
-
-})
-.catch(error=>{console.log("Error de conexión"+error);});  
-
-*/
   }
 
+  //Variable de estado del form
   const [form, setForm] = useState({
     catedra: "",
     bajas: "B",
   });
-
-  //const [form, setForm] = useState(formInicial);
 
   //handle para campo 'catedra'
   const handleChange = (e) => {
@@ -126,25 +97,6 @@ props.actualizar(response);
             sx={{ paddingRight: 0 }}
             size="small"
           />
-          {/* <Input
-            id="standard-adornment-password"
-            type="text"
-            placeholder="Catedra"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickLimpiar}
-                  // onMouseDown={handleMouseDownPassword}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </InputAdornment>
-            }
-            onChange={handleChange}
-            value={form.catedra}
-            name="catedra"
-          /> */}
         </FormControl>
       </Grid>
 

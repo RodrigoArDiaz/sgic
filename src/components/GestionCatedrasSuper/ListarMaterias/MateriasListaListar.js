@@ -6,8 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 import IconButton from "@mui/material/IconButton";
 import { Grid, Tooltip, Zoom } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -20,6 +18,7 @@ import {
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import MensajeFeedback from "../../MensajeFeedback";
 
+//Datos columna tabla
 const columns = [
   {
     id: "Materia",
@@ -57,26 +56,8 @@ const columns = [
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
 
-export default function StickyHeadTable(props) {
-  function CambiarPagina(e, page) {
-    //console.log(page);
-    props.actualizarpagina(page);
-  }
-
-  const theme = createTheme(esES);
-
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
+/*** Componente MateriasListaListar ***/
+export default function MateriasListaListar(props) {
   if (props.filas.res === undefined)
     return (
       <Grid container>
