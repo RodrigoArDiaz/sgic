@@ -1,29 +1,26 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { FormHelperText } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+//
+import * as Responses from "../Responses";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
+import { useModal } from "../../hooks/useModal";
 import Calendario from "./Calendario";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import BotonTipo from "./BotonTipo";
-import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
-import * as Responses from "../Responses";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente PaginaDocentesExamenes***/
 export const CrearExamen = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -102,7 +99,7 @@ export const CrearExamen = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/crearexamen")
+    Responses.consultas(data, endpoints.crearExamen)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -124,7 +121,7 @@ export const CrearExamen = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.examen !== undefined) {
             setErrors({ ...errors, examen: response.examen });
@@ -143,11 +140,11 @@ export const CrearExamen = (props) => {
             setNM("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -167,13 +164,6 @@ export const CrearExamen = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
   const estiloFormControl = {
     width: "100%",
     mt: "25px",
@@ -182,10 +172,6 @@ export const CrearExamen = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioFV(param) {
@@ -284,15 +270,12 @@ export const CrearExamen = (props) => {
                         pidE: "",
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnomexamen"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomExamen)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setE("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setE("2");
                             setErrors({
@@ -300,11 +283,11 @@ export const CrearExamen = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}

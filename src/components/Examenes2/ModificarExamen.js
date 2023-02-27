@@ -8,28 +8,22 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-
+import { FormHelperText } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+//
+import * as Responses from "../Responses";
+import { useNavigate } from "react-router-dom";
 import Calendario from "./Calendario";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import BotonTipo from "./BotonTipo";
-import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
-import * as Responses from "../Responses";
-import { useNavigate } from "react-router-dom";
-
 //Hooks pers
 import { useModal } from "../../hooks/useModal";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente ModificarExamen***/
 export const ModificarExamen = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -95,7 +89,6 @@ export const ModificarExamen = (props) => {
       fecha = fecha.concat("-", extraida);
 
       var fecha2 = fecha.concat("T00:00:00");
-      console.log(fecha2);
       return fecha2;
     }
   }
@@ -144,7 +137,7 @@ export const ModificarExamen = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/modificarexamen")
+    Responses.consultas(data, endpoints.modificarExamen)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -153,7 +146,7 @@ export const ModificarExamen = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.examen !== undefined) {
             setErrors({ ...errors, examen: response.examen });
@@ -172,11 +165,11 @@ export const ModificarExamen = (props) => {
             setNM("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -299,15 +292,12 @@ export const ModificarExamen = (props) => {
                         pidE: props.examen.IdExamen,
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnomexamen"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomExamen)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setE("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setE("2");
                             setErrors({
@@ -315,11 +305,11 @@ export const ModificarExamen = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}

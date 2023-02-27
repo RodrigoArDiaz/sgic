@@ -67,9 +67,18 @@ const endpoints = {
   altaPractico: rootUrl + "/altapractico",
   modificarPractico: rootUrl + "/modificarpractico",
   borrarPractico: rootUrl + "/borrarpractico",
+  //**Examenes
+  buscarExamenes: rootUrl + "/buscarexamenes",
+  listarParametros: rootUrl + "/listarparametros",
+  crearExamen: rootUrl + "/crearexamen",
+  consultarNomExamen: rootUrl + "/consultarnomexamen",
+  listarExamenes: rootUrl + "/listarexamenes",
+  bajaExamen: rootUrl + "/bajaexamen",
+  altaExamen: rootUrl + "/altaexamen",
+  modificarExamen: rootUrl + "/modificarexamen",
+  borrarExamen: rootUrl + "/borrarexamen",
 
-  //Gestionar cursadas (superadministrador)
-
+  //Gestionar cursadas (administrador)
   borrarCursada: rootUrl + "/borrarcursada",
 
   //

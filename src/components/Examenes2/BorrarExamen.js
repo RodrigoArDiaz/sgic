@@ -3,7 +3,6 @@ import React from "react";
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -14,7 +13,10 @@ import { DeleteOutlined } from "@mui/icons-material";
 import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente BorrarExamen***/
 export const BorrarExamen = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -31,7 +33,7 @@ export const BorrarExamen = (props) => {
       pidE: props.examen.IdExamen,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borrarexamen")
+    Responses.consultas(data, endpoints.borrarExamen)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -40,18 +42,18 @@ export const BorrarExamen = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
           props.mensaje(response.Error);
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

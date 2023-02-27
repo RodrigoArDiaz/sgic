@@ -22,7 +22,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //Hooks personalizados
 import { useModal } from "../../hooks/useModal";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente Ordenar***/
 export default function Ordenar(props) {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -59,21 +62,21 @@ export default function Ordenar(props) {
       // pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarexamenes")
+    Responses.consultas(data, endpoints.listarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

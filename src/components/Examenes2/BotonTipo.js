@@ -1,9 +1,11 @@
 import * as React from "react";
+//MUI
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+/*** Componente BotonTipo***/
 export default function BotonTipo(props) {
   const [anio, setAnio] = React.useState(Valor(props.vpd));
 
@@ -36,17 +38,11 @@ export default function BotonTipo(props) {
   }
 
   console.log(dato.res);
-  //if(activar==='1')
-  //{
+
   return (
     <Box sx={{ minWidth: 50 }}>
       <FormControl fullWidth>
-        <Select
-          value={anio}
-          onChange={handleChange}
-          displayEmpty
-          //inputProps={{ 'aria-label': 'Without label' }}
-        >
+        <Select value={anio} onChange={handleChange} displayEmpty>
           <MenuItem value="">Tipo</MenuItem>
           {dato.res.map((row) => {
             return (

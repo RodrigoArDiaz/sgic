@@ -20,7 +20,10 @@ import Ordenar from "./Ordenar";
 //React spinners
 import { MoonLoader } from "react-spinners";
 import { teal } from "@mui/material/colors";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente OrdenarTipo***/
 export default function OrdenarTipo(props) {
   const color = teal[400];
   //Para estilos segun tamaño screen
@@ -54,7 +57,7 @@ export default function OrdenarTipo(props) {
       // pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarparametros")
+    Responses.consultas(data, endpoints.listarParametros)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -62,16 +65,16 @@ export default function OrdenarTipo(props) {
           setP("1");
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setP("2");
           setCargando("2");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -107,7 +110,6 @@ export default function OrdenarTipo(props) {
               <Grid container paddingTop={2}>
                 <Grid item xs={12}>
                   <Box component="div" display="flex" justifyContent="center">
-                    {/* <PropagateLoader color={color} size={15} /> */}
                     <MoonLoader color={color} size={60} />
                   </Box>
                 </Grid>

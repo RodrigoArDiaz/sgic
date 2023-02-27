@@ -1,21 +1,24 @@
 import React from "react";
+//MUI
 import { CardContent, Box, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+//
 import ExamenesLista from "./ExamenesLista";
 import { CrearExamen } from "./CrearExamen";
 import OrdenarTipo from "./OrdenarTipo";
 import BuscarExamenes from "./BuscarExamenes";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../Responses";
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { blue, teal } from "@mui/material/colors";
+import { teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
 import MensajeFeedback from "../MensajeFeedback";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente PaginaDocentesExamenes***/
 export default function ExamenesContenedor(props) {
   const color = teal[400];
 
@@ -43,24 +46,21 @@ export default function ExamenesContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarexamenes"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -70,7 +70,7 @@ export default function ExamenesContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarexamenes")
+    Responses.consultas(parametro, endpoints.buscarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -79,15 +79,15 @@ export default function ExamenesContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -99,21 +99,21 @@ export default function ExamenesContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarexamenes")
+    Responses.consultas(datos, endpoints.buscarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
 
     setPagina(pag);
@@ -130,7 +130,7 @@ export default function ExamenesContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarexamenes")
+    Responses.consultas(datos, endpoints.buscarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -138,15 +138,15 @@ export default function ExamenesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -171,14 +171,14 @@ export default function ExamenesContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data2, "http://127.0.0.1:8000/api/listarparametros")
+    Responses.consultas(data2, endpoints.listarParametros)
       .then((response) => {
         if (Responses.status === 200) {
           setPar(response);
 
           /////////////Esto va dentro del 200
 
-          Responses.consultas(data, "http://127.0.0.1:8000/api/buscarexamenes")
+          Responses.consultas(data, endpoints.buscarExamenes)
             .then((response) => {
               if (Responses.status === 200) {
                 setFilas(response);
@@ -186,28 +186,28 @@ export default function ExamenesContenedor(props) {
                 setResultado(response.res[0].resultados);
                 setCargando("2");
               } else if (Responses.status === 401) {
-                navegar("/ingreso");
+                navegar(routes.iniciarSesion);
               } else if (Responses.status === 460) {
                 setCargando("3");
               } else {
-                navegar("/error");
+                navegar(routes.error);
               }
             })
             .catch((error) => {
-              navegar("/error");
+              navegar(routes.error);
             });
 
           /////////////Esto va dentro del 200
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("4");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -274,18 +274,7 @@ export default function ExamenesContenedor(props) {
                 </Grid>
               </Grid>
               {/* Buscar practicos */}
-              <Grid
-                item
-                // xs={12}
-                // sm={12}
-                // md={8}
-                // lg={9}
-                // xl={10}
-                // paddingY={1}
-                paddingBottom={1}
-                paddingX={2}
-                marginRight="auto"
-              >
+              <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
                 <BuscarExamenes
                   cursada={cursada}
                   actualizar={BuscarAl}
@@ -298,7 +287,6 @@ export default function ExamenesContenedor(props) {
               <Grid container paddingTop={1}>
                 <Grid item xs={12}>
                   <Box component="div" display="flex" justifyContent="center">
-                    {/* <PropagateLoader color={color} size={15} /> */}
                     <MoonLoader color={color} size={60} />
                   </Box>
                 </Grid>
