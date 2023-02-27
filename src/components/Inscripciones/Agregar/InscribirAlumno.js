@@ -2,16 +2,18 @@ import React from "react";
 //MUI
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import AddIcon from "@mui/icons-material/Add";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+//React router
+import { useNavigate } from "react-router-dom";
 
 //Responses
 import * as Responses from "../../Responses";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente InscribirAlumno ***/
 export const InscribirAlumno = (props) => {
   const navegar = useNavigate();
   const [est, setE] = React.useState("1");
@@ -22,7 +24,7 @@ export const InscribirAlumno = (props) => {
       pidUs: props.idalumno,
       pidCu: props.idcursada,
     };
-    Responses.consultas(data, "http://127.0.0.1:8000/api/inscribiralumno")
+    Responses.consultas(data, endpoints.inscribirAlumno)
       .then((response) => {
         if (Responses.status === 200) {
           props.abrir(true);
@@ -31,16 +33,15 @@ export const InscribirAlumno = (props) => {
 
           setE("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setE("2");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        console.log("Error de conexión en borrar" + error);
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

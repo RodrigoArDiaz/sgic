@@ -1,29 +1,27 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
-import { BotonAcciones } from "./BotonAcciones";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid } from "@mui/material";
-// import  FilasPorPagina  from '../../Catedras/FilasPorPagina';
+import { Typography } from "@mui/material";
+//
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableCell1em,
   TableCellHead,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
-import { estilosBotonNavegacion } from "../../../styles/EstilosPaginacion";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
-import { Typography } from "@mui/material";
+import { BotonAcciones } from "./BotonAcciones";
 
+//Datos columna tabla
 const columns = [
   {
     id: "#",
@@ -74,12 +72,12 @@ const columns = [
   },
 ];
 
+/*** Componente AlumnosLista ***/
 export default function AlumnosLista(props) {
+  //Handle cambio de pagina
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
-
-  const theme = createTheme(esES);
 
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;

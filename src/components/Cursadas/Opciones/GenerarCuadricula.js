@@ -1,15 +1,14 @@
 import React from "react";
+//MUI
 import { Button, Tooltip, Zoom } from "@mui/material";
+import TextSnippetOutlinedIcon from "@mui/icons-material/TextSnippetOutlined";
+//
 import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
-import Add from "@mui/icons-material/Add";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFileExport,
-  faSheetPlastic,
-} from "@fortawesome/free-solid-svg-icons";
-import TextSnippetOutlinedIcon from "@mui/icons-material/TextSnippetOutlined";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente GenerarCuadricula ***/
 export const GenerarCuadricula = (props) => {
   const navegar = useNavigate();
 
@@ -31,23 +30,23 @@ export const GenerarCuadricula = (props) => {
       pidCu: props.idcursada,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/cuadricula")
+    consultas(data, endpoints.cuadricula)
       .then((response) => {
         if (Globales.res === 200) {
           const url = window.URL.createObjectURL(new Blob([response]));
           window.open(url, "_blank");
         } else if (Globales.res === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {
           props.abrir(true);
           props.mensaje("No hay alumnos inscriptos");
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -63,7 +62,6 @@ export const GenerarCuadricula = (props) => {
             onClick={() => Cuadricula()}
           >
             <TextSnippetOutlinedIcon />
-            {/* Generar Cuadrícula */}
           </Button>
         </span>
       </Tooltip>

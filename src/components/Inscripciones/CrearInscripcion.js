@@ -1,12 +1,13 @@
 import React from "react";
+//MUI
 import { Button, DialogContent } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+//
 import { useModal } from "../useModal";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import AgregarInscripcionesContenedor from "./Agregar/AgregarInscripcionesContenedor";
 import DialogFullCustom from "../Material UI - Componentes Modificados/DialogFullCustom";
 
+/*** Componente CrearInscripcion ***/
 export const CrearInscripcion = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -26,7 +27,6 @@ export const CrearInscripcion = (props) => {
         open={isOpen}
         onClose={handleClose}
         title="Agregar inscripción"
-        // subtitle={"Integrantes: " + props.grupo.Grupo}
         icon="add"
       >
         <DialogContent>

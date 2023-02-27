@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/material";
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
+/*** Componente BuscarAlumnos ***/
 export default function BuscarAlumnos(props) {
   function manejador() {
     var data = {

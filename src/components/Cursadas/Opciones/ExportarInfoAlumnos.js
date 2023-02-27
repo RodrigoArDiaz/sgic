@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button, Tooltip, Zoom } from "@mui/material";
 import { useModal } from "../../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
@@ -10,13 +11,12 @@ import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import * as Globales from "./Globales";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFileExcel,
-  faFileExport,
-  faFilePdf,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileExcel, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente ExportarInfoAlumnos ***/
 export const ExportarInfoAlumnos = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -28,7 +28,7 @@ export const ExportarInfoAlumnos = (props) => {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        //'Accept': 'application/json',
+
         Authorization: "Bearer " + localStorage.getItem("tkn"),
       },
     });
@@ -41,23 +41,23 @@ export const ExportarInfoAlumnos = (props) => {
       pidCu: props.idcursada,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/exportarpdf")
+    consultas(data, endpoints.exportarPdf)
       .then((response) => {
         if (Globales.res === 200) {
           const url = window.URL.createObjectURL(new Blob([response]));
           window.open(url, "_blank");
         } else if (Globales.res === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {
           props.abrir(true);
           props.mensaje("No hay alumnos inscriptos");
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -66,23 +66,23 @@ export const ExportarInfoAlumnos = (props) => {
       pidCu: props.idcursada,
     };
 
-    consultas(data, "http://127.0.0.1:8000/api/exportarexcel")
+    consultas(data, endpoints.exportarExcel)
       .then((response) => {
         if (Globales.res === 200) {
           const url = window.URL.createObjectURL(new Blob([response]));
           window.open(url, "_blank");
         } else if (Globales.res === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {
           props.abrir(true);
           props.mensaje("No hay alumnos inscriptos");
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

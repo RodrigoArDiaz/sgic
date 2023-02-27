@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
+//MUI
 import { Grid } from "@mui/material";
 import BreadCrumbs from "../components/BreadCrumbs";
+//
 import InscripcionesContenedor from "../components/Inscripciones/InscripcionesContenedor";
-
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 
+/*** Componente PaginaDocentesInscripciones ***/
 export default function PaginaDocentesInscripciones() {
   //
   const { materia } = useSelector((state) => state.materia);

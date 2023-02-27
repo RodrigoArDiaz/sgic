@@ -1,18 +1,17 @@
 import * as React from "react";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonISW } from "./BotonISW";
 import { BotonIS } from "./BotonIS";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
-
-// import  FilasPorPagina  from '../Catedras/FilasPorPagina';
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+//
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import {
   TableCell1em,
@@ -21,11 +20,10 @@ import {
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import { ChipCustom } from "../Material UI - Componentes Modificados/ChipCustom";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { randomColor } from "../../helpers/randomColor";
 import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
 import CopiarButton from "../CopiarButton";
 
+//Datos columna tabla
 const columns = [
   {
     id: "#",
@@ -97,16 +95,11 @@ const columns = [
   },
 ];
 
+/*** Componente AlumnosLista ***/
 export default function AlumnosLista(props) {
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
-
-  React.useEffect(() => {
-    console.log(randomColor());
-  });
-
-  const theme = createTheme(esES);
 
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+//MUI
 import { IconButton, Tooltip, Zoom } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
+/*** Componente CopiarButton ***/
 const CopiarButton = ({ textoCopiar }) => {
   const [copiar, setCopiar] = useState(false);
   return (

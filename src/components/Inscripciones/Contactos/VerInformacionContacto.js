@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//MUI
 import {
   Button,
   CardHeader,
@@ -17,22 +18,16 @@ import {
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+//
 import { useModal } from "../../../hooks/useModal";
 import DialogCustom from "../../Material UI - Componentes Modificados/DialogCustom";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 import CopiarButton from "../../CopiarButton";
 import { SocialIcons } from "../../PerfilUsuario/SocialIcons";
 import MensajeFeedback from "../../MensajeFeedback";
+import { isValidUrl } from "../../../helpers/valiidarUrl";
 
-//Chequea si un string es url o no
-const isValidUrl = (urlString) => {
-  try {
-    return Boolean(new URL(urlString));
-  } catch (e) {
-    return false;
-  }
-};
-
+//
 const contactosPrueba = [
   {
     Nombre: "Facebook",
@@ -46,6 +41,7 @@ const contactosPrueba = [
   { Nombre: "Telefono", Perfil: "+549381102030" },
 ];
 
+/*** Componente VerInformacionContacto ***/
 const VerInformacionContacto = ({ alumno, idAlumno }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 

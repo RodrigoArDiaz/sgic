@@ -90,6 +90,15 @@ const endpoints = {
   modificarGrupo: rootUrl + "/modificargrupo",
   consultarNomGrupo: rootUrl + "/consultarnomgrupo",
   borrarGrupo: rootUrl + "/borrargrupo",
+  //**Inscripciones
+  buscarInscriptos: rootUrl + "/buscarinscriptos",
+  exportarPdf: rootUrl + "/exportarpdf",
+  exportarExcel: rootUrl + "/exportarexcel",
+  cuadricula: rootUrl + "/cuadricula",
+  buscarNoInscriptos: rootUrl + "/buscarnoinscriptos",
+  inscribirAlumno: rootUrl + "/inscribiralumno",
+  modificarInscripcion: rootUrl + "/modificarinscripcion",
+  borrarInscripcion: rootUrl + "/borrarinscripcion",
 
   //Gestionar cursadas (administrador)
   borrarCursada: rootUrl + "/borrarcursada",

@@ -1,9 +1,11 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
 import { InscribirAlumno } from "./InscribirAlumno";
 //Redux
 import { useSelector } from "react-redux";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
@@ -17,7 +19,6 @@ export const BotonAcciones = (props) => {
           mensaje={props.mensaje}
           tipo={props.tipo}
           idalumno={props.alumno.IdUsuario}
-          // idcursada={props.cursada.IdCursada}
           idcursada={cursada.IdCursada}
         />
       </Grid>

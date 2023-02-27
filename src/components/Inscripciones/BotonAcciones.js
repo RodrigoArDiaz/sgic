@@ -1,10 +1,12 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
 import { BorrarInscripcion } from "./BorrarInscripcion";
 //Redux
 import { useSelector } from "react-redux";
 import VerInformacionContacto from "./Contactos/VerInformacionContacto";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);

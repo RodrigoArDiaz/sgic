@@ -1,13 +1,11 @@
 import React from "react";
-import { Box, CardContent, Paper, Typography } from "@mui/material";
+//MUI
+import { Box, CardContent, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import AlumnosLista from "./AlumnosLista";
 import { CrearInscripcion } from "./CrearInscripcion";
 import BuscarAlumnos from "./BuscarAlumnos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
-// import SnackMensajes from "../Catedras/SnackMensajes";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
 import { ExportarInfoAlumnos } from "../Cursadas/Opciones/ExportarInfoAlumnos";
 import { GenerarCuadricula } from "../Cursadas/Opciones/GenerarCuadricula";
@@ -15,14 +13,16 @@ import * as Responses from "../Responses";
 //Redux
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { blue } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
 import {
   colorMainSpinner,
   sizeMainSpinner,
 } from "../../styles/EstilosSpinners";
 import MensajeFeedback from "../MensajeFeedback";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente InscripcionesContenedor ***/
 export default function InscripcionesContenedor(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
@@ -45,24 +45,21 @@ export default function InscripcionesContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarinscriptos"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarInscriptos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -72,7 +69,7 @@ export default function InscripcionesContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(parametro, endpoints.buscarInscriptos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -81,15 +78,15 @@ export default function InscripcionesContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -101,24 +98,21 @@ export default function InscripcionesContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarinscriptos"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarInscriptos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -133,7 +127,7 @@ export default function InscripcionesContenedor(props) {
 
     setCargando("1"); //true
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(datos, endpoints.buscarInscriptos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -141,15 +135,15 @@ export default function InscripcionesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -169,7 +163,7 @@ export default function InscripcionesContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarinscriptos")
+    Responses.consultas(data, endpoints.buscarInscriptos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -178,15 +172,15 @@ export default function InscripcionesContenedor(props) {
 
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -222,7 +216,6 @@ export default function InscripcionesContenedor(props) {
                 >
                   <Grid item>
                     <ExportarInfoAlumnos
-                      // idcursada={props.cursada.IdCursada}
                       idcursada={cursada.IdCursada}
                       abrir={setAbrir}
                       mensaje={setMensaje}
@@ -232,7 +225,6 @@ export default function InscripcionesContenedor(props) {
 
                   <Grid item>
                     <GenerarCuadricula
-                      // idcursada={props.cursada.IdCursada}
                       idcursada={cursada.IdCursada}
                       abrir={setAbrir}
                       mensaje={setMensaje}
