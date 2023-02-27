@@ -57,6 +57,8 @@ const endpoints = {
   altaCursada: rootUrl + "/altacursada",
   bajaCursada: rootUrl + "/bajacursada",
   abrirInscripcion: rootUrl + "/abririnscripcion",
+  //**Cursada
+  infoCursada: rootUrl + "/infocursada",
 
   //Gestionar cursadas (superadministrador)
 

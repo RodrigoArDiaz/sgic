@@ -1,24 +1,11 @@
 import React from "react";
 //MUI
-import {
-  Avatar,
-  Box,
-  CardContent,
-  Chip,
-  Typography,
-  Zoom,
-} from "@mui/material";
+import { Avatar, Box, CardContent, Chip, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import { Cancel, CheckCircle, Info, InfoOutlined } from "@mui/icons-material";
-import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip } from "@mui/material";
-
+import { Cancel, CheckCircle } from "@mui/icons-material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { blue } from "@mui/material/colors";
 //React router
-import { useNavigate } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
 //Responses
 import * as Responses from "../../Responses";
 //Redux
@@ -26,26 +13,17 @@ import { useSelector } from "react-redux";
 //MUI - personalizados
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import CardMainPageHeaderTransparent from "../../Material UI - Componentes Modificados/CardMainPageHeaderTransparent";
-import DocentesCursadasContenedorEstadisticas from "./DocentesCursadasContenedorEstadisticas";
 import { CircularProgressWithLabel } from "../../Material UI - Componentes Modificados/ComponentesEstadisticas/ComponentesEstadisticas";
-//
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
-const ChipCustom = React.forwardRef(function MyComponent(props, ref) {
-  //  Spread the props to the underlying DOM element.
-  return (
-    <Chip {...props} ref={ref}>
-      {props.children}
-    </Chip>
-  );
-});
-
+/*** Componente DocentesCursadasContenedor***/
 export default function DocentesCursadasContenedor(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
   //Recupero informacion de la materia
   const { materia } = useSelector((state) => state.materia);
-  //
+  //Hooks
   const navegar = useNavigate();
 
   const [estado, setE] = React.useState(); //pagina actual
@@ -59,10 +37,9 @@ export default function DocentesCursadasContenedor(props) {
   React.useEffect(() => {
     var data = {
       pidCu: cursada.IdCursada,
-      // pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/infocursada")
+    Responses.consultas(data, endpoints.infoCursada)
       .then((response) => {
         if (Responses.status === 200) {
           setE(response.res[0].Estado);
@@ -73,13 +50,13 @@ export default function DocentesCursadasContenedor(props) {
           setCG(response.res[0].CantidadG);
           setP(response.res[0].SumaPrm);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

@@ -9,7 +9,8 @@ const loginDocenteUrl = rootUrl + "/acceso/docentes";
 const loginSuperUrl = rootUrl + "/acceso/super";
 const logoutUsuarioUrl = rootUrl + "/logout";
 // const getDataUsuarioUrl = rootUrl + "/me2";
-const getDataUsuarioUrl = rootUrl + "/mis_datos";
+// const getDataUsuarioUrl = rootUrl + "/mis_datos";
+const getDataUsuarioUrl = rootUrl + "/dameusuario";
 const registrarUsuarioUrl = rootUrl + "/registro";
 const modificarContrasenaUrl = rootUrl + "/modificar_contrasena";
 
@@ -122,6 +123,10 @@ export const loginSuper = (frmData) => {
  * @returns
  */
 export const logoutUsuario = (token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   return new Promise(async (resolve, reject) => {
     try {
       //Realizo la peticion :
@@ -132,7 +137,7 @@ export const logoutUsuario = (token) => {
        * Ej: axios.post(url,body,headers)
        */
       const res = await axios.post(
-        getDataUsuarioUrl,
+        logoutUsuarioUrl,
         {},
         {
           headers: {

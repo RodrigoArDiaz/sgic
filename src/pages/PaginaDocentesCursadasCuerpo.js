@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 //Componentes propios
 import DocentesCursadasContenedor from "../components/Cursadas/Opciones/DocentesCursadasContenedor";
-import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
-import BreadCrumbs from "../components/BreadCrumbs";
 
+/*** Componente PaginaDocentesCursadasCuerpo***/
 export default function PaginaDocentesCursadasCuerpo(props) {
   //
   const { materia } = useSelector((state) => state.materia);
@@ -31,12 +30,6 @@ export default function PaginaDocentesCursadasCuerpo(props) {
 
   return (
     <Grid container rowSpacing={3} columnSpacing={2}>
-      {/* <Grid item xs={12}>
-        <GridBreadCrumbs container>
-          <BreadCrumbs />
-        </GridBreadCrumbs>
-      </Grid> */}
-
       <Grid item xs={12}>
         <DocentesCursadasContenedor />
       </Grid>
