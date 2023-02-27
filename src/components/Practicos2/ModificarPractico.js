@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
@@ -8,23 +9,18 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import Calendario from "./Calendario";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente ModificarPractico ***/
 export const ModificarPractico = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -65,7 +61,7 @@ export const ModificarPractico = (props) => {
       fecha = fecha.concat("-", extraida);
 
       var fecha2 = fecha.concat("T00:00:00");
-      console.log(fecha2);
+
       return fecha2;
     }
   }
@@ -113,7 +109,7 @@ export const ModificarPractico = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/modificarpractico")
+    Responses.consultas(data, endpoints.modificarPractico)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -122,7 +118,7 @@ export const ModificarPractico = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.practico !== undefined) {
             setErrors({ ...errors, practico: response.practico });
@@ -141,11 +137,11 @@ export const ModificarPractico = (props) => {
             setNM("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -256,15 +252,12 @@ export const ModificarPractico = (props) => {
                         pidP: props.practico.IdPractico,
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnompractico"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomPractico)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setP("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setP("2");
                             setErrors({
@@ -272,11 +265,11 @@ export const ModificarPractico = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}

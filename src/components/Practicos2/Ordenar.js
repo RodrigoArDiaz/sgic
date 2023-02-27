@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, IconButton, Tooltip, useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -23,7 +23,10 @@ import { OrdenarLista } from "./Orden/OrdenarLista";
 //React router
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente Ordenar ***/
 export default function Ordenar(props) {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -59,21 +62,21 @@ export default function Ordenar(props) {
       pidCu: cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarpracticos")
+    Responses.consultas(data, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

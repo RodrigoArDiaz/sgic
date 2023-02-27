@@ -9,6 +9,7 @@ import { GridBreadCrumbs } from "../components/Material UI - Componentes Modific
 import BreadCrumbs from "../components/BreadCrumbs";
 import PracticosContenedor from "../components/Practicos2/PracticosContenedor";
 
+/*** Componente PaginaDocentesPracticos ***/
 export default function PaginaDocentesPracticos(props) {
   //Variables react redux
   const { materia } = useSelector((state) => state.materia);

@@ -1,8 +1,10 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
 import { BorrarPractico } from "./BorrarPractico";
 import { ModificarPractico } from "./ModificarPractico";
 
+/*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
   return (
     <Grid container justifyContent="space-evenly">

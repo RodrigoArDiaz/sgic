@@ -1,7 +1,6 @@
 import * as React from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import { Chip, Tooltip, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import * as Responses from "../Responses";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente BotonEstado ***/
 export const BotonEstado = (props) => {
   const navegar = useNavigate();
   const [salto, setSalto] = React.useState(props.estado);
@@ -22,34 +24,34 @@ export const BotonEstado = (props) => {
 
     if (salto === "A") {
       setSalto("C");
-      Responses.consultas(data, "http://127.0.0.1:8000/api/bajapractico")
+      Responses.consultas(data, endpoints.bajaPractico)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("B");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     } else {
       if (salto === "B") {
         setSalto("C");
-        Responses.consultas(data, "http://127.0.0.1:8000/api/altapractico")
+        Responses.consultas(data, endpoints.altaPractico)
           .then((response) => {
             if (Responses.status === 200) {
               setSalto("A");
             } else if (Responses.status === 401) {
-              navegar("/ingreso");
+              navegar(routes.iniciarSesion);
             } else {
-              navegar("/error");
+              navegar(routes.error);
             }
           })
           .catch((error) => {
-            navegar("/error");
+            navegar(routes.error);
           });
       }
     }
@@ -59,18 +61,6 @@ export const BotonEstado = (props) => {
     <>
       {salto === "A" && (
         <Grid item xs={12} sm="auto">
-          {/* <Tooltip title="Activo" TransitionComponent={Zoom} arrow>
-            <span>
-              <IconButton
-                aria-label="estado"
-                size="small"
-                color="success"
-                onClick={() => manejador()}
-              >
-                <CheckIcon />
-              </IconButton>
-            </span>
-          </Tooltip> */}
           <Chip
             variant="outlined"
             color="success"
@@ -82,18 +72,6 @@ export const BotonEstado = (props) => {
       )}
       {salto === "B" && (
         <Grid item xs={12} sm="auto">
-          {/* <Tooltip title="Baja" TransitionComponent={Zoom} arrow>
-            <span>
-              <IconButton
-                aria-label="estado2"
-                size="small"
-                color="error"
-                onClick={() => manejador()}
-              >
-                <CloseIcon />
-              </IconButton>
-            </span>
-          </Tooltip> */}
           <Chip
             variant="outlined"
             color="error"

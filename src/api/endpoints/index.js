@@ -59,6 +59,14 @@ const endpoints = {
   abrirInscripcion: rootUrl + "/abririnscripcion",
   //**Cursada
   infoCursada: rootUrl + "/infocursada",
+  //**Practicos
+  buscarPracticos: rootUrl + "/buscarpracticos",
+  crearPractico: rootUrl + "/crearpractico",
+  consultarNomPractico: rootUrl + "/consultarnompractico",
+  bajaPractico: rootUrl + "/bajapractico",
+  altaPractico: rootUrl + "/altapractico",
+  modificarPractico: rootUrl + "/modificarpractico",
+  borrarPractico: rootUrl + "/borrarpractico",
 
   //Gestionar cursadas (superadministrador)
 

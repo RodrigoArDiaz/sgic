@@ -1,8 +1,8 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -13,7 +13,9 @@ import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import { useTheme } from "@emotion/react";
 import { DeleteOutlined } from "@mui/icons-material";
+import { endpoints } from "../../api/endpoints";
 
+/*** Componente BorrarPractico ***/
 export const BorrarPractico = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -29,7 +31,7 @@ export const BorrarPractico = (props) => {
       pidP: props.practico.IdPractico,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borrarpractico")
+    Responses.consultas(data, endpoints.borrarPractico)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();

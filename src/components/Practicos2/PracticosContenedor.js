@@ -1,26 +1,29 @@
 import React from "react";
-import { Box, CardContent, Paper, Typography } from "@mui/material";
+///MUI
+import { Box, CardContent, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import PracticosLista from "./PracticosLista";
 import { CrearPractico } from "./CrearPractico";
 import Ordenar from "./Ordenar";
 import BuscarPracticos from "./BuscarPracticos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 // import SnackMensajes from "../Catedras/SnackMensajes";
 import SnackMensajes from "../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../Responses";
-
 //Redux
 import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import { blue, teal } from "@mui/material/colors";
 import { MoonLoader } from "react-spinners";
 import MensajeFeedback from "../MensajeFeedback";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
+/*** Componente PracticosContenedor ***/
 export default function PracticosContenedor(props) {
-  const color = teal[400];
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -42,24 +45,21 @@ export default function PracticosContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarpracticos"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -69,7 +69,7 @@ export default function PracticosContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarpracticos")
+    Responses.consultas(parametro, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -78,15 +78,15 @@ export default function PracticosContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -98,21 +98,21 @@ export default function PracticosContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarpracticos")
+    Responses.consultas(datos, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.iniciarSesion);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -127,7 +127,7 @@ export default function PracticosContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarpracticos")
+    Responses.consultas(datos, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -135,17 +135,17 @@ export default function PracticosContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
 
-        navegar("/registrarse");
+        navegar(routes.registro);
       });
   }
 
@@ -163,7 +163,7 @@ export default function PracticosContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarpracticos")
+    Responses.consultas(data, endpoints.buscarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -171,15 +171,15 @@ export default function PracticosContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -199,10 +199,7 @@ export default function PracticosContenedor(props) {
           Prácticos
         </Typography>
       </Box>
-      <CardMainPage
-        visibleHeader={false}
-        //  icon="info" title="Prácticos" bgColorIcon={blue[500]}
-      >
+      <CardMainPage visibleHeader={false}>
         <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
           <Grid container>
             <Grid container direction="row-reverse">
@@ -221,7 +218,6 @@ export default function PracticosContenedor(props) {
                       abrir={setAbrir}
                       mensaje={setMensaje}
                       tipo={setTipo}
-                      // cursada={props.cursada}
                       cursada={cursada}
                     />
                   </Grid>
@@ -251,20 +247,8 @@ export default function PracticosContenedor(props) {
               </Grid>
 
               {/* Buscar practicos */}
-              <Grid
-                item
-                // xs={12}
-                // sm={12}
-                // md={8.5}
-                // lg={9.5}
-                // xl={9}
-                // xl={10}
-                paddingBottom={1}
-                paddingX={2}
-                marginRight="auto"
-              >
+              <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
                 <BuscarPracticos
-                  // cursada={props.cursada}
                   cursada={cursada}
                   actualizar={BuscarAl}
                   filasxpagina={filasxpagina}
@@ -276,8 +260,10 @@ export default function PracticosContenedor(props) {
               <Grid container paddingTop={4}>
                 <Grid item xs={12}>
                   <Box component="div" display="flex" justifyContent="center">
-                    {/* <PropagateLoader color={color} size={15} /> */}
-                    <MoonLoader color={color} size={60} />
+                    <MoonLoader
+                      color={colorMainSpinner}
+                      size={sizeMainSpinner}
+                    />
                   </Box>
                 </Grid>
               </Grid>

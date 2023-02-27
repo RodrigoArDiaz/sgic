@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useModal } from "../../hooks/useModal";
@@ -10,18 +11,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Calendario from "./Calendario";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import { FormHelperText } from "@mui/material";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente CrearPractico ***/
 export const CrearPractico = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -72,7 +69,7 @@ export const CrearPractico = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/crearpractico")
+    Responses.consultas(data, endpoints.crearPractico)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -90,7 +87,7 @@ export const CrearPractico = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.practico !== undefined) {
             setErrors({ ...errors, practico: response.practico });
@@ -109,11 +106,11 @@ export const CrearPractico = (props) => {
             setNM("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -133,13 +130,6 @@ export const CrearPractico = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
   const estiloFormControl = {
     width: "100%",
     mt: "25px",
@@ -148,10 +138,6 @@ export const CrearPractico = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioFV(param) {
@@ -237,15 +223,12 @@ export const CrearPractico = (props) => {
                         pidP: "",
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnompractico"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomPractico)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setP("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setP("2");
                             setErrors({
@@ -253,11 +236,11 @@ export const CrearPractico = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}
