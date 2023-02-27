@@ -77,6 +77,19 @@ const endpoints = {
   altaExamen: rootUrl + "/altaexamen",
   modificarExamen: rootUrl + "/modificarexamen",
   borrarExamen: rootUrl + "/borrarexamen",
+  //**Grupos
+  buscarGrupos: rootUrl + "/buscargrupos",
+  crearGrupo: rootUrl + "/creargrupo",
+  consultarNomGrupo: rootUrl + "/consultarnomgrupo",
+  bajaGrupo: rootUrl + "/bajagrupo",
+  altaGrupo: rootUrl + "/altagrupo",
+  listarIntegrantes: rootUrl + "/listarintegrantes",
+  borrarAlumnoGrupo: rootUrl + "/borraralumnogrupo",
+  listarNoIntegrantes: rootUrl + "/listarnointegrantes",
+  inscribirEnGrupo: rootUrl + "/inscribirengrupo",
+  modificarGrupo: rootUrl + "/modificargrupo",
+  consultarNomGrupo: rootUrl + "/consultarnomgrupo",
+  borrarGrupo: rootUrl + "/borrargrupo",
 
   //Gestionar cursadas (administrador)
   borrarCursada: rootUrl + "/borrarcursada",

@@ -3,7 +3,6 @@ import React from "react";
 import { Button, useMediaQuery } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,7 +14,10 @@ import { useModal } from "../useModal";
 import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente BorrarGrupo***/
 export const BorrarGrupo = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -32,7 +34,7 @@ export const BorrarGrupo = (props) => {
       pidG: props.grupo.IdGrupo,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borrargrupo")
+    Responses.consultas(data, endpoints.borrarGrupo)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -41,18 +43,18 @@ export const BorrarGrupo = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          // navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
           props.mensaje(response.Error);
           props.tipo("error");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

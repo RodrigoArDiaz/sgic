@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
+import React, { useState } from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { Grid } from "@mui/material";
@@ -8,9 +8,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button } from "@mui/material";
+//
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 const formInicial = {
@@ -20,6 +20,7 @@ const formInicial = {
   bajas: false,
 };
 
+/*** Componente BuscarGrupos***/
 export default function BuscarGrupos(props) {
   const [form, setForm] = useState(formInicial);
 

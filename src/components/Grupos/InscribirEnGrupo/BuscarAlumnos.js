@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import CloseIcon from "@mui/icons-material/Close";
 import { OutlinedInputSearch } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
+/*** Componente BuscarAlumnos ***/
 export default function BuscarAlumnos(props) {
   function manejador() {
     var data = {

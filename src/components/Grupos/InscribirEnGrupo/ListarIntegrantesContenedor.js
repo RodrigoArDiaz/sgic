@@ -1,6 +1,6 @@
 import React from "react";
+//MUI
 import {
-  Alert,
   AlertTitle,
   ListItem,
   ListItemText,
@@ -8,6 +8,7 @@ import {
   CardContent,
 } from "@mui/material";
 import { Grid } from "@mui/material";
+//
 import IntegrantesLista from "./IntegrantesLista";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
@@ -15,12 +16,16 @@ import BuscarAlumnos from "./BuscarAlumnos";
 import * as Responses from "../../Responses";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
 import MensajeFeedback from "../../MensajeFeedback";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
+/*** Componente ListarIntegrantesContenedor ***/
 export default function ListarIntegrantesContenedor(props) {
-  const color = teal[400];
-
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -39,24 +44,21 @@ export default function ListarIntegrantesContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    Responses.consultas(datosconsulta, endpoints.listarNoIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -66,10 +68,7 @@ export default function ListarIntegrantesContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(
-      parametro,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    Responses.consultas(parametro, endpoints.listarNoIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -78,15 +77,15 @@ export default function ListarIntegrantesContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -98,24 +97,21 @@ export default function ListarIntegrantesContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/listarnointegrantes"
-    )
+    Responses.consultas(datosconsulta, endpoints.listarNoIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -130,7 +126,7 @@ export default function ListarIntegrantesContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/listarnointegrantes")
+    Responses.consultas(datos, endpoints.listarNoIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -138,15 +134,15 @@ export default function ListarIntegrantesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -166,7 +162,7 @@ export default function ListarIntegrantesContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarnointegrantes")
+    Responses.consultas(data, endpoints.listarNoIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -174,15 +170,15 @@ export default function ListarIntegrantesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -224,7 +220,7 @@ export default function ListarIntegrantesContenedor(props) {
             <Grid container pt={2}>
               <Grid item xs={12}>
                 <Box component="div" display="flex" justifyContent="center">
-                  <MoonLoader color={color} size={60} />
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
                 </Box>
               </Grid>
             </Grid>

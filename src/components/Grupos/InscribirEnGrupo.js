@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -7,6 +8,7 @@ import { useModal } from "../useModal";
 import ListarIntegrantesContenedor from "./InscribirEnGrupo/ListarIntegrantesContenedor";
 import DialogFullCustom from "../Material UI - Componentes Modificados/DialogFullCustom";
 
+/*** Componente InscribirEnGrupo***/
 export const InscribirEnGrupo = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 

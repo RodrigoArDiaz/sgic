@@ -1,21 +1,20 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 import { Inscribir } from "./Inscribir";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
+//
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import { TableCellHead } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 
+//Datos tabla
 const columns = [
   {
     id: "Apellidos",
@@ -60,12 +59,11 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
+/*** Componente InscripcionesContenedor***/
+export default function IntegrantesLista(props) {
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
-
-  const theme = createTheme(esES);
 
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;

@@ -6,8 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { createTheme } from "@mui/material/styles";
-import { esES } from "@mui/material/locale";
 //
 import { BorrarDeGrupo } from "./BorrarDeGrupo";
 import {
@@ -15,6 +13,7 @@ import {
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 
+//Data tabla
 const columns = [
   {
     id: "Apellidos",
@@ -59,9 +58,8 @@ const columns = [
   },
 ];
 
-export default function StickyHeadTable(props) {
-  const theme = createTheme(esES);
-
+/*** Componente IntegrantesLista***/
+export default function IntegrantesLista(props) {
   if (props.filas.res === undefined) return <h4>Error fatal</h4>;
   if (props.filas.res.length < 1) return <h4>No se encontraron resultados</h4>;
 

@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+//MUI
 import { Grid } from "@mui/material";
+//
 import BreadCrumbs from "../components/BreadCrumbs";
 import GruposContenedor from "../components/Grupos/GruposContenedor";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
 
+/*** Componente PaginaDocentesGrupos***/
 export default function PaginaDocentesGrupos() {
   //
   const { materia } = useSelector((state) => state.materia);

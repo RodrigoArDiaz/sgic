@@ -1,19 +1,24 @@
 import React from "react";
+//MUI
 import { Button, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import { FormHelperText } from "@mui/material";
+import { useTheme } from "@emotion/react";
 import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+//
 import * as Responses from "../Responses";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@emotion/react";
+import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
+import { useModal } from "../../hooks/useModal";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente PaginaDocentesGrupos***/
 export const CrearGrupo = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -46,7 +51,7 @@ export const CrearGrupo = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/creargrupo")
+    Responses.consultas(data, endpoints.crearGrupo)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -65,7 +70,7 @@ export const CrearGrupo = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.grupo !== undefined) {
             setErrors({ ...errors, grupo: response.grupo });
@@ -82,11 +87,11 @@ export const CrearGrupo = (props) => {
             setTem("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -186,15 +191,12 @@ export const CrearGrupo = (props) => {
                         pidG: "",
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnomgrupo"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomGrupo)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setG("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setG("2");
                             setErrors({
@@ -202,11 +204,11 @@ export const CrearGrupo = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}

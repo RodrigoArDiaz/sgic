@@ -1,14 +1,17 @@
 import React from "react";
+//MUI
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import AddIcon from "@mui/icons-material/Add";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+//
+import { useNavigate } from "react-router-dom";
 import * as Responses from "../../Responses";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente Inscribir***/
 export const Inscribir = (props) => {
   const navegar = useNavigate();
   const [est, setE] = React.useState("1");
@@ -21,7 +24,7 @@ export const Inscribir = (props) => {
       pidG: props.grupo.IdGrupo,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/inscribirengrupo")
+    Responses.consultas(data, endpoints.inscribirEnGrupo)
       .then((response) => {
         if (Responses.status === 200) {
           props.abrir(true);
@@ -29,7 +32,7 @@ export const Inscribir = (props) => {
           props.tipo("success");
           setE("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.Integrantes !== "") {
             props.abrir(true);
@@ -40,11 +43,11 @@ export const Inscribir = (props) => {
             setE("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

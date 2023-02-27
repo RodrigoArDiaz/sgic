@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import { Button, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
@@ -7,15 +8,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useModal } from "../../useModal";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import Brightness1Icon from "@mui/icons-material/Brightness1";
-import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import DoNotDisturbOnOutlinedIcon from "@mui/icons-material/DoNotDisturbOnOutlined";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { useModal } from "../../useModal";
+import { useNavigate } from "react-router-dom";
+//
 import * as Responses from "../../Responses";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente BorrarDeGrupo***/
 export const BorrarDeGrupo = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
@@ -30,7 +33,7 @@ export const BorrarDeGrupo = (props) => {
       pidG: props.grupo.IdGrupo,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/borraralumnogrupo")
+    Responses.consultas(data, endpoints.borrarAlumnoGrupo)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -39,7 +42,7 @@ export const BorrarDeGrupo = (props) => {
           props.tipo("success");
           setE("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           handleClose();
           props.abrir(true);
@@ -48,11 +51,11 @@ export const BorrarDeGrupo = (props) => {
 
           setE("1");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

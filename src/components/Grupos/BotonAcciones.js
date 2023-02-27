@@ -1,10 +1,13 @@
 import * as React from "react";
+//MUI
 import { Grid } from "@mui/material";
+//
 import { BorrarGrupo } from "./BorrarGrupo";
 import { ModificarGrupo } from "./ModificarGrupo";
 import { ListarIntegrantes } from "./ListarIntegrantes";
 import { InscribirEnGrupo } from "./InscribirEnGrupo";
 
+/*** Componente BotonAcciones***/
 export const BotonAcciones = (props) => {
   return (
     <Grid container justifyContent="space-evenly">

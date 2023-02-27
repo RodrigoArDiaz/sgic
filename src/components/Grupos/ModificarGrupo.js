@@ -8,9 +8,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import { FormHelperText } from "@mui/material";
-import { FormControl, InputLabel, Input, Grid, Paper } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 //
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
@@ -18,7 +17,10 @@ import * as Responses from "../Responses";
 import { useModal } from "../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente ModificarGrupo***/
 export const ModificarGrupo = (props) => {
   //Para estilos segun tamaño screen
   const theme = useTheme();
@@ -52,7 +54,7 @@ export const ModificarGrupo = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/modificargrupo")
+    Responses.consultas(data, endpoints.modificarGrupo)
       .then((response) => {
         if (Responses.status === 200) {
           handleClose();
@@ -62,7 +64,7 @@ export const ModificarGrupo = (props) => {
           props.tipo("success");
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.grupo !== undefined) {
             setErrors({ ...errors, grupo: response.grupo });
@@ -79,11 +81,11 @@ export const ModificarGrupo = (props) => {
             setTem("2");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -183,15 +185,12 @@ export const ModificarGrupo = (props) => {
                         pidG: props.grupo.IdGrupo,
                       };
 
-                      Responses.consultas(
-                        data,
-                        "http://127.0.0.1:8000/api/consultarnomgrupo"
-                      )
+                      Responses.consultas(data, endpoints.consultarNomGrupo)
                         .then((response) => {
                           if (Responses.status === 200) {
                             setG("1");
                           } else if (Responses.status === 401) {
-                            navegar("/ingreso");
+                            navegar(routes.iniciarSesion);
                           } else if (Responses.status === 460) {
                             setG("2");
                             setErrors({
@@ -199,11 +198,11 @@ export const ModificarGrupo = (props) => {
                               [e.target.name]: response.Error,
                             });
                           } else {
-                            navegar("/error");
+                            navegar(routes.error);
                           }
                         })
                         .catch((error) => {
-                          navegar("/error");
+                          navegar(routes.error);
                         });
                     }
                   }}

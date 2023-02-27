@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { CardContent, Paper, Typography, Box, AlertTitle } from "@mui/material";
+import { CardContent, Typography, Box } from "@mui/material";
 import { Grid } from "@mui/material";
 import { blue, teal } from "@mui/material/colors";
 //
@@ -14,7 +14,10 @@ import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
 import MensajeFeedback from "../MensajeFeedback";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
+/*** Componente InscripcionesContenedor***/
 export default function InscripcionesContenedor(props) {
   const color = teal[400];
 
@@ -39,21 +42,21 @@ export default function InscripcionesContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(datosconsulta, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(datosconsulta, endpoints.buscarGrupos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -63,7 +66,7 @@ export default function InscripcionesContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(parametro, endpoints.buscarGrupos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -72,15 +75,15 @@ export default function InscripcionesContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -92,21 +95,21 @@ export default function InscripcionesContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(datos, endpoints.buscarGrupos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
 
     setPagina(pag);
@@ -123,7 +126,7 @@ export default function InscripcionesContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(datos, endpoints.buscarGrupos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -131,15 +134,15 @@ export default function InscripcionesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -157,7 +160,7 @@ export default function InscripcionesContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscargrupos")
+    Responses.consultas(data, endpoints.buscarGrupos)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -165,15 +168,15 @@ export default function InscripcionesContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
@@ -268,7 +271,6 @@ export default function InscripcionesContenedor(props) {
                   <Grid item xs={12}>
                     <Box paddingX={2}>
                       <MensajeFeedback>
-                        {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
                         No se encontraron resultados.
                       </MensajeFeedback>
                     </Box>

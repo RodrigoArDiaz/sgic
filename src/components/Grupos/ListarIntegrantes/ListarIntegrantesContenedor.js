@@ -1,28 +1,23 @@
 import React from "react";
-import {
-  Alert,
-  AlertTitle,
-  CardContent,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-} from "@mui/material";
+//MUI
+import { CardContent } from "@mui/material";
 import { Grid, Box } from "@mui/material";
 import IntegrantesLista from "./IntegrantesLista";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../../Responses";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { MoonLoader } from "react-spinners";
-import { teal } from "@mui/material/colors";
 import MensajeFeedback from "../../MensajeFeedback";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../../styles/EstilosSpinners";
 
+/*** Componente ListarIntegrantes***/
 export default function ListarIntegrantesContenedor(props) {
-  const color = teal[400];
-
   const navegar = useNavigate();
 
   const [filas, setFilas] = React.useState({}); // datos a mostrar
@@ -42,31 +37,26 @@ export default function ListarIntegrantesContenedor(props) {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarintegrantes")
+    Responses.consultas(data, endpoints.listarIntegrantes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 
   return (
-    <CardMainPage
-      // icon="supervisor_account"
-      // title={"Integrantes de " + props.grupo.Grupo}
-      // bgColorIcon="cyan.main300"
-      visibleHeader={false}
-    >
+    <CardMainPage visibleHeader={false}>
       <CardContent
         sx={{
           paddingRight: 0,
@@ -87,7 +77,7 @@ export default function ListarIntegrantesContenedor(props) {
             <Grid container pt={2}>
               <Grid item xs={12}>
                 <Box component="div" display="flex" justifyContent="center">
-                  <MoonLoader color={color} size={60} />
+                  <MoonLoader color={colorMainSpinner} size={sizeMainSpinner} />
                 </Box>
               </Grid>
             </Grid>
