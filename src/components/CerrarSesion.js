@@ -1,4 +1,5 @@
 import React from "react";
+//MUI
 import {
   Button,
   ListItemButton,
@@ -7,18 +8,20 @@ import {
   Typography,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useModal } from "../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+//
+import { useModal } from "../hooks/useModal";
 import { useDispatch } from "react-redux";
 import { userReset } from "../store/slices/userSlice";
 import { loginReset } from "../store/slices/loginSlice";
 import { logoutUsuario } from "../api/sgicApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { routes } from "../routes";
 
 /*********************************************************
  * Componente
@@ -36,7 +39,7 @@ export default function CerrarSesion({ handleCloseMenu }) {
     try {
       const res = await logoutUsuario(token);
       dispatch(userReset());
-      navigate("/");
+      navigate(routes.iniciarSesion);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +66,10 @@ export default function CerrarSesion({ handleCloseMenu }) {
 
       {/* Ventana modal */}
       <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
-        <DialogTitle>Cerrar Sesion</DialogTitle>
+        <DialogTitle display="flex" flexDirection="row">
+          <LogoutIcon sx={{ alignSelf: "center", marginRight: 1 }} />
+          Cerrar sesión
+        </DialogTitle>
 
         <DialogContent>
           <DialogContentText>
@@ -75,7 +81,7 @@ export default function CerrarSesion({ handleCloseMenu }) {
           <Button variant="contained" onClick={handleLogout}>
             Aceptar
           </Button>
-          <Button variant="outlined" color="secondary" onClick={handleClose}>
+          <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

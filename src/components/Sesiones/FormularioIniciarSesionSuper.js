@@ -39,6 +39,8 @@ import {
 import AuthWrapper from "./AuthWrapper";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
+import { requestGetDataUsuario } from "../../api/sgicApi";
+import { getUserSuccess } from "../../store/slices/userSlice";
 
 //Estilos
 const estiloFormControl = {
@@ -90,6 +92,7 @@ function FormularioIniciarSesionSuper() {
 
   const navegar = useNavigate();
 
+  //Handle loguear
   const loguear = (e) => {
     e.preventDefault();
 
@@ -125,6 +128,10 @@ function FormularioIniciarSesionSuper() {
 
           localStorage.setItem("EsSA", response.SuperAdmin);
 
+          //Actualizo datos usuario
+          ActualizarDatosUsuario(response.token);
+
+          //Redirecciono segun tipo de usuario
           if (response.Alumno === "S") {
             navegar(routes.alumnosMiscursadas);
             dispatch(actualizarMenu(listaItemsMenuAlumno));
@@ -148,6 +155,18 @@ function FormularioIniciarSesionSuper() {
       .catch((error) => {
         navegar(routes.error);
       });
+  };
+
+  //Actualizar datos usuario
+  const ActualizarDatosUsuario = async (token) => {
+    try {
+      // const res = await loginAlumno(values);
+      // const res = await peticionLoginUsuario(values);
+      // dispatch(loginSuccess(res.data.token));
+      const respData = await requestGetDataUsuario(token);
+      console.log(respData.res);
+      dispatch(getUserSuccess(respData.res));
+    } catch (error) {}
   };
 
   return (

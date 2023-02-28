@@ -16,6 +16,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Skeleton,
 } from "@mui/material";
 import {
   Avatar,
@@ -122,7 +123,11 @@ const MenuUsuarioDesplegable = () => {
           aria-describedby={id}
           onClick={handleClick}
         >
-          {user.Usuario ? user.Usuario : "johnsmith"}
+          {user.Usuario ? (
+            user.Usuario
+          ) : (
+            <Skeleton variant="text" sx={{ fontSize: "1rem", width: "55px" }} />
+          )}
         </Button>
       )}
 
@@ -153,11 +158,13 @@ const MenuUsuarioDesplegable = () => {
               }}
               aria-label="recipe"
             >
-              {user.Apellidos &&
-                user.Nombres &&
+              {user.Apellidos && user.Nombres ? (
                 user.Apellidos.toString().charAt(0) +
-                  "" +
-                  user.Nombres.toString().charAt(0)}
+                "" +
+                user.Nombres.toString().charAt(0)
+              ) : (
+                <Skeleton variant="circular" width={40} height={40} />
+              )}
             </Avatar>
           }
           title={
@@ -167,9 +174,11 @@ const MenuUsuarioDesplegable = () => {
               sx={{ fontSize: "1.1rem", mb: "0" }}
               padding={0}
             >
-              {user.Apellidos && user.Nombres
-                ? user.Apellidos + " " + user.Nombres
-                : "John Doe Smith"}
+              {user.Apellidos && user.Nombres ? (
+                user.Apellidos + " " + user.Nombres
+              ) : (
+                <Skeleton variant="text" sx={{ fontSize: "1.1rem" }} />
+              )}
             </Typography>
           }
           subheader={
@@ -185,7 +194,14 @@ const MenuUsuarioDesplegable = () => {
                 sx={{ color: "action.active", mr: 1, my: 0.5 }}
                 fontSize="small"
               />
-              {user.Email ? user.Email : "userejemplo@gmail.com"}
+              {user.Email ? (
+                user.Email
+              ) : (
+                <Skeleton
+                  variant="text"
+                  sx={{ fontSize: "1rem", width: "150px" }}
+                />
+              )}
             </Typography>
           }
         />
