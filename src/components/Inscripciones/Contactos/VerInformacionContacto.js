@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //MUI
 import {
+  Box,
   Button,
   CardHeader,
   DialogActions,
@@ -26,30 +27,36 @@ import CopiarButton from "../../CopiarButton";
 import { SocialIcons } from "../../PerfilUsuario/SocialIcons";
 import MensajeFeedback from "../../MensajeFeedback";
 import { isValidUrl } from "../../../helpers/valiidarUrl";
+import { peticionListarContactos } from "../../../api/alumnos/gestionContactosApi";
+import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 
 //
-const contactosPrueba = [
-  {
-    Nombre: "Facebook",
-    Perfil: "https://www.facebook.com/userejemplo10",
-  },
-  { Nombre: "Whatsapp", Perfil: "+549381102030" },
-  { Nombre: "Github", Perfil: "https://github.com/userejemplo10" },
-  { Nombre: "Slack", Perfil: "https://slack.com/userejemplo10" },
-  { Nombre: "LinkedIn", Perfil: "https://linkedin.com/userejemplo10" },
-  { Nombre: "Gmail", Perfil: "userejemplo10@gmail.com" },
-  { Nombre: "Telefono", Perfil: "+549381102030" },
-];
 
 /*** Componente VerInformacionContacto ***/
 const VerInformacionContacto = ({ alumno, idAlumno }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
-  const [contactos, setContactos] = useState(contactosPrueba);
+  const [contactos, setContactos] = useState([]);
 
-  React.useEffect(() => {
-    console.log(alumno);
-  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  /******************************************
+   * Funcion para cargar los contactos del usuario
+   */
+  const listarContactos = async () => {
+    setIsLoading(true);
+    //Realizo peticion
+    try {
+      const respuesta = await peticionListarContactos(idAlumno);
+      console.log(respuesta.data.data.contactos);
+      setContactos(respuesta.data.data.contactos);
+    } catch (error) {
+      //Ocurrio un error
+      // const response = error.response.data;
+      // setErrors(response.data);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -59,7 +66,14 @@ const VerInformacionContacto = ({ alumno, idAlumno }) => {
         arrow
       >
         <span>
-          <IconButton color="secondary" size="small" onClick={handleOpen}>
+          <IconButton
+            color="secondary"
+            size="small"
+            onClick={() => {
+              handleOpen();
+              listarContactos();
+            }}
+          >
             <ContactsOutlinedIcon sx={{ fontSize: "1.4rem" }} />
           </IconButton>
         </span>
@@ -111,7 +125,13 @@ const VerInformacionContacto = ({ alumno, idAlumno }) => {
           <Divider />
 
           <List>
-            {contactos.length == 0 ? (
+            {isLoading && (
+              <Box component="div" display="flex" justifyContent="center">
+                <SpinnerMoonLoaderMedium />
+              </Box>
+            )}
+
+            {!isLoading && contactos.length == 0 && (
               <ListItem key="0">
                 <ListItemText>
                   <MensajeFeedback>
@@ -119,7 +139,10 @@ const VerInformacionContacto = ({ alumno, idAlumno }) => {
                   </MensajeFeedback>
                 </ListItemText>
               </ListItem>
-            ) : (
+            )}
+
+            {!isLoading &&
+              contactos.length != 0 &&
               contactos.map((contacto, indice) => {
                 return (
                   <ListItem
@@ -154,8 +177,7 @@ const VerInformacionContacto = ({ alumno, idAlumno }) => {
                     ></ListItemText>
                   </ListItem>
                 );
-              })
-            )}
+              })}
           </List>
         </DialogContent>
         <DialogActions>

@@ -36,23 +36,6 @@ import { SocialIcons } from "./SocialIcons";
 import Link from "@mui/material/Link";
 import { MoonLoader } from "react-spinners";
 
-const contactosPrueba = [
-  {
-    Nombre: "Facebook",
-    Perfil: "https://www.facebook.com/jonhsmith",
-  },
-  { Nombre: "Whatsapp", Perfil: "+549381102030" },
-  // { Nombre: "Whatsapp", Perfil: "+549386421392" },
-  { Nombre: "Github", Perfil: "https://github.com/..." },
-  { Nombre: "Slack", Perfil: "https://slack.com/..." },
-  { Nombre: "LinkedIn", Perfil: "https://linkedin.com/..." },
-  // { Nombre: "Twitter", Perfil: "https://github.com/..." },
-  { Nombre: "Gmail", Perfil: "jonhsmith2@gmail.com" },
-  // { Nombre: "Outlook", Perfil: "jonhsmith2" },
-  { Nombre: "Telefono", Perfil: "+549381102030" },
-  // { Nombre: "Correo", Perfil: "diaz" },
-];
-
 //Estilos para filas de la tabla
 const estilosCell = {
   // fontSize: "1em",
@@ -73,7 +56,7 @@ const isValidUrl = (urlString) => {
 
 /*** Componente PanelInformacionDeContactos ***/
 export default function PanelInformacionDeContactos() {
-  const [contactos, setContactos] = useState(contactosPrueba);
+  const [contactos, setContactos] = useState([]);
   //Varible para mostrar el spinner o progress
   const [isLoading, setIsLoading] = useState(true);
   //Recupero token
