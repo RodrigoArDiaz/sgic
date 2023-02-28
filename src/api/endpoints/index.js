@@ -116,10 +116,6 @@ const endpoints = {
 
   //
   buscarCatedras: rootUrl + "/buscarcatedras",
-
-  //Gestion notas
-  listarIntegrantes: rootUrl + "/listarintegrantes",
-  //
 };
 
 export { endpoints };

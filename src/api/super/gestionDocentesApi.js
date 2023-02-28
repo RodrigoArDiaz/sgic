@@ -8,7 +8,8 @@ const buscarDocenteUrl = rootUrl + "/buscar_docente";
 const altaDocenteUrl = rootUrl + "/alta_docente";
 const bajaDocenteUrl = rootUrl + "/baja_docente";
 const borrarDocenteUrl = rootUrl + "/borrar_docente";
-const modificarDocenteUrl = rootUrl + "/modificar_docente";
+// const modificarDocenteUrl = rootUrl + "/modificar_docente";
+const modificarDocenteUrl = rootUrl + "/modus";
 
 /****************************************************
  * Peticion para la creacion de docentes
@@ -189,9 +190,19 @@ export const peticionModificarDocente = (formData, token) => {
     token = localStorage.getItem("tkn");
   }
 
+  const credenciales = {
+    pUs: formData.Usuario,
+    pMail: formData.Email,
+    pDoc: formData.Documento,
+    pNom: formData.Nombres,
+    pAp: formData.Apellidos,
+  };
+
+  console.log(credenciales);
+
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.post(modificarDocenteUrl, formData, {
+      const res = await axios.post(modificarDocenteUrl, credenciales, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

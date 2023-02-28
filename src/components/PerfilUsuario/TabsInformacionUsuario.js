@@ -47,7 +47,8 @@ export default function TabsInformacionUsuario() {
 
   //Se chequea si el usuario es un alumno
   // const esAlumno = user.Tipo == "A" ? true : false;
-  const esAlumno = true;
+  //Se chequea si el usuario es un alumno
+  const esAlumno = localStorage.getItem("EsAl") == "S" ? true : false;
 
   const [value, setValue] = React.useState(0);
 

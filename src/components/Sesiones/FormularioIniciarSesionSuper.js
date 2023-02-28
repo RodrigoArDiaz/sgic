@@ -41,6 +41,7 @@ import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
 import { requestGetDataUsuario } from "../../api/sgicApi";
 import { getUserSuccess } from "../../store/slices/userSlice";
+import { peticionDameLibreta } from "../../api/alumnos/perfilApi";
 
 //Estilos
 const estiloFormControl = {
@@ -129,7 +130,7 @@ function FormularioIniciarSesionSuper() {
           localStorage.setItem("EsSA", response.SuperAdmin);
 
           //Actualizo datos usuario
-          ActualizarDatosUsuario(response.token);
+          ActualizarDatosUsuario(response.token, response.Alumno);
 
           //Redirecciono segun tipo de usuario
           if (response.Alumno === "S") {
@@ -158,14 +159,20 @@ function FormularioIniciarSesionSuper() {
   };
 
   //Actualizar datos usuario
-  const ActualizarDatosUsuario = async (token) => {
+  const ActualizarDatosUsuario = async (token, esAlumno) => {
     try {
       // const res = await loginAlumno(values);
       // const res = await peticionLoginUsuario(values);
       // dispatch(loginSuccess(res.data.token));
       const respData = await requestGetDataUsuario(token);
-      console.log(respData.res);
-      dispatch(getUserSuccess(respData.res));
+      const datosUsuario = respData.res;
+      if (esAlumno == "S") {
+        const response = await peticionDameLibreta(token);
+        datosUsuario.Libreta = response.data.res[0].libreta;
+        dispatch(getUserSuccess(datosUsuario));
+      } else {
+        dispatch(getUserSuccess(datosUsuario));
+      }
     } catch (error) {}
   };
 

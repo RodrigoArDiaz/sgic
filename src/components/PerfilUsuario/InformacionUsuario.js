@@ -19,7 +19,7 @@ const InformacionUsuario = () => {
   const { user } = useSelector((state) => state.user);
 
   //Se chequea si el usuario es un alumno
-  const esAlumno = user.Tipo == "A" ? true : false;
+  const esAlumno = localStorage.getItem("EsAl") == "S" ? true : false;
   // const esAlumno = true;
 
   return (
@@ -122,7 +122,7 @@ const InformacionUsuario = () => {
           <Box display="flex" flexDirection="row" gap={2} mt={1.5} mb={1.5}>
             <Typography variant="subtitle2">Documento: </Typography>
             <Typography sx={{ color: "text.subtitle2secondary" }}>
-              {user.Documento ? user.Documento : "10200300"}
+              {user.Documento ? user.Documento : "------"}
             </Typography>
           </Box>
 
@@ -130,7 +130,7 @@ const InformacionUsuario = () => {
             <Box display="flex" flexDirection="row" gap={2} mt={1.5} mb={1.5}>
               <Typography variant="subtitle2">Libreta: </Typography>
               <Typography sx={{ color: "text.subtitle2secondary" }}>
-                {user.Libreta ? user.Libreta : "14100200"}
+                {user.Libreta ? user.Libreta : "------"}
               </Typography>
             </Box>
           )}

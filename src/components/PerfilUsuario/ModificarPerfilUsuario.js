@@ -21,6 +21,12 @@ import { useModal } from "../../hooks/useModal";
 import { useTheme } from "@emotion/react";
 import { peticionModificarDocente } from "../../api/super/gestionDocentesApi";
 import { requestGetDataUsuario } from "../../api/sgicApi";
+import { routes } from "../../routes";
+import { useNavigate } from "react-router-dom";
+import {
+  peticionDameLibreta,
+  peticionModificarAlumno,
+} from "../../api/alumnos/perfilApi";
 
 const regexSoloNumeros = /^\d+$/;
 
@@ -56,6 +62,9 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
   //Recupero token
   const { token } = useSelector((state) => state.login);
 
+  //Navegacion con react router
+  const navegar = useNavigate();
+
   const valoresInicialesForm = {
     Nombres: user.Nombres,
     Apellidos: user.Apellidos,
@@ -76,12 +85,51 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
   });
 
   //Modifica usuarios tipo alumno
-  const handleModificarPerfilAlumno = () => {};
+  const handleModificarPerfilAlumno = async (values) => {
+    //
+    const formData = { ...values, ...{ IdUsuario: user.IdUsuario } };
+    console.log(formData);
+
+    //Realizo peticon
+    try {
+      const respuesta = await peticionModificarAlumno(formData, token);
+      //Si petiocion ok
+      handleClose();
+      enqueueSnackbar("Se modificó el perfil con exito.", {
+        variant: "success",
+      });
+      //Actualizo datos del usuario
+      const respData = await requestGetDataUsuario(token);
+      const datosUsuario = respData.res;
+      const response = await peticionDameLibreta(token);
+      datosUsuario.Libreta = response.data.res[0].libreta;
+      dispatch(getUserSuccess(datosUsuario));
+    } catch (error) {
+      if (error.response && error.response.status == 401) {
+        //Sesion caducada (sin autorización)
+        navegar(routes.iniciarSesion);
+      } else if (error.response && error.response.status == 460) {
+        const data = error.response.data;
+        // Tomo el primer error y lo muestro
+        const keys = Object.keys(data);
+        const clave = keys[0];
+        console.log(data[clave]);
+        enqueueSnackbar("Error: " + data[clave], {
+          variant: "error",
+        });
+      } else {
+        enqueueSnackbar("Error al modificar el perfil.", {
+          variant: "error",
+        });
+      }
+    }
+  };
 
   //Modificar usuario que no son alumnos
   const handleModificarPerfil = async (values) => {
     //
     const formData = { ...values, ...{ IdUsuario: user.IdUsuario } };
+    console.log(formData);
 
     //Realizo peticon
     try {
@@ -92,20 +140,29 @@ const ModificarPerfilUsuario = ({ esAlumno }) => {
         variant: "success",
       });
       //Actualizo datos del usuario
+      // const respData = await requestGetDataUsuario(token);
+      // dispatch(getUserSuccess(respData.Usuario));
       const respData = await requestGetDataUsuario(token);
-      dispatch(getUserSuccess(respData.Usuario));
+      console.log(respData.res);
+      dispatch(getUserSuccess(respData.res));
     } catch (error) {
-      console.log(error.response);
-      let mensajeSnack = "";
-      const data = error.response.data.data;
-      if ("mensaje" in data) {
-        mensajeSnack = data.mensaje;
+      if (error.response && error.response.status == 401) {
+        //Sesion caducada (sin autorización)
+        navegar(routes.iniciarSesion);
+      } else if (error.response && error.response.status == 460) {
+        const data = error.response.data;
+        // Tomo el primer error y lo muestro
+        const keys = Object.keys(data);
+        const clave = keys[0];
+        console.log(data[clave]);
+        enqueueSnackbar("Error: " + data[clave], {
+          variant: "error",
+        });
       } else {
-        mensajeSnack = data[0];
+        enqueueSnackbar("Error al modificar el perfil.", {
+          variant: "error",
+        });
       }
-      enqueueSnackbar(`Error: ${mensajeSnack}`, {
-        variant: "error",
-      });
     }
   };
 

@@ -159,6 +159,10 @@ export const logoutUsuario = (token) => {
  * @returns
  */
 export const requestGetDataUsuario = (token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(
