@@ -1,5 +1,6 @@
 import React from "react";
-import { Edit, EditOutlined } from "@mui/icons-material";
+//MUI
+import { EditOutlined } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -9,6 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
+//
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
@@ -39,6 +41,7 @@ const validaciones = yup.object({
   Libreta: yup.string().required("Este campo es obligatorio"),
 });
 
+/*** Componente ModificarPerfilUsuario ***/
 const ModificarPerfilUsuario = ({ esAlumno }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   //

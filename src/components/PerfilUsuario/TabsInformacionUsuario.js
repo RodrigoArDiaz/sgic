@@ -5,7 +5,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
-import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 //Componentes propios
@@ -42,6 +41,7 @@ function a11yProps(index) {
   };
 }
 
+/*** Componente TabsInformacionUsuario ***/
 export default function TabsInformacionUsuario() {
   const { user } = useSelector((state) => state.user);
 

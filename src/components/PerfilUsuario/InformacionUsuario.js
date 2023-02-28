@@ -1,3 +1,5 @@
+import React from "react";
+//MUI
 import {
   Avatar,
   CardActions,
@@ -6,18 +8,15 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import React from "react";
-// import ModificarContrasenia from "./PanelSeguridad";
-import ModificarPerfilUsuario from "./ModificarPerfilUsuario";
 import { useTheme } from "@emotion/react";
+//
+import ModificarPerfilUsuario from "./ModificarPerfilUsuario";
+import { useSelector } from "react-redux";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 
 const InformacionUsuario = () => {
   const { user } = useSelector((state) => state.user);
-  //
-  const theme = useTheme();
 
   //Se chequea si el usuario es un alumno
   const esAlumno = user.Tipo == "A" ? true : false;

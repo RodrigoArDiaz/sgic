@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import TabsInformacionUsuario from "./TabsInformacionUsuario";
 import InformacionUsuario from "./InformacionUsuario";
 
+/*** Componente PaginaPerfilUsuario ***/
 export default function PerfilContenedor() {
   return (
     <>

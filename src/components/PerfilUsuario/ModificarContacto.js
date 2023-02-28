@@ -20,7 +20,6 @@ import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
 //Peticiones
 import { peticionModificarContacto } from "../../api/alumnos/gestionContactosApi";
-import { blue } from "@mui/material/colors";
 import { EditOutlined } from "@mui/icons-material";
 
 const validaciones = yup.object({
@@ -28,6 +27,7 @@ const validaciones = yup.object({
   redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
+/*** Componente ModificarContacto ***/
 export const ModificarContacto = ({ contacto, modificarContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -104,14 +104,14 @@ export const ModificarContacto = ({ contacto, modificarContacto }) => {
 
   return (
     <>
-      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <IconButton
           edge="end"
           aria-label="modificar"
           // color="secondary"
-
+          color="secondary"
           onClick={handleOpen}
-          sx={{ mr: "1rem", color: blue[500] }}
+          sx={{ mr: "1rem" }}
         >
           <ModeEditOutlinedIcon />
         </IconButton>

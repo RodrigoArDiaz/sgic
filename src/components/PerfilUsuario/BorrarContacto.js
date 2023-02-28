@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { peticionBorrarContacto } from "../../api/alumnos/gestionContactosApi";
 import { red } from "@mui/material/colors";
 
+/*** Componente BorrarContacto ***/
 export const BorrarContacto = ({ contacto, borrarContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -60,13 +61,12 @@ export const BorrarContacto = ({ contacto, borrarContacto }) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <IconButton
           edge="end"
           aria-label="delete"
-          // color="secondary"
+          color="secondary"
           onClick={handleOpen}
-          sx={{ color: red[500] }}
         >
           <DeleteOutlined />
         </IconButton>

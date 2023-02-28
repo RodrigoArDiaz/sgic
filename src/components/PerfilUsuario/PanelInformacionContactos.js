@@ -24,19 +24,16 @@ import {
 } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 //
 import { CrearContacto } from "./CrearContacto";
 import { BorrarContacto } from "./BorrarContacto";
 import { ModificarContacto } from "./ModificarContacto";
-import { CardMain } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 
 import { peticionListarContactos } from "../../api/alumnos/gestionContactosApi";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { SocialIcons } from "./SocialIcons";
 import Link from "@mui/material/Link";
-import CopiarButton from "../CopiarButton";
 import { MoonLoader } from "react-spinners";
 
 const contactosPrueba = [
@@ -74,6 +71,7 @@ const isValidUrl = (urlString) => {
   }
 };
 
+/*** Componente PanelInformacionDeContactos ***/
 export default function PanelInformacionDeContactos() {
   const [contactos, setContactos] = useState(contactosPrueba);
   //Varible para mostrar el spinner o progress
