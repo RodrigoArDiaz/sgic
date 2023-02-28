@@ -8,11 +8,9 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSnackbar } from "notistack";
-
 //hooks personalizados
 import { useModal } from "../../hooks/useModal";
 import { useSelector } from "react-redux";
@@ -23,6 +21,7 @@ const validaciones = yup.object({
   redSocial: yup.string().required("Este campo es obligatorio"),
 });
 
+/***  Componente CrearContacto*/
 export const CrearContacto = ({ crearContacto }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();

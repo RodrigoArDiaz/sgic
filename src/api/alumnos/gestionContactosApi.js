@@ -2,15 +2,10 @@ import axios from "axios";
 import { rootUrl } from "../rootUrl";
 
 //Endpoints
-// const rootUrl = "http://127.0.0.1:8000/api";
 const listarContactosAlumnoUrl = rootUrl + "/listar_contactos";
 const agregarContactoAlumnoUrl = rootUrl + "/agregar_contacto";
 const borrarContactoAlumnoUrl = rootUrl + "/borrar_contacto";
 const modificarContactoAlumnoUrl = rootUrl + "/modificar_contacto";
-
-// const buscarMisCursadasUrl = rootUrl + "/buscarmiscursadas";
-// const buscarCursadasInscripcionUrl = rootUrl + "/buscarcursadaseninscripcion";
-// const inscribirmeEnCursadaUrl = rootUrl + "/inscribirme";
 
 /****************************************************
  * Peticion para el listado de contactos de un usuario
@@ -18,6 +13,10 @@ const modificarContactoAlumnoUrl = rootUrl + "/modificar_contacto";
  * @returns
  */
 export const peticionListarContactos = (IdUsuario, token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -44,6 +43,10 @@ export const peticionListarContactos = (IdUsuario, token) => {
  * @returns
  */
 export const peticionAgregarContacto = (IdUsuario, formData, token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -72,6 +75,10 @@ export const peticionAgregarContacto = (IdUsuario, formData, token) => {
  * @returns
  */
 export const peticionBorrarContacto = (IdUsuario, IdContacto, token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
@@ -104,6 +111,10 @@ export const peticionModificarContacto = (
   formData,
   token
 ) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,

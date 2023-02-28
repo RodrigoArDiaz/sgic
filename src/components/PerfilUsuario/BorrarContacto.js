@@ -12,7 +12,6 @@ import { DeleteOutlined } from "@mui/icons-material";
 import { useModal } from "../../hooks/useModal";
 import { useSelector } from "react-redux";
 import { peticionBorrarContacto } from "../../api/alumnos/gestionContactosApi";
-import { red } from "@mui/material/colors";
 
 /*** Componente BorrarContacto ***/
 export const BorrarContacto = ({ contacto, borrarContacto }) => {
