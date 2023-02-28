@@ -1,22 +1,24 @@
 import React from "react";
+//MUI
 import { Box, CardContent, Divider, Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
-import NotasContenedorPracticos from "./NotasContenedorPracticos";
-import NotasContenedorExamenes from "./NotasExamenes/NotasContenedorExamenes";
-import SituacionFinalContenedor from "./SituacionFinal/SituacionFinalContenedor";
 import { useSelector } from "react-redux";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-// import TabContext from "@mui/lab/TabContext";
-import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import {
   ArticleOutlined,
   AssignmentOutlined,
   GradingOutlined,
 } from "@mui/icons-material";
+//
+import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
 import { TabCustom } from "../Material UI - Componentes Modificados/TabCustom";
+import NotasContenedorPracticos from "./NotasContenedorPracticos";
+import NotasContenedorExamenes from "./NotasExamenes/NotasContenedorExamenes";
+import SituacionFinalContenedor from "./SituacionFinal/SituacionFinalContenedor";
 
+/*** Componente PaginaDocentesNotas ***/
 export default function NotasContenedor(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
@@ -24,6 +26,7 @@ export default function NotasContenedor(props) {
   const [titulo, setTitulo] = React.useState("Trabajos Prácticos");
   const [cambiocontexto, setCT] = React.useState("1");
 
+  //
   const handleChange = (event, newValue) => {
     setCT(newValue);
   };

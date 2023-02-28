@@ -1,4 +1,5 @@
 import * as React from "react";
+//MUI
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -7,9 +8,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import { Grid } from "@mui/material";
+//
 import * as Responses from "../../Responses";
 import { useNavigate } from "react-router-dom";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente BotonEstados ***/
 export default function BotonEstados(props) {
   const navegar = useNavigate();
 
@@ -24,10 +29,7 @@ export default function BotonEstados(props) {
       pidCu: props.cursada.IdCursada,
     };
     setSalto("2");
-    Responses.consultas(
-      data,
-      "http://127.0.0.1:8000/api/modificarestadoinscripto"
-    )
+    Responses.consultas(data, endpoints.modificarEstadoInscripto)
       .then((response) => {
         if (Responses.status === 200) {
           props.mensaje(response.Mensaje);
@@ -38,7 +40,7 @@ export default function BotonEstados(props) {
           setSalto("1");
           setAge(event.target.value);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           if (response.Advertencia !== undefined) {
             props.mensaje(response.Advertencia);
@@ -56,11 +58,11 @@ export default function BotonEstados(props) {
             setSalto("1");
           }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   };
 
@@ -68,13 +70,7 @@ export default function BotonEstados(props) {
     return (
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <Select
-            value={age}
-            onChange={handleChange}
-            displayEmpty
-            size="small"
-            //inputProps={{ 'aria-label': 'Without label' }}
-          >
+          <Select value={age} onChange={handleChange} displayEmpty size="small">
             <MenuItem value={"C"}>Cursando</MenuItem>
             <MenuItem value={"R"}>Regular</MenuItem>
             <MenuItem value={"A"}>Aprobado</MenuItem>

@@ -1,27 +1,17 @@
 import React from "react";
-import {
-  Box,
-  CardContent,
-  Divider,
-  Paper,
-  Typography,
-  Zoom,
-} from "@mui/material";
+//MUI
+import { Box, CardContent, Divider, Zoom } from "@mui/material";
 import { Grid } from "@mui/material";
+import DialogContent from "@mui/material/DialogContent";
+import { Button } from "@mui/material";
+import { Tooltip } from "@mui/material";
+//
 import ECExamenesLista from "./ECExamenesLista";
 import { ExamenCorEnc } from "./ExamenCorEnc";
 import BuscarAlumnos from "../BuscarAlumnos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import { useModal } from "../../../hooks/useModal";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
-import { Tooltip } from "@mui/material";
 import * as Responses from "../../Responses";
 import DialogFullCustom from "../../Material UI - Componentes Modificados/DialogFullCustom";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
@@ -31,7 +21,10 @@ import {
   colorMainSpinner,
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente ECContenedorExamenes ***/
 export default function ECContenedorExamenes(props) {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const navegar = useNavigate();
@@ -44,8 +37,6 @@ export default function ECContenedorExamenes(props) {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState("1"); //Espera al consultar
 
-  //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
@@ -55,24 +46,21 @@ export default function ECContenedorExamenes(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarecexamenes"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarECExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -83,7 +71,7 @@ export default function ECContenedorExamenes(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(parametro, "http://127.0.0.1:8000/api/buscarecexamenes")
+    Responses.consultas(parametro, endpoints.buscarECExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -92,15 +80,15 @@ export default function ECContenedorExamenes(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -112,21 +100,21 @@ export default function ECContenedorExamenes(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarecexamenes")
+    Responses.consultas(datos, endpoints.buscarECExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -141,7 +129,7 @@ export default function ECContenedorExamenes(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarecexamenes")
+    Responses.consultas(datos, endpoints.buscarECExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -149,15 +137,15 @@ export default function ECContenedorExamenes(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -176,7 +164,7 @@ export default function ECContenedorExamenes(props) {
     setPagina(1);
     setDC(data);
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarecexamenes")
+    Responses.consultas(data, endpoints.buscarECExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -184,15 +172,15 @@ export default function ECContenedorExamenes(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
 

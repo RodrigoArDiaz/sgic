@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
 import Stack from "@mui/material/Stack";
+import { blue } from "@mui/material/colors";
+
 import {
   Box,
   FormControl,
@@ -28,16 +30,10 @@ import {
 } from "../../Material UI - Componentes Modificados/ComponentesTabla.js";
 import { TableCellEditable } from "../../Material UI - Componentes Modificados/ComponentesNotas/ComponentesNotas.js";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom.js";
-import { blue } from "@mui/material/colors";
 
-/********************************************************************
- * Componente
- */
+/*** Componente SituacionFinalLista ***/
 export default function SituacionFinalLista(props) {
-  React.useEffect(() => {
-    console.log(props.filas.res2);
-  }, []);
-
+  //Datos columna tabla
   var columns = [
     {
       id: "Apellidos",
@@ -127,14 +123,7 @@ export default function SituacionFinalLista(props) {
   return (
     <>
       <TableContainer sx={{ maxHeight: "none" }} size="medium">
-        <Table
-          aria-label="Lista de alumnos y su situacion final"
-          // sx={{
-          //   mb: "1rem",
-          //   borderCollapse: "collapse",
-          // }}
-          size="small"
-        >
+        <Table aria-label="Lista de alumnos y su situacion final" size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => {
@@ -268,14 +257,6 @@ export default function SituacionFinalLista(props) {
                     } else if (column.id === "NotaFinal") {
                       return (
                         <TableCell1em key={column.id} align={column.align}>
-                          {/* {column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : (
-                            <BotonNC Nota={row.NotaFinal} />
-                          )} */}
-                          {/* 
-                          {Number.parseFloat(row.NotaFinal).toFixed(2)} */}
-
                           <FormControl
                             sx={{ m: 1, width: 60 }}
                             variant="outlined"

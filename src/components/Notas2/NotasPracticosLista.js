@@ -1,12 +1,13 @@
 import * as React from "react";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { BotonNota } from "./BotonNota";
 import Stack from "@mui/material/Stack";
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+//
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import ECContenedorPracticos from "./EnCorPracticos/ECContenedorPracticos";
 import Row from "./Row";
@@ -16,7 +17,9 @@ import {
   TableCellHead,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import AvatarCustom from "../Material UI - Componentes Modificados/AvatarCustom";
+import { BotonNota } from "./BotonNota";
 
+/*** Componente NotasPracticosLista ***/
 export default function NotasPracticosLista(props) {
   var columns = [
     {

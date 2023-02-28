@@ -26,10 +26,10 @@ import { OutlinedInputEditable } from "../../Material UI - Componentes Modificad
 import { useModal } from "../../../hooks/useModal";
 import DialogCustom from "../../Material UI - Componentes Modificados/DialogCustom";
 import { ErrorOutline } from "@mui/icons-material";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
-/*****************************************
- * Componente 'BotonNotaGrupo'
- */
+/*** Componente BotonNotaGrupo ***/
 export const BotonNFL = (props) => {
   //Para estilos
   const theme = useTheme();
@@ -112,14 +112,6 @@ export const BotonNFL = (props) => {
   const enviarPeticion = (notaParam) => {
     setLoading(true);
     //Estructura de datos a enviar
-    // var data = {
-    //   pNota: notaParam,
-    //   pidAl: props.IdUsuario,
-    //   //pidG: props.IdGrupo,
-    //   pidDoc: localStorage.getItem("tkn2"), //IdDocente aunque aqui va el token
-    //   pidE: props.IdExamen,
-    //   pidCu: props.cursada.IdCursada,
-    // };
     var data = {
       pidUs: props.pidUs,
       pidCu: props.cursada.IdCursada,
@@ -129,39 +121,23 @@ export const BotonNFL = (props) => {
       pNota: notaParam,
     };
     //Peticion
-    Responses.consultas(data, "http://127.0.0.1:8000/api/modificarinscripcion")
+    Responses.consultas(data, endpoints.modificarInscripcion)
       .then((response) => {
         setLoading(false);
         if (Responses.status === 200) {
-          // if (parseInt(notaParam) === 0) {
-          //   setNombre("-");
-          //   props.mensaje("Nota modificada: " + "-");
-          // } else {
-          //   setNombre(notaParam);
           props.mensaje("Nota modificada: " + notaParam);
           props.abrir(true);
           props.tipo("success");
           setNota(notaParam);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
-          // setTexto("");
-          // setSalto("1");
-          // if (response.nota1 !== undefined) {
-          //   props.abrir(true);
-          //   props.mensaje(response.nota1);
-          //   props.tipo("error");
-          // } else if (response.nota2 !== undefined) {
-          //   props.abrir(true);
-          //   props.mensaje(response.nota2);
-          //   props.tipo("error");
-          // }
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   };
 

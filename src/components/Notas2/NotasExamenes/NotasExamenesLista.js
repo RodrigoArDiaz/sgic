@@ -1,13 +1,15 @@
 import * as React from "react";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import ECContenedorExamenes from "../EnCorExamenes/ECContenedorExamenes";
-import { BotonNota } from "./BotonNota";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
+//
+import ECContenedorExamenes from "../EnCorExamenes/ECContenedorExamenes";
+import { BotonNota } from "./BotonNota";
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import {
@@ -17,6 +19,7 @@ import {
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 
+/*** Componente NotasExamenesLista ***/
 export default function NotasExamenesLista(props) {
   //
   var columns = [

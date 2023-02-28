@@ -4,7 +4,7 @@ import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
 import CopiarButton from "../../CopiarButton";
 import { isValidUrl } from "../../../helpers/valiidarUrl";
 
-//Componente
+/*** Componente ECVisual ***/
 export default function ECVisual({ label, type, ...props }) {
   React.useEffect(() => {
     console.log(props.valor);
@@ -41,26 +41,3 @@ export default function ECVisual({ label, type, ...props }) {
     </>
   );
 }
-
-// import * as React from "react";
-// import Box from "@mui/material/Box";
-// import TextField from "@mui/material/TextField";
-// import OutlinedInput from "@mui/material/OutlinedInput";
-// import FormControl from "@mui/material/FormControl";
-
-// export default function ECVisual(props) {
-//   //const [texto, setT] = React.useState(props.valor);
-//   return (
-//     <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-//       <OutlinedInput
-//         id="outlined-adornment-weight"
-//         value={props.valor}
-//         size="small"
-//         aria-describedby="outlined-weight-helper-text"
-//         inputProps={{
-//           readOnly: true,
-//         }}
-//       />
-//     </FormControl>
-//   );
-// }

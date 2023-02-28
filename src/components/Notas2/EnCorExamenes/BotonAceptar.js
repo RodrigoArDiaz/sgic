@@ -1,18 +1,17 @@
 import * as React from "react";
+//MUI
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip, Zoom } from "@mui/material";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
+//
 import DialogCustom from "../../Material UI - Componentes Modificados/DialogCustom";
 
+/*** Componente BotonAceptar ***/
 export default function BotonAceptar(props) {
   const [open, setOpen] = React.useState(false);
 

@@ -6,10 +6,8 @@ import { Box, Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  CustomerToggleButton,
-  OutlinedInputSearch,
-} from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+//
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 const formInicial = {
   nombres: "",
@@ -17,6 +15,7 @@ const formInicial = {
   libreta: "",
 };
 
+/*** Componente BuscarAlumnos ***/
 export default function BuscarAlumnos(props) {
   const [form, setForm] = useState(formInicial);
 
@@ -159,7 +158,6 @@ export default function BuscarAlumnos(props) {
             <Button
               variant="outlined"
               size="medium"
-              // startIcon={<SearchIcon />}
               onClick={() => {
                 manejador();
               }}
@@ -167,16 +165,6 @@ export default function BuscarAlumnos(props) {
               <SearchIcon />
             </Button>
           </Box>
-          {/* <CustomerToggleButton
-            value="check"
-            size="small"
-            selected={false}
-            onClick={() => {
-              manejador();
-            }}
-          >
-            <SearchIcon color="primary" />
-          </CustomerToggleButton> */}
         </Grid>
       </Grid>
     </Box>

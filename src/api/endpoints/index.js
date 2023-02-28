@@ -99,6 +99,17 @@ const endpoints = {
   inscribirAlumno: rootUrl + "/inscribiralumno",
   modificarInscripcion: rootUrl + "/modificarinscripcion",
   borrarInscripcion: rootUrl + "/borrarinscripcion",
+  //**Notas
+  buscarNotasPracticos: rootUrl + "/buscarnotaspracticos",
+  buscarECPracticos: rootUrl + "/buscarecpracticos",
+  modificarECPra: rootUrl + "/modificarecpra",
+  modificarNotaPractico: rootUrl + "/modificarnotapractico",
+  buscarNotasExamenes: rootUrl + "/buscarnotasexamenes",
+  buscarECExamenes: rootUrl + "/buscarecexamenes",
+  modificarECEx: rootUrl + "/modificarecex",
+  modificarNotaExamen: rootUrl + "/modificarnotaexamen",
+  buscarSituacionFinal: rootUrl + "/buscarsituacionfinal",
+  modificarEstadoInscripto: rootUrl + "/modificarestadoinscripto",
 
   //Gestionar cursadas (administrador)
   borrarCursada: rootUrl + "/borrarcursada",
@@ -109,7 +120,6 @@ const endpoints = {
   //Gestion notas
   listarIntegrantes: rootUrl + "/listarintegrantes",
   //
-  modificarecpra: rootUrl + "/modificarecpra",
 };
 
 export { endpoints };

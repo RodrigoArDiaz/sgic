@@ -1,10 +1,12 @@
 import * as React from "react";
+//MUI
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Grid } from "@mui/material";
 
+/*** Componente BotonTipo ***/
 export default function BotonTipo(props) {
   const [anio, setAnio] = React.useState("25");
 

@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  Button,
-  Chip,
-  Divider,
-  IconButton,
-  Tooltip,
-  Typography,
-  Zoom,
-} from "@mui/material";
+//MUI
+import { Chip, IconButton, Tooltip, Typography, Zoom } from "@mui/material";
 import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
-import CopiarButton from "../../CopiarButton";
+//
 import { isValidUrl } from "../../../helpers/valiidarUrl";
 
+/*** Componente CorreccionesVisual ***/
 export default function CorreccionesVisual({ label, type, ...props }) {
   React.useEffect(() => {
     console.log(props.valor);

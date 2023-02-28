@@ -1,10 +1,12 @@
 import React from "react";
+//MUI
 import { Chip, IconButton, Tooltip, Typography, Zoom } from "@mui/material";
 import LinkOffOutlinedIcon from "@mui/icons-material/LinkOffOutlined";
+//
 import CopiarButton from "../../CopiarButton";
 import { isValidUrl } from "../../../helpers/valiidarUrl";
 
-//Componente
+/*** Componente ECVisual ***/
 export default function ECVisual({ label, type, ...props }) {
   React.useEffect(() => {
     console.log(props.valor);

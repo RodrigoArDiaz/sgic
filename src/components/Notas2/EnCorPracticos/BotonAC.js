@@ -1,19 +1,23 @@
 import React from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
 import { Box, Divider, Tooltip, Zoom } from "@mui/material";
-import BotonAceptar from "./BotonAceptar";
-import ECVisual from "./ECVisual";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useNavigate } from "react-router-dom";
-import * as Responses from "../../Responses";
 import {
   CheckCircleOutlineOutlined,
   DeleteOutlineOutlined,
 } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
+//React router
+import { useNavigate } from "react-router-dom";
+//
+import BotonAceptar from "./BotonAceptar";
+import ECVisual from "./ECVisual";
+import * as Responses from "../../Responses";
 import CorreccionesVisual from "./CorreccionesVisual";
 import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
-//Componente
+/*** Componente BotonAC ***/
 export const BotonAC = (props) => {
   const navegar = useNavigate();
 
@@ -39,7 +43,7 @@ export const BotonAC = (props) => {
           };
           setSalto(false);
 
-          Responses.consultas(data, endpoints.modificarecpra)
+          Responses.consultas(data, endpoints.modificarECPra)
             .then((response) => {
               if (Responses.status === 200) {
                 props.mensaje("Enunciado modificado");
@@ -49,15 +53,13 @@ export const BotonAC = (props) => {
 
                 setSalto(props.param1);
               } else if (Responses.status === 401) {
-                // navegar("/ingreso");
-                // console.log(Responses);
+                navegar(routes.iniciarSesion);
               } else {
-                navegar("/error");
+                navegar(routes.error);
               }
             })
             .catch((error) => {
-              navegar("/error");
-              console.log(error);
+              navegar(routes.error);
             });
         }
       } else {
@@ -84,7 +86,7 @@ export const BotonAC = (props) => {
       };
 
       setSalto(false);
-      Responses.consultas(data, endpoints.modificarecpra)
+      Responses.consultas(data, endpoints.modificarECPra)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("-");
@@ -94,13 +96,13 @@ export const BotonAC = (props) => {
 
             props.tipo2("warning");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }
@@ -117,7 +119,7 @@ export const BotonAC = (props) => {
             pidCu: props.cursada.IdCursada,
           };
           setSalto2(false);
-          Responses.consultas(data, endpoints.modificarecpra)
+          Responses.consultas(data, endpoints.modificarECPra)
             .then((response) => {
               if (Responses.status === 200) {
                 props.mensaje("Enunciado modificado");
@@ -127,13 +129,13 @@ export const BotonAC = (props) => {
 
                 setSalto2(props.param2);
               } else if (Responses.status === 401) {
-                navegar("/ingreso");
+                navegar(routes.iniciarSesion);
               } else {
-                navegar("/error");
+                navegar(routes.error);
               }
             })
             .catch((error) => {
-              navegar("/error");
+              navegar(routes.error);
             });
         }
       } else {
@@ -160,7 +162,7 @@ export const BotonAC = (props) => {
       };
 
       setSalto2(false);
-      Responses.consultas(data, endpoints.modificarecpra)
+      Responses.consultas(data, endpoints.modificarECPra)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto2("-");
@@ -170,13 +172,13 @@ export const BotonAC = (props) => {
 
             props.tipo2("warning");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }

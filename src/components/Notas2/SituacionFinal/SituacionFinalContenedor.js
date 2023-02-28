@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+//MUI
+import { Box, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
+import { green, red } from "@mui/material/colors";
+//
 import SituacionFinalLista from "./SituacionFinalLista";
 import BuscarAlumnos from "../BuscarAlumnos";
-import Stack from "@mui/material/Stack";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
 import SnackMensajes from "../../GestionCatedrasSuper/SnackMensajes";
 import * as Responses from "../../Responses";
@@ -14,11 +15,10 @@ import {
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners";
 import MensajeFeedback from "../../MensajeFeedback";
-import { green, red } from "@mui/material/colors";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
-/********************************************************************************/
-/* Componente
- */
+/*** Componente SituacionFinalContenedor ***/
 export default function SituacionFinalContenedor(props) {
   const navegar = useNavigate();
 
@@ -37,24 +37,21 @@ export default function SituacionFinalContenedor(props) {
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarsituacionfinal"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarSituacionFinal)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          // navegar("/error");
+          //  navegar(routes.error);
         }
       })
       .catch((error) => {
-        // navegar("/error");
+        //  navegar(routes.error);
       });
   }
 
@@ -64,10 +61,7 @@ export default function SituacionFinalContenedor(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(
-      parametro,
-      "http://127.0.0.1:8000/api/buscarsituacionfinal"
-    )
+    Responses.consultas(parametro, endpoints.buscarSituacionFinal)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -76,15 +70,15 @@ export default function SituacionFinalContenedor(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          // navegar("/error");
+          //  navegar(routes.error);
         }
       })
       .catch((error) => {
-        // navegar("/error");
+        //  navegar(routes.error);
       });
   }
 
@@ -96,24 +90,21 @@ export default function SituacionFinalContenedor(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarsituacionfinal"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarSituacionFinal)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -128,7 +119,7 @@ export default function SituacionFinalContenedor(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarsituacionfinal")
+    Responses.consultas(datos, endpoints.buscarSituacionFinal)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -136,15 +127,15 @@ export default function SituacionFinalContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -160,9 +151,7 @@ export default function SituacionFinalContenedor(props) {
     setPagina(1);
     setDC(data);
 
-    console.log(data);
-
-    Responses.consultas(data, "http://127.0.0.1:8000/api/buscarsituacionfinal")
+    Responses.consultas(data, endpoints.buscarSituacionFinal)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -170,15 +159,15 @@ export default function SituacionFinalContenedor(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          // navegar("/error");
+          //  navegar(routes.error);
         }
       })
       .catch((error) => {
-        // navegar("/error");
+        //  navegar(routes.error);
       });
   }, []);
 

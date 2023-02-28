@@ -1,23 +1,16 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
+//MUI
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { esES } from "@mui/material/locale";
-import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import { Tooltip } from "@mui/material";
+//
 import FilasPorPagina from "../../GestionCatedrasSuper/FilasPorPagina";
-import ECVisual from "./ECVisual";
 import { BotonAC } from "./BotonAC";
 import {
   TableCell1em,
@@ -26,7 +19,8 @@ import {
 import PaginationCustom from "../../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 
-export default function StickyHeadTable(props) {
+/*** Componente ECExamenesLista ***/
+export default function ECExamenesLista(props) {
   React.useEffect(() => {
     console.log(props.filas.res);
   }, []);

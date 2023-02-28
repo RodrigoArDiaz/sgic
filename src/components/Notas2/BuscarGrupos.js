@@ -6,15 +6,14 @@ import { Box, Button, Grid } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  CustomerToggleButton,
-  OutlinedInputSearch,
-} from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
+//
+import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 
 const formInicial = {
   grupo: "",
 };
 
+/*** Componente BuscarGrupos ***/
 export default function BuscarGrupos(props) {
   const [form, setForm] = useState(formInicial);
 
@@ -98,14 +97,6 @@ export default function BuscarGrupos(props) {
         </Grid>
 
         <Grid item xs="auto" sm="auto" alignSelf="center">
-          {/* <CustomerToggleButton
-            value="check"
-            size="small"
-            selected={false}
-            onClick={() => {
-              manejador();
-            }}
-          > */}
           <Button
             variant="outlined"
             onClick={() => {
@@ -114,8 +105,6 @@ export default function BuscarGrupos(props) {
           >
             <SearchIcon color="primary" />
           </Button>
-
-          {/* </CustomerToggleButton> */}
         </Grid>
       </Grid>
     </Box>

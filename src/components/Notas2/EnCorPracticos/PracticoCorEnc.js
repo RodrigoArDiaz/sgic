@@ -1,7 +1,9 @@
 import React from "react";
+//MUI
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
 
+/*** Componente PracticoCorEnc ***/
 export const PracticoCorEnc = (props) => {
   const [enunciados, setEnc] = React.useState("");
   const [correcciones, setCor] = React.useState("");

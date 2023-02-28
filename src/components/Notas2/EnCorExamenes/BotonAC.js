@@ -1,18 +1,21 @@
 import * as React from "react";
+//MUI
 import IconButton from "@mui/material/IconButton";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import { Box, Divider, Tooltip, Zoom } from "@mui/material";
-import BotonAceptar from "./BotonAceptar";
-import ECVisual from "./ECVisual";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useNavigate } from "react-router-dom";
-import * as Responses from "../../Responses";
 import {
   CheckCircleOutlineOutlined,
   DeleteOutlineOutlined,
 } from "@mui/icons-material";
+//
+import BotonAceptar from "./BotonAceptar";
+import ECVisual from "./ECVisual";
+import { useNavigate } from "react-router-dom";
+import * as Responses from "../../Responses";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente BotonAC ***/
 export const BotonAC = (props) => {
   const navegar = useNavigate();
 
@@ -35,7 +38,7 @@ export const BotonAC = (props) => {
             pidCu: props.cursada.IdCursada,
           };
           setSalto(false);
-          Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
+          Responses.consultas(data, endpoints.modificarECEx)
             .then((response) => {
               if (Responses.status === 200) {
                 props.mensaje("Enunciado modificado");
@@ -45,13 +48,13 @@ export const BotonAC = (props) => {
 
                 setSalto(props.param1);
               } else if (Responses.status === 401) {
-                // navegar("/ingreso");
+                navegar(routes.iniciarSesion);
               } else {
-                // navegar("/error");
+                navegar(routes.error);
               }
             })
             .catch((error) => {
-              // navegar("/error");
+              navegar(routes.error);
             });
         }
       } else {
@@ -78,7 +81,7 @@ export const BotonAC = (props) => {
       };
 
       setSalto(false);
-      Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
+      Responses.consultas(data, endpoints.modificarECEx)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("-");
@@ -88,13 +91,13 @@ export const BotonAC = (props) => {
 
             props.tipo2("warning");
           } else if (Responses.status === 401) {
-            navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }
@@ -112,7 +115,7 @@ export const BotonAC = (props) => {
             pidCu: props.cursada.IdCursada,
           };
           setSalto2(false);
-          Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
+          Responses.consultas(data, endpoints.modificarECEx)
             .then((response) => {
               if (Responses.status === 200) {
                 props.mensaje("Enunciado modificado");
@@ -122,13 +125,13 @@ export const BotonAC = (props) => {
 
                 setSalto2(props.param2);
               } else if (Responses.status === 401) {
-                navegar("/ingreso");
+                navegar(routes.iniciarSesion);
               } else {
-                navegar("/error");
+                navegar(routes.error);
               }
             })
             .catch((error) => {
-              navegar("/error");
+              navegar(routes.error);
             });
         }
       } else {
@@ -154,7 +157,7 @@ export const BotonAC = (props) => {
         pidCu: props.cursada.IdCursada,
       };
       setSalto2(false);
-      Responses.consultas(data, "http://127.0.0.1:8000/api/modificarecex")
+      Responses.consultas(data, endpoints.modificarECEx)
         .then((response) => {
           if (Responses.status === 200) {
             setSalto2("-");
@@ -164,13 +167,13 @@ export const BotonAC = (props) => {
 
             props.tipo2("warning");
           } else if (Responses.status === 401) {
-            // navegar("/ingreso");
+            navegar(routes.iniciarSesion);
           } else {
-            navegar("/error");
+            navegar(routes.error);
           }
         })
         .catch((error) => {
-          navegar("/error");
+          navegar(routes.error);
         });
     }
   }

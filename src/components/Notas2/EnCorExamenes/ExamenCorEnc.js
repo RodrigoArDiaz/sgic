@@ -1,7 +1,9 @@
 import React from "react";
+//MUI
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
 
+/*** Componente ExamenCorEnc ***/
 export const ExamenCorEnc = (props) => {
   //Variable de estado y handles de eventos para la ventana modal
 

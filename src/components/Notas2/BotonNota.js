@@ -14,10 +14,10 @@ import { ScaleLoader } from "react-spinners";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import OutlinedInputEditableNote from "../Material UI - Componentes Modificados/ComponentesNotas/OutlinedInputEditableNote";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
-/*****************************************
- * Componente 'BotonNotaGrupo'
- */
+/*** Componente BotonNota***/
 export const BotonNota = (props) => {
   //Para estilos
   const theme = useTheme();
@@ -80,10 +80,7 @@ export const BotonNota = (props) => {
           pidCu: props.cursada.IdCursada,
         };
         //Peticion
-        Responses.consultas(
-          data,
-          "http://127.0.0.1:8000/api/modificarnotapractico"
-        )
+        Responses.consultas(data, endpoints.modificarNotaPractico)
           .then((response) => {
             setLoading(false);
             if (Responses.status === 200) {
@@ -97,7 +94,7 @@ export const BotonNota = (props) => {
               props.tipo("success");
               setNota(notaParam);
             } else if (Responses.status === 401) {
-              navegar("/ingreso");
+              navegar(routes.iniciarSesion);
             } else if (Responses.status === 460) {
               // setTexto("");
               // setSalto("1");
@@ -111,11 +108,11 @@ export const BotonNota = (props) => {
               //   props.tipo("error");
               // }
             } else {
-              navegar("/error");
+              navegar(routes.error);
             }
           })
           .catch((error) => {
-            navegar("/error");
+            navegar(routes.error);
           });
       }
     } else {

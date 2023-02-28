@@ -1,6 +1,8 @@
 import React from "react";
-//
+//MUI
 import { Grid, Box, Divider, Typography } from "@mui/material";
+import { green, red } from "@mui/material/colors";
+//
 import NotasExamenesLista from "./NotasExamenesLista";
 import BuscarAlumnos from "../BuscarAlumnos";
 import BotonTipo from "./BotonTipo";
@@ -13,8 +15,10 @@ import {
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners.js";
 import MensajeFeedback from "../../MensajeFeedback";
-import { green, red } from "@mui/material/colors";
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente NotasContenedorExamenes ***/
 export default function NotasContenedorExamenes(props) {
   const [expandir, setExp] = React.useState("2");
   const [idparam, setParam] = React.useState("");
@@ -30,32 +34,27 @@ export default function NotasContenedorExamenes(props) {
   const [resultados, setResultado] = React.useState(); //cantidad de resultados devuelto en la consulta
   const [cargando, setCargando] = React.useState(); //Espera al consultar
 
-  //SnackBar
-
   const [mensaje, setMensaje] = React.useState();
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
   function Refrescar() {
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarnotasexamenes"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarNotasExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -65,10 +64,7 @@ export default function NotasContenedorExamenes(props) {
 
     setDC(parametro);
     setCargando("1");
-    Responses.consultas(
-      parametro,
-      "http://127.0.0.1:8000/api/buscarnotasexamenes"
-    )
+    Responses.consultas(parametro, endpoints.buscarNotasExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -77,15 +73,15 @@ export default function NotasContenedorExamenes(props) {
           setCargando("2");
           setPagina(1);
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -97,24 +93,21 @@ export default function NotasContenedorExamenes(props) {
 
     setDC(datos);
     setCargando("1");
-    Responses.consultas(
-      datosconsulta,
-      "http://127.0.0.1:8000/api/buscarnotasexamenes"
-    )
+    Responses.consultas(datosconsulta, endpoints.buscarNotasExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -129,7 +122,7 @@ export default function NotasContenedorExamenes(props) {
 
     setCargando("1");
 
-    Responses.consultas(datos, "http://127.0.0.1:8000/api/buscarnotasexamenes")
+    Responses.consultas(datos, endpoints.buscarNotasExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           setFilas(response);
@@ -137,15 +130,15 @@ export default function NotasContenedorExamenes(props) {
           setResultado(response.res[0].resultados);
           setCargando("2");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setCargando("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
@@ -155,29 +148,24 @@ export default function NotasContenedorExamenes(props) {
       pidCu: props.cursada.IdCursada,
     };
 
-    Responses.consultas(data, "http://127.0.0.1:8000/api/listarparametros")
+    Responses.consultas(data, endpoints.listarParametros)
       .then((response) => {
         if (Responses.status === 200) {
           setParam(response);
 
-          console.log(response);
           setExp("1");
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
           setExp("3");
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }, []);
-
-  React.useEffect(() => {
-    console.log(expandir);
-  }, [expandir]);
 
   /********************************************************************************/
   /* Componente
