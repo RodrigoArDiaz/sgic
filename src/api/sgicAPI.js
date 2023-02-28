@@ -221,6 +221,10 @@ export const peticionRegistrarUsuario = (frmData) => {
  * @returns
  */
 export const peticionModificarContrasena = (IdUsuario, formData, token) => {
+  if (!token) {
+    token = localStorage.getItem("tkn");
+  }
+
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,

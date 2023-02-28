@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+//MUI
 import { EditOutlined } from "@mui/icons-material";
 import {
   Alert,
@@ -14,17 +15,15 @@ import {
   Stack,
   TextField,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
+//
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useSnackbar } from "notistack";
 import { useModal } from "../../hooks/useModal";
 import { regexContrasenia } from "../../helpers/regex";
-import { useTheme } from "@emotion/react";
 import { useSelector } from "react-redux";
 import { peticionModificarContrasena } from "../../api/sgicApi";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
@@ -47,6 +46,7 @@ const validaciones = yup.object({
     .required("Este campo es obligatorio"),
 });
 
+/**Componente  PanelSeguridad*/
 const PanelSeguridad = () => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -54,8 +54,7 @@ const PanelSeguridad = () => {
   const [mostrarContraseniaNueva, setMostrarContraseniaNueva] = useState(false);
   const [mostrarRepetirContrasenia, setMostrarRepetirContrasenia] =
     useState(false);
-  const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   //
   const [isLoading, setIsLoading] = useState(false);
   //Recupero token
@@ -119,28 +118,12 @@ const PanelSeguridad = () => {
 
   return (
     <CardMainPage visibleHeader={false}>
-      {/* <Button variant="contained" startIcon={<Lock />} onClick={handleOpen}>
-        Modificar Contraseña
-      </Button> */}
-      {/* <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        maxWidth="xs"
-        fullWidth
-        fullScreen={esXs ? true : false}
-        sx={{
-          backdropFilter: "blur(0.8px)",
-        }}
-      > */}
-      {/* <DialogTitle>Modificar contraseña</DialogTitle> */}
       <CardHeader
         title={
           <Typography variant="h6" fontWeight={400}>
             Modificar contraseña
           </Typography>
         }
-        // subheader="Utilizá el boton 'Crear contacto' para añadir información de contacto."
-        // action={<CrearContacto crearContacto={crearContacto} />}
       />
       <Divider />
       {/* <DialogContent> */}
@@ -299,18 +282,7 @@ const PanelSeguridad = () => {
         >
           Modificar contraseña
         </Button>
-        {/* <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => {
-            formik.resetForm();
-            handleClose();
-          }}
-        >
-          Cancelar
-        </Button> */}
       </DialogActions>
-      {/* </Dialog> */}
     </CardMainPage>
   );
 };
