@@ -1,7 +1,9 @@
 import * as React from "react";
+//MUI
 import FormControl from "@mui/material/FormControl";
-import { OutlinedInputEditable } from "../../Material UI - Componentes Modificados/ComponentesNotas/ComponentesNotas";
 import { green, red } from "@mui/material/colors";
+//
+import { OutlinedInputEditable } from "../../Material UI - Componentes Modificados/ComponentesNotas/ComponentesNotas";
 
 /*****************************
  * Determinar Estilo del input
@@ -18,22 +20,16 @@ const determinarEstilo = (condicion, nota) => {
       fontWeight: "500",
       borderRadius: "5px!important",
       "& fieldset.MuiOutlinedInput-notchedOutline": {
-        // outlineColor: red[800] + "!important",
-        // borderColor: red[800] + "!important",
         borderColor: red["A700"] + "!important",
         borderRadius: 0,
       },
     };
   } else {
     return {
-      // backgroundColor: green[50],
-      // borderColor: green[50],
       color: green[900],
       fontWeight: "500",
       borderRadius: "5px!important",
       "& fieldset.MuiOutlinedInput-notchedOutline": {
-        // outlineColor: green[800] + "!important",
-        // borderColor: green[800] + "!important",
         borderWidth: "2px solid",
         borderColor: green[800] + "!important",
         borderRadius: 0,
@@ -42,6 +38,7 @@ const determinarEstilo = (condicion, nota) => {
   }
 };
 
+/*** Componente NotaInput ***/
 export default function NotaInput(props) {
   function Transformar(param) {
     if (param === 0 || Number(param) < 0) {

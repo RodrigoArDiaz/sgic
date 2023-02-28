@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+//MUI
 import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
-import NotasPracticosContenedor from "./NotasPracticosContenedor";
-import NotasExamenesContenedor from "./NotasExamenesContenedor";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { TabCustom } from "../../Material UI - Componentes Modificados/TabCustom";
 import {
   ArticleOutlined,
   AssignmentOutlined,
   GradingOutlined,
 } from "@mui/icons-material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+//
+import NotasPracticosContenedor from "./NotasPracticosContenedor";
+import NotasExamenesContenedor from "./NotasExamenesContenedor";
+import { TabCustom } from "../../Material UI - Componentes Modificados/TabCustom";
 import SituacionFinalContenedor from "./SituacionFinalContenedor";
 
+/*** Componente MisNotasContenedor ***/
 export default function MisNotasContenedor() {
   const [tabState, setTabState] = useState("1");
   const handleChange = (event, newValue) => {

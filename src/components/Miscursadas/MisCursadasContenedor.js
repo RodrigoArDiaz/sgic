@@ -1,3 +1,7 @@
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+//MUI
 import {
   AlertTitle,
   Box,
@@ -7,12 +11,10 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+//
 import { peticionBuscarMisCursadas } from "../../api/alumnos/cursadasApi";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 //React router
 import { useNavigate } from "react-router-dom";
 //Redux - Sesion
@@ -35,6 +37,7 @@ import { DriveFileRenameOutline } from "@mui/icons-material";
 import { routes } from "../../routes/index";
 import { actualizarMateria } from "../../store/slices/materiaSlice";
 
+/*** Componente MisCursadasContenedor ***/
 const MisCursadasContenedor = () => {
   //Variable de estado que indica el estado de la peticion
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +94,7 @@ const MisCursadasContenedor = () => {
     //Actualizo items del menu
     dispatch(actualizarMenu(listaItemsMenuAlumnoConCursada));
     //Redirigo
-    navegar("/inicio/alumnos/mis_notas");
+    navegar(routes.alumnosMisNotas);
   };
 
   return (

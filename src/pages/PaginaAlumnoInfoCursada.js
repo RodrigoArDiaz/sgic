@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+//MUI
 import { Grid } from "@mui/material";
+//
 import Breadcrumbs from "../components/BreadCrumbs";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
-import MisNotasContenedor from "../components/Alumnos/MisNotas/MisNotasContenedor";
 import InfoCursadaContenedor from "../components/Alumnos/InfoCursada/InfoCursadaContenedor";
 
 //Ruta para breadcrumbs
@@ -19,6 +20,7 @@ const crumbs = [
   },
 ];
 
+/*** Componente PaginaAlumnosInfoCursada ***/
 export default function PaginaAlumnosInfoCursada() {
   //
   const { materia } = useSelector((state) => state.materia);

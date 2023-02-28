@@ -1,9 +1,11 @@
 import * as React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+//MUI
 import {
   AlertTitle,
   Box,
   Button,
-  CircularProgress,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -11,26 +13,21 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  Typography,
   Zoom,
 } from "@mui/material";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+//
 import { useModal } from "../../useModal";
 import DialogCustom from "../../Material UI - Componentes Modificados/DialogCustom";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {
-  peticionBuscarEnunciadoCorreccionesPractico,
-  peticionBuscarMisNotasPracticos,
-} from "../../../api/alumnos/notasApi";
+import { peticionBuscarEnunciadoCorreccionesPractico } from "../../../api/alumnos/notasApi";
 import { routes } from "../../../routes";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import MensajeFeedback from "../../MensajeFeedback";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 
+/*** Componente BotonAccionesPractico ***/
 export const BotonAccionesPractico = ({ IdPractico, label }) => {
   //Hooks para manejo de modal
   const [isOpen, handleOpen, handleClose] = useModal(false);
@@ -61,8 +58,6 @@ export const BotonAccionesPractico = ({ IdPractico, label }) => {
         IdPractico,
         null
       );
-
-      //   console.log(respuesta.data.res[0]);
 
       setEnunciadoCorreccion(respuesta.data.res[0]);
 

@@ -1,38 +1,22 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 //MUI
 import { Avatar, Box, CardContent, Chip, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Cancel, CheckCircle } from "@mui/icons-material";
-
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-
 //React router
 import { useNavigate } from "react-router-dom";
-
 import { useSelector } from "react-redux";
 //MUI - personalizados
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { CircularProgressWithLabel } from "../../Material UI - Componentes Modificados/ComponentesEstadisticas/ComponentesEstadisticas";
-import {
-  peticionBuscarEnunciadoCorreccionesPractico,
-  peticionInfoCursada,
-} from "../../../api/alumnos/notasApi";
+import { peticionInfoCursada } from "../../../api/alumnos/notasApi";
 import { routes } from "../../../routes";
-import { useEffect } from "react";
-import { useState } from "react";
 import InfoAlumno from "./InfoAlumno";
-//
 
-const ChipCustom = React.forwardRef(function MyComponent(props, ref) {
-  //  Spread the props to the underlying DOM element.
-  return (
-    <Chip {...props} ref={ref}>
-      {props.children}
-    </Chip>
-  );
-});
-
+/*** Componente InfoCursadaContenedor ***/
 export default function InfoCursadaContenedor(props) {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
@@ -371,6 +355,7 @@ export default function InfoCursadaContenedor(props) {
         </Grid>
       </Grid>
 
+      {/* Info alumno */}
       <Grid item xs={12}>
         <InfoAlumno />
       </Grid>

@@ -1,9 +1,11 @@
 import * as React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+//MUI
 import {
   AlertTitle,
   Box,
   Button,
-  CircularProgress,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -11,27 +13,21 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  Typography,
   Zoom,
 } from "@mui/material";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+//
 import { useModal } from "../../useModal";
 import DialogCustom from "../../Material UI - Componentes Modificados/DialogCustom";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {
-  peticionBuscarEnunciadoCorreccionesExamen,
-  peticionBuscarEnunciadoCorreccionesExamenes,
-  peticionBuscarMisNotasPracticos,
-} from "../../../api/alumnos/notasApi";
+import { peticionBuscarEnunciadoCorreccionesExamen } from "../../../api/alumnos/notasApi";
 import { routes } from "../../../routes";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import MensajeFeedback from "../../MensajeFeedback";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 
+/*** Componente BotonAccionesExamenes ***/
 export const BotonAccionesExamenes = ({ IdExamen, label }) => {
   //Hooks para manejo de modal
   const [isOpen, handleOpen, handleClose] = useModal(false);

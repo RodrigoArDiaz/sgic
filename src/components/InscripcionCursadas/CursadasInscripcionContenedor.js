@@ -9,16 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
+import SearchIcon from "@mui/icons-material/Search";
+import { Box } from "@mui/material";
 //Formik y yup
 import * as yup from "yup";
 import { useFormik } from "formik";
 //Componentes
 import InscripcionesCard from "./InscripcionesCard";
-// import SkeletonInscripcionesCard from "./SkeletonInscripcionesCard";
 import { OutlinedInputSearch } from "../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
-import { Box } from "@mui/material";
 import CardMainPage from "../Material UI - Componentes Modificados/CardMainPage";
-import SearchIcon from "@mui/icons-material/Search";
 import {
   colorMainSpinner,
   sizeMainSpinner,
@@ -37,6 +36,7 @@ const validaciones = yup.object({
   materia: yup.string(),
 });
 
+/*** Componente CursadasInscripcionContenedor ***/
 const CursadasInscripcionContenedor = () => {
   // const [cursadas, setCursadas] = useState(cursadasPrueba);
   const [cursadas, setCursadas] = useState([]);

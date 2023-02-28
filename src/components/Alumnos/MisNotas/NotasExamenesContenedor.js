@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+//MUI
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import { peticionListarParametrosCursada } from "../../../api/alumnos/notasApi";
 import NotasTipoExamen from "./NotasTipoExamen";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 
+/*** Componente NotasExamenesContenedor ***/
 const NotasExamenesContenedor = () => {
   //Variable de estado que indica el estado de la peticion
   const [isLoading, setIsLoading] = useState(false);

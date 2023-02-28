@@ -1,7 +1,10 @@
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+//MUI
 import {
   Box,
   CardContent,
-  CardHeader,
   Chip,
   Divider,
   Grid,
@@ -16,9 +19,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+//
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -34,11 +35,9 @@ import {
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
 
 const estilosCell = {
-  // fontSize: "1em",
   fontWeight: "500",
   color: "rgba(58, 53, 65, 0.87)",
   fontSize: "0.875rem",
-  //   borderBottom: "none",
 };
 
 //Determina label segun el estado
@@ -61,6 +60,7 @@ const determinarEstado = (estado) => {
   }
 };
 
+/*** Componente const InfoAlumno ***/
 const InfoAlumno = () => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);

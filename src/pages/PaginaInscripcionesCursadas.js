@@ -16,6 +16,7 @@ const crumbs = [
   },
 ];
 
+/*** Componente PaginaInscripcionesCursadas ***/
 export default function PaginaInscripcionesCursadas() {
   return (
     <Grid container rowSpacing={1}>

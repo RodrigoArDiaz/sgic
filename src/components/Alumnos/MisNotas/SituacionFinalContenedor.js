@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+//MUI
 import {
   Box,
   CardContent,
@@ -13,16 +15,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+//
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  peticionBuscarMiSituacionFinal,
-  peticionBuscarMisNotasPracticos,
-} from "../../../api/alumnos/notasApi";
+import { peticionBuscarMiSituacionFinal } from "../../../api/alumnos/notasApi";
 import { routes } from "../../../routes";
 import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
-import { CardMain } from "../../Material UI - Componentes Modificados/ComponentesPagina/ComponentesPagina";
 import {
   TableCell1em,
   TableCellHead,
@@ -37,6 +35,7 @@ const estilosCell = {
   paddingBottom: 0,
 };
 
+/*** Componente SituacionFinalContenedor ***/
 const SituacionFinalContenedor = () => {
   const [isLoading, setIsLoading] = useState(false);
   //

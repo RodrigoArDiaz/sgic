@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from "react";
+//MUI
 import {
   CardContent,
-  Chip,
-  Divider,
   ListItem,
   ListItemText,
   Table,
@@ -11,13 +11,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+//
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { peticionBuscarMisNotasExamenes } from "../../../api/alumnos/notasApi";
 import { formatearFechaDDMMAAAA } from "../../../helpers/formatearFechaDDMMAAAA";
 import { routes } from "../../../routes";
-import { BotonAcciones } from "../../Examenes2/BotonAcciones";
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 import { ChipCustom } from "../../Material UI - Componentes Modificados/ChipCustom";
 import {
@@ -35,6 +34,7 @@ const estilosCell = {
   paddingBottom: 0,
 };
 
+/*** Componente NotasTipoExamen ***/
 const NotasTipoExamen = ({ parametro }) => {
   console.log(parametro);
   const { cursada } = useSelector((state) => state.cursada);
@@ -63,13 +63,6 @@ const NotasTipoExamen = ({ parametro }) => {
     }
   };
 
-  // const TipoChip = (param) => {
-  //   if (param === "P") return "info";
-  //   if (param === "Q") return "warning";
-  //   if (param === "F") return "success";
-  // };
-
-  //
   const navegar = useNavigate();
 
   //Peticion de buscar

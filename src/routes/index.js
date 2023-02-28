@@ -11,6 +11,7 @@ const routes = {
 
   //Alumnos
   alumnosMiscursadas: "/inicio/alumnos/mis_cursadas",
+  alumnosMisNotas: "/inicio/alumnos/mis_notas",
 };
 
 export { routes };

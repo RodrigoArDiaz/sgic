@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+//MUI
 import { Grid } from "@mui/material";
+//
 import Breadcrumbs from "../components/BreadCrumbs";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +20,7 @@ const crumbs = [
   },
 ];
 
+/*** Componente PaginaAlumnosMisNotas ***/
 export default function PaginaAlumnosMisNotas() {
   //
   const { materia } = useSelector((state) => state.materia);

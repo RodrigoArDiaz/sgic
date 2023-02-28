@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
+//MUI
 import { Grid } from "@mui/material";
+//
 import BreadCrumbs from "../components/BreadCrumbs";
-import AlumnosContenedor from "../../src/components/GestionAlumnosSuper/AlumnosContenedor";
 import { useDispatch } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
-import { estilosBreadCrumbs } from "../styles/EstilosPaginas";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import MisCursadasContenedor from "../components/Miscursadas/MisCursadasContenedor";
 
+/*** Componente PaginaAlumnoMisCursadas ***/
 export default function PaginaAlumnoMisCursadas() {
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();

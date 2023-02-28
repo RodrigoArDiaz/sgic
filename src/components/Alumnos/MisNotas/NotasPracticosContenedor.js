@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
-import NotaInput from "./NotaInput";
+//MUI
 import {
-  TableCell1em,
-  TableCellHead,
-  TableRowElevacion,
-} from "../../Material UI - Componentes Modificados/ComponentesTabla";
-import {
-  Box,
   CardContent,
   IconButton,
   List,
@@ -18,29 +11,35 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
-  Zoom,
 } from "@mui/material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+//
 import AvatarCustom from "../../Material UI - Componentes Modificados/AvatarCustom";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { routes } from "../../../routes";
 import { peticionBuscarMisNotasPracticos } from "../../../api/alumnos/notasApi";
-import { green, red } from "@mui/material/colors";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import RequisitosDeAprobacion from "../RequisitosDeAprobacion";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 import { BotonAccionesPractico } from "./BotonAccionesPractico";
 import { ChipCustom } from "../../Material UI - Componentes Modificados/ChipCustom";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { formatearFechaDDMMAAAA } from "../../../helpers/formatearFechaDDMMAAAA";
+import CardMainPage from "../../Material UI - Componentes Modificados/CardMainPage";
+import NotaInput from "./NotaInput";
+import {
+  TableCell1em,
+  TableCellHead,
+  TableRowElevacion,
+} from "../../Material UI - Componentes Modificados/ComponentesTabla";
 
 const estilosCell = {
   paddingTop: 0,
   paddingBottom: 0,
 };
 
+/*** Componente NotasPracticosContenedor ***/
 const NotasPracticosContenedor = () => {
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -112,11 +111,6 @@ const NotasPracticosContenedor = () => {
             <ListItem sx={{ paddingX: 1, flexWrap: "wrap" }}>
               {cursada.TieneGrupos == "S" ? (
                 <>
-                  {/* <Tooltip
-                    title="Listar integrantes"
-                    TransitionComponent={Zoom}
-                    arrow
-                  > */}
                   <IconButton
                     color="secondary"
                     aria-label="expand row"
