@@ -7,13 +7,13 @@ import { Box, Card, Grid, IconButton } from "@mui/material";
 // project import
 // import AuthCard from "./AuthCard";
 // import Logo from "../Logo2/Logo";
-import Logo from "../Logo/Logo";
+import Logo from "../Menu/Logo/Logo";
 // import AuthFooter from "components/cards/AuthFooter";
 
 // assets
 import AuthBackground from "./AuthBackground";
 import AuthCard from "./AuthCard";
-import LogoAppName from "../Logo/LogoAppName";
+import LogoAppName from "../Menu/Logo/LogoAppName";
 import { BorderHorizontal } from "@mui/icons-material";
 
 // ==============================|| AUTHENTICATION - WRAPPER ||============================== //

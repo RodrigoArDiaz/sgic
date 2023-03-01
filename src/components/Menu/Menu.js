@@ -44,8 +44,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ExpandMore } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
 import { estiloScrollbar } from "../../styles/EstilosScrollBar";
-import Logo from "../Logo/Logo";
-import LogoAppName from "../Logo/LogoAppName";
+import Logo from "./Logo/Logo";
+import LogoAppName from "./Logo/LogoAppName";
 
 /***** Componente Menu *****/
 export default function Menu() {
