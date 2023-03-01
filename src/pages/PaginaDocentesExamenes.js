@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 //
 import BreadCrumbs from "../components/BreadCrumbs";
-import ExamenesContenedor from "../components/Examenes2/ExamenesContenedor";
+import ExamenesContenedor from "../components/Examenes/ExamenesContenedor";
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import { useDispatch, useSelector } from "react-redux";
 import { actualizarTitulo } from "../store/slices/menuSlice";
