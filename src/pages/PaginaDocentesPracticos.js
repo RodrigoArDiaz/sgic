@@ -7,7 +7,7 @@ import { actualizarTitulo } from "../store/slices/menuSlice";
 //Componentes propios
 import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
 import BreadCrumbs from "../components/BreadCrumbs";
-import PracticosContenedor from "../components/Practicos2/PracticosContenedor";
+import PracticosContenedor from "../components/Practicos/PracticosContenedor";
 
 /*** Componente PaginaDocentesPracticos ***/
 export default function PaginaDocentesPracticos(props) {
