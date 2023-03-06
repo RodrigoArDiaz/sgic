@@ -17,6 +17,9 @@ import {
 
 /*** Componente CatedrasUsuariosContenedor ***/
 export default function CatedrasUsuariosContenedor(props) {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -34,12 +37,16 @@ export default function CatedrasUsuariosContenedor(props) {
   const [tipo, setTipo] = React.useState();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -53,7 +60,7 @@ export default function CatedrasUsuariosContenedor(props) {
         setFilas(response);
         setCargando(false);
 
-        if (response.res.length > 0) {
+        if (response.res != undefined && response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
         }
@@ -63,6 +70,7 @@ export default function CatedrasUsuariosContenedor(props) {
       });
   }
 
+  //Busqueda de usuarios de la catedra
   function BuscarUsCat(parametro) {
     parametro.Offset = 0;
     parametro.Limite = filasxpagina;
@@ -71,8 +79,9 @@ export default function CatedrasUsuariosContenedor(props) {
     setCargando(true);
     consultas(parametro, endpoints.buscarUsNoCat)
       .then((response) => {
+        console.log(response);
         setFilas(response);
-        if (response.res.length > 0) {
+        if (response.res != undefined && response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
 
@@ -81,7 +90,8 @@ export default function CatedrasUsuariosContenedor(props) {
         setCargando(false);
       })
       .catch((error) => {
-        navegar(routes.iniciarSesion);
+        console.log(error);
+        // navegar(routes.iniciarSesion);
       });
   }
 
@@ -118,7 +128,7 @@ export default function CatedrasUsuariosContenedor(props) {
       .then((response) => {
         setFilas(response);
 
-        if (response.res.length > 0) {
+        if (response.res != undefined && response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
           setCargando(false);
@@ -151,7 +161,7 @@ export default function CatedrasUsuariosContenedor(props) {
         if (response.res === undefined) {
           setCargando(true);
         } else {
-          if (response.res.length > 0) {
+          if (response.res.length != undefined && response.res.length > 0) {
             setPaginacion(response.res[0].filas);
             setResultado(response.res[0].resultados);
 

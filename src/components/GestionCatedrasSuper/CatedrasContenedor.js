@@ -25,7 +25,10 @@ export default function CatedrasContenedor() {
 
   const navegar = useNavigate();
   //Recupero token
-  const { token } = useSelector((state) => state.login);
+  // const { token } = useSelector((state) => state.login);
+
+  //Recupero token
+  const token = localStorage.getItem("tkn");
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
   const [filas, setFilas] = React.useState({}); // datos a mostrar
@@ -42,6 +45,10 @@ export default function CatedrasContenedor() {
 
   //Peticion
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
+    console.log(data);
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),

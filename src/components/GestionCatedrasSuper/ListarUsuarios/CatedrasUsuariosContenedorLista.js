@@ -13,9 +13,13 @@ import {
   colorMainSpinner,
   sizeMainSpinner,
 } from "../../../styles/EstilosSpinners";
+import MensajeFeedback from "../../MensajeFeedback";
 
 /*** Componente CatedrasUsuariosContenedorLista ***/
 export default function CatedrasUsuariosContenedorLista(props) {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -33,12 +37,16 @@ export default function CatedrasUsuariosContenedorLista(props) {
   const [tipo, setTipo] = React.useState();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -57,28 +65,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
       });
   }
 
-  function BuscarUsCat(parametro) {
-    parametro.Offset = 0;
-    parametro.Limite = filasxpagina;
-
-    setDC(parametro);
-    setCargando(true);
-    consultas(parametro, endpoints.buscarUsNoCat)
-      .then((response) => {
-        setFilas(response);
-        if (response.res.length > 0) {
-          setPaginacion(response.res[0].filas);
-          setResultado(response.res[0].resultados);
-
-          setPagina(1);
-        }
-        setCargando(false);
-      })
-      .catch((error) => {
-        navegar(routes.iniciarSesion);
-      });
-  }
-
+  //************** */
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -98,6 +85,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
     setPagina(pag);
   }
 
+  //************** */
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -123,6 +111,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
       });
   }
 
+  //Peticion al renderizar
   React.useEffect(() => {
     var data = {
       pidCa: props.idcatedra,
@@ -135,9 +124,10 @@ export default function CatedrasUsuariosContenedorLista(props) {
         setFilas(response);
 
         if (response.res === undefined) {
-          setCargando(true);
+          setCargando(false);
         } else {
           if (response.res.length > 0) {
+            console.log(response);
             setPaginacion(response.res[0].filas);
             setResultado(response.res[0].resultados);
 
@@ -182,6 +172,7 @@ export default function CatedrasUsuariosContenedorLista(props) {
             />
           </Grid>
         )}
+
         <div>
           <SnackMensajes
             abrir={abrir}

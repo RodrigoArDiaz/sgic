@@ -1,12 +1,6 @@
 import React from "react";
 //MUI
-import {
-  Button,
-  InputAdornment,
-  Tooltip,
-  useMediaQuery,
-  Zoom,
-} from "@mui/material";
+import { Button, InputAdornment, Tooltip, Zoom } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -14,7 +8,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { FormControl, InputLabel, Input } from "@mui/material";
 import { FormHelperText } from "@mui/material";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import { useTheme } from "@emotion/react";
 //Componentes propios
 import { useModal } from "../useModal";
 import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
@@ -23,9 +16,10 @@ import { endpoints } from "../../api/endpoints";
 
 /*** Componente BotonAcciones ***/
 export const ModificarCatedra = (props) => {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  //Para estilos segun tamaño screen
-  const theme = useTheme();
 
   const [enombre, setNom] = React.useState("1");
   const [form, setForm] = React.useState({
@@ -37,12 +31,16 @@ export const ModificarCatedra = (props) => {
   });
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

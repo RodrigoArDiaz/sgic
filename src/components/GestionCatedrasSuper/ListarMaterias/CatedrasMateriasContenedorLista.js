@@ -16,6 +16,9 @@ import {
 
 /*** Componente CatedrasMateriasContenedorLista ***/
 export default function CatedrasMateriasContenedorLista(props) {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -32,12 +35,16 @@ export default function CatedrasMateriasContenedorLista(props) {
   const [tipo, setTipo] = React.useState();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -138,7 +145,7 @@ export default function CatedrasMateriasContenedorLista(props) {
         setFilas(response);
 
         if (response.res === undefined) {
-          setCargando(true);
+          setCargando(false);
         } else {
           if (response.res.length > 0) {
             setPaginacion(response.res[0].filas);

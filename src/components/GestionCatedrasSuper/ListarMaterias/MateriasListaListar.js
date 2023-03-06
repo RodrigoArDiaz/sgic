@@ -60,7 +60,7 @@ const estilosCell = { fontSize: "1em" };
 export default function MateriasListaListar(props) {
   if (props.filas.res === undefined)
     return (
-      <Grid container>
+      <Grid container px={2}>
         <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
       </Grid>
     );

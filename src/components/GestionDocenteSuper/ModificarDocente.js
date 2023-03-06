@@ -45,9 +45,7 @@ const validaciones = yup.object({
  */
 export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
-  //Para estilos segun tamaño screen
-  const theme = useTheme();
-  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
+
   //Manejo del snack
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   //Recupero token
@@ -95,12 +93,15 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
       handleRefrescarPagina();
     } catch (error) {
       let mensajeSnack = "";
-      const data = error.response.data.data;
-      if ("mensaje" in data) {
-        mensajeSnack = data.mensaje;
-      } else {
-        mensajeSnack = data[0];
-      }
+      // const data = error.response.data.data;
+      // const data = error.response.data;
+      // console.log(data);
+
+      // if ("mensaje" in data) {
+      //   mensajeSnack = data.mensaje;
+      // } else {
+      //   mensajeSnack = data[0];
+      // }
       enqueueSnackbar(`Error: ${mensajeSnack}`, {
         variant: "error",
       });

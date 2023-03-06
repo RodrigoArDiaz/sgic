@@ -20,6 +20,9 @@ import { endpoints } from "../../api/endpoints";
 
 /*** Componente AgregarUsuarioCatedra ***/
 export const AgregarUsuarioCatedra = (props) => {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const [age, setAge] = React.useState("");
@@ -54,12 +57,16 @@ export const AgregarUsuarioCatedra = (props) => {
   }
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

@@ -42,6 +42,7 @@ import { routes } from "../../routes";
 import { requestGetDataUsuario } from "../../api/sgicApi";
 import { getUserSuccess } from "../../store/slices/userSlice";
 import { peticionDameLibreta } from "../../api/alumnos/perfilApi";
+import { loginSuccess } from "../../store/slices/loginSlice";
 
 //Estilos
 const estiloFormControl = {
@@ -128,6 +129,9 @@ function FormularioIniciarSesionSuper() {
           localStorage.setItem("EsAl", response.Alumno);
 
           localStorage.setItem("EsSA", response.SuperAdmin);
+
+          //Actualizo datos de sesion en react redux
+          dispatch(loginSuccess(response.token));
 
           //Actualizo datos usuario
           ActualizarDatosUsuario(response.token, response.Alumno);

@@ -18,6 +18,9 @@ import {
 
 /*** Componente CatedrasMateriasContenedor ***/
 export default function CatedrasMateriasContenedor(props) {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const navegar = useNavigate();
 
   const [datosconsulta, setDC] = React.useState({}); //datos del buscar
@@ -34,12 +37,16 @@ export default function CatedrasMateriasContenedor(props) {
   const [tipo, setTipo] = React.useState();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -59,7 +66,7 @@ export default function CatedrasMateriasContenedor(props) {
         }
       })
       .catch((error) => {
-        navegar(routes.registro);
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -81,7 +88,7 @@ export default function CatedrasMateriasContenedor(props) {
         setCargando(false);
       })
       .catch((error) => {
-        navegar(routes.registro);
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -98,7 +105,7 @@ export default function CatedrasMateriasContenedor(props) {
         setCargando(false);
       })
       .catch((error) => {
-        navegar(routes.registro);
+        navegar(routes.iniciarSesion);
       });
 
     setPagina(pag);
@@ -125,7 +132,7 @@ export default function CatedrasMateriasContenedor(props) {
         }
       })
       .catch((error) => {
-        navegar(routes.registro);
+        navegar(routes.iniciarSesion);
       });
   }
 
@@ -165,7 +172,7 @@ export default function CatedrasMateriasContenedor(props) {
         }
       })
       .catch((error) => {
-        navegar(routes.registro);
+        navegar(routes.iniciarSesion);
       });
   }, []);
 

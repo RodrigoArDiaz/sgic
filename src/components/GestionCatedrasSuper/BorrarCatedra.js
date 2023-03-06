@@ -17,17 +17,24 @@ import { routes } from "../../routes";
 
 /*** Componente BorrarCatedra ***/
 export const BorrarCatedra = (props) => {
+  //Recupero token
+  const token = localStorage.getItem("tkn");
+
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const navegar = useNavigate();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
