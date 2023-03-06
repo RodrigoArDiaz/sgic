@@ -16,14 +16,22 @@ import { routes } from "../../routes";
 export const BotonEstado = (props) => {
   const navegar = useNavigate();
   const [salto, setSalto] = React.useState(props.estado);
+  //Recupero token
+  const token = localStorage.getItem("tkn");
 
+  //Peticion
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
+    //Espero respuesta de la peticion
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -32,7 +40,7 @@ export const BotonEstado = (props) => {
 
   function manejador() {
     var data = {
-      pidUs: props.estado,
+      pidUs: props.alumno.IdUsuario,
     };
 
     if (salto === "A") {
@@ -42,6 +50,7 @@ export const BotonEstado = (props) => {
           if (response.Error === undefined) {
             setSalto("B");
           } else {
+            console.log("error");
           }
         })
         .catch((error) => {

@@ -35,13 +35,21 @@ export default function AlumnosContenedor() {
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
+  //REcupero token
+  const token = localStorage.getItem("tkn");
+
   async function consultas(data, cadena) {
+    //Adjunto el token a data
+    data = { ...data, ...{ token: token } };
+
+    //Peticion
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

@@ -255,7 +255,7 @@ export default function AlumnoLista(props) {
                           align={column.align}
                           sx={estilosCell}
                         >
-                          <BotonEstado estado={row.Estado} />
+                          <BotonEstado estado={row.Estado} alumno={row} />
                         </TableCell1em>
                       );
                     }
