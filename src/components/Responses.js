@@ -8,13 +8,17 @@ export var texto = "";
 //export const [correcciones, setCor] = React.useState('');
 
 export async function consultas(data, cadena) {
+  const token = localStorage.getItem("tkn");
+  //Adjunto token
+  data = { ...data, ...{ token: token } };
+  console.log(data);
   const response = await fetch(cadena, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("tkn"),
+      Authorization: "Bearer " + token,
     },
   });
   setStatus(response.status);
