@@ -2,7 +2,6 @@ import React from "react";
 //MUI
 import { CardContent, Typography, Box } from "@mui/material";
 import { Grid } from "@mui/material";
-import { blue, teal } from "@mui/material/colors";
 //
 import GruposLista from "./GruposLista";
 import { CrearGrupo } from "./CrearGrupo";
@@ -16,11 +15,13 @@ import { MoonLoader } from "react-spinners";
 import MensajeFeedback from "../MensajeFeedback";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
+import {
+  colorMainSpinner,
+  sizeMainSpinner,
+} from "../../styles/EstilosSpinners";
 
 /*** Componente InscripcionesContenedor***/
 export default function InscripcionesContenedor(props) {
-  const color = teal[400];
-
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
 
@@ -241,7 +242,10 @@ export default function InscripcionesContenedor(props) {
                 <Grid container paddingTop={1}>
                   <Grid item xs={12}>
                     <Box component="div" display="flex" justifyContent="center">
-                      <MoonLoader color={color} size={60} />
+                      <MoonLoader
+                        color={colorMainSpinner}
+                        size={sizeMainSpinner}
+                      />
                     </Box>
                   </Grid>
                 </Grid>

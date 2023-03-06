@@ -32,6 +32,7 @@ export const BorrarGrupo = (props) => {
       // IdCursada: props.idcursada,
       IdCursada: props.cursada.IdCursada,
       pidG: props.grupo.IdGrupo,
+      pidCu: props.cursada.IdCursada,
     };
 
     Responses.consultas(data, endpoints.borrarGrupo)

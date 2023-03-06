@@ -165,11 +165,13 @@ export const ModificarExamen = (props) => {
             setNM("2");
           }
         } else {
-          navegar(routes.error);
+          console.log(response);
+          // navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar(routes.error);
+        console.log(error);
+        // navegar(routes.error);
       });
   }
 
