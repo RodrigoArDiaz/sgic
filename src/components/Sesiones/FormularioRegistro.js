@@ -154,7 +154,8 @@ function FormularioRegistro() {
                 }
               })
               .catch((error) => {
-                navegar(routes.error);
+                console.log(error);
+                // navegar(routes.error);
               });
           }}
         >

@@ -58,7 +58,7 @@ const AuthWrapper = ({ children, maxWidthChildLg }) => (
                   flexGrow: 1,
                   flexBasis: "50%",
                 },
-                boxShadow: "rgb(0 0 0 / 8%) 0px 1px 4px",
+                // boxShadow: "rgb(0 0 0 / 8%) 0px 1px 4px",
               }}
             >
               <Box
@@ -66,6 +66,9 @@ const AuthWrapper = ({ children, maxWidthChildLg }) => (
                   p: { xs: 2, sm: 3, md: 4, xl: 4 },
                   paddingX: { xl: 3 },
                   borderRadius: "4px",
+                  //
+                  boxShadow: "none",
+                  backgroundColor: "transparent",
                 }}
               >
                 {children}

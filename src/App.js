@@ -35,6 +35,7 @@ import PaginaResetPass from "./pages/PaginaResetPass.js";
 import PaginaAlumnoMisCursadas from "./pages/PaginaAlumnoMisCursadas.js";
 import PaginaAlumnosMisNotas from "./pages/PaginaAlumnoMisNotas.js";
 import PaginaAlumnosInfoCursada from "./pages/PaginaAlumnoInfoCursada.js";
+import PaginaError from "./pages/PaginaError.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -91,6 +92,10 @@ export default function App() {
                 element={<PaginaResetPass />}
               ></Route>
 
+              {/*************************
+              Ruta: Resetear contraseña*/}
+              <Route path="/error" element={<PaginaError />}></Route>
+
               {/*****************************************************
                Rutas privadas: necesitan autenticacion
                ******************************************************/}
@@ -145,7 +150,6 @@ export default function App() {
                   element={<PaginaDocentesGrupos />}
                 />
 
-                {/* Inscripciones */}
                 <Route
                   path="docentes/cursada/inscripciones"
                   element={<PaginaDocentesInscripciones />}
