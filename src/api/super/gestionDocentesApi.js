@@ -31,6 +31,7 @@ export const peticionCrearDocente = (frmData, token) => {
     Apellidos: frmData.Apellidos,
     Nombres: frmData.Nombres,
     Email: frmData.Email,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -69,6 +70,7 @@ export const peticionBuscarDocente = (frmData, token) => {
     Bajas: frmData.Bajas ? "B" : "",
     Offset: frmData.Offset,
     Limite: frmData.Limite,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -100,6 +102,7 @@ export const peticionAltaDocente = (IdUsuario, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -131,6 +134,7 @@ export const peticionBajaDocente = (IdUsuario, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -162,6 +166,7 @@ export const peticionBorrarDocente = (IdUsuario, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -196,6 +201,7 @@ export const peticionModificarDocente = (formData, token) => {
     pDoc: formData.Documento,
     pNom: formData.Nombres,
     pAp: formData.Apellidos,
+    token: token,
   };
 
   console.log(credenciales);
