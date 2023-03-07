@@ -4,7 +4,12 @@ import temaConfig from "./temaConfig.js";
 //MUI
 import { CssBaseline, ThemeProvider } from "@mui/material";
 //React router dom
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  HashRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 //Reac redux
 import { useSelector } from "react-redux";
 //Notisctack
@@ -43,7 +48,8 @@ export default function App() {
 
   return (
     <>
-      <Router>
+      <HashRouter>
+        {/* <Router> */}
         <ThemeProvider theme={temaConfig}>
           <CssBaseline />
           <SnackbarProvider
@@ -186,7 +192,8 @@ export default function App() {
             </Routes>
           </SnackbarProvider>
         </ThemeProvider>
-      </Router>
+        {/* </Router> */}
+      </HashRouter>
     </>
   );
 }
