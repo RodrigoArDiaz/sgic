@@ -17,6 +17,7 @@ export const BotonAcciones = (props) => {
         <VerInformacionContacto
           alumno={props.alumno}
           idAlumno={props.alumno.IdUsuario}
+          idcursada={cursada.IdCursada}
         />
       </Grid>
 

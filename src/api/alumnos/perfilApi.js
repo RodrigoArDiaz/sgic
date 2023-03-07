@@ -23,6 +23,7 @@ export const peticionModificarAlumno = (formData, token) => {
     pNom: formData.Nombres,
     pAp: formData.Apellidos,
     pLib: formData.Libreta,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -51,7 +52,7 @@ export const peticionDameLibreta = (token) => {
     token = localStorage.getItem("tkn");
   }
 
-  const credenciales = {};
+  const credenciales = { token: token };
 
   console.log(credenciales);
 

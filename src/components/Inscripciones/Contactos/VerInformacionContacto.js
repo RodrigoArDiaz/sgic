@@ -33,7 +33,7 @@ import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 //
 
 /*** Componente VerInformacionContacto ***/
-const VerInformacionContacto = ({ alumno, idAlumno }) => {
+const VerInformacionContacto = ({ alumno, idAlumno, idcursada }) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const [contactos, setContactos] = useState([]);
@@ -47,7 +47,11 @@ const VerInformacionContacto = ({ alumno, idAlumno }) => {
     setIsLoading(true);
     //Realizo peticion
     try {
-      const respuesta = await peticionListarContactos(idAlumno);
+      const respuesta = await peticionListarContactos(
+        idAlumno,
+        idcursada,
+        null
+      );
       console.log(respuesta.data.data.contactos);
       setContactos(respuesta.data.data.contactos);
     } catch (error) {

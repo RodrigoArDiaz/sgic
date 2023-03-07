@@ -23,6 +23,7 @@ export const peticionBuscarMisCursadas = (Offset, Limite, token) => {
     pidMat: 1,
     Offset: Offset,
     Limite: Limite,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -52,7 +53,7 @@ export const peticionListarCursadasInscripciones = (pMateria, token) => {
   }
 
   //Objeto con las claves que espera la API
-  const credenciales = { Materia: pMateria };
+  const credenciales = { Materia: pMateria, token: token };
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -81,7 +82,7 @@ export const peticionInscribirseEnCursada = (IdCursada, token) => {
   }
 
   //Objeto con las claves que espera la API
-  const credenciales = { pidCu: IdCursada };
+  const credenciales = { pidCu: IdCursada, token: token };
 
   return new Promise(async (resolve, reject) => {
     try {

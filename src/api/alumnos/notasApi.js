@@ -25,6 +25,7 @@ export const peticionBuscarMisNotasPracticos = (pidCu, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     pidCu: pidCu,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -57,6 +58,7 @@ export const peticionBuscarMisNotasExamenes = (pidCu, pidPar, token) => {
   const credenciales = {
     pidCu: pidCu,
     pidPar: pidPar,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -88,6 +90,8 @@ export const peticionListarParametrosCursada = (IdCursada, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdCursada: IdCursada,
+    pidCu: IdCursada,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -119,6 +123,7 @@ export const peticionBuscarMiSituacionFinal = (IdCursada, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     pidCu: IdCursada,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -155,6 +160,7 @@ export const peticionBuscarEnunciadoCorreccionesPractico = (
   const credenciales = {
     pidCu: pidCu,
     pidP: pidP,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -195,6 +201,7 @@ export const peticionBuscarEnunciadoCorreccionesExamen = (
   const credenciales = {
     pidCu: pidCu,
     pidE: pidE,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -230,6 +237,7 @@ export const peticionInfoCursada = (pidCu, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     pidCu: pidCu,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
@@ -261,6 +269,7 @@ export const peticionListarIntegrantesGrupo = (pidCu, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     pidCu: pidCu,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {

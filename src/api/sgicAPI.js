@@ -138,7 +138,7 @@ export const logoutUsuario = (token) => {
        */
       const res = await axios.post(
         logoutUsuarioUrl,
-        {},
+        { token: token },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -167,7 +167,7 @@ export const requestGetDataUsuario = (token) => {
     try {
       const res = await axios.post(
         getDataUsuarioUrl,
-        {},
+        { token: token },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -231,6 +231,7 @@ export const peticionModificarContrasena = (IdUsuario, formData, token) => {
     ContrasenaActual: formData.contraseniaActual,
     ContrasenaNueva: formData.contraseniaNueva,
     ContrasenaConfirmacion: formData.repetirContrasenia,
+    token: token,
   };
 
   return new Promise(async (resolve, reject) => {
