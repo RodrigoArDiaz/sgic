@@ -19,10 +19,16 @@ import { routes } from "../../../routes";
 /*** Componente ExportarInfoAlumnos ***/
 export const ExportarInfoAlumnos = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
+  //Recupero token
+  const token = localStorage.getItem("tkn");
 
   const navegar = useNavigate();
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+    console.log(data);
+    //Peticion
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
@@ -36,6 +42,7 @@ export const ExportarInfoAlumnos = (props) => {
     return response.blob();
   }
 
+  //Exportacion PDF
   function ExportP() {
     var data = {
       pidCu: props.idcursada,
@@ -44,8 +51,16 @@ export const ExportarInfoAlumnos = (props) => {
     consultas(data, endpoints.exportarPdf)
       .then((response) => {
         if (Globales.res === 200) {
-          const url = window.URL.createObjectURL(new Blob([response]));
-          window.open(url, "_blank");
+          // const url = window.URL.createObjectURL(new Blob([response]));
+          // window.open(url, "_blank");
+
+          // Convierto a Blob
+          var blob = new Blob([response], { type: "application/pdf" });
+          // Creo un objeto URL desde el blob
+          var url = window.URL || window.webkitURL;
+          var downloadUrl = url.createObjectURL(blob);
+          //Abro url en otra ventana
+          window.open(downloadUrl, "_blank");
         } else if (Globales.res === 401) {
           navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {
@@ -61,6 +76,7 @@ export const ExportarInfoAlumnos = (props) => {
       });
   }
 
+  //Exportacion pdf
   function ExportX() {
     var data = {
       pidCu: props.idcursada,
@@ -69,8 +85,17 @@ export const ExportarInfoAlumnos = (props) => {
     consultas(data, endpoints.exportarExcel)
       .then((response) => {
         if (Globales.res === 200) {
-          const url = window.URL.createObjectURL(new Blob([response]));
-          window.open(url, "_blank");
+          // const url = window.URL.createObjectURL(new Blob([response]));
+          // window.open(url, "_blank");
+          // Convierto a Blob
+          var blob = new Blob([response], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          });
+          // Creo un objeto URL desde el blob
+          var url = window.URL || window.webkitURL;
+          var downloadUrl = url.createObjectURL(blob);
+          //Abro url en otra ventana
+          window.open(downloadUrl, "_blank");
         } else if (Globales.res === 401) {
           navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {

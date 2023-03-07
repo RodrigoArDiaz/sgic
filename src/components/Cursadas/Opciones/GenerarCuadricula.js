@@ -33,8 +33,15 @@ export const GenerarCuadricula = (props) => {
     consultas(data, endpoints.cuadricula)
       .then((response) => {
         if (Globales.res === 200) {
-          const url = window.URL.createObjectURL(new Blob([response]));
-          window.open(url, "_blank");
+          // const url = window.URL.createObjectURL(new Blob([response]));
+          // window.open(url, "_blank");
+          // Convierto a Blob
+          var blob = new Blob([response], { type: "application/pdf" });
+          // Creo un objeto URL desde el blob
+          var url = window.URL || window.webkitURL;
+          var downloadUrl = url.createObjectURL(blob);
+          //Abro url en otra ventana
+          window.open(downloadUrl, "_blank");
         } else if (Globales.res === 401) {
           navegar(routes.iniciarSesion);
         } else if (Globales.res === 460) {
