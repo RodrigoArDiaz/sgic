@@ -121,13 +121,13 @@ export default function CatedrasUsuariosContenedorLista(props) {
 
     consultas(data, endpoints.listarUsCat)
       .then((response) => {
+        console.log(response);
         setFilas(response);
 
         if (response.res === undefined) {
           setCargando(false);
         } else {
           if (response.res.length > 0) {
-            console.log(response);
             setPaginacion(response.res[0].filas);
             setResultado(response.res[0].resultados);
 

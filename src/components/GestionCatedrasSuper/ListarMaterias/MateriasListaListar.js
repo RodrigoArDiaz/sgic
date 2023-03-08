@@ -58,15 +58,15 @@ const estilosCell = { fontSize: "1em" };
 
 /*** Componente MateriasListaListar ***/
 export default function MateriasListaListar(props) {
-  if (props.filas.res === undefined)
+  // if (props.filas.res === undefined)
+  //   return (
+  //     <Grid container px={2}>
+  //       <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
+  //     </Grid>
+  //   );
+  if (props.filas.res === undefined || props.filas.res.length < 1)
     return (
-      <Grid container px={2}>
-        <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
-      </Grid>
-    );
-  if (props.filas.res.length < 1)
-    return (
-      <Grid container>
+      <Grid container paddingX={2}>
         <MensajeFeedback>La catedra aún no tiene materias.</MensajeFeedback>
       </Grid>
     );

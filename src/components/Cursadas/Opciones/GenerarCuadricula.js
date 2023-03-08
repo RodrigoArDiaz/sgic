@@ -11,8 +11,13 @@ import { routes } from "../../../routes";
 /*** Componente GenerarCuadricula ***/
 export const GenerarCuadricula = (props) => {
   const navegar = useNavigate();
+  //Recupero token
+  const token = localStorage.getItem("tkn");
 
   async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+    //
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),

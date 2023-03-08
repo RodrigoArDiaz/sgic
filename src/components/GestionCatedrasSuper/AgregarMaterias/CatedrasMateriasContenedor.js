@@ -53,6 +53,7 @@ export default function CatedrasMateriasContenedor(props) {
     return response.json();
   }
 
+  //Refrescar
   function Refrescar() {
     setCargando(true);
     consultas(datosconsulta, endpoints.buscarMaterias)
@@ -70,6 +71,7 @@ export default function CatedrasMateriasContenedor(props) {
       });
   }
 
+  //Buscar materias
   function BuscarMat(parametro) {
     parametro.Offset = 0;
     parametro.Limite = filasxpagina;
@@ -79,10 +81,11 @@ export default function CatedrasMateriasContenedor(props) {
     consultas(parametro, endpoints.buscarMaterias)
       .then((response) => {
         setFilas(response);
-        if (response.res.length > 0) {
+        if (response.res === undefined) {
+          setCargando(false);
+        } else if (response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
-
           setPagina(1);
         }
         setCargando(false);
@@ -92,6 +95,7 @@ export default function CatedrasMateriasContenedor(props) {
       });
   }
 
+  //Cambio pagina
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -111,6 +115,7 @@ export default function CatedrasMateriasContenedor(props) {
     setPagina(pag);
   }
 
+  //Cambio FPP
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -136,21 +141,16 @@ export default function CatedrasMateriasContenedor(props) {
       });
   }
 
+  //Peticion al renderizar elemento
   React.useEffect(() => {
     var data = {
       pMat: "",
-      //pCSM:'',
       pPla: "",
-      //pCSP:'',
-
       pCar: "",
-      //   pCSC:'',
-
       piB: "B",
       Offset: 0,
       Limite: filasxpagina,
       pidCat: props.idcatedra,
-      //pidCa:props.idcatedra,
     };
 
     setDC(data);

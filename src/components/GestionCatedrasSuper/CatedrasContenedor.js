@@ -62,7 +62,7 @@ export default function CatedrasContenedor() {
     return response.json();
   }
 
-  //
+  //Refrescar
   function Refrescar() {
     setCargando(true);
     consultas(datosconsulta, endpoints.buscarCatedras)
@@ -80,7 +80,7 @@ export default function CatedrasContenedor() {
       });
   }
 
-  //
+  //BuscarCat
   function BuscarCat(parametro) {
     parametro.Offset = 0;
     parametro.Limite = filasxpagina;
@@ -91,7 +91,7 @@ export default function CatedrasContenedor() {
       .then((response) => {
         setFilas(response);
 
-        if (response.res.length > 0) {
+        if (response.res !== undefined && response.res.length > 0) {
           setPaginacion(response.res[0].filas);
           setResultado(response.res[0].resultados);
 
@@ -105,7 +105,7 @@ export default function CatedrasContenedor() {
       });
   }
 
-  //
+  //CambioPagina
   function CambioPagina(pag) {
     var datos = datosconsulta;
     datos.Offset = pag * filasxpagina - filasxpagina;
@@ -125,7 +125,7 @@ export default function CatedrasContenedor() {
     setPagina(pag);
   }
 
-  //
+  //CambioFPP
   function CambioFPP(pag) {
     setFXP(pag);
     var datos = datosconsulta;
@@ -151,6 +151,7 @@ export default function CatedrasContenedor() {
       });
   }
 
+  //Peticion al renderizar elemento
   React.useEffect(() => {
     var data = {
       Catedra: "",

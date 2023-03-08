@@ -112,7 +112,7 @@ export default function AlumnoLista(props) {
 
   if (props.filas.res.length < 1)
     return (
-      <Grid container>
+      <Grid container paddingX={2}>
         <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
       </Grid>
     );

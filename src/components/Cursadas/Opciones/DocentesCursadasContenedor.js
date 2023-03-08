@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //MUI
 import { Avatar, Box, CardContent, Chip, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -58,6 +58,10 @@ export default function DocentesCursadasContenedor(props) {
       .catch((error) => {
         navegar(routes.error);
       });
+  }, []);
+
+  useEffect(() => {
+    console.log(cursada);
   }, []);
 
   return (
@@ -195,14 +199,21 @@ export default function DocentesCursadasContenedor(props) {
                                   }}
                                 >
                                   <Chip
-                                    label={
-                                      cursada.Estado == "A" ? "Activo" : "Baja"
-                                    }
                                     variant="outlined"
+                                    //si se borra 'info' al final puede generar error
+                                    label={
+                                      (estado == "A" && "Alta") ||
+                                      (estado == "B" && "Baja") ||
+                                      (estado == "I" &&
+                                        "Inscripción abierta") ||
+                                      "info"
+                                    }
+                                    //si se borra 'info' al final puede generar error
                                     color={
-                                      cursada.Estado == "A"
-                                        ? "success"
-                                        : "danger"
+                                      (estado == "A" && "success") ||
+                                      (estado == "B" && "error") ||
+                                      (estado == "I" && "warning") ||
+                                      "info"
                                     }
                                   />
                                   <Typography

@@ -27,7 +27,7 @@ export const ExportarInfoAlumnos = (props) => {
   async function consultas(data, cadena) {
     //Adjunto token
     data = { ...data, ...{ token: token } };
-    console.log(data);
+
     //Peticion
     const response = await fetch(cadena, {
       method: "POST",

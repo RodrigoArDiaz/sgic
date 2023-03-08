@@ -54,40 +54,29 @@ export default function CatedraLista(props) {
   }
 
   //
-  if (props.filas.res === undefined)
-    return (
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          border: "1px solid",
-          borderColor: "secondary.light100",
-          textAlign: "center",
-          paddingX: "1rem",
-        }}
-      >
-        <Grid container>
-          <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
-        </Grid>
-      </Box>
-    );
+  // if (props.filas.res === undefined)
+  //   return (
+  //     <Box
+  //       sx={{
+  //         backgroundColor: "#fff",
+  //         borderRadius: "10px",
+  //         border: "1px solid",
+  //         borderColor: "secondary.light100",
+  //         textAlign: "center",
+  //         paddingX: "1rem",
+  //       }}
+  //     >
+  //       <Grid container>
+  //         <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
+  //       </Grid>
+  //     </Box>
+  //   );
 
-  if (props.filas.res.length < 1)
+  if (props.filas.res === undefined || props.filas.res.length < 1)
     return (
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          border: "1px solid",
-          borderColor: "secondary.light100",
-          textAlign: "center",
-          paddingX: "1rem",
-        }}
-      >
-        <Grid container>
-          <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
-        </Grid>
-      </Box>
+      <Grid container paddingX={2}>
+        <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
+      </Grid>
     );
 
   return (

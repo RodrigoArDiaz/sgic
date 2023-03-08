@@ -86,15 +86,15 @@ export default function UsuariosLista(props) {
     props.actualizarpagina(page);
   }
 
-  if (props.filas.res === undefined)
+  // if (props.filas.res === undefined)
+  //   return (
+  //     <Grid container>
+  //       <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
+  //     </Grid>
+  //   );
+  if (props.filas.res === undefined || props.filas.res.length < 1)
     return (
-      <Grid container>
-        <MensajeFeedback tipo="error">Error fatal.</MensajeFeedback>
-      </Grid>
-    );
-  if (props.filas.res.length < 1)
-    return (
-      <Grid container>
+      <Grid container paddingX={3}>
         <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
       </Grid>
     );
