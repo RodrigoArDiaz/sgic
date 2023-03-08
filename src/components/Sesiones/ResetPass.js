@@ -16,6 +16,8 @@ import {
   Typography,
   FormHelperText,
   Stack,
+  Collapse,
+  Alert,
 } from "@mui/material";
 import { Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -28,6 +30,7 @@ import * as Responses from "../Responses";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
 import MensajeFeedback from "../MensajeFeedback";
+import { useState } from "react";
 
 //Estilos
 const estiloFormControl = {
@@ -51,8 +54,16 @@ export default function ResetPass() {
   const [mostrarContrasenia2, setMostrarContrasenia2] = React.useState(false);
 
   const navegar = useNavigate();
+
+  //
   const [open, setOpen] = React.useState(false);
   const [texto, setTexto] = React.useState("");
+  //Estado del envio de la peticion
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [respuesta, setRespuesta] = React.useState(false);
+  const [errorsArray, setErrorsArray] = useState([]);
+
+  //Recupero codigo de activacion de la URL
   const Activar = useParams();
 
   const [form, setForm] = React.useState({
@@ -79,12 +90,17 @@ export default function ResetPass() {
   };
 
   function CambiarPass() {
+    //seteo estado de la peticion
+    // setIsLoading(true);
+    setRespuesta(false);
+    //Dato a enviar
     var data = {
       pCodigo: Activar.codigoActivacion,
       pC: form.Contrasena,
       pRC: form.RepContrasena,
     };
 
+    //Peticion
     Responses.consultas(data, endpoints.cambiarPass)
       .then((response) => {
         if (Responses.status === 200) {
@@ -93,6 +109,19 @@ export default function ResetPass() {
         } else if (Responses.status === 401) {
           navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
+          //Acondiciono errores para mostrar en el collapse
+          let errorResponse = [];
+          if (response.Contrasena != undefined)
+            if (response.Contrasena != "")
+              errorResponse.push(response.Contrasena);
+          if (response["RepContrasena: "] != undefined)
+            if (response["RepContrasena: "] != "")
+              errorResponse.push(response["RepContrasena: "]);
+          if (response.CI != undefined)
+            if (response.CI != "") errorResponse.push(response.CI);
+          setErrorsArray(errorResponse);
+          setRespuesta(true);
+
           if (response.Error === undefined) {
             setTexto(response.CI);
             setOpen(true);
@@ -283,10 +312,27 @@ export default function ResetPass() {
               fullWidth
               sx={estiloButton}
               onClick={CambiarPass}
+              disabled={isLoading ? true : false}
             >
               Aceptar
             </Button>
           </Grid>
+
+          <Collapse
+            in={respuesta}
+            sx={respuesta ? { mt: "1rem" } : { mt: "0" }}
+          >
+            <Alert severity="error">
+              {errorsArray.map((er) => {
+                return (
+                  <>
+                    {er}
+                    <br />
+                  </>
+                );
+              })}
+            </Alert>
+          </Collapse>
         </Grid>
       </Grid>
 
