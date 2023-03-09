@@ -7,6 +7,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import {
   BrowserRouter as Router,
   HashRouter,
+  Navigate,
   Route,
   Routes,
 } from "react-router-dom";
@@ -41,6 +42,7 @@ import PaginaAlumnoMisCursadas from "./pages/PaginaAlumnoMisCursadas.js";
 import PaginaAlumnosMisNotas from "./pages/PaginaAlumnoMisNotas.js";
 import PaginaAlumnosInfoCursada from "./pages/PaginaAlumnoInfoCursada.js";
 import PaginaError from "./pages/PaginaError.js";
+import Pagina404 from "./pages/Pagina404.js";
 
 export default function App() {
   const login = useSelector((state) => state.login);
@@ -62,6 +64,9 @@ export default function App() {
               {/*****************************************************
                Rutas publicas: no necesitan autenticacion
                ******************************************************/}
+              {/*************************
+              Ruta: Redireccionar a pagina 404*/}
+              {/* <Route path="*" element={<Navigate to="/pagina_404" />} /> */}
 
               {/*********************
               Ruta: Inicio de sesion*/}
@@ -101,6 +106,10 @@ export default function App() {
               {/*************************
               Ruta: Resetear contraseña*/}
               <Route path="/error" element={<PaginaError />}></Route>
+
+              {/*************************
+              Ruta: Pagina 404*/}
+              {/* <Route path="/pagina_404" element={<Pagina404 />} /> */}
 
               {/*****************************************************
                Rutas privadas: necesitan autenticacion

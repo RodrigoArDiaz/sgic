@@ -46,9 +46,14 @@ const estiloBoxForm = {
   mt: { xs: "4rem", md: "4rem" },
 };
 
+/***  Componenete Formulario Registro***/
 function FormularioRegistro() {
   const navegar = useNavigate();
 
+  //Estado de peticion
+  const [isLoading, setIsLoading] = useState(false);
+
+  //Boton registrarse
   function DevolverBoton() {
     if (
       enombres === "1" &&
@@ -66,7 +71,12 @@ function FormularioRegistro() {
           color="primary"
           fullWidth
           sx={estiloButton}
+          disabled={isLoading ? true : false}
+          //Peticion
           onClick={() => {
+            //Peticion se inicia
+            setIsLoading(true);
+            //Data a enviar
             var data = {
               pNom: form.nombres,
               pAp: form.apellidos,
@@ -80,6 +90,9 @@ function FormularioRegistro() {
 
             Responses.consultas(data, endpoints.registroAlumno)
               .then((response) => {
+                //Peticion finalizada
+                setIsLoading(false);
+                //Comportamiento segun estado de la respuesta
                 if (Responses.status === 200) {
                   setNom("");
                   setAp("");
@@ -102,8 +115,11 @@ function FormularioRegistro() {
                   });
 
                   setAbrir(true);
-                  setMensaje("Usuario Registrado con éxito");
+                  setMensaje(
+                    "Usuario registrado con éxito. " + response.Mensaje + "."
+                  );
                   setTipo("success");
+                  console.log(response);
                 } else if (Responses.status === 401) {
                   navegar(routes.docentesIngreso);
                 } else if (Responses.status === 460) {
@@ -150,10 +166,14 @@ function FormularioRegistro() {
                     setRep("2");
                   }
                 } else {
+                  setIsLoading(false);
                   navegar(routes.error);
                 }
               })
               .catch((error) => {
+                //Peticion finalizada
+                setIsLoading(false);
+                //
                 console.log(error);
                 // navegar(routes.error);
               });
@@ -170,8 +190,6 @@ function FormularioRegistro() {
           fullWidth
           disabled
           sx={estiloButton}
-
-          //onClick={handleSubmit}
         >
           Registrarse
         </Button>
@@ -249,7 +267,7 @@ function FormularioRegistro() {
             variant="subtitle1"
             sx={{ color: "text.subtitle1secondary" }}
           >
-            Creá una cuenta para ingresar al sistema
+            Creá una cuenta para ingresar al sistema.
           </Typography>
         </Stack>
       </Grid>
@@ -672,7 +690,7 @@ function FormularioRegistro() {
                       "La libreta ingresado tiene un formato incorrecto.",
                   });
                   setLib("2");
-                } else if (form.libreta.trim().length < 8) {
+                } else if (form.libreta.trim().length < 7) {
                   setErrors({
                     ...errors,
                     [e.target.name]:

@@ -64,6 +64,8 @@ const determinarEstado = (estado) => {
 const InfoAlumno = () => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
+  //Recupero informacion de del alumno
+  const { user } = useSelector((state) => state.user);
 
   //
   const navegar = useNavigate();
@@ -105,6 +107,7 @@ const InfoAlumno = () => {
     try {
       const respuesta = await peticionListarIntegrantesGrupo(
         cursada.IdCursada,
+        user.IdUsuario,
         null
       );
       console.log(respuesta.data.res);
@@ -122,6 +125,7 @@ const InfoAlumno = () => {
   useEffect(() => {
     handleBuscarMiSituacionFinal();
     handleListarIntegrantesGrupo();
+    console.log(user);
   }, []);
 
   return (

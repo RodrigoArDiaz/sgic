@@ -260,7 +260,7 @@ export const peticionInfoCursada = (pidCu, token) => {
  * @param {*} frmData
  * @returns
  */
-export const peticionListarIntegrantesGrupo = (pidCu, token) => {
+export const peticionListarIntegrantesGrupo = (pidCu, pidUs, token) => {
   //Si token (de redux) esta vacion, lo busca en localStorage
   if (!token) {
     token = localStorage.getItem("tkn");
@@ -269,6 +269,7 @@ export const peticionListarIntegrantesGrupo = (pidCu, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     pidCu: pidCu,
+    pidUs: pidUs,
     token: token,
   };
 
