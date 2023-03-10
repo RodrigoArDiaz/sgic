@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
@@ -19,6 +19,9 @@ export const AgregarMateriaCatedra = (props) => {
   const token = localStorage.getItem("tkn");
 
   const [isOpen, handleOpen, handleClose] = useModal(false);
+
+  //Estado peticion
+  const [isLoading, setIsLoading] = useState(false);
 
   async function consultas(data, cadena) {
     //Adjunto token
@@ -45,6 +48,7 @@ export const AgregarMateriaCatedra = (props) => {
       pCar: props.carrera,
     };
 
+    setIsLoading(true);
     consultas(data, endpoints.agregarMateria)
       .then((response) => {
         if (response.Error === undefined) {
@@ -57,7 +61,7 @@ export const AgregarMateriaCatedra = (props) => {
           props.tipo("success");
           props.refrescar();
 
-          console.log(response);
+          setIsLoading(false);
         } else {
           // Aqui actualizo los errores
 
@@ -66,6 +70,7 @@ export const AgregarMateriaCatedra = (props) => {
           props.mensaje(response.Error);
           props.tipo("error");
           props.refrescar();
+          setIsLoading(false);
         }
       })
       .catch((error) => {});
@@ -103,8 +108,12 @@ export const AgregarMateriaCatedra = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={AgregarMateria}>
-            Agregar
+          <Button
+            variant="contained"
+            onClick={AgregarMateria}
+            disabled={isLoading ? true : false}
+          >
+            Aceptar
           </Button>
           <Button variant="outlined" color="primary" onClick={handleClose}>
             Cancelar

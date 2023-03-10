@@ -46,6 +46,8 @@ export const BorrarRolUsuario = (props) => {
     var data = {
       IdCatedra: props.idcatedra,
       IdUsuario: props.idusuario,
+      pidCa: props.idcatedra,
+      pidDoc: props.documentoUsuario,
     };
 
     consultas(data, endpoints.borrarUsCat)

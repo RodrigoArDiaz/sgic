@@ -30,6 +30,7 @@ export const BotonAcciones = (props) => {
           abrir={props.abrir}
           mensaje={props.mensaje}
           tipo={props.tipo}
+          documentoUsuario={props.documentoUsuario}
         />
       </Grid>
     </Grid>

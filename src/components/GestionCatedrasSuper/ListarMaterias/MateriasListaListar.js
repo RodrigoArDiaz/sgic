@@ -66,7 +66,7 @@ export default function MateriasListaListar(props) {
   //   );
   if (props.filas.res === undefined || props.filas.res.length < 1)
     return (
-      <Grid container paddingX={2}>
+      <Grid container paddingX={3}>
         <MensajeFeedback>La catedra aún no tiene materias.</MensajeFeedback>
       </Grid>
     );

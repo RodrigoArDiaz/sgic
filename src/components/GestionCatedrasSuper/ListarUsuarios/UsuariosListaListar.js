@@ -225,6 +225,7 @@ export default function UsuariosListaListar(props) {
                             mensaje={props.mensaje}
                             tipo={props.tipo}
                             idusuario={row.IdUsuario}
+                            documentoUsuario={row.Documento}
                           />
                         )}
                       </TableCell>

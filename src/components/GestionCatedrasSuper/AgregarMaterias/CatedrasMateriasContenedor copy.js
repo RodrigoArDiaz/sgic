@@ -38,11 +38,67 @@ export default function CatedrasMateriasContenedor(props) {
   const [abrir, setAbrir] = React.useState(false);
   const [tipo, setTipo] = React.useState();
 
-  //Manejo de la peticion para buscar materias
-  const handlePeticion = (data) => {
-    Responses.consultas(data, endpoints.buscarMaterias)
+  async function consultas(data, cadena) {
+    //Adjunto token
+    data = { ...data, ...{ token: token } };
+
+    const response = await fetch(cadena, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.json();
+  }
+
+  //Refrescar
+  function Refrescar() {
+    setCargando(true);
+    Responses.consultas(datosconsulta, endpoints.buscarMaterias)
       .then((response) => {
+        console.log(response);
+        console.log(Responses.status);
         setFilas(response);
+        setCargando(false);
+
+        if (response.res.length > 0) {
+          setPaginacion(response.res[0].filas);
+          setResultado(response.res[0].resultados);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        // navegar(routes.iniciarSesion);
+      });
+  }
+
+  //Buscar materias
+  function BuscarMat(parametro) {
+    parametro.Offset = 0;
+    parametro.Limite = filasxpagina;
+
+    setDC(parametro);
+    setCargando(true);
+    Responses.consultas(parametro, endpoints.buscarMaterias)
+      .then((response) => {
+        console.log(response);
+        console.log(Responses.status);
+
+        setFilas(response);
+
+        // if (response.res === undefined) {
+        //   setCargando(false);
+        // } else if (response.res.length > 0) {
+        //   setPaginacion(response.res[0].filas);
+        //   setResultado(response.res[0].resultados);
+        //   setPagina(1);
+        // }
+
+        // setCargando(false);
 
         if (Responses.status == 200) {
           if (response.res === undefined) {
@@ -71,43 +127,10 @@ export default function CatedrasMateriasContenedor(props) {
         setCargando(false);
       })
       .catch((error) => {
+        console.log("catch error");
         // navegar(routes.iniciarSesion);
         setCargando(false);
       });
-  };
-
-  //Carga materias al renderizar elemento
-  React.useEffect(() => {
-    var data = {
-      pMat: "",
-      pPla: "",
-      pCar: "",
-      piB: "B",
-      Offset: 0,
-      Limite: filasxpagina,
-      pidCat: props.idcatedra,
-    };
-
-    setDC(data);
-
-    handlePeticion(data);
-  }, []);
-
-  //Buscar materias
-  function BuscarMat(parametro) {
-    parametro.Offset = 0;
-    parametro.Limite = filasxpagina;
-
-    setDC(parametro);
-    setCargando(true);
-    //
-    handlePeticion(parametro);
-  }
-
-  //Refrescar busqueda con los datos actuales
-  function Refrescar() {
-    setCargando(true);
-    handlePeticion(datosconsulta);
   }
 
   //Cambio pagina
@@ -161,6 +184,44 @@ export default function CatedrasMateriasContenedor(props) {
         // navegar(routes.iniciarSesion);
       });
   }
+
+  //Peticion al renderizar elemento
+  React.useEffect(() => {
+    var data = {
+      pMat: "",
+      pPla: "",
+      pCar: "",
+      piB: "B",
+      Offset: 0,
+      Limite: filasxpagina,
+      pidCat: props.idcatedra,
+    };
+
+    setDC(data);
+
+    Responses.consultas(data, endpoints.buscarMaterias)
+      .then((response) => {
+        console.log(response);
+        console.log(Responses.status);
+        setFilas(response);
+
+        if (response.res === undefined) {
+          setCargando(true);
+        } else {
+          if (response.res.length > 0) {
+            setPaginacion(response.res[0].filas);
+            setResultado(response.res[0].resultados);
+
+            setPagina(1);
+          }
+          setCargando(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        // navegar(routes.iniciarSesion);
+      });
+  }, []);
 
   return (
     <CardContent sx={{ px: 0 }}>

@@ -42,9 +42,10 @@ import CerrarSesion from "../CerrarSesion";
 const PopoverCustomMenu = styled(Popover)(({ theme }) => ({
   "& .MuiPopover-paper": {
     boxShadow: theme.customShadows.z3,
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: theme.palette.secondary.light100,
+    border: "1px solid rgb(230, 235, 241)",
+    // borderWidth: "1px",
+    // borderStyle: "solid",
+    // borderColor: theme.palette.secondary.light100,
     // boxShadow: "none",
   },
 }));

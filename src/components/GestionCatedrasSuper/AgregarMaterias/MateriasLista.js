@@ -59,6 +59,10 @@ const columns = [
 
 /*** Componente MateriasLista ***/
 export default function MateriasLista(props) {
+  React.useEffect(() => {
+    console.log(props);
+  }, []);
+
   function CambiarPagina(e, page) {
     props.actualizarpagina(page);
   }
@@ -73,7 +77,7 @@ export default function MateriasLista(props) {
   if (props.filas.res === undefined || props.filas.res.length < 1)
     return (
       <Grid container paddingX={2}>
-        <MensajeFeedback>No se encontraron resultados.</MensajeFeedback>
+        <MensajeFeedback>{props.mensajeFeedBack}</MensajeFeedback>
       </Grid>
     );
 

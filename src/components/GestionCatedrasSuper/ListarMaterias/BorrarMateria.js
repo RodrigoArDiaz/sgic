@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 //MUI
 import { Button } from "@mui/material";
 import { Tooltip, Zoom } from "@mui/material";
@@ -21,10 +21,12 @@ import { routes } from "../../../routes";
 export const BorrarMateria = (props) => {
   //Recupero token
   const token = localStorage.getItem("tkn");
-
+  //Hooks modal
   const [isOpen, handleOpen, handleClose] = useModal(false);
-
+  //Funcion para rediereccionar
   const navegar = useNavigate();
+  //Estado de peticion
+  const [isLoading, setIsLoading] = useState(false);
 
   async function consultas(data, cadena) {
     //Adjunto token
@@ -48,7 +50,7 @@ export const BorrarMateria = (props) => {
       pidCa: props.idcatedra,
       pMat: props.materia,
     };
-
+    setIsLoading(true);
     consultas(data, endpoints.borrarMateria)
       .then((response) => {
         console.log(response);
@@ -62,9 +64,11 @@ export const BorrarMateria = (props) => {
           handleClose();
           props.refrescar();
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.iniciarSesion);
+        setIsLoading(false);
       });
   }
 
@@ -98,7 +102,11 @@ export const BorrarMateria = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={BorrarMateria}>
+          <Button
+            variant="contained"
+            onClick={BorrarMateria}
+            disabled={isLoading ? true : false}
+          >
             Aceptar
           </Button>
           <Button variant="outlined" color="primary" onClick={handleClose}>
