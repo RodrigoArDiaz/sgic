@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import * as Responses from "../../Responses";
 import { endpoints } from "../../../api/endpoints";
 import { routes } from "../../../routes";
+import { useState } from "react";
 
 /*** Componente BorrarDeGrupo***/
 export const BorrarDeGrupo = (props) => {
