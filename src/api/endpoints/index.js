@@ -104,6 +104,7 @@ const endpoints = {
   buscarECPracticos: rootUrl + "/buscarecpracticos",
   modificarECPra: rootUrl + "/modificarecpra",
   modificarNotaPractico: rootUrl + "/modificarnotapractico",
+
   buscarNotasExamenes: rootUrl + "/buscarnotasexamenes",
   buscarECExamenes: rootUrl + "/buscarecexamenes",
   modificarECEx: rootUrl + "/modificarecex",

@@ -48,7 +48,7 @@ export default function NotaInput(props) {
   }
 
   return (
-    <FormControl sx={{ m: 1, width: 51 }} variant="outlined">
+    <FormControl sx={{ m: 1, width: 65 }} variant="outlined">
       <OutlinedInputEditable
         sx={determinarEstilo(props.Cond, props.Nota)}
         id="outlined-adornment-weight"

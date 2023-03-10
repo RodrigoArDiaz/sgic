@@ -11,7 +11,7 @@ export async function consultas(data, cadena) {
   const token = localStorage.getItem("tkn");
   //Adjunto token
   data = { ...data, ...{ token: token } };
-  console.log(data);
+  // console.log(data);
   const response = await fetch(cadena, {
     method: "POST",
     body: JSON.stringify(data),

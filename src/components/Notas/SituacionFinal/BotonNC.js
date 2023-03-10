@@ -11,7 +11,7 @@ import { OutlinedInputEditable } from "../../Material UI - Componentes Modificad
 const determinarEstilo = (condicion, nota) => {
   if (condicion === undefined) {
     return {};
-  } else if (nota == 0 || nota == "-") {
+  } else if (Number.parseInt(nota) == 0 || nota == "-") {
     return {};
   } else if (condicion > 0) {
     return {
@@ -39,15 +39,19 @@ const determinarEstilo = (condicion, nota) => {
 
 /*** Componente BotonNC ***/
 export default function BotonNC(props) {
-  function Transformar(param) {
-    if (param === 0) {
+  function Transformar(Nota) {
+    if (Number.parseInt(Nota) === 0) {
       return "-";
     }
-    return param;
+    return Number.parseFloat(Nota).toFixed(2);
   }
 
+  React.useEffect(() => {
+    console.log(props.Nota);
+  }, []);
+
   return (
-    <FormControl sx={{ m: 1, width: 51 }} variant="outlined">
+    <FormControl sx={{ m: 1, width: 70 }} variant="outlined">
       <OutlinedInputEditable
         sx={determinarEstilo(props.Cond, props.Nota)}
         id="outlined-adornment-weight"

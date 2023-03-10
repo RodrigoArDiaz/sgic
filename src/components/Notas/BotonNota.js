@@ -65,7 +65,7 @@ export const BotonNota = (props) => {
         );
         props.tipo("error");
         formik.resetForm();
-      } else if (notaParam.trim() == nota) {
+      } else if (notaParam.trim() === nota) {
         // No se modifica si la nota es igual a la anterior
       } else {
         //Se indica que se esta realizando la peticion
@@ -84,11 +84,6 @@ export const BotonNota = (props) => {
           .then((response) => {
             setLoading(false);
             if (Responses.status === 200) {
-              // if (parseInt(notaParam) === 0) {
-              //   setNombre("-");
-              //   props.mensaje("Nota modificada: " + "-");
-              // } else {
-              //   setNombre(notaParam);
               props.mensaje("Nota modificada: " + notaParam);
               props.abrir(true);
               props.tipo("success");
@@ -96,17 +91,7 @@ export const BotonNota = (props) => {
             } else if (Responses.status === 401) {
               navegar(routes.iniciarSesion);
             } else if (Responses.status === 460) {
-              // setTexto("");
-              // setSalto("1");
-              // if (response.nota1 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota1);
-              //   props.tipo("error");
-              // } else if (response.nota2 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota2);
-              //   props.tipo("error");
-              // }
+              //
             } else {
               navegar(routes.error);
             }

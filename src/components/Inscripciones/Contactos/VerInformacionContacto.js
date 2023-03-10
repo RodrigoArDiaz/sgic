@@ -27,7 +27,10 @@ import CopiarButton from "../../CopiarButton";
 import { SocialIcons } from "../../PerfilUsuario/SocialIcons";
 import MensajeFeedback from "../../MensajeFeedback";
 import { isValidUrl } from "../../../helpers/valiidarUrl";
-import { peticionListarContactos } from "../../../api/alumnos/gestionContactosApi";
+import {
+  peticionListarContactos,
+  peticionVerInfoContactoAlumno,
+} from "../../../api/alumnos/gestionContactosApi";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 
 //
@@ -47,17 +50,20 @@ const VerInformacionContacto = ({ alumno, idAlumno, idcursada }) => {
     setIsLoading(true);
     //Realizo peticion
     try {
-      const respuesta = await peticionListarContactos(
+      const respuesta = await peticionVerInfoContactoAlumno(
         idAlumno,
         idcursada,
         null
       );
       console.log(respuesta.data.data.contactos);
       setContactos(respuesta.data.data.contactos);
+
+      console.log(respuesta);
     } catch (error) {
       //Ocurrio un error
       // const response = error.response.data;
       // setErrors(response.data);
+      console.log(error);
     }
     setIsLoading(false);
   };

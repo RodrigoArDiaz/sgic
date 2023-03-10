@@ -6,30 +6,27 @@ import { OutlinedInputEditable } from "./ComponentesNotas";
  * Determinar Estilo del input
  */
 const determinarEstilo = (nota, notaMin) => {
-  if (nota == "") return {};
-  if (nota < notaMin)
+  //Nota es null (no tiene nota)
+  if (nota === "" || nota < 0 || nota == null || nota == undefined) return {};
+  //Nota menor a nota minima
+  if (nota < notaMin) {
     return {
-      // backgroundColor: red[50],
       color: red["A700"],
       fontWeight: "500",
       borderRadius: "5px!important",
       "& fieldset.MuiOutlinedInput-notchedOutline": {
-        // outlineColor: red[800] + "!important",
-        // borderColor: red[800] + "!important",
         borderColor: red["A700"] + "!important",
         borderRadius: 0,
       },
     };
+  }
+  //Nota es mayor o igual a nota minima
   else
     return {
-      // backgroundColor: green[50],
-      // borderColor: green[50],
       color: green[900],
       fontWeight: "500",
       borderRadius: "5px!important",
       "& fieldset.MuiOutlinedInput-notchedOutline": {
-        // outlineColor: green[800] + "!important",
-        // borderColor: green[800] + "!important",
         borderWidth: "2px solid",
         borderColor: green[800] + "!important",
         borderRadius: 0,
@@ -37,8 +34,8 @@ const determinarEstilo = (nota, notaMin) => {
     };
 };
 
-/******************************
- * Componente
+/**************************************
+ * Componente OutlinedInputEditableNote
  */
 const OutlinedInputEditableNote = (props) => {
   return (

@@ -14,7 +14,7 @@ const modificarContactoAlumnoUrl = rootUrl + "/modificar_contacto";
  * @param {*} frmData
  * @returns
  */
-export const peticionListarContactos = (IdUsuario, idcursada, token) => {
+export const peticionListarContactos = (IdUsuario, token) => {
   if (!token) {
     token = localStorage.getItem("tkn");
   }
@@ -22,9 +22,11 @@ export const peticionListarContactos = (IdUsuario, idcursada, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
-    pidCu: idcursada,
+    // pidCu: idcursada,
     token: token,
   };
+
+  console.log(credenciales);
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -150,7 +152,7 @@ export const peticionModificarContacto = (
  * @param {*} frmData
  * @returns
  */
-export const peticionVerInfoContactoAlumno = (IdUsuario, token) => {
+export const peticionVerInfoContactoAlumno = (IdUsuario, IdCursada, token) => {
   if (!token) {
     token = localStorage.getItem("tkn");
   }
@@ -158,8 +160,13 @@ export const peticionVerInfoContactoAlumno = (IdUsuario, token) => {
   //Objeto con las claves que espera la API
   const credenciales = {
     IdUsuario: IdUsuario,
+    // pidCu: idcursada,
+    pidUs: IdUsuario,
+    pidCu: IdCursada,
     token: token,
   };
+
+  console.log(credenciales, listarContactosDelAlumnoURL);
 
   return new Promise(async (resolve, reject) => {
     try {

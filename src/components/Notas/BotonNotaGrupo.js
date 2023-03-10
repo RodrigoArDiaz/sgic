@@ -14,6 +14,8 @@ import { ScaleLoader } from "react-spinners";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import OutlinedInputEditableNote from "../Material UI - Componentes Modificados/ComponentesNotas/OutlinedInputEditableNote";
+import { endpoints } from "../../api/endpoints";
+import { routes } from "../../routes";
 
 /*****************************************
  * Componente 'BotonNotaGrupo'
@@ -26,7 +28,7 @@ export const BotonNotaGrupo = (props) => {
   //Navegacion React Router
   const navegar = useNavigate();
 
-  //Variable de estado que indica la nota
+  //Variable de estado que indica la nota (nota no acepta null,pero desde backen se devuelve un numero negativo para el null)
   const [nota, setNota] = useState(props.Nota < 0 ? "" : props.Nota);
 
   //Variable de estado que indica el procesamiento de la peticion
@@ -65,7 +67,7 @@ export const BotonNotaGrupo = (props) => {
         );
         props.tipo("error");
         formik.resetForm();
-      } else if (notaParam.trim() == nota) {
+      } else if (notaParam.trim() === nota) {
         // No se modifica si la nota es igual a la anterior
       } else {
         //Se indica que se esta realizando la peticion
@@ -79,43 +81,26 @@ export const BotonNotaGrupo = (props) => {
           pidP: props.IdPractico,
           pidCu: props.cursada.IdCursada,
         };
+
         //Peticion
-        Responses.consultas(
-          data,
-          "http://127.0.0.1:8000/api/modificarnotapractico"
-        )
+        Responses.consultas(data, endpoints.modificarNotaPractico)
           .then((response) => {
             setLoading(false);
             if (Responses.status === 200) {
-              // if (parseInt(notaParam) === 0) {
-              //   setNombre("-");
-              //   props.mensaje("Nota modificada: " + "-");
-              // } else {
-              //   setNombre(notaParam);
               props.mensaje("Nota modificada: " + notaParam);
               props.abrir(true);
               props.tipo("success");
               setNota(notaParam);
             } else if (Responses.status === 401) {
-              navegar("/ingreso");
+              navegar(routes.iniciarSesion);
             } else if (Responses.status === 460) {
-              // setTexto("");
-              // setSalto("1");
-              // if (response.nota1 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota1);
-              //   props.tipo("error");
-              // } else if (response.nota2 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota2);
-              //   props.tipo("error");
-              // }
+              //
             } else {
-              navegar("/error");
+              navegar(routes.error);
             }
           })
           .catch((error) => {
-            navegar("/error");
+            navegar(routes.error);
           });
       }
     } else {

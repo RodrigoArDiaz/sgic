@@ -13,6 +13,7 @@ import {
   Grid,
   IconButton,
   Tooltip,
+  Typography,
   Zoom,
 } from "@mui/material";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -58,6 +59,8 @@ export const BotonAccionesPractico = ({ IdPractico, label }) => {
         IdPractico,
         null
       );
+
+      console.log(respuesta);
 
       setEnunciadoCorreccion(respuesta.data.res[0]);
 
@@ -124,6 +127,17 @@ export const BotonAccionesPractico = ({ IdPractico, label }) => {
               Correcciones - {label}
             </DialogTitle>
             <DialogContent>
+              {!isLoading && (
+                <Box display="flex" flexDirection="row" gap={2} my={2}>
+                  <Typography variant="subtitle2" sx={{ fontSize: "1rem" }}>
+                    Docente que corrige:
+                  </Typography>
+                  <Typography sx={{ color: "text.subtitle2secondary" }}>
+                    {" " + enunciadoCorreccion.Docente}
+                  </Typography>
+                </Box>
+              )}
+
               <DialogContentText>
                 {isLoading && <SpinnerMoonLoaderMedium />}
 

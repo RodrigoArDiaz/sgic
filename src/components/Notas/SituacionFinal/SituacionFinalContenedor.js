@@ -201,7 +201,7 @@ export default function SituacionFinalContenedor(props) {
             pt={0}
             gap={3}
             justifyContent="end"
-            sx={{ marginTop: { xs: "0px", lg: "-35px" } }}
+            sx={{ marginTop: { xs: "0px", md: "0px", lg: "0px", xl: "-35px" } }}
           >
             <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
               Requisito de aprobación:

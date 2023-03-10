@@ -19,11 +19,9 @@ import NotasContenedorExamenes from "./NotasExamenes/NotasContenedorExamenes";
 import SituacionFinalContenedor from "./SituacionFinal/SituacionFinalContenedor";
 
 /*** Componente PaginaDocentesNotas ***/
-export default function NotasContenedor(props) {
+export default function NotasContenedor() {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
-
-  const [titulo, setTitulo] = React.useState("Trabajos Prácticos");
   const [cambiocontexto, setCT] = React.useState("1");
 
   //

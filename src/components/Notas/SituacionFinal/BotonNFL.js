@@ -84,7 +84,7 @@ export const BotonNFL = (props) => {
         formik.resetForm();
       }
       //Comprueba si nuevo valor de nota es igual que el anterior
-      else if (notaParam.trim() == nota) {
+      else if (notaParam.trim() === nota) {
         // No se modifica si la nota es igual a la anterior
       }
       //Comprobacion si cumple condiciones

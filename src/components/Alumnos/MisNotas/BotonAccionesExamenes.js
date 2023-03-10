@@ -13,6 +13,7 @@ import {
   Grid,
   IconButton,
   Tooltip,
+  Typography,
   Zoom,
 } from "@mui/material";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
@@ -59,7 +60,7 @@ export const BotonAccionesExamenes = ({ IdExamen, label }) => {
         null
       );
 
-      //   console.log(respuesta.data.res[0]);
+      console.log(respuesta.data.res[0]);
 
       setEnunciadoCorreccion(respuesta.data.res[0]);
 
@@ -126,6 +127,17 @@ export const BotonAccionesExamenes = ({ IdExamen, label }) => {
               Correcciones - {label}
             </DialogTitle>
             <DialogContent>
+              {!isLoading && (
+                <Box display="flex" flexDirection="row" gap={2} my={2}>
+                  <Typography variant="subtitle2" sx={{ fontSize: "1rem" }}>
+                    Docente que corrige:
+                  </Typography>
+                  <Typography sx={{ color: "text.subtitle2secondary" }}>
+                    {" " + enunciadoCorreccion.Docente}
+                  </Typography>
+                </Box>
+              )}
+
               <DialogContentText>
                 {isLoading && <SpinnerMoonLoaderMedium />}
 

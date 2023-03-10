@@ -101,17 +101,7 @@ export const BotonNota = (props) => {
             } else if (Responses.status === 401) {
               navegar(routes.iniciarSesion);
             } else if (Responses.status === 460) {
-              // setTexto("");
-              // setSalto("1");
-              // if (response.nota1 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota1);
-              //   props.tipo("error");
-              // } else if (response.nota2 !== undefined) {
-              //   props.abrir(true);
-              //   props.mensaje(response.nota2);
-              //   props.tipo("error");
-              // }
+              //
             } else {
               navegar(routes.error);
             }

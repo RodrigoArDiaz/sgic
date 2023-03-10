@@ -191,6 +191,7 @@ export default function SituacionFinalLista(props) {
                             column.format(value)
                           ) : (
                             <BotonNC
+                              // Nota={row.NCEQ}
                               Nota={row.NCEQ}
                               Cond={row.CumpleReqExQ}
                               ex="NCEQ"
@@ -205,6 +206,7 @@ export default function SituacionFinalLista(props) {
                             column.format(value)
                           ) : (
                             <BotonNC
+                              // Nota={row.NCEF}
                               Nota={row.NCEF}
                               Cond={row.CumpleReqExF}
                               ex="NCEF"
