@@ -89,7 +89,11 @@ const VerInformacionContacto = ({ alumno, idAlumno, idcursada }) => {
         </span>
       </Tooltip>
 
-      <DialogCustom open={isOpen} onClose={handleClose}>
+      <DialogCustom
+        open={isOpen}
+        onClose={handleClose}
+        // sx={{ maxWidth: "650px" }}
+      >
         <DialogTitle display="flex" flexDirection="row">
           <ContactsOutlinedIcon sx={{ alignSelf: "center", marginRight: 1 }} />
           Información de contacto

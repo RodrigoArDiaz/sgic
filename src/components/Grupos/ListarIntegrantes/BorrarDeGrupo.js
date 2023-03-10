@@ -22,6 +22,9 @@ import { routes } from "../../../routes";
 export const BorrarDeGrupo = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
+  //Estado peticion
+  const [isLoading, setIsLoading] = useState(false);
+
   const navegar = useNavigate();
   const [est, setE] = React.useState("1");
 
@@ -32,7 +35,7 @@ export const BorrarDeGrupo = (props) => {
       pidCu: props.cursada.IdCursada,
       pidG: props.grupo.IdGrupo,
     };
-
+    setIsLoading(true);
     Responses.consultas(data, endpoints.borrarAlumnoGrupo)
       .then((response) => {
         if (Responses.status === 200) {
@@ -41,6 +44,7 @@ export const BorrarDeGrupo = (props) => {
           props.mensaje(response.Mensaje);
           props.tipo("success");
           setE("2");
+          setIsLoading(false);
         } else if (Responses.status === 401) {
           navegar(routes.iniciarSesion);
         } else if (Responses.status === 460) {
@@ -48,8 +52,8 @@ export const BorrarDeGrupo = (props) => {
           props.abrir(true);
           props.mensaje(response.Error);
           props.tipo("error");
-
           setE("1");
+          setIsLoading(false);
         } else {
           navegar(routes.error);
         }
@@ -103,6 +107,7 @@ export const BorrarDeGrupo = (props) => {
                 onClick={() => {
                   Inscribir();
                 }}
+                disabled={isLoading ? true : false}
               >
                 Aceptar
               </Button>
