@@ -53,22 +53,26 @@ export const BorrarMateria = (props) => {
     setIsLoading(true);
     consultas(data, endpoints.borrarMateria)
       .then((response) => {
-        console.log(response);
         if (response.Mensaje === "OK") {
           handleClose();
           props.abrir(true);
           props.mensaje("Materia borrada con éxito");
           props.tipo("success");
           props.refrescar();
-        } else {
+        }
+
+        if (response.Error != undefined) {
           handleClose();
-          props.refrescar();
+          props.mensaje(response.Error);
+          props.tipo("error");
+          props.abrir(true);
         }
         setIsLoading(false);
       })
       .catch((error) => {
-        navegar(routes.iniciarSesion);
-        setIsLoading(false);
+        console.log(error);
+        // navegar(routes.iniciarSesion);
+        // setIsLoading(false);
       });
   }
 

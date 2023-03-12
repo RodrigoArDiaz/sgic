@@ -28,7 +28,7 @@ export const BorrarRolUsuario = (props) => {
   async function consultas(data, cadena) {
     //Adjunto token
     data = { ...data, ...{ token: token } };
-
+    console.log(data);
     const response = await fetch(cadena, {
       method: "POST",
       body: JSON.stringify(data),
@@ -44,7 +44,7 @@ export const BorrarRolUsuario = (props) => {
 
   function BorrarRolUsuario() {
     var data = {
-      IdCatedra: props.idcatedra,
+      // IdCatedra: props.idcatedra,
       IdUsuario: props.idusuario,
       pidCa: props.idcatedra,
       pidDoc: props.documentoUsuario,
@@ -59,11 +59,13 @@ export const BorrarRolUsuario = (props) => {
           props.mensaje("Usuario borrado con éxito");
           props.tipo("success");
           props.refrescar();
-        } else {
+        }
+
+        if (response.Error != undefined) {
           handleClose();
-          props.abrir(true);
-          props.mensaje(response.Mensaje);
+          props.mensaje(response.Error);
           props.tipo("error");
+          props.abrir(true);
         }
       })
       .catch((error) => {

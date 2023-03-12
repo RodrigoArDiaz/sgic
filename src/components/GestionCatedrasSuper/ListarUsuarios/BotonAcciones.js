@@ -7,6 +7,10 @@ import { ModificarRolUsuario } from "../ModificarRolUsuario";
 
 /*** Componente BotonAcciones ***/
 export const BotonAcciones = (props) => {
+  React.useEffect(() => {
+    console.log(props);
+  }, []);
+
   return (
     <Grid container justifyContent="space-between">
       <Grid item xs={12} sm="auto">

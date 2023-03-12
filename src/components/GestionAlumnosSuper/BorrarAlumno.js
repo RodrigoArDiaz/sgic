@@ -57,12 +57,12 @@ export const BorrarAlumno = (props) => {
           props.mensaje("Alumno borrado con éxito");
           props.tipo("success");
           props.refrescar();
-        } else {
+        }
+        if (response.Error != undefined) {
           handleClose();
-          props.abrir(true);
-          props.mensaje(response.Mensaje);
+          props.mensaje(response.Error);
           props.tipo("error");
-          console.log("error");
+          props.abrir(true);
         }
       })
       .catch((error) => {
