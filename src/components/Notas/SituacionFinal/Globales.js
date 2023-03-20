@@ -14,6 +14,8 @@ export var filas = [];
 export var enunciados = "";
 export var correcciones = "";
 export var texto = "";
+export var res = "";
+
 //export const [enunciados, setEnc] = React.useState('');
 //export const [correcciones, setCor] = React.useState('');
 export function setEnunciados(props) {
@@ -26,4 +28,8 @@ export function setTxt(props) {
 
 export function setCorrecciones(props) {
   correcciones = props;
+}
+
+export function setRes(props) {
+  res = props;
 }

@@ -200,7 +200,7 @@ export default function InfoCursadaContenedor(props) {
           </Grid>
 
           {/* Estadisticas */}
-          <Grid item xs={6} sm={4.5} md={4} lg={2}>
+          <Grid item xs={6} sm={4.5} md={4} lg={2} xl={1.5}>
             <CardMainPage visibleHeader={false}>
               <Grid container>
                 <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
@@ -222,7 +222,7 @@ export default function InfoCursadaContenedor(props) {
                             // rowGap={2}
                           >
                             {/* Cantidad de inscriptos */}
-                            <Grid
+                            {/* <Grid
                               item
                               xs={5.5}
                               textAlign="center"
@@ -243,12 +243,12 @@ export default function InfoCursadaContenedor(props) {
                               >
                                 Inscriptos
                               </Typography>
-                            </Grid>
+                            </Grid> */}
 
                             {/* Cantidad de prácticos */}
                             <Grid
                               item
-                              xs={5.5}
+                              xs={12}
                               textAlign="center"
                               paddingTop={2}
                               paddingBottom={2}
@@ -278,8 +278,8 @@ export default function InfoCursadaContenedor(props) {
             </CardMainPage>
           </Grid>
 
-          {/* Estadisticas */}
-          <Grid item xs={6} sm={4.5} md={4} lg={2}>
+          {/* Estadisticas */}  
+          <Grid item xs={6} sm={4.5} md={4} lg={2} xl={1.5}>
             <CardMainPage visibleHeader={false}>
               <Grid container>
                 <Grid item xs={12} paddingX={2} sx={{ overflowX: "auto" }}>
@@ -299,7 +299,7 @@ export default function InfoCursadaContenedor(props) {
                             {/* Cantidad de exámenes: */}
                             <Grid
                               item
-                              xs={5.5}
+                              xs={12}
                               textAlign="center"
                               paddingTop={2}
                               paddingBottom={2}
@@ -321,7 +321,7 @@ export default function InfoCursadaContenedor(props) {
                             </Grid>
 
                             {/* Cantidad de grupos: */}
-                            <Grid
+                            {/* <Grid
                               item
                               xs={5.5}
                               textAlign="center"
@@ -342,7 +342,7 @@ export default function InfoCursadaContenedor(props) {
                               >
                                 Grupos
                               </Typography>
-                            </Grid>
+                            </Grid> */}
                           </Grid>
                         </Box>
                       </CardMain>

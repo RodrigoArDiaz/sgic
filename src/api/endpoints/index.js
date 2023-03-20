@@ -111,6 +111,7 @@ const endpoints = {
   modificarNotaExamen: rootUrl + "/modificarnotaexamen",
   buscarSituacionFinal: rootUrl + "/buscarsituacionfinal",
   modificarEstadoInscripto: rootUrl + "/modificarestadoinscripto",
+  exportarNotas: rootUrl + "/exportarnotas",
 
   //Gestionar cursadas (administrador)
   borrarCursada: rootUrl + "/borrarcursada",

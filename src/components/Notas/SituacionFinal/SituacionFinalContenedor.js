@@ -17,6 +17,7 @@ import {
 import MensajeFeedback from "../../MensajeFeedback";
 import { endpoints } from "../../../api/endpoints";
 import { routes } from "../../../routes";
+import { ExportarInformacionSituacionFinal } from "./ExportarInformacionSituacionFinal";
 
 /*** Componente SituacionFinalContenedor ***/
 export default function SituacionFinalContenedor(props) {
@@ -197,54 +198,79 @@ export default function SituacionFinalContenedor(props) {
         <>
           <Box
             display="flex"
-            p={2}
-            pt={0}
-            gap={3}
             justifyContent="end"
-            sx={{ marginTop: { xs: "0px", md: "0px", lg: "0px", xl: "-35px" } }}
+            sx={{
+              marginTop: { xs: "0px", md: "0px", lg: "0px", xl: "-50px" },
+              paddingBottom: { xs: "0px", md: "0px", lg: "0px", xl: "16px" },
+            }}
           >
-            <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
-              Requisito de aprobación:
-            </Typography>
             <Box
-              display="inline-flex"
-              justifyContent="center"
-              alignItems="center"
-              gap={2}
+              display="flex"
+              p={2}
+              py={0}
+              gap={3}
+              justifyContent="end"
+              marginTop="auto"
+
+              // sx={{ marginTop: { xs: "0px", md: "0px", lg: "0px", xl: "-35px" } }}
+              // sx={{ marginTop: { xs: "0px", md: "0px", lg: "0px", xl: "-35px" } }}
             >
-              <Box
-                sx={{
-                  width: "20px",
-                  height: "6px",
-                  borderRadius: "20px",
-                  bgcolor: green[900],
-                }}
-                component="span"
-              ></Box>
               <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
-                Cumple
+                Requisito de aprobación:
               </Typography>
+              <Box
+                display="inline-flex"
+                justifyContent="center"
+                alignItems="center"
+                gap={2}
+              >
+                <Box
+                  sx={{
+                    width: "20px",
+                    height: "6px",
+                    borderRadius: "20px",
+                    bgcolor: green[900],
+                  }}
+                  component="span"
+                ></Box>
+                <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                  Cumple
+                </Typography>
+              </Box>
+              <Box
+                display="inline-flex"
+                justifyContent="center"
+                alignItems="center"
+                gap={2}
+              >
+                <Box
+                  sx={{
+                    width: "20px",
+                    height: "6px",
+                    borderRadius: "20px",
+                    bgcolor: red["A700"],
+                  }}
+                  component="span"
+                ></Box>
+                <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
+                  No cumple
+                </Typography>
+              </Box>
             </Box>
+
             <Box
               display="inline-flex"
               justifyContent="center"
               alignItems="center"
               gap={2}
+              marginRight={2}
             >
-              <Box
-                sx={{
-                  width: "20px",
-                  height: "6px",
-                  borderRadius: "20px",
-                  bgcolor: red["A700"],
-                }}
-                component="span"
-              ></Box>
-              <Typography variant="body2" sx={{ fontSize: "0.95rem" }}>
-                No cumple
-              </Typography>
+              <ExportarInformacionSituacionFinal
+                idCursada={props.cursada.IdCursada}
+              />
             </Box>
           </Box>
+
           <Grid container pt={1}>
             <SituacionFinalLista
               filas={filas}
