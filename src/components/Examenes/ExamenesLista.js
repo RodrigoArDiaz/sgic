@@ -46,7 +46,8 @@ const columns = [
 
   {
     id: "FechaVencimiento",
-    label: "Vencimiento",
+    // label: "Vencimiento",
+    label: "Dictado",
     minWidth: 20,
     align: "center",
   },

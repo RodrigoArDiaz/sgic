@@ -42,7 +42,7 @@ const columns = [
 
   {
     id: "FechaAlta",
-    label: "Alta",
+    label: "Dictado",
     minWidth: 20,
     align: "center",
   },

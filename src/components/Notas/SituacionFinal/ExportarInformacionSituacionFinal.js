@@ -80,10 +80,12 @@ export const ExportarInformacionSituacionFinal = (props) => {
 
   return (
     <>
-      <Tooltip title="Exportar información" TransitionComponent={Zoom} arrow>
+      <Tooltip title="Exportar notas" TransitionComponent={Zoom} arrow>
         <span>
           <Button
-            variant="outlined"
+            // variant="outlined"
+            variant="contained"
+            color="primary"
             sx={{ minWidth: "20px", paddingX: "10px" }}
             onClick={() => {
               ExportX();
@@ -92,6 +94,7 @@ export const ExportarInformacionSituacionFinal = (props) => {
           >
             {!isLoading && <FileDownloadOutlinedIcon />}
             {isLoading && <CircularProgress size={24} color="inherit" />}
+            Exportar notas
           </Button>
         </span>
       </Tooltip>
