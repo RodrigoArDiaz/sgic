@@ -276,13 +276,6 @@ export const ModificarCursada = (props) => {
     }
   }
 
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
-
   const estiloFormControl = {
     width: "100%",
     mt: "25px",
@@ -291,10 +284,6 @@ export const ModificarCursada = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioAnio(param) {
@@ -481,9 +470,11 @@ export const ModificarCursada = (props) => {
             {props.Materia} - {props.anio} - {props.semestre}
           </DialogContentText>
 
+          {/* Año y semestre */}
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.anio ? true : false}
@@ -495,6 +486,7 @@ export const ModificarCursada = (props) => {
 
             <Grid item xs={6}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.semestre ? true : false}
@@ -511,9 +503,12 @@ export const ModificarCursada = (props) => {
             </Grid>
           </Grid>
 
+          {/* Fecha de inicio y fecha fin*/}
           <Grid container spacing={2}>
-            <Grid item xs={6} sx={{ mt: 2 }}>
+            {/* Fecha de inicio */}
+            <Grid item xs={6} sx={{ mt: 1 }}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.finicio ? true : false}
@@ -527,8 +522,8 @@ export const ModificarCursada = (props) => {
                 <FormHelperText>{errors.finicio}</FormHelperText>
               </FormControl>
             </Grid>
-
-            <Grid item xs={6} sx={{ mt: 2 }}>
+            {/* Fecha de fin */}
+            <Grid item xs={6} sx={{ mt: 1 }}>
               <FormControl
                 fullWidth
                 sx={estiloFormControlSelect}
@@ -545,265 +540,313 @@ export const ModificarCursada = (props) => {
               </FormControl>
             </Grid>
           </Grid>
+          {/* Programa */}
+          <Grid container spacing={2}>
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.programa ? true : false}
+              >
+                <InputLabel htmlFor="programa">Programa</InputLabel>
+                <Input
+                  id="programa"
+                  type="text"
+                  name="programa"
+                  onChange={(e) => {
+                    if (errors.programa !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.programa ? true : false}
-          >
-            <InputLabel htmlFor="programa">Programa</InputLabel>
-            <Input
-              id="programa"
-              type="text"
-              name="programa"
-              onChange={(e) => {
-                if (errors.programa !== "") {
-                  setErrors({ ...errors, [e.target.name]: "" });
-                }
+                    setPr("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onBlur={(e) => {
+                    setPr("1");
+                  }}
+                  value={form.programa}
+                  endAdornment={
+                    (eprograma === "1" && (
+                      <BotonEstadoRegistro estado={"1"} />
+                    )) ||
+                    (eprograma === "2" && <BotonEstadoRegistro estado={"2"} />)
+                  }
+                  startAdornment={
+                    <AddLinkOutlinedIcon sx={{ marginRight: 1 }} />
+                  }
+                />
 
-                setPr("");
-                setForm({
-                  ...form,
-                  [e.target.name]: e.target.value,
-                });
-              }}
-              onBlur={(e) => {
-                setPr("1");
-              }}
-              value={form.programa}
-              endAdornment={
-                (eprograma === "1" && <BotonEstadoRegistro estado={"1"} />) ||
-                (eprograma === "2" && <BotonEstadoRegistro estado={"2"} />)
-              }
-              startAdornment={<AddLinkOutlinedIcon sx={{ marginRight: 1 }} />}
-            />
-
-            {/* {eprograma === "1" && <BotonEstadoRegistro estado={"1"} />}
+                {/* {eprograma === "1" && <BotonEstadoRegistro estado={"1"} />}
             {eprograma === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-            <FormHelperText>{errors.programa}</FormHelperText>
-          </FormControl>
+                <FormHelperText>{errors.programa}</FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
 
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.tieneg ? true : false}
-          >
-            {
-              <BotonTieneGrupo
-                Cambio={CambioTG}
-                vpd={props.cursada.TieneGrupos}
-              />
-            }
-
-            <FormHelperText>{errors.tieneg}</FormHelperText>
-          </FormControl>
-
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.maxintg ? true : false}
-            disabled={
-              form.tieneg === "N" || form.tieneg === "" || etieneg !== "1"
-                ? true
-                : false
-            }
-          >
-            <InputLabel htmlFor="maxintg">Maximo Integrantes</InputLabel>
-            <Input
-              id="maxintg"
-              type="text"
-              name="maxintg"
-              onChange={(e) => {
-                if (errors.maxintg !== "") {
-                  setErrors({ ...errors, [e.target.name]: "" });
+          {/* Permite grupo y maximo integrantes */}
+          <Grid container spacing={2}>
+            {/* Permite grupos */}
+            <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.tieneg ? true : false}
+              >
+                {
+                  <BotonTieneGrupo
+                    Cambio={CambioTG}
+                    vpd={props.cursada.TieneGrupos}
+                  />
                 }
 
-                setMx("");
-                setForm({
-                  ...form,
-                  [e.target.name]: e.target.value,
-                });
-              }}
-              onBlur={(e) => {
-                let regex = /^[0-9]+$/;
-
-                if (!form.maxintg.trim()) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo es requerido.",
-                  });
-                  setMx("2");
-                } else if (!regex.test(form.maxintg.trim())) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo tiene un formato incorrecto.",
-                  });
-                  setMx("2");
-                } else if (parseInt(form.maxintg.trim()) < 1) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo debe ser mayor.",
-                  });
-                  setMx("2");
-                } else {
-                  setMx("1");
+                <FormHelperText>{errors.tieneg}</FormHelperText>
+              </FormControl>
+            </Grid>
+            {/* Maximo integrantes */}
+            <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.maxintg ? true : false}
+                disabled={
+                  form.tieneg === "N" || form.tieneg === "" || etieneg !== "1"
+                    ? true
+                    : false
                 }
-              }}
-              value={form.maxintg}
-              endAdornment={
-                (emaxintg === "1" && <BotonEstadoRegistro estado={"1"} />) ||
-                (emaxintg === "2" && <BotonEstadoRegistro estado={"2"} />)
-              }
-            />
+              >
+                <InputLabel htmlFor="maxintg">Maximo Integrantes</InputLabel>
+                <Input
+                  id="maxintg"
+                  type="text"
+                  name="maxintg"
+                  onChange={(e) => {
+                    if (errors.maxintg !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-            {/* {emaxintg === "1" && <BotonEstadoRegistro estado={"1"} />}
+                    setMx("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onBlur={(e) => {
+                    let regex = /^[0-9]+$/;
+
+                    if (!form.maxintg.trim()) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El campo es requerido.",
+                      });
+                      setMx("2");
+                    } else if (!regex.test(form.maxintg.trim())) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "El campo tiene un formato incorrecto.",
+                      });
+                      setMx("2");
+                    } else if (parseInt(form.maxintg.trim()) < 1) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El campo debe ser mayor.",
+                      });
+                      setMx("2");
+                    } else {
+                      setMx("1");
+                    }
+                  }}
+                  value={form.maxintg}
+                  endAdornment={
+                    (emaxintg === "1" && (
+                      <BotonEstadoRegistro estado={"1"} />
+                    )) ||
+                    (emaxintg === "2" && <BotonEstadoRegistro estado={"2"} />)
+                  }
+                />
+
+                {/* {emaxintg === "1" && <BotonEstadoRegistro estado={"1"} />}
             {emaxintg === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-            <FormHelperText>{errors.maxintg}</FormHelperText>
-          </FormControl>
+                <FormHelperText>{errors.maxintg}</FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
 
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.calculo ? true : false}
-          >
-            {
-              <BotonTipoCalculo
-                Cambio={CambioTipoCalculo}
-                vpd={props.cursada.CalculoPracticos}
-              />
-            }
-
-            <FormHelperText>{errors.calculo}</FormHelperText>
-          </FormControl>
-
-          <FormControl
-            sx={estiloFormControl}
-            error={errors.escala ? true : false}
-          >
-            <InputLabel htmlFor="escala">Escala</InputLabel>
-            <Input
-              id="escala"
-              type="text"
-              name="escala"
-              onChange={(e) => {
-                if (errors.escala !== "") {
-                  setErrors({ ...errors, [e.target.name]: "" });
+          {/* Calculo */}
+          <Grid container spacing={2}>
+            <Grid item xs={12} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.calculo ? true : false}
+              >
+                {
+                  <BotonTipoCalculo
+                    Cambio={CambioTipoCalculo}
+                    vpd={props.cursada.CalculoPracticos}
+                  />
                 }
 
-                setEs("");
-                setForm({
-                  ...form,
-                  [e.target.name]: e.target.value,
-                });
-              }}
-              onBlur={(e) => {
-                let regex = /^[0-9]+$/;
+                <FormHelperText>{errors.calculo}</FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
 
-                if (!form.escala.trim()) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo 'Escala' es requerido.",
-                  });
-                  setEs("2");
-                } else if (!regex.test(form.escala.trim())) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "Ls escala tiene un formato incorrecto.",
-                  });
-                  setEs("2");
-                } else {
-                  setEs("1");
-                }
-              }}
-              value={form.escala}
-              endAdornment={
-                (eescala === "1" && <BotonEstadoRegistro estado={"1"} />) ||
-                (eescala === "2" && <BotonEstadoRegistro estado={"2"} />)
-              }
-            />
+          {/* Escala y porcentaje total */}
+          <Grid container spacing={2}>
+            {/* Escala */}
+            <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.escala ? true : false}
+              >
+                <InputLabel htmlFor="escala">Escala</InputLabel>
+                <Input
+                  id="escala"
+                  type="text"
+                  name="escala"
+                  onChange={(e) => {
+                    if (errors.escala !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-            {/* {eescala === "1" && <BotonEstadoRegistro estado={"1"} />}
+                    setEs("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onBlur={(e) => {
+                    let regex = /^[0-9]+$/;
+
+                    if (!form.escala.trim()) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El campo 'Escala' es requerido.",
+                      });
+                      setEs("2");
+                    } else if (!regex.test(form.escala.trim())) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "Ls escala tiene un formato incorrecto.",
+                      });
+                      setEs("2");
+                    } else {
+                      setEs("1");
+                    }
+                  }}
+                  value={form.escala}
+                  endAdornment={
+                    (eescala === "1" && <BotonEstadoRegistro estado={"1"} />) ||
+                    (eescala === "2" && <BotonEstadoRegistro estado={"2"} />)
+                  }
+                />
+
+                {/* {eescala === "1" && <BotonEstadoRegistro estado={"1"} />}
             {eescala === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-            <FormHelperText>{errors.escala}</FormHelperText>
-          </FormControl>
+                <FormHelperText>{errors.escala}</FormHelperText>
+              </FormControl>
+            </Grid>
+            {/* Porcentaje total */}
+            <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
+              <FormControl
+                variant="standard"
+                fullWidth
+                sx={estiloFormControl}
+                error={errors.pnt ? true : false}
+              >
+                <InputLabel htmlFor="pnt">%/Total</InputLabel>
+                <Input
+                  id="pnt"
+                  type="text"
+                  name="pnt"
+                  onChange={(e) => {
+                    if (errors.pnt !== "") {
+                      setErrors({ ...errors, [e.target.name]: "" });
+                    }
 
-          <FormControl sx={estiloFormControl} error={errors.pnt ? true : false}>
-            <InputLabel htmlFor="pnt">%/Total</InputLabel>
-            <Input
-              id="pnt"
-              type="text"
-              name="pnt"
-              onChange={(e) => {
-                if (errors.pnt !== "") {
-                  setErrors({ ...errors, [e.target.name]: "" });
-                }
-
-                setP("");
-                setForm({
-                  ...form,
-                  [e.target.name]: e.target.value,
-                });
-              }}
-              onBlur={(e) => {
-                let regex = /^[0-9]+$/;
-
-                if (!form.pnt.trim()) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El campo '%/Total' es requerido.",
-                  });
-                  setP("2");
-                } else if (!regex.test(form.pnt.trim())) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]:
-                      "El %/Total ingresado tiene un formato incorrecto.",
-                  });
-                  setP("2");
-                } else if (
-                  parseInt(form.pnt.trim(), 10) < 1 ||
-                  parseInt(form.pnt.trim(), 10) > 100
-                ) {
-                  setErrors({
-                    ...errors,
-                    [e.target.name]: "El %/Total debe estar entre 1 - 100.",
-                  });
-                  setP("2");
-                } else {
-                  var data = {
-                    PNT: form.pnt,
-                    IdCursada: props.idcursada,
-                  };
-
-                  Responses.consultas(data, endpoints.consultarPntCur)
-                    .then((response) => {
-                      if (Responses.status === 200) {
-                        setP("1");
-                      } else if (Responses.status === 401) {
-                        navegar(routes.iniciarSesion);
-                      } else if (Responses.status === 460) {
-                        setP("2");
-                        setErrors({ ...errors, pnt: response.Error });
-                      } else {
-                        navegar(routes.error);
-                      }
-                    })
-                    .catch((error) => {
-                      navegar(routes.error);
+                    setP("");
+                    setForm({
+                      ...form,
+                      [e.target.name]: e.target.value,
                     });
-                }
-              }}
-              value={form.pnt}
-              endAdornment={
-                (epnt === "1" && <BotonEstadoRegistro estado={"1"} />) ||
-                (epnt === "2" && <BotonEstadoRegistro estado={"2"} />)
-              }
-            />
+                  }}
+                  onBlur={(e) => {
+                    let regex = /^[0-9]+$/;
 
-            {/* {epnt === "1" && <BotonEstadoRegistro estado={"1"} />}
+                    if (!form.pnt.trim()) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El campo '%/Total' es requerido.",
+                      });
+                      setP("2");
+                    } else if (!regex.test(form.pnt.trim())) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]:
+                          "El %/Total ingresado tiene un formato incorrecto.",
+                      });
+                      setP("2");
+                    } else if (
+                      parseInt(form.pnt.trim(), 10) < 1 ||
+                      parseInt(form.pnt.trim(), 10) > 100
+                    ) {
+                      setErrors({
+                        ...errors,
+                        [e.target.name]: "El %/Total debe estar entre 1 - 100.",
+                      });
+                      setP("2");
+                    } else {
+                      var data = {
+                        PNT: form.pnt,
+                        IdCursada: props.idcursada,
+                      };
+
+                      Responses.consultas(data, endpoints.consultarPntCur)
+                        .then((response) => {
+                          if (Responses.status === 200) {
+                            setP("1");
+                          } else if (Responses.status === 401) {
+                            navegar(routes.iniciarSesion);
+                          } else if (Responses.status === 460) {
+                            setP("2");
+                            setErrors({ ...errors, pnt: response.Error });
+                          } else {
+                            navegar(routes.error);
+                          }
+                        })
+                        .catch((error) => {
+                          navegar(routes.error);
+                        });
+                    }
+                  }}
+                  value={form.pnt}
+                  endAdornment={
+                    (epnt === "1" && <BotonEstadoRegistro estado={"1"} />) ||
+                    (epnt === "2" && <BotonEstadoRegistro estado={"2"} />)
+                  }
+                />
+
+                {/* {epnt === "1" && <BotonEstadoRegistro estado={"1"} />}
             {epnt === "2" && <BotonEstadoRegistro estado={"2"} />} */}
 
-            <FormHelperText>{errors.pnt}</FormHelperText>
-          </FormControl>
+                <FormHelperText>{errors.pnt}</FormHelperText>
+              </FormControl>
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}

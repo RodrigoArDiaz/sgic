@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { InputLabel } from "@mui/material";
 
 /*** Componente BotonAnio ***/
 export default function BotonAnio(props) {
@@ -23,9 +24,10 @@ export default function BotonAnio(props) {
 
   return (
     <Box sx={{ minWidth: 50 }}>
-      <FormControl fullWidth>
+      <FormControl variant="standard" fullWidth>
+        <InputLabel id="anio">Año</InputLabel>
         <Select value={anio} onChange={handleChange} displayEmpty>
-          <MenuItem value="">Año</MenuItem>
+          {/* <MenuItem value="">Año</MenuItem> */}
           <MenuItem value={"2022"}>2022</MenuItem>
           <MenuItem value={"2023"}>2023</MenuItem>
           <MenuItem value={"2024"}>2024</MenuItem>

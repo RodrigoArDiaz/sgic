@@ -4,11 +4,15 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Grid } from "@mui/material";
+import { Grid, InputLabel } from "@mui/material";
 
 /*** Componente BotonTipo ***/
 export default function BotonTipo(props) {
   const [anio, setAnio] = React.useState("25");
+
+  React.useEffect(() => {
+    console.log(props.parametros.res[0].IdParametro);
+  }, []);
 
   const handleChange = (event) => {
     setAnio(event.target.value);
@@ -46,20 +50,29 @@ export default function BotonTipo(props) {
 
   return (
     <Box paddingX={2} paddingY={1}>
-      <Grid container spacing={1}>
-        <Grid item>
-          <FormControl fullWidth>
+      <Grid container>
+        <Grid item xs={12} sm={5}>
+          <FormControl
+            variant="standard"
+            fullWidth
+            sx={{ mt: "15px", maxWidth: "300px" }}
+          >
+            <InputLabel htmlFor="tipo">Tipo de examen</InputLabel>
             <Select
               value={anio}
               onChange={handleChange}
               displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
-              size="small"
+              // inputProps={{ "aria-label": "Without label" }}
+              // size="small"
             >
-              <MenuItem value={25}>Seleccione el tipo de examen</MenuItem>
+              <MenuItem value={25} sx={{ color: "rgba(0, 0, 0, 0.6)" }}>
+                Seleccione el tipo de examen
+              </MenuItem>
               {props.parametros.res.map((row) => {
                 return (
-                  <MenuItem value={row.IdParametro}>{Tipo(row.Tipo)}</MenuItem>
+                  <MenuItem value={row.IdParametro} key={row.Tipo}>
+                    {Tipo(row.Tipo)}
+                  </MenuItem>
                 );
               })}
             </Select>

@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { InputLabel } from "@mui/material";
 
 /*** Componente BotonTipo***/
 export default function BotonTipo(props) {
@@ -40,19 +41,18 @@ export default function BotonTipo(props) {
   console.log(dato.res);
 
   return (
-    <Box sx={{ minWidth: 50 }}>
-      <FormControl fullWidth>
-        <Select value={anio} onChange={handleChange} displayEmpty>
-          <MenuItem value="">Tipo</MenuItem>
-          {dato.res.map((row) => {
-            return (
-              <MenuItem value={row.IdParametro} key={row.Tipo}>
-                {Tipo(row.Tipo)}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    </Box>
+    <>
+      <InputLabel htmlFor="tipo">Tipo</InputLabel>
+      <Select value={anio} onChange={handleChange} displayEmpty>
+        {/* <MenuItem value="">Tipo</MenuItem> */}
+        {dato.res.map((row) => {
+          return (
+            <MenuItem value={row.IdParametro} key={row.Tipo}>
+              {Tipo(row.Tipo)}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </>
   );
 }

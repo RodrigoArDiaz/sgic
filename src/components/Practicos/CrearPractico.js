@@ -132,12 +132,12 @@ export const CrearPractico = (props) => {
 
   const estiloFormControl = {
     width: "100%",
-    mt: "25px",
+    mt: "15px",
   };
 
   const estiloFormControlSelect = {
     //width: fullWidth,
-    mt: "25px",
+    mt: "15px",
   };
 
   function CambioFV(param) {
@@ -180,8 +180,11 @@ export const CrearPractico = (props) => {
           </DialogContentText>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            {/* Practico */}
+            <Grid item xs={12} sx={{ mt: 0 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.practico ? true : false}
               >
@@ -260,8 +263,10 @@ export const CrearPractico = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            {/* Fecha de vencimiento */}
+            <Grid item xs={12} sx={{ mt: 0 }}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.fechavencimiento ? true : false}
@@ -272,8 +277,11 @@ export const CrearPractico = (props) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12}>
+            {/* Nota minima */}
+            <Grid item xs={12} sx={{ mt: 0 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}
               >

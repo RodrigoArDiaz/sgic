@@ -208,9 +208,13 @@ export const ModificarPractico = (props) => {
           <DialogContentText>
             Ingrese los datos para modificar el trabajo práctico.
           </DialogContentText>
+
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ mt: 1 }}>
+            {/* Practico */}
+            <Grid item xs={12} sx={{ mt: -1 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.practico ? true : false}
               >
@@ -288,8 +292,11 @@ export const ModificarPractico = (props) => {
                 <FormHelperText>{errors.practico}</FormHelperText>
               </FormControl>
             </Grid>
+
+            {/* Fecha de vencimiento */}
             <Grid item xs={12} sx={{ mt: 1 }}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.fechavencimiento ? true : false}
@@ -304,8 +311,11 @@ export const ModificarPractico = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Nota minima */}
             <Grid item xs={12} sx={{ mt: 1 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}
               >

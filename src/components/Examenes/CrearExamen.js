@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -166,12 +166,12 @@ export const CrearExamen = (props) => {
 
   const estiloFormControl = {
     width: "100%",
-    mt: "25px",
+    mt: "15px",
   };
 
   const estiloFormControlSelect = {
     //width: fullWidth,
-    mt: "25px",
+    mt: "15px",
   };
 
   function CambioFV(param) {
@@ -225,9 +225,13 @@ export const CrearExamen = (props) => {
           <DialogContentText>
             Ingrese los datos para crear el examen.
           </DialogContentText>
+
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {/* Examen */}
+            <Grid item xs={12} sx={{ mt: -1 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.examen ? true : false}
               >
@@ -305,8 +309,10 @@ export const CrearExamen = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Fecha de vencimineto */}
             <Grid item xs={12}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.fechavencimiento ? true : false}
@@ -317,27 +323,34 @@ export const CrearExamen = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Tipo  */}
             <Grid item xs={12}>
-              <FormControl
-                fullWidth
-                sx={estiloFormControlSelect}
-                error={errors.tipo ? true : false}
-              >
-                {
-                  <BotonTipo
-                    Cambio={CambioTipo}
-                    cursada={props.cursada}
-                    // dato={dato}
-                    dato={props.parametros}
-                    CambioNM={NotaMinima}
-                  />
-                }
-                <FormHelperText>{errors.tipo}</FormHelperText>
-              </FormControl>
+              <Box sx={{ minWidth: 50 }}>
+                <FormControl
+                  variant="standard"
+                  fullWidth
+                  sx={estiloFormControlSelect}
+                  error={errors.tipo ? true : false}
+                >
+                  {
+                    <BotonTipo
+                      Cambio={CambioTipo}
+                      cursada={props.cursada}
+                      // dato={dato}
+                      dato={props.parametros}
+                      CambioNM={NotaMinima}
+                    />
+                  }
+                  <FormHelperText>{errors.tipo}</FormHelperText>
+                </FormControl>
+              </Box>
             </Grid>
 
+            {/* Nota minima */}
             <Grid item xs={12}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}
                 disabled={aod}
@@ -416,7 +429,9 @@ export const CrearExamen = (props) => {
         </DialogContent>
         <DialogActions>
           {DevolverBoton()}
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose} variant="outlined">
+            Cancelar
+          </Button>
         </DialogActions>
       </Dialog>
     </>

@@ -58,7 +58,7 @@ export default function LocalizedDatePicker(props) {
 
           //console.log(newValue); props.Cambio(newValue.toLocaleDateString());
         }}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField {...params} variant="standard" />}
       />
     </LocalizationProvider>
   );

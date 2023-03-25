@@ -12,6 +12,7 @@ import {
   Collapse,
   Stack,
   Box,
+  CircularProgress,
 } from "@mui/material";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
@@ -72,6 +73,9 @@ function FormularioIniciarSesionSuper() {
   //variables de estado
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
+  //Estado de la peticion
+  const [isLoading, setIsLoading] = useState(false);
+
   //Para el uso de funciones de los state de redux
   const dispatch = useDispatch();
 
@@ -120,10 +124,12 @@ function FormularioIniciarSesionSuper() {
     };
 
     //Consulta
+    setIsLoading(true);
     Responses.consultas(data, endpoints.acceso)
       .then((response) => {
         if (Responses.status === 200) {
-          console.log(response);
+          setIsLoading(false);
+
           localStorage.setItem("tkn", response.token);
 
           localStorage.setItem("EsAl", response.Alumno);
@@ -158,6 +164,7 @@ function FormularioIniciarSesionSuper() {
         }
       })
       .catch((error) => {
+        setIsLoading(false);
         navegar(routes.error);
       });
   };
@@ -295,10 +302,16 @@ function FormularioIniciarSesionSuper() {
               color="primary"
               fullWidth
               sx={estiloButton}
-              endIcon={<LoginIcon />}
+              endIcon={!isLoading ? <LoginIcon /> : undefined}
               onClick={loguear}
+              disabled={isLoading}
             >
-              Ingresar
+              {!isLoading && "Ingresar"}
+              {isLoading && (
+                <>
+                  Ingresando <CircularProgress size={25} sx={{ ml: 1 }} />
+                </>
+              )}
             </Button>
 
             <Box textAlign="center" sx={estiloLink}>

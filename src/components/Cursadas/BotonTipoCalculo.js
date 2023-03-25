@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { InputLabel } from "@mui/material";
 
 /*** Componente BotonTipoCalculo ***/
 export default function BotonTipoCalculo(props) {
@@ -21,15 +22,12 @@ export default function BotonTipoCalculo(props) {
     return param;
   }
   return (
-    <Box sx={{ minWidth: 50 }}>
-      <FormControl fullWidth>
-        <Select value={anio} onChange={handleChange} displayEmpty>
-          <MenuItem value="">Cálculo</MenuItem>
-
-          <MenuItem value={"P"}>Promediable</MenuItem>
-          <MenuItem value={"A"}>Acumulable</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <>
+      <InputLabel htmlFor="calculo">Cálculo</InputLabel>
+      <Select value={anio} onChange={handleChange} displayEmpty>
+        <MenuItem value={"P"}>Promediable</MenuItem>
+        <MenuItem value={"A"}>Acumulable</MenuItem>
+      </Select>
+    </>
   );
 }

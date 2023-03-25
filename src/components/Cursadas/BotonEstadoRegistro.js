@@ -14,7 +14,12 @@ export const BotonEstadoRegistro = (props) => {
     return (
       <Grid item xs={12} sm="auto">
         <Tooltip title="Verificado">
-          <IconButton aria-label="verificado" size="small" color="success">
+          <IconButton
+            aria-label="verificado"
+            size="small"
+            color="success"
+            sx={{ paddingBottom: 0.5 }}
+          >
             <CheckIcon />
           </IconButton>
         </Tooltip>

@@ -1,9 +1,8 @@
 import * as React from "react";
 //MUI
-import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { InputLabel } from "@mui/material";
 
 /*** Componente BotonTipoExamen ***/
 export default function BotonTipoExamen(props) {
@@ -21,16 +20,14 @@ export default function BotonTipoExamen(props) {
     return param;
   }
   return (
-    <Box sx={{ minWidth: 50 }}>
-      <FormControl fullWidth>
-        <Select value={anio} onChange={handleChange} displayEmpty>
-          <MenuItem value="">Tipo</MenuItem>
-
-          <MenuItem value={"Q"}>Quiz</MenuItem>
-          <MenuItem value={"P"}>Parcial</MenuItem>
-          <MenuItem value={"F"}>Final</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <>
+      <InputLabel htmlFor="tipo">Tipo</InputLabel>
+      <Select value={anio} onChange={handleChange} displayEmpty>
+        {/* <MenuItem value="">Tipo</MenuItem> */}
+        <MenuItem value={"Q"}>Quiz</MenuItem>
+        <MenuItem value={"P"}>Parcial</MenuItem>
+        <MenuItem value={"F"}>Final</MenuItem>
+      </Select>
+    </>
   );
 }

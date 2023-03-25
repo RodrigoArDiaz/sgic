@@ -57,7 +57,8 @@ export default function LocalizedDatePicker(props) {
 
           props.Cambio(newValue);
         }}
-        renderInput={(params) => <TextField {...params} />}
+        // slotProps={{ textField: { variant: "filled" } }}
+        renderInput={(params) => <TextField {...params} variant="standard" />}
       />
     </LocalizationProvider>
   );

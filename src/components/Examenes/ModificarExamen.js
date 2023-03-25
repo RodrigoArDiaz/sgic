@@ -193,12 +193,12 @@ export const ModificarExamen = (props) => {
 
   const estiloFormControl = {
     width: "100%",
-    mt: "25px",
+    mt: "15px",
   };
 
   const estiloFormControlSelect = {
     //width: fullWidth,
-    mt: "25px",
+    mt: "15px",
   };
 
   function CambioFV(param) {
@@ -251,8 +251,11 @@ export const ModificarExamen = (props) => {
           </DialogContentText>
 
           <Grid container spacing={2}>
+            {/* Examen */}
             <Grid item xs={12} sx={{ mt: 1 }}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.examen ? true : false}
               >
@@ -329,8 +332,10 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Fecha de vencimiento */}
             <Grid item xs={12}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.fechavencimiento ? true : false}
@@ -345,8 +350,10 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Tipo */}
             <Grid item xs={12}>
               <FormControl
+                variant="standard"
                 fullWidth
                 sx={estiloFormControlSelect}
                 error={errors.tipo ? true : false}
@@ -364,8 +371,11 @@ export const ModificarExamen = (props) => {
               </FormControl>
             </Grid>
 
+            {/* Nota minima */}
             <Grid item xs={12}>
               <FormControl
+                variant="standard"
+                fullWidth
                 sx={estiloFormControl}
                 error={errors.notaminima ? true : false}
                 disabled={aod}
