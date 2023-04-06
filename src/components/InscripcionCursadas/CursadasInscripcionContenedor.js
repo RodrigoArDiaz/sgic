@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //mui
 import {
   Button,
@@ -80,6 +80,11 @@ const CursadasInscripcionContenedor = () => {
 
     setIsLoading(false);
   };
+
+  //Carga las materias en inscripcion
+  useEffect(() => {
+    handleListarCursadasEnInscripcion({ materia: "" });
+  }, []);
 
   return (
     <>
