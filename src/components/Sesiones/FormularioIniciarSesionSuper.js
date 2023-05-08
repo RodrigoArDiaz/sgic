@@ -127,6 +127,7 @@ function FormularioIniciarSesionSuper() {
     setIsLoading(true);
     Responses.consultas(data, endpoints.acceso)
       .then((response) => {
+        console.log(response);
         if (Responses.status === 200) {
           setIsLoading(false);
 
@@ -157,6 +158,7 @@ function FormularioIniciarSesionSuper() {
             else dispatch(actualizarMenu(listaItemsMenuDocente));
           }
         } else if (Responses.status === 401) {
+          setIsLoading(false);
           setRes(true);
           setErrors(response.Error);
         } else {
