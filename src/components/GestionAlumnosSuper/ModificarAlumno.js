@@ -159,7 +159,7 @@ export const ModificarAlumno = (props) => {
 
   return (
     <>
-      <Tooltip title="Modificar" TransitionComponent={Zoom}>
+      <Tooltip title="Modificar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
             <ModeEditOutlinedIcon />

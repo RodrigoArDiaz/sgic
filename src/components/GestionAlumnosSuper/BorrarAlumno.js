@@ -73,7 +73,7 @@ export const BorrarAlumno = (props) => {
 
   return (
     <>
-      <Tooltip title="Borrar" TransitionComponent={Zoom}>
+      <Tooltip title="Borrar" TransitionComponent={Zoom} arrow>
         <span>
           <IconButton color="secondary" size="small" onClick={handleOpen}>
             <DeleteOutlined />
