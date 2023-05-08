@@ -127,7 +127,6 @@ function FormularioIniciarSesionSuper() {
     setIsLoading(true);
     Responses.consultas(data, endpoints.acceso)
       .then((response) => {
-        console.log(response);
         if (Responses.status === 200) {
           setIsLoading(false);
 
