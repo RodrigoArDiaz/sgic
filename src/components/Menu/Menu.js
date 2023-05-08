@@ -579,7 +579,7 @@ export default function Menu() {
         component="main"
         sx={{
           flexGrow: 1,
-          paddingX: { xs: 2, sm: 3, lg: 10 },
+          paddingX: { xs: 2, sm: 3, lg: 3, xl: 10 },
           paddingY: { xs: 2, sm: 1 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           marginTop: "1rem",
