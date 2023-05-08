@@ -8,8 +8,8 @@ const buscarDocenteUrl = rootUrl + "/buscar_docente";
 const altaDocenteUrl = rootUrl + "/alta_docente";
 const bajaDocenteUrl = rootUrl + "/baja_docente";
 const borrarDocenteUrl = rootUrl + "/borrar_docente";
-// const modificarDocenteUrl = rootUrl + "/modificar_docente";
-const modificarDocenteUrl = rootUrl + "/modus";
+const modificarDocenteUrl = rootUrl + "/modificar_docente";
+// const modificarDocenteUrl = rootUrl + "/modus";
 
 /****************************************************
  * Peticion para la creacion de docentes
@@ -105,6 +105,8 @@ export const peticionAltaDocente = (IdUsuario, token) => {
     token: token,
   };
 
+  // console.log(credenciales);
+
   return new Promise(async (resolve, reject) => {
     try {
       const res = await axios.post(altaDocenteUrl, credenciales, {
@@ -195,12 +197,22 @@ export const peticionModificarDocente = (formData, token) => {
     token = localStorage.getItem("tkn");
   }
 
+  // const credenciales = {
+  //   pUs: formData.Usuario,
+  //   pMail: formData.Email,
+  //   pDoc: formData.Documento,
+  //   pNom: formData.Nombres,
+  //   pAp: formData.Apellidos,
+  //   token: token,
+  // };
+
   const credenciales = {
-    pUs: formData.Usuario,
-    pMail: formData.Email,
-    pDoc: formData.Documento,
-    pNom: formData.Nombres,
-    pAp: formData.Apellidos,
+    Usuario: formData.Usuario,
+    Email: formData.Email,
+    Documento: formData.Documento,
+    Nombres: formData.Nombres,
+    Apellidos: formData.Apellidos,
+    IdUsuario: formData.IdUsuario,
     token: token,
   };
 

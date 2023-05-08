@@ -84,6 +84,7 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
     //Realizo peticon
     try {
       const respuesta = await peticionModificarDocente(formData, token);
+
       //Si petiocion ok
       handleClose();
       enqueueSnackbar("Se modificó al docente con exito.", {
@@ -93,15 +94,12 @@ export const ModificarDocente = ({ docente, handleRefrescarPagina }) => {
       handleRefrescarPagina();
     } catch (error) {
       let mensajeSnack = "";
-      // const data = error.response.data.data;
-      // const data = error.response.data;
-      // console.log(data);
-
-      // if ("mensaje" in data) {
-      //   mensajeSnack = data.mensaje;
-      // } else {
-      //   mensajeSnack = data[0];
-      // }
+      const data = error.response.data.data;
+      if ("mensaje" in data) {
+        mensajeSnack = data.mensaje;
+      } else {
+        mensajeSnack = data[0];
+      }
       enqueueSnackbar(`Error: ${mensajeSnack}`, {
         variant: "error",
       });

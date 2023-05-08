@@ -112,6 +112,7 @@ export default function DocentesLista({
                   <TableCellHead>Nombres</TableCellHead>
                   <TableCellHead>Documento</TableCellHead>
                   <TableCellHead>Email</TableCellHead>
+                  <TableCellHead>Usuario</TableCellHead>
                   <TableCellHead align="center">Estado</TableCellHead>
                   <TableCellHead align="center">Acciones</TableCellHead>
                 </TableRow>
@@ -144,6 +145,10 @@ export default function DocentesLista({
                     <TableCell1em component="th" scope="row">
                       <CopiarButton textoCopiar={docente.Email} />
                       {docente.Email}
+                    </TableCell1em>
+
+                    <TableCell1em component="th" scope="row">
+                      {docente.Usuario}
                     </TableCell1em>
 
                     <TableCell component="th" scope="row" align="center">
