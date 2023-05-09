@@ -11,7 +11,10 @@ import { Box, Grid, Typography } from "@mui/material";
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
 import {
+  ContentCellDestacable,
   TableCell1em,
+  TableCell1emPaddingXReducido,
+  TableCell1emPaddingXReducidoOverFocus,
   TableCellHead,
   TableRowElevacion,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
@@ -215,28 +218,30 @@ export default function AlumnoLista(props) {
 
                     if (column.id === "Email") {
                       return (
-                        <TableCell1em
+                        <TableCell1emPaddingXReducidoOverFocus
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
                         >
-                          <CopiarButton
-                            textoCopiar={
-                              column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value
-                            }
-                          />
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell1em>
+                          <ContentCellDestacable>
+                            <CopiarButton
+                              textoCopiar={
+                                column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value
+                              }
+                            />
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </ContentCellDestacable>
+                        </TableCell1emPaddingXReducidoOverFocus>
                       );
                     }
 
                     if (column.id === "Usuario") {
                       return (
-                        <TableCell1em
+                        <TableCell1emPaddingXReducido
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -244,25 +249,25 @@ export default function AlumnoLista(props) {
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "Estado") {
                       return (
-                        <TableCell1em
+                        <TableCell1emPaddingXReducido
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
                         >
                           <BotonEstado estado={row.Estado} alumno={row} />
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "acciones") {
                       return (
-                        <TableCell1em
+                        <TableCell1emPaddingXReducido
                           key={column.id}
                           align={column.align}
                           sx={estilosCell}
@@ -278,7 +283,7 @@ export default function AlumnoLista(props) {
                               alumno={row}
                             />
                           )}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
                   })}

@@ -86,7 +86,7 @@ const TableCell1emPaddingXReducidoOverFocus = styled(TableCell)(
       position: "relative",
       height: "1px", //Para que que el hijo ocupe el 100% al darle la propiedad height: 100%
 
-      maxWidth: "150px",
+      maxWidth: "180px",
 
       whiteSpace: "nowrap",
       overflow: "hidden",

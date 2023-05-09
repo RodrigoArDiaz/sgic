@@ -41,7 +41,10 @@ import { BorrarDocente } from "./BorrarDocente";
 import Paginacion from "../Paginacion";
 import { AltaBajaDocente } from "./AltaBajaDocente";
 import {
+  ContentCellDestacable,
   TableCell1em,
+  TableCell1emPaddingXReducido,
+  TableCell1emPaddingXReducidoOverFocus,
   TableCellComun,
   TableCellDestacada,
   TableCellHead,
@@ -130,26 +133,31 @@ export default function DocentesLista({
                         />
                       </Box>
                     </TableCell1em>
-                    <TableCell1em component="th" scope="row">
+                    <TableCell1emPaddingXReducido component="th" scope="row">
                       {docente.Apellidos}
-                    </TableCell1em>
+                    </TableCell1emPaddingXReducido>
 
-                    <TableCell1em component="th" scope="row">
+                    <TableCell1emPaddingXReducido component="th" scope="row">
                       {docente.Nombres}
-                    </TableCell1em>
+                    </TableCell1emPaddingXReducido>
 
-                    <TableCell1em component="th" scope="row">
+                    <TableCell1emPaddingXReducido component="th" scope="row">
                       {docente.Documento}
-                    </TableCell1em>
+                    </TableCell1emPaddingXReducido>
 
-                    <TableCell1em component="th" scope="row">
-                      <CopiarButton textoCopiar={docente.Email} />
-                      {docente.Email}
-                    </TableCell1em>
+                    <TableCell1emPaddingXReducidoOverFocus
+                      component="th"
+                      scope="row"
+                    >
+                      <ContentCellDestacable>
+                        <CopiarButton textoCopiar={docente.Email} />
+                        {docente.Email}
+                      </ContentCellDestacable>
+                    </TableCell1emPaddingXReducidoOverFocus>
 
-                    <TableCell1em component="th" scope="row">
+                    <TableCell1emPaddingXReducido component="th" scope="row">
                       {docente.Usuario}
-                    </TableCell1em>
+                    </TableCell1emPaddingXReducido>
 
                     <TableCell component="th" scope="row" align="center">
                       <AltaBajaDocente
