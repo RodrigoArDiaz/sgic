@@ -1,11 +1,20 @@
 import React from "react";
+//MUI
 import { Grid } from "@mui/material";
+//componentes personalizados
 import TarjetaOrden from "./TarjetaOrden";
+//
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+//React router dom
 import { useNavigate } from "react-router-dom";
+//Peticiones
 import * as Responses from "../../Responses";
+//Redux
 import { useSelector } from "react-redux";
+import { routes } from "../../../routes";
+import { endpoints } from "../../../api/endpoints";
 
+/*** Componente OrdenarLista***/
 export const OrdenarLista = (props) => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
@@ -21,19 +30,19 @@ export const OrdenarLista = (props) => {
       pidCu: cursada.IdCursada,
       // pidCu: props.cursada.IdCursada,
     };
-    Responses.consultas(data, "http://127.0.0.1:8000/api/ordenarexamenes")
+    Responses.consultas(data, endpoints.ordenarExamenes)
       .then((response) => {
         if (Responses.status === 200) {
           props.CerrarBack();
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 

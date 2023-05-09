@@ -67,6 +67,7 @@ const endpoints = {
   altaPractico: rootUrl + "/altapractico",
   modificarPractico: rootUrl + "/modificarpractico",
   borrarPractico: rootUrl + "/borrarpractico",
+  ordenarPracticos: rootUrl + "/ordenarpracticos",
   //**Examenes
   buscarExamenes: rootUrl + "/buscarexamenes",
   listarParametros: rootUrl + "/listarparametros",
@@ -77,6 +78,7 @@ const endpoints = {
   altaExamen: rootUrl + "/altaexamen",
   modificarExamen: rootUrl + "/modificarexamen",
   borrarExamen: rootUrl + "/borrarexamen",
+  ordenarExamenes: rootUrl + "/ordenarexamenes",
   //**Grupos
   buscarGrupos: rootUrl + "/buscargrupos",
   crearGrupo: rootUrl + "/creargrupo",

@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
 import { OrdenarLista } from "./Orden/OrdenarLista";
 import LinearProgress from "@mui/material/LinearProgress";
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import SortIcon from "@mui/icons-material/Sort";

@@ -1,10 +1,19 @@
 import React from "react";
+//Material UI
 import { Grid } from "@mui/material";
+//Componentes personalizados
 import TarjetaOrden from "./TarjetaOrden";
+//
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+//
 import * as Responses from "../../Responses";
+//
 import { useNavigate } from "react-router-dom";
+//Endpoints
+import { endpoints } from "../../../api/endpoints";
+import { routes } from "../../../routes";
 
+/*** Componente OrdenarLista ***/
 export const OrdenarLista = (props) => {
   const navegar = useNavigate();
   const [ordenes, SetO] = React.useState(props.filas.res);
@@ -15,19 +24,19 @@ export const OrdenarLista = (props) => {
       Destino: dato2 + 1,
       pidCu: props.cursada.IdCursada,
     };
-    Responses.consultas(data, "http://127.0.0.1:8000/api/ordenarpracticos")
+    Responses.consultas(data, endpoints.ordenarPracticos)
       .then((response) => {
         if (Responses.status === 200) {
           props.CerrarBack();
           props.refrescar();
         } else if (Responses.status === 401) {
-          navegar("/ingreso");
+          navegar(routes.iniciarSesion);
         } else {
-          navegar("/error");
+          navegar(routes.error);
         }
       })
       .catch((error) => {
-        navegar("/error");
+        navegar(routes.error);
       });
   }
 
