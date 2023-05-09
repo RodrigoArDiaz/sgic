@@ -1,4 +1,4 @@
-import { TableCell, TableRow, tableCellClasses } from "@mui/material";
+import { TableCell, TableRow, tableCellClasses, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 //
@@ -39,6 +39,16 @@ const TableCell1em = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const TableCell1emPaddingXReducido = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.body}`]: {
+    // color: "rgb(103, 116, 142)",
+    // fontWeight: "400",
+    fontSize: "1em",
+    paddingRight: "3px",
+    paddingLeft: "3px",
+  },
+}));
+
 const TableCellHead = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.icons.bg,
@@ -65,6 +75,57 @@ const TableRowHead = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const TableCell1emPaddingXReducidoOverFocus = styled(TableCell)(
+  ({ theme }) => ({
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: "1em",
+      padding: "0",
+      paddingRight: "3px",
+      paddingLeft: "3px",
+
+      position: "relative",
+      height: "1px", //Para que que el hijo ocupe el 100% al darle la propiedad height: 100%
+
+      maxWidth: "150px",
+
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+
+      "&:hover": {
+        overflow: "inherit",
+      },
+    },
+  })
+);
+
+const ContentCellDestacable = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: "100%",
+  //No usar flex para alinear sino no funciona la propiedad textoverflow
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  //
+  paddingTop: "8px",
+  paddingBottom: "6px",
+
+  "&:hover": {
+    backgroundColor: theme.palette.white.main,
+    boxShadow: theme.customShadows.z2,
+    position: "absolute",
+    right: "0",
+    left: "0",
+    top: "0",
+    bottom: "0",
+    //
+    minWidth: "max-content",
+    zIndex: "100",
+    paddingRight: "10px",
+    paddingLeft: "6px",
+  },
+}));
+
 export {
   TableRowElevacion,
   TableCellMedium,
@@ -73,4 +134,7 @@ export {
   TableCell1em,
   TableCellHead,
   TableRowHead,
+  TableCell1emPaddingXReducido,
+  TableCell1emPaddingXReducidoOverFocus,
+  ContentCellDestacable,
 };

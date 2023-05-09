@@ -14,7 +14,10 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 //
 import FilasPorPagina from "../GestionCatedrasSuper/FilasPorPagina";
 import {
+  ContentCellDestacable,
   TableCell1em,
+  TableCell1emPaddingXReducido,
+  TableCell1emPaddingXReducidoOverFocus,
   TableCellHead,
   TableRowElevacion,
 } from "../Material UI - Componentes Modificados/ComponentesTabla";
@@ -146,66 +149,86 @@ export default function AlumnosLista(props) {
 
                     if (column.id === "Apellidos") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           <Box display="flex" gap={1} alignItems="center">
                             {column.format && typeof value === "number"
                               ? column.format(value)
                               : value}
                           </Box>
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "Nombres") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "Libreta") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "Documento") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "Email") {
                       return (
-                        <TableCell1em key={column.id} align="left">
-                          <CopiarButton
-                            textoCopiar={
-                              column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value
-                            }
-                          />
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell1em>
+                        <TableCell1emPaddingXReducidoOverFocus
+                          key={column.id}
+                          align="left"
+                        >
+                          <ContentCellDestacable>
+                            <CopiarButton
+                              textoCopiar={
+                                column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value
+                              }
+                            />
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </ContentCellDestacable>
+                        </TableCell1emPaddingXReducidoOverFocus>
                       );
                     }
 
                     if (column.id === "FechaInscripcion") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {/* {column.format && typeof value === "number"
                             ? column.format(value)
                             : value} */}
@@ -232,13 +255,16 @@ export default function AlumnosLista(props) {
                               }}
                             />
                           )}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "EstaInscriptoSitioWeb") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : (
@@ -253,13 +279,16 @@ export default function AlumnosLista(props) {
                               SIU={row["EstaInscriptoSIU"]}
                             />
                           )}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "EstaInscriptoSIU") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : (
@@ -274,13 +303,16 @@ export default function AlumnosLista(props) {
                               SW={row["EstaInscriptoSitioWeb"]}
                             />
                           )}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
 
                     if (column.id === "acciones") {
                       return (
-                        <TableCell1em key={column.id} align={column.align}>
+                        <TableCell1emPaddingXReducido
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number" ? (
                             column.format(value)
                           ) : (
@@ -293,7 +325,7 @@ export default function AlumnosLista(props) {
                               cursada={props.cursada}
                             />
                           )}
-                        </TableCell1em>
+                        </TableCell1emPaddingXReducido>
                       );
                     }
                   })}
