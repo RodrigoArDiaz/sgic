@@ -112,7 +112,7 @@ export default function BuscarCatedras(props) {
                 />
               </Tooltip>
             }
-            label=""
+            label="Incluir bajas"
           />
         </FormGroup>
       </Grid>

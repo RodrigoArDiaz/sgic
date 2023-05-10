@@ -260,7 +260,7 @@ export default function BuscarAlumnos(props) {
                 />
               </Tooltip>
             }
-            label=""
+            label="Incluir bajas"
           />
         </FormGroup>
       </Grid>
