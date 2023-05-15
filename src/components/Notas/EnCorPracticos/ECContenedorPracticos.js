@@ -197,7 +197,10 @@ export default function ECContenedorPracticos(props) {
         placement="top"
       >
         <Button
-          onClick={handleOpen}
+          onClick={() => {
+            Refrescar();
+            handleOpen();
+          }}
           size="small"
           // variant="outlined"
           variant="contained"

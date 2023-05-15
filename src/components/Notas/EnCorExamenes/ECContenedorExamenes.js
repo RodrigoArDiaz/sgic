@@ -193,7 +193,14 @@ export default function ECContenedorExamenes(props) {
         arrow
         placement="top"
       >
-        <Button onClick={handleOpen} size="small" variant="contained">
+        <Button
+          onClick={() => {
+            Refrescar();
+            handleOpen();
+          }}
+          size="small"
+          variant="contained"
+        >
           {props.nombre}
         </Button>
       </Tooltip>
