@@ -121,7 +121,7 @@ export const BotonNFL = (props) => {
       pNota: notaParam,
     };
     //Peticion
-    Responses.consultas(data, endpoints.modificarInscripcion)
+    Responses.consultas(data, endpoints.modificarNotaFinal)
       .then((response) => {
         setLoading(false);
         if (Responses.status === 200) {

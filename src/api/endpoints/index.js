@@ -100,6 +100,7 @@ const endpoints = {
   buscarNoInscriptos: rootUrl + "/buscarnoinscriptos",
   inscribirAlumno: rootUrl + "/inscribiralumno",
   modificarInscripcion: rootUrl + "/modificarinscripcion",
+  modificarNotaFinal: rootUrl + "/modificarnotafinal",
   borrarInscripcion: rootUrl + "/borrarinscripcion",
   //**Notas
   buscarNotasPracticos: rootUrl + "/buscarnotaspracticos",
