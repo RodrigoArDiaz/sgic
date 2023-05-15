@@ -58,18 +58,24 @@ export const BotonAC = (props) => {
             });
         }
       } else {
+        //si la accion es distinta del borrado
+        if (variable != "2") {
+          props.mensaje(
+            "No se puede cargar enunciado: el campo 'Enunciado' esta vacio"
+          );
+          props.abrir(true);
+          props.tipo2("error");
+        }
+      }
+    } else {
+      //si la accion es distinta del borrado
+      if (variable != "2") {
         props.mensaje(
           "No se puede cargar enunciado: el campo 'Enunciado' esta vacio"
         );
         props.abrir(true);
         props.tipo2("error");
       }
-    } else {
-      props.mensaje(
-        "No se puede cargar enunciado: el campo 'Enunciado' esta vacio"
-      );
-      props.abrir(true);
-      props.tipo2("error");
     }
 
     if (variable === "2") {
