@@ -141,18 +141,24 @@ export const BotonAC = (props) => {
             });
         }
       } else {
+        //Si la accion no es borrar
+        if (variable != "2") {
+          props.mensaje(
+            "No se puede cargar corrección: el campo 'Correcciones' esta vacio"
+          );
+          props.abrir(true);
+          props.tipo2("error");
+        }
+      }
+    } else {
+      //Si la accion no es borrar
+      if (variable != "2") {
         props.mensaje(
           "No se puede cargar corrección: el campo 'Correcciones' esta vacio"
         );
         props.abrir(true);
         props.tipo2("error");
       }
-    } else {
-      props.mensaje(
-        "No se puede cargar corrección: el campo 'Correcciones' esta vacio"
-      );
-      props.abrir(true);
-      props.tipo2("error");
     }
 
     if (variable === "2") {
