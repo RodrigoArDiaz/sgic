@@ -58,6 +58,7 @@ const SituacionFinalContenedor = () => {
       );
 
       let data = respuesta.data;
+      console.log(data);
 
       let nuevo;
       if (data.res2.length > 0) {
@@ -173,7 +174,11 @@ const SituacionFinalContenedor = () => {
                     paddingBottom={1}
                   >
                     <Typography variant="h5">
-                      {datosSituacionFinal.NotaFinalLibreta}
+                      {datosSituacionFinal.NotaFinalLibreta == null ||
+                      datosSituacionFinal.NotaFinalLibreta == "" ||
+                      datosSituacionFinal.NotaFinalLibreta < 0
+                        ? "-"
+                        : datosSituacionFinal.NotaFinalLibreta}
                     </Typography>
                     <Typography variant="subtitle2" sx={{ opacity: "0.75" }}>
                       Nota libreta
