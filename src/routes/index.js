@@ -12,6 +12,7 @@ const routes = {
   //Alumnos
   alumnosMiscursadas: "/inicio/alumnos/mis_cursadas",
   alumnosMisNotas: "/inicio/alumnos/mis_notas",
+  alumnosInfoCursada: "/inicio/alumnos/info_cursada",
 };
 
 export { routes };

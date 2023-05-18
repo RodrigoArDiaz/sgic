@@ -94,7 +94,7 @@ const MisCursadasContenedor = () => {
     //Actualizo items del menu
     dispatch(actualizarMenu(listaItemsMenuAlumnoConCursada));
     //Redirigo
-    navegar(routes.alumnosMisNotas);
+    navegar(routes.alumnosInfoCursada);
   };
 
   return (
