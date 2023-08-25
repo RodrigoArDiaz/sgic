@@ -137,7 +137,7 @@ export default function OrdenarTipo(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
-            Cancelar
+            Volver
           </Button>
         </DialogActions>
       </Dialog>
