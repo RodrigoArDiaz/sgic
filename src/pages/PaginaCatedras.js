@@ -1,27 +1,52 @@
-import React from 'react'
-import { Grid } from '@mui/material'
-import BreadCrumbs from '../components/BreadCrumbs'
-import BuscarCatedras from '../components/BuscarCatedras';
-import CatedrasContenedor from '../components/CatedrasContenedor';
-
+import React, { useEffect } from "react";
+//Materia UI
+import { Grid } from "@mui/material";
+import BreadCrumbs from "../components/BreadCrumbs";
+import CatedrasContenedor from "../components/GestionCatedrasSuper/CatedrasContenedor";
+import { GridBreadCrumbs } from "../components/Material UI - Componentes Modificados/ComponentesBreadCrumbs/ComponentesBreadCrumbs";
+//Redux
+import { useDispatch } from "react-redux";
+import { actualizarTitulo } from "../store/slices/menuSlice";
 
 export default function PaginaCatedras() {
-    return (
-        <Grid
-            container
-            sx={{ml: {xs: "0", sm: "20px"} ,mt: "80px"}}
-        >
-             <Grid item xs={12}>
-                {/* <BreadCrumbs/> */}
-            </Grid>
+  //Para el uso de funciones de los state de redux
+  const dispatch = useDispatch();
 
-            <Grid item xs={12} sm={10} md={10} lg={5}>
-                 <BuscarCatedras/>
-            </Grid>
+  //Actualiza el titulo al montar la pagina
+  useEffect(() => {
+    dispatch(actualizarTitulo("Superadministrador"));
+  }, []);
 
-            <Grid item xs={12}>
-                 <CatedrasContenedor/>
-            </Grid>
-        </Grid>
-    )
+  //Actualiza el titulo al desmontar la pagina
+  useEffect(() => {
+    return () => {
+      dispatch(actualizarTitulo(""));
+    };
+  }, []);
+
+  //Ruta para breadcrumbs
+  const crumbs = [
+    {
+      nombreRuta: "Inicio",
+      to: "/inicio/docentes/ingreso",
+    },
+    {
+      nombreRuta: "Gestión cátedras",
+      to: "",
+    },
+  ];
+
+  return (
+    <Grid container rowSpacing={1}>
+      <Grid item xs={12}>
+        <GridBreadCrumbs>
+          <BreadCrumbs crumbs={crumbs} />
+        </GridBreadCrumbs>
+      </Grid>
+
+      <Grid item xs={12}>
+        <CatedrasContenedor />
+      </Grid>
+    </Grid>
+  );
 }
