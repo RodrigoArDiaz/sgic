@@ -15,9 +15,12 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 //
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -61,6 +64,9 @@ const PanelSeguridad = () => {
   const { token } = useSelector((state) => state.login);
   //Recupero informacion del usuario
   const { user } = useSelector((state) => state.user);
+  //Estado que indica el tamaño de screen
+  const theme = useTheme();
+  const esXs = useMediaQuery(theme.breakpoints.down("sm"));
 
   const valoresInicialesForm = {
     contraseniaActual: "",
@@ -129,8 +135,18 @@ const PanelSeguridad = () => {
       {/* <DialogContent> */}
       <CardContent sx={{ paddingY: "0" }}>
         <Stack sx={{ width: "100%" }} paddingTop={1}>
-          <Alert severity="warning">
-            <AlertTitle>Formato de la contraseña</AlertTitle>
+          <Alert
+            icon={!esXs ? <ReportProblemOutlinedIcon /> : false}
+            severity="warning"
+          >
+            <AlertTitle sx={{ display: "flex", alignItems: "center" }}>
+              {esXs && (
+                <ReportProblemOutlinedIcon
+                  sx={{ color: "#ff9800", marginRight: "0.2rem" }}
+                />
+              )}
+              Formato de la contraseña
+            </AlertTitle>
             La contraseña debe tener un minimo de 8 caracteres y un maximo de
             16. Debe contener al menos un numero, una letra en minuscula y una
             letra en mayuscula.
@@ -272,7 +288,9 @@ const PanelSeguridad = () => {
         {/* </DialogContent> */}
       </CardContent>
 
-      <DialogActions sx={{ paddingBottom: 2 }}>
+      <DialogActions
+        sx={{ paddingBottom: 2, justifyContent: { xs: "center", md: "end" } }}
+      >
         <Button
           type="submit"
           variant="contained"
