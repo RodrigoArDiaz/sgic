@@ -274,6 +274,11 @@ function FormularioIniciarSesionSuper() {
                       [e.target.name]: e.target.value,
                     });
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key == 'Enter') {
+                      loguear(e);
+                    }
+                  }}
                   //onBlur = {handleBlur}
                   value={form.Contrasena}
                   endAdornment={
