@@ -32,7 +32,7 @@ export const closedMixin = (theme) => ({
 
   //Ancho del menu minimmizado
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(7.5)} + 1px)`,
   },
   //Esconder drawer en mobile
   [theme.breakpoints.down("md")]: {
@@ -81,6 +81,12 @@ export const AppBar = styled(MuiAppBar, {
 
   [theme.breakpoints.up("lg")]: {
     ...(!open && {
+      paddingLeft: `calc(${theme.spacing(7.5)} + 1px)`,
+    }),
+  },
+
+  [theme.breakpoints.up("xl")]: {
+    ...(!open && {
       paddingLeft: `calc(${theme.spacing(16)} + 1px)`,
     }),
   },
@@ -115,6 +121,10 @@ export const AppBar = styled(MuiAppBar, {
     },
 
     [theme.breakpoints.up("lg")]: {
+      paddingLeft: `calc( 1px)`,
+    },
+
+    [theme.breakpoints.up("xl")]: {
       paddingLeft: `calc(${theme.spacing(7)} + 1px)`,
     },
   }),

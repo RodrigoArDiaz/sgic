@@ -89,9 +89,10 @@ export default function Menu() {
           borderBottom: "1px solid",
           borderColor: "borders.main",
           boxShadow: "none",
+          
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{minHeight: { xs: "50px"}}}>
           <IconButton
             size="medium"
             aria-label="open drawer"
@@ -580,9 +581,9 @@ export default function Menu() {
         sx={{
           flexGrow: 1,
           paddingX: { xs: 2, sm: 3, lg: 3, xl: 10 },
-          paddingY: { xs: 2, sm: 1 },
+          paddingY: { xs: 2, sm: 0 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          marginTop: "1rem",
+          marginTop: "0.5rem",
         }}
       >
         <Toolbar />

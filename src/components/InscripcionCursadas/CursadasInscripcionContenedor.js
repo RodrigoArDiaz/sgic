@@ -94,7 +94,7 @@ const CursadasInscripcionContenedor = () => {
           sx={{
             margin: "0px",
             fontWeight: "500",
-            fontSize: "1.775rem",
+            fontSize: "1.5rem",
             lineHeight: "1.27",
             fontFamily: "Public Sans, sans-serif",
           }}
