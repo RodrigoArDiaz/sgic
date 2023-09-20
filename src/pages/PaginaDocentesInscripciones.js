@@ -42,14 +42,14 @@ export default function PaginaDocentesInscripciones() {
   ];
 
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container rowSpacing={1}>
       <Grid item xs={12}>
         <GridBreadCrumbs container>
           <BreadCrumbs crumbs={crumbs} />
         </GridBreadCrumbs>
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={12} >
         <InscripcionesContenedor />
       </Grid>
     </Grid>
