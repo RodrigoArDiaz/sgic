@@ -112,6 +112,7 @@ const theme = createTheme({
     icons: {
       main: "rgb(38, 38, 38)",
       secondary: "rgb(38, 38, 38)",
+      tertiary: "rgba(38, 38, 38, 0.8)",
       bg: "rgb(245, 245, 245)",
       error: red[500],
       edit: blue[500],
