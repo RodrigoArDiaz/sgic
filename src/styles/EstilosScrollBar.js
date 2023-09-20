@@ -8,7 +8,7 @@ const estiloScrollbar = {
   },
   "&::-webkit-scrollbar-thumb": {
     // backgroundColor: "rgba(0,0,0,0.1)",
-    backgroundColor: "secondary.light100",
+    backgroundColor: "icons.tertiary",
     "&:hover": {},
     // outline: "1px solid rgba(0,0,0,0.3)",
     borderRadius: "10px",

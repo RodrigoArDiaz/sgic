@@ -110,9 +110,9 @@ const theme = createTheme({
     },
 
     icons: {
-      // main: "rgba(58, 53, 65, 0.87)",
       main: "rgb(38, 38, 38)",
       secondary: "rgb(38, 38, 38)",
+      tertiary: "rgba(38, 38, 38, 0.8)",
       bg: "rgb(245, 245, 245)",
       error: red[500],
       edit: blue[500],
@@ -158,36 +158,20 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          // ...darkScrollbar(),
-          // color: "darkred",
-          // backgroundColor: "#e3f2fd",
-          // backgroundColor: "rgb(242, 245, 249)",
           backgroundColor: "rgb(243, 244, 249)",
         },
       },
     },
   },
-  // shape: {
-  //     borderRadius: 0
-  // }
+
 
   //Tipografria
   typography: {
-    //  Family
+    //Font-size on the <html> element. This is used to adjust the rem value so the calculated font-size 
+    htmlFontSize: 18, 
 
+    //Family
     fontFamily: ["Public Sans", "sans-serif"].join(","),
-
-    // fontFamily: [
-    //   "Inter",
-    //   "-apple-system",
-    //   "BlinkMacSystemFont",
-    //   "Segoe UI",
-    //   "Helvetica",
-    //   "Arial",
-    //   "sans-serif",
-    //   "Apple Color Emoji",
-    //   "Segoe UI Emoji",
-    // ].join(","),
 
     //Color
     color: "rgb(34, 51, 84)",
@@ -202,6 +186,7 @@ const theme = createTheme({
     h6: {
       color: "rgb(29, 36, 56)",
       fontWeight: "500",
+      // fontSize: {xs: "auto" , md:"1rem"}
     },
 
     subtitle2: {
