@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, Zoom } from "@mui/material";
+import { Button, CircularProgress, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -15,10 +15,13 @@ import { useNavigate } from "react-router-dom";
 import * as Responses from "../Responses";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
+import { useState } from "react";
 
 /*** Componente BorrarExamen***/
 export const BorrarExamen = (props) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const navegar = useNavigate();
 
@@ -32,6 +35,8 @@ export const BorrarExamen = (props) => {
       pidCu: props.cursada.IdCursada,
       pidE: props.examen.IdExamen,
     };
+
+    setIsLoading(true);
 
     Responses.consultas(data, endpoints.borrarExamen)
       .then((response) => {
@@ -51,9 +56,11 @@ export const BorrarExamen = (props) => {
         } else {
           navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
   }
 
@@ -87,8 +94,17 @@ export const BorrarExamen = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={BorrarExamen}>
+          <Button
+            variant="contained"
+            onClick={BorrarExamen}
+            disabled={isLoading}
+          >
             Aceptar
+            {isLoading && (
+              <>
+                <CircularProgress size={20} sx={{ ml: 1 }} />
+              </>
+            )}
           </Button>
           <Button variant="outlined" onClick={handleClose}>
             Cancelar

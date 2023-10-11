@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
@@ -29,6 +29,7 @@ export const CrearPractico = (props) => {
 
   const [epractico, setP] = React.useState("");
   const [enotaminima, setNM] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [form, setForm] = React.useState({
     practico: "",
@@ -43,7 +44,7 @@ export const CrearPractico = (props) => {
   });
 
   function Crear() {
-    if (form.fechavencimiento.length > 0) {
+    if (toString(form.fechavencimiento).length > 0) {
       let p = form.fechavencimiento.toLocaleDateString();
 
       let indice = p.indexOf("/");
@@ -69,6 +70,7 @@ export const CrearPractico = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
+    setIsLoading(true);
     Responses.consultas(data, endpoints.crearPractico)
       .then((response) => {
         if (Responses.status === 200) {
@@ -108,26 +110,12 @@ export const CrearPractico = (props) => {
         } else {
           navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
-  }
-
-  function DevolverBoton() {
-    if (epractico === "1" && enotaminima === "1") {
-      return (
-        <Button variant="contained" onClick={Crear}>
-          Aceptar
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="contained" disabled onClick={handleClose}>
-          Aceptar
-        </Button>
-      );
-    }
   }
 
   const estiloFormControl = {
@@ -359,7 +347,22 @@ export const CrearPractico = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {/* {DevolverBoton()} */}
+          {epractico === "1" && enotaminima === "1" ? (
+            <Button variant="contained" onClick={Crear} disabled={isLoading}>
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
+
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>

@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -32,6 +32,8 @@ export const ModificarPractico = (props) => {
   const [epractico, setP] = React.useState("1");
 
   const [enotaminima, setNM] = React.useState("1");
+
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [form, setForm] = React.useState({
     practico: props.practico.Practico,
@@ -109,6 +111,8 @@ export const ModificarPractico = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
+    setIsLoading(true);
+
     Responses.consultas(data, endpoints.modificarPractico)
       .then((response) => {
         if (Responses.status === 200) {
@@ -139,9 +143,11 @@ export const ModificarPractico = (props) => {
         } else {
           navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
   }
 
@@ -393,7 +399,24 @@ export const ModificarPractico = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {epractico === "1" && enotaminima === "1" ? (
+            <Button
+              variant="contained"
+              onClick={Modificar}
+              disabled={isLoading}
+            >
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>
