@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button, CircularProgress, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -46,6 +46,8 @@ export const CrearCursada = (props) => {
   const [eescala, setEs] = React.useState("");
   const [epnt, setP] = React.useState("");
   const [ecalculo, setC] = React.useState("");
+
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [form, setForm] = React.useState({
     anio: "",
@@ -118,6 +120,7 @@ export const CrearCursada = (props) => {
       IdMateria: props.idmateria,
     };
 
+    setIsLoading(true);
     Responses.consultas(data, endpoints.crearCursada)
       .then((response) => {
         if (Responses.status === 200) {
@@ -206,37 +209,12 @@ export const CrearCursada = (props) => {
         } else {
           navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
-  }
-
-  function DevolverBoton() {
-    if (
-      eanio === "1" &&
-      esemestre === "1" &&
-      efinicio === "1" &&
-      effin === "1" &&
-      eprograma === "1" &&
-      etieneg === "1" &&
-      emaxintg === "1" &&
-      eescala === "1" &&
-      epnt === "1" &&
-      ecalculo === "1"
-    ) {
-      return (
-        <Button variant="contained" onClick={Crear}>
-          Aceptar
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="contained" disabled onClick={handleClose}>
-          Aceptar
-        </Button>
-      );
-    }
   }
 
   const estiloFormControl = {
@@ -771,7 +749,29 @@ export const CrearCursada = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {eanio === "1" &&
+          esemestre === "1" &&
+          efinicio === "1" &&
+          effin === "1" &&
+          eprograma === "1" &&
+          etieneg === "1" &&
+          emaxintg === "1" &&
+          eescala === "1" &&
+          epnt === "1" &&
+          ecalculo === "1" ? (
+            <Button variant="contained" onClick={Crear} disabled={isLoading}>
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>
