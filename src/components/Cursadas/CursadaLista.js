@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Stack from "@mui/material/Stack";
 import { Box, Grid, Typography } from "@mui/material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 //
 import { BotonAcciones } from "./BotonAcciones";
 import { BotonEstado } from "./BotonEstado.js";
@@ -17,6 +18,7 @@ import { BotonTipo } from "./BotonTipo.js";
 import FilasPorPagina from "./FilasPorPagina";
 import { TableRowElevacion } from "../Material UI - Componentes Modificados/ComponentesTabla";
 import PaginationCustom from "../Material UI - Componentes Modificados/ComponentePaginacion/PaginationCustom";
+import { ChipCustom } from "../Material UI - Componentes Modificados/ChipCustom";
 
 //Estilos para filas de la tabla
 const estilosCell = { fontSize: "1em" };
@@ -27,7 +29,7 @@ const columns = [
     id: "Anio",
     label: "Año",
     minWidth: 20,
-    align: "left",
+    align: "center",
   },
 
   {
@@ -249,11 +251,65 @@ export default function CursadaLista(props) {
                       );
                     }
 
+                    if (column.id === "Anio" || column.id === "Semestre") {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          sx={estilosCell}
+                          align={column.align}
+                        >
+                          {value && (
+                            <ChipCustom
+                              size="large"
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "4em",
+                                },
+                              }}
+                            />
+                          )}
+                        </TableCell>
+                      );
+                    }
+
                     if (
-                      column.id === "Anio" ||
-                      column.id === "Semestre" ||
                       column.id === "FechaInicio" ||
-                      column.id === "FechaFin" ||
+                      column.id === "FechaFin"
+                    ) {
+                      return (
+                        <TableCell
+                          key={column.id}
+                          sx={estilosCell}
+                          align={column.align}
+                        >
+                          {!value || value.split("-").length < 3 ? (
+                            <ChipCustom
+                              size="large"
+                              label="-"
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          ) : (
+                            <ChipCustom
+                              size="large"
+                              icon={<CalendarTodayIcon fontSize="small" />}
+                              label={value}
+                              sx={{
+                                "& .MuiChip-label": {
+                                  fontSize: "1.17em",
+                                },
+                              }}
+                            />
+                          )}
+                        </TableCell>
+                      );
+                    }
+
+                    if (
                       column.id === "EscalaPracticos" ||
                       column.id === "PorcentajeNotaTotalPracticos" ||
                       column.id === "MaximoIntGrupos"
