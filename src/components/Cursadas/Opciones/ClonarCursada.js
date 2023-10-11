@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery, Zoom } from "@mui/material";
 import { useModal } from "../../../hooks/useModal";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -46,6 +46,8 @@ export const ClonarCursada = (props) => {
   const [epnt, setP] = React.useState("1");
   const [ecalculo, setC] = React.useState("1");
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   function MIG(param) {
     if (param === "-") {
       return "";
@@ -80,7 +82,7 @@ export const ClonarCursada = (props) => {
     calculo: "",
   });
 
-  function Modificar() {
+  function ClonarCursada() {
     let p = form.finicio.toLocaleDateString();
 
     let indice = p.indexOf("/");
@@ -123,8 +125,11 @@ export const ClonarCursada = (props) => {
       pPNT: form.pnt,
       pCal: form.calculo,
       pidCu: props.cursada.IdCursada,
+      IdCursada: props.cursada.IdCursada,
+      token: localStorage.getItem("tkn"),
     };
 
+    setIsLoading(true);
     Responses.consultas(data, endpoints.clonarCursada)
       .then((response) => {
         if (Responses.status === 200) {
@@ -188,45 +193,14 @@ export const ClonarCursada = (props) => {
         } else {
           navegar(routes.error);
         }
+
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
   }
-
-  function DevolverBoton() {
-    if (
-      eanio === "1" &&
-      esemestre === "1" &&
-      efinicio === "1" &&
-      effin === "1" &&
-      eprograma === "1" &&
-      etieneg === "1" &&
-      emaxintg === "1" &&
-      eescala === "1" &&
-      epnt === "1" &&
-      ecalculo === "1"
-    ) {
-      return (
-        <Button variant="contained" onClick={Modificar}>
-          Aceptar
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="contained" disabled onClick={handleClose}>
-          Aceptar
-        </Button>
-      );
-    }
-  }
-
-  const estiloPaper = {
-    height: "auto",
-    width: { xs: "100%", sm: "490px" },
-    margin: { xs: "0 auto", sm: "20px auto" },
-    boxShadow: { xs: 0, sm: 8 },
-  };
 
   const estiloFormControl = {
     width: "100%",
@@ -236,10 +210,6 @@ export const ClonarCursada = (props) => {
   const estiloFormControlSelect = {
     //width: fullWidth,
     mt: "25px",
-  };
-
-  const estiloContent = {
-    padding: "5px 40px 40px 40px ",
   };
 
   function CambioAnio(param) {
@@ -789,7 +759,33 @@ export const ClonarCursada = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {eanio === "1" &&
+          esemestre === "1" &&
+          efinicio === "1" &&
+          effin === "1" &&
+          eprograma === "1" &&
+          etieneg === "1" &&
+          emaxintg === "1" &&
+          eescala === "1" &&
+          epnt === "1" &&
+          ecalculo === "1" ? (
+            <Button
+              variant="contained"
+              onClick={ClonarCursada}
+              disabled={isLoading}
+            >
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>
