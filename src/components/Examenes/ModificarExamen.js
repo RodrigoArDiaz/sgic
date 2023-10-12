@@ -144,6 +144,7 @@ export const ModificarExamen = (props) => {
 
     Responses.consultas(data, endpoints.modificarExamen)
       .then((response) => {
+        console.log(response);
         if (Responses.status === 200) {
           handleClose();
           props.abrir(true);
@@ -168,6 +169,12 @@ export const ModificarExamen = (props) => {
           if (response.notaminima !== undefined) {
             setErrors({ ...errors, notaminima: response.notaminima });
             setNM("2");
+          }
+
+          if (response.Error !== undefined) {
+            props.abrir(true);
+            props.mensaje(response.Error);
+            props.tipo("error");
           }
         } else {
           console.log(response);
