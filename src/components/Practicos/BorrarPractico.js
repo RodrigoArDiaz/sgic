@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery, Zoom } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +14,7 @@ import * as Responses from "../Responses";
 import { useTheme } from "@emotion/react";
 import { DeleteOutlined } from "@mui/icons-material";
 import { endpoints } from "../../api/endpoints";
+import { useState } from "react";
 
 /*** Componente BorrarPractico ***/
 export const BorrarPractico = (props) => {
@@ -23,6 +24,8 @@ export const BorrarPractico = (props) => {
 
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navegar = useNavigate();
 
   function BorrarPractico() {
@@ -30,6 +33,8 @@ export const BorrarPractico = (props) => {
       pidCu: props.cursada.IdCursada,
       pidP: props.practico.IdPractico,
     };
+
+    setIsLoading(true);
 
     Responses.consultas(data, endpoints.borrarPractico)
       .then((response) => {
@@ -49,9 +54,11 @@ export const BorrarPractico = (props) => {
         } else {
           navegar("/error");
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar("/error");
+        setIsLoading(false);
       });
   }
 
@@ -86,8 +93,17 @@ export const BorrarPractico = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={BorrarPractico}>
+          <Button
+            variant="contained"
+            onClick={BorrarPractico}
+            disabled={isLoading}
+          >
             Aceptar
+            {isLoading && (
+              <>
+                <CircularProgress size={20} sx={{ ml: 1 }} />
+              </>
+            )}
           </Button>
           <Button variant="outlined" onClick={handleClose}>
             Cancelar

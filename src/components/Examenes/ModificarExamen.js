@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Button, useMediaQuery, Zoom } from "@mui/material";
+import { Button, CircularProgress, useMediaQuery, Zoom } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -22,6 +22,7 @@ import { useModal } from "../../hooks/useModal";
 import { useTheme } from "@emotion/react";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
+import { useState } from "react";
 
 /*** Componente ModificarExamen***/
 export const ModificarExamen = (props) => {
@@ -44,6 +45,8 @@ export const ModificarExamen = (props) => {
   //const [banderacarga, setBC] = React.useState('2');
 
   const [tipo, setTipo] = React.useState(props.examen.IdParametro);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [form, setForm] = React.useState({
     examen: props.examen.Examen,
@@ -94,7 +97,7 @@ export const ModificarExamen = (props) => {
   }
 
   function Modificar() {
-    if (form.fechavencimiento.length === 0) {
+    if (form.fechavencimiento == null || form.fechavencimiento.length === 0) {
       var fv = null;
     } else if (form.fechavencimiento.toString().length > 11) {
       let p = form.fechavencimiento.toLocaleDateString();
@@ -137,8 +140,11 @@ export const ModificarExamen = (props) => {
       pidCu: props.cursada.IdCursada,
     };
 
+    setIsLoading(true);
+
     Responses.consultas(data, endpoints.modificarExamen)
       .then((response) => {
+        console.log(response);
         if (Responses.status === 200) {
           handleClose();
           props.abrir(true);
@@ -164,31 +170,23 @@ export const ModificarExamen = (props) => {
             setErrors({ ...errors, notaminima: response.notaminima });
             setNM("2");
           }
+
+          if (response.Error !== undefined) {
+            props.abrir(true);
+            props.mensaje(response.Error);
+            props.tipo("error");
+          }
         } else {
           console.log(response);
           // navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
         // navegar(routes.error);
+        setIsLoading(false);
       });
-  }
-
-  function DevolverBoton() {
-    if (eexamen === "1" && enotaminima === "1" && etipo === "1") {
-      return (
-        <Button variant="contained" onClick={Modificar}>
-          Aceptar
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="contained" disabled onClick={handleClose}>
-          Aceptar
-        </Button>
-      );
-    }
   }
 
   const estiloFormControl = {
@@ -453,7 +451,24 @@ export const ModificarExamen = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {eexamen === "1" && enotaminima === "1" && etipo === "1" ? (
+            <Button
+              variant="contained"
+              onClick={Modificar}
+              disabled={isLoading}
+            >
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>

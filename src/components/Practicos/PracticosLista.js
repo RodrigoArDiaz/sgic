@@ -238,6 +238,10 @@ export default function PracticoLista(props) {
                             estado={row.Estado}
                             idpractico={row.IdPractico}
                             cursada={props.cursada}
+                            refrescar={props.refrescar}
+                            abrir={props.abrir}
+                            mensaje={props.mensaje}
+                            tipo={props.tipo}
                           />
                         </TableCell>
                       );

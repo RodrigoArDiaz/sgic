@@ -1,6 +1,6 @@
 import React from "react";
 //MUI
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button, CircularProgress, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -19,6 +19,7 @@ import { BotonEstadoRegistro } from "./BotonEstadoRegistro";
 import BotonTipo from "./BotonTipo";
 import { endpoints } from "../../api/endpoints";
 import { routes } from "../../routes";
+import { useState } from "react";
 
 /*** Componente PaginaDocentesExamenes***/
 export const CrearExamen = (props) => {
@@ -28,8 +29,6 @@ export const CrearExamen = (props) => {
 
   const navegar = useNavigate();
 
-  // const [dato, setParam] = React.useState(props.parametros);
-
   const [isOpen, handleOpen, handleClose] = useModal(false);
 
   const [eexamen, setE] = React.useState("");
@@ -38,9 +37,10 @@ export const CrearExamen = (props) => {
 
   const [notamincomp, setNMC] = React.useState("");
   const [aod, setAOD] = React.useState(true);
-  //const [banderacarga, setBC] = React.useState('2');
 
   const [tipo, setTipo] = React.useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   function NotaMinima(param) {
     setNM("");
@@ -71,7 +71,7 @@ export const CrearExamen = (props) => {
   });
 
   function Crear() {
-    if (form.fechavencimiento.length > 0) {
+    if (form.fechavencimiento) {
       let p = form.fechavencimiento.toLocaleDateString();
 
       let indice = p.indexOf("/");
@@ -98,6 +98,8 @@ export const CrearExamen = (props) => {
       // pidCu: cursada.IdCursada,
       pidCu: props.cursada.IdCursada,
     };
+
+    setIsLoading(true);
 
     Responses.consultas(data, endpoints.crearExamen)
       .then((response) => {
@@ -142,26 +144,12 @@ export const CrearExamen = (props) => {
         } else {
           navegar(routes.error);
         }
+        setIsLoading(false);
       })
       .catch((error) => {
         navegar(routes.error);
+        setIsLoading(false);
       });
-  }
-
-  function DevolverBoton() {
-    if (eexamen === "1" && enotaminima === "1" && etipo === "1") {
-      return (
-        <Button variant="contained" onClick={Crear}>
-          Aceptar
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="contained" disabled onClick={handleClose}>
-          Aceptar
-        </Button>
-      );
-    }
   }
 
   const estiloFormControl = {
@@ -428,7 +416,21 @@ export const CrearExamen = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          {DevolverBoton()}
+          {eexamen === "1" && enotaminima === "1" && etipo === "1" ? (
+            <Button variant="contained" onClick={Crear} disabled={isLoading}>
+              Aceptar
+              {isLoading && (
+                <>
+                  <CircularProgress size={20} sx={{ ml: 1 }} />
+                </>
+              )}
+            </Button>
+          ) : (
+            <Button variant="contained" disabled onClick={handleClose}>
+              Aceptar
+            </Button>
+          )}
+
           <Button onClick={handleClose} variant="outlined">
             Cancelar
           </Button>
