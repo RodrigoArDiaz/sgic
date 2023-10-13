@@ -28,6 +28,10 @@ export const BotonEstado = (props) => {
         .then((response) => {
           if (Responses.status === 200) {
             setSalto("B");
+            props.abrir(true);
+            props.mensaje("Práctico modificado con éxito");
+            props.tipo("success");
+            props.refrescar();
           } else if (Responses.status === 401) {
             navegar(routes.iniciarSesion);
           } else {
@@ -44,6 +48,10 @@ export const BotonEstado = (props) => {
           .then((response) => {
             if (Responses.status === 200) {
               setSalto("A");
+              props.abrir(true);
+              props.mensaje("Práctico modificado con éxito");
+              props.tipo("success");
+              props.refrescar();
             } else if (Responses.status === 401) {
               navegar(routes.iniciarSesion);
             } else {
