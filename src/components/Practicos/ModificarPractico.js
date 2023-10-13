@@ -69,7 +69,10 @@ export const ModificarPractico = (props) => {
   }
 
   function Modificar() {
-    if (form.fechavencimiento.length === 0) {
+    if (
+      form.fechavencimiento == null ||
+      form.fechavencimiento.toString().length === 0
+    ) {
       var fv = null;
     } else if (form.fechavencimiento.toString().length > 11) {
       let p = form.fechavencimiento.toLocaleDateString();
