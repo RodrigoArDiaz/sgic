@@ -71,7 +71,7 @@ export const CrearExamen = (props) => {
   });
 
   function Crear() {
-    if (toString(form.fechavencimiento).length > 0) {
+    if (form.fechavencimiento) {
       let p = form.fechavencimiento.toLocaleDateString();
 
       let indice = p.indexOf("/");
