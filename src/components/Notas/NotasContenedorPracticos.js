@@ -178,7 +178,7 @@ export default function NotasContenedorPracticos(props) {
 
   return (
     <>
-      <Grid container p={1} justifyContent="flex-end">
+      <Grid container justifyContent="flex-end">
         <Grid item xs={12}>
           {props.cursada.TieneGrupos === "N" && (
             <BuscarAlumnos
@@ -278,13 +278,14 @@ export default function NotasContenedorPracticos(props) {
       )}
 
       {cargando === "3" && (
-        <Grid container paddingTop={2}>
+        <Grid container paddingTop={0}>
           <Grid item xs={12}>
             <Box
               component="div"
               display="flex"
               justifyContent="center"
-              paddingX={2}
+              paddingX={3}
+              paddingY={0}
             >
               <MensajeFeedback>No se encontraron resultados</MensajeFeedback>
             </Box>

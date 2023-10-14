@@ -183,7 +183,21 @@ export default function NotasContenedorExamenes(props) {
         </Grid>
       )}
 
-      {expandir === "3" && <h4>No se encontraron resultados</h4>}
+      {expandir === "3" && (
+        <Grid container paddingTop={2}>
+          <Grid item xs={12}>
+            <Box
+              component="div"
+              display="flex"
+              justifyContent="center"
+              paddingX={3}
+              paddingY={0}
+            >
+              <MensajeFeedback>No se encontraron resultados</MensajeFeedback>
+            </Box>
+          </Grid>
+        </Grid>
+      )}
 
       {expandir === "1" && (
         <>
