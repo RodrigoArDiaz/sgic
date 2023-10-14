@@ -74,6 +74,8 @@ const InfoAlumno = ({ infoCursada }) => {
   const [estadoAlumno, setEstadoAlumno] = useState("");
   const [isLoadingEstado, setIsLoadingEstado] = useState(false);
 
+  const [alumnoSinGrupo, setAlumnoSinGrupo] = useState(false);
+
   //
   const [grupo, setGrupo] = useState([]);
   const [isLoadingGrupo, setIsLoadingGrupo] = useState(false);
@@ -113,6 +115,10 @@ const InfoAlumno = ({ infoCursada }) => {
       console.log(respuesta.data.res);
       setGrupo(respuesta.data.res);
     } catch (error) {
+      if (error.response && error.response.status == 460) {
+        setAlumnoSinGrupo(true);
+      }
+
       if (error.response && error.response.status == 401) {
         //Sesion caducada (sin autorización)
         navegar(routes.iniciarSesion);
@@ -153,7 +159,7 @@ const InfoAlumno = ({ infoCursada }) => {
         </CardMainPage>
       </Grid>
 
-      {infoCursada.PermiteGrupos == "S" && (
+      {infoCursada.PermiteGrupos == "S" && !alumnoSinGrupo && (
         <Grid item xs={6}>
           <CardMainPage visibleHeader={false}>
             <List sx={{ paddingY: 0 }}>
@@ -169,10 +175,10 @@ const InfoAlumno = ({ infoCursada }) => {
             <CardContent
               sx={{
                 padding: 0,
-                //   "&.MuiCardContent-root:last-child": { paddingBottom: 0 },
+                "&.MuiCardContent-root:last-child": { paddingBottom: 0 },
               }}
             >
-              {!isLoadingGrupo && (
+              {!isLoadingGrupo && !alumnoSinGrupo && (
                 <TableContainer component={Box} sx={{ overflowX: "auto" }}>
                   <Table aria-label="Lista de Catedras" size="small">
                     <TableHead>
@@ -225,7 +231,43 @@ const InfoAlumno = ({ infoCursada }) => {
                   </Table>
                 </TableContainer>
               )}
+
+              {!isLoadingGrupo && alumnoSinGrupo && (
+                <Box paddingX={2} paddingY={1.8}>
+                  <Chip
+                    label="Alumno sin grupo"
+                    variant="outlined"
+                    color="error"
+                  />
+                </Box>
+              )}
             </CardContent>
+          </CardMainPage>
+        </Grid>
+      )}
+
+      {/* Mi estado */}
+      {infoCursada.PermiteGrupos == "S" && alumnoSinGrupo && (
+        <Grid item xs={6} sm={3} md={4} lg={2}>
+          <CardMainPage visibleHeader={false}>
+            <Box textAlign="center" paddingTop={3} paddingBottom={3}>
+              {estadoAlumno != undefined && (
+                <Chip
+                  label="Alumno sin grupo"
+                  variant="outlined"
+                  color="error"
+                  size="large"
+                />
+              )}
+
+              <Typography
+                marginTop={1}
+                variant="subtitle2"
+                sx={{ opacity: "0.75" }}
+              >
+                Grupo
+              </Typography>
+            </Box>
           </CardMainPage>
         </Grid>
       )}
