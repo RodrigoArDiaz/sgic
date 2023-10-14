@@ -154,13 +154,24 @@ export default function InfoCursadaContenedor(props) {
           <Grid item xs={6} sm={3} md={4} lg={1.5}>
             <CardMainPage visibleHeader={false}>
               <Box textAlign="center" paddingTop={3} paddingBottom={3}>
-                {infoCursada.Estado != undefined && (
-                  <Chip
-                    label={infoCursada.Estado == "A" ? "Activo" : "Baja"}
-                    variant="outlined"
-                    color={infoCursada.Estado == "A" ? "success" : "error"}
-                  />
-                )}
+                {infoCursada.Estado != undefined &&
+                  infoCursada.Estado == "A" && (
+                    <Chip label="Activo" variant="outlined" color="success" />
+                  )}
+
+                {infoCursada.Estado != undefined &&
+                  infoCursada.Estado == "B" && (
+                    <Chip label="Baja" variant="outlined" color="error" />
+                  )}
+
+                {infoCursada.Estado != undefined &&
+                  infoCursada.Estado == "I" && (
+                    <Chip
+                      label="Inscripción abierta"
+                      variant="outlined"
+                      color="warning"
+                    />
+                  )}
                 <Typography
                   marginTop={1}
                   variant="subtitle2"
