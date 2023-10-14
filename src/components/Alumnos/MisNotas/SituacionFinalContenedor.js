@@ -29,6 +29,7 @@ import {
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
 import RequisitosDeAprobacion from "../RequisitosDeAprobacion";
 import BotonNC from "./BotonNC";
+import MensajeFeedback from "../../MensajeFeedback";
 
 const estilosCell = {
   paddingTop: 0,
@@ -44,6 +45,7 @@ const SituacionFinalContenedor = () => {
 
   //Informacion de cursada
   const { cursada } = useSelector((state) => state.cursada);
+  const [sinPromedios, setSinPromedios] = useState(false);
 
   //
   const navegar = useNavigate();
@@ -91,10 +93,13 @@ const SituacionFinalContenedor = () => {
 
           return aux;
         });
+      } else {
+        setSinPromedios(true);
       }
       setCeldasHead(nuevo);
       setDatosSituacionFinal(data.res[0]);
     } catch (error) {
+      console.log(error.response);
       if (error.response && error.response.status == 401) {
         //Sesion caducada (sin autorización)
         navegar(routes.iniciarSesion);
@@ -210,33 +215,41 @@ const SituacionFinalContenedor = () => {
                 <Table aria-label="Lista de examenes" size="small">
                   <TableHead>
                     <TableRow>
-                      {celdasHead.map((celda) => {
-                        return (
-                          <TableCellHead align="center">
-                            {celda.label}
-                          </TableCellHead>
-                        );
-                      })}
+                      {celdasHead != undefined &&
+                        celdasHead.map((celda) => {
+                          return (
+                            <TableCellHead align="center">
+                              {celda.label}
+                            </TableCellHead>
+                          );
+                        })}
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRowElevacion>
-                      {celdasHead.map((celda) => {
-                        return (
-                          <TableCell1em align="center" sx={estilosCell}>
-                            <BotonNC
-                              Nota={celda.nota}
-                              Cond={celda.requisito}
-                            ></BotonNC>
-                          </TableCell1em>
-                        );
-                      })}
+                      {celdasHead != undefined &&
+                        celdasHead.map((celda) => {
+                          return (
+                            <TableCell1em align="center" sx={estilosCell}>
+                              <BotonNC
+                                Nota={celda.nota}
+                                Cond={celda.requisito}
+                              ></BotonNC>
+                            </TableCell1em>
+                          );
+                        })}
                     </TableRowElevacion>
                   </TableBody>
                 </Table>
               </TableContainer>
             </CardContent>
           </CardMainPage>
+
+          {sinPromedios && (
+            <Box marginTop={2}>
+              <MensajeFeedback>No se encontraron resultados</MensajeFeedback>
+            </Box>
+          )}
         </>
       )}
     </>
