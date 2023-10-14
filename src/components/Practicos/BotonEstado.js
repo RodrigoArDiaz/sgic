@@ -29,7 +29,7 @@ export const BotonEstado = (props) => {
           if (Responses.status === 200) {
             setSalto("B");
             props.abrir(true);
-            props.mensaje("Práctico modificado con éxito");
+            props.mensaje("Práctico dado de alta con éxito");
             props.tipo("success");
             props.refrescar();
           } else if (Responses.status === 401) {
@@ -49,7 +49,7 @@ export const BotonEstado = (props) => {
             if (Responses.status === 200) {
               setSalto("A");
               props.abrir(true);
-              props.mensaje("Práctico modificado con éxito");
+              props.mensaje("Práctico dado de baja con éxito");
               props.tipo("success");
               props.refrescar();
             } else if (Responses.status === 401) {
