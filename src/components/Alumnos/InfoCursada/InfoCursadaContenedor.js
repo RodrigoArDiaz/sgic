@@ -158,7 +158,7 @@ export default function InfoCursadaContenedor(props) {
                   <Chip
                     label={infoCursada.Estado == "A" ? "Activo" : "Baja"}
                     variant="outlined"
-                    color={infoCursada.Estado == "A" ? "success" : "danger"}
+                    color={infoCursada.Estado == "A" ? "success" : "error"}
                   />
                 )}
                 <Typography
@@ -278,7 +278,7 @@ export default function InfoCursadaContenedor(props) {
             </CardMainPage>
           </Grid>
 
-          {/* Estadisticas */}  
+          {/* Estadisticas */}
           <Grid item xs={6} sm={4.5} md={4} lg={2} xl={1.5}>
             <CardMainPage visibleHeader={false}>
               <Grid container>
@@ -357,7 +357,7 @@ export default function InfoCursadaContenedor(props) {
 
       {/* Info alumno */}
       <Grid item xs={12}>
-        <InfoAlumno />
+        <InfoAlumno infoCursada={infoCursada} />
       </Grid>
     </Grid>
   );
