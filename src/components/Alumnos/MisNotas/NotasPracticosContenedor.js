@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 //MUI
 import {
+  Box,
   CardContent,
+  Container,
   IconButton,
   List,
   ListItem,
@@ -33,6 +35,7 @@ import {
   TableCellHead,
   TableRowElevacion,
 } from "../../Material UI - Componentes Modificados/ComponentesTabla";
+import MensajeFeedback from "../../MensajeFeedback";
 
 const estilosCell = {
   paddingTop: 0,
@@ -49,6 +52,7 @@ const NotasPracticosContenedor = () => {
   //
   const [practicosNotas, setPracticosNotas] = useState([]);
   const [grupoInfo, setGrupoInfo] = useState({});
+  const [sinResultados, setSinResultados] = useState("");
 
   //
   const navegar = useNavigate();
@@ -88,6 +92,11 @@ const NotasPracticosContenedor = () => {
 
       setPracticosNotas(aux);
     } catch (error) {
+      console.log(error.response);
+      if (error.response && error.response.status == 460) {
+        setSinResultados(error.response.data.Error);
+      }
+
       if (error.response && error.response.status == 401) {
         //Sesion caducada (sin autorización)
         navegar(routes.iniciarSesion);
@@ -105,7 +114,7 @@ const NotasPracticosContenedor = () => {
     <>
       {isLoading && <SpinnerMoonLoaderMedium />}
 
-      {!isLoading && (
+      {!isLoading && sinResultados == "" && (
         <CardMainPage visibleHeader={false} sx={{ marginTop: 2 }}>
           <List sx={{ paddingY: 0 }}>
             <ListItem sx={{ paddingX: 1, flexWrap: "wrap" }}>
@@ -239,6 +248,12 @@ const NotasPracticosContenedor = () => {
             </TableContainer>
           </CardContent>
         </CardMainPage>
+      )}
+
+      {!isLoading && sinResultados != "" && (
+        <Box marginTop={2}>
+          <MensajeFeedback>{sinResultados}</MensajeFeedback>
+        </Box>
       )}
     </>
   );

@@ -173,6 +173,7 @@ export default function ExamenesContenedor(props) {
 
     Responses.consultas(data2, endpoints.listarParametros)
       .then((response) => {
+        console.log(response);
         if (Responses.status === 200) {
           setPar(response);
 
@@ -228,128 +229,130 @@ export default function ExamenesContenedor(props) {
         </Typography>
       </Box>
 
-      <CardMainPage visibleHeader={false}>
-        <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
-          <Grid container>
-            <Grid container direction="row-reverse">
-              {/* CrearExamen */}
-              <Grid item>
-                <Grid
-                  container
-                  paddingX={2}
-                  // paddingY={1}
-                  paddingBottom={1}
-                  justifyContent="flex-end"
-                >
-                  <Grid item xs={12}>
-                    <CrearExamen
-                      refrescar={Refrescar}
-                      parametros={parametros}
-                      abrir={setAbrir}
-                      mensaje={setMensaje}
-                      tipo={setTipo}
-                      cursada={cursada}
-                    />
+      {cargando != 4 && (
+        <CardMainPage visibleHeader={false}>
+          <CardContent sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Grid container>
+              <Grid container direction="row-reverse">
+                {/* CrearExamen */}
+                <Grid item>
+                  <Grid
+                    container
+                    paddingX={2}
+                    // paddingY={1}
+                    paddingBottom={1}
+                    justifyContent="flex-end"
+                  >
+                    <Grid item xs={12}>
+                      <CrearExamen
+                        refrescar={Refrescar}
+                        parametros={parametros}
+                        abrir={setAbrir}
+                        mensaje={setMensaje}
+                        tipo={setTipo}
+                        cursada={cursada}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              {/* <OrdenarPracticos /> */}
-              <Grid item>
-                <Grid
-                  container
-                  paddingX={2}
-                  // paddingY={1}
-                  paddingBottom={1}
-                  justifyContent="flex-end"
-                >
-                  <Grid item xs={12}>
-                    <OrdenarTipo
-                      refrescar={Refrescar}
-                      abrir={setAbrir}
-                      mensaje={setMensaje}
-                      tipo={setTipo}
-                      cursada={cursada}
-                    />
+                {/* <OrdenarPracticos /> */}
+                <Grid item>
+                  <Grid
+                    container
+                    paddingX={2}
+                    // paddingY={1}
+                    paddingBottom={1}
+                    justifyContent="flex-end"
+                  >
+                    <Grid item xs={12}>
+                      <OrdenarTipo
+                        refrescar={Refrescar}
+                        abrir={setAbrir}
+                        mensaje={setMensaje}
+                        tipo={setTipo}
+                        cursada={cursada}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
+                {/* Buscar practicos */}
+                <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
+                  <BuscarExamenes
+                    cursada={cursada}
+                    actualizar={BuscarAl}
+                    filasxpagina={filasxpagina}
+                  />
+                </Grid>
               </Grid>
-              {/* Buscar practicos */}
-              <Grid item paddingBottom={1} paddingX={2} marginRight="auto">
-                <BuscarExamenes
-                  cursada={cursada}
-                  actualizar={BuscarAl}
-                  filasxpagina={filasxpagina}
-                />
-              </Grid>
+
+              {cargando === "1" && (
+                <Grid container paddingTop={1}>
+                  <Grid item xs={12}>
+                    <Box component="div" display="flex" justifyContent="center">
+                      <MoonLoader color={color} size={60} />
+                    </Box>
+                  </Grid>
+                </Grid>
+              )}
+
+              {cargando === "2" && (
+                <Grid container pt={1}>
+                  <ExamenesLista
+                    filas={filas}
+                    filasxpagina={filasxpagina}
+                    pagina={pagina}
+                    paginacion={paginacion}
+                    resultados={resultados}
+                    actualizarpagina={CambioPagina}
+                    actualizarfilas={CambioFPP}
+                    refrescar={Refrescar}
+                    cursada={cursada}
+                    abrir={setAbrir}
+                    mensaje={setMensaje}
+                    tipo={setTipo}
+                    parametros={parametros}
+                  />
+                </Grid>
+              )}
+
+              {cargando === "3" && (
+                <Grid container paddingTop={1}>
+                  <Grid item xs={12}>
+                    <Box paddingX={2}>
+                      <MensajeFeedback>
+                        {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                        No se encontraron resultados.
+                      </MensajeFeedback>
+                    </Box>
+                  </Grid>
+                </Grid>
+              )}
+
+              <div>
+                <SnackMensajes
+                  abrir={abrir}
+                  mensaje={mensaje}
+                  tipo={tipo}
+                  cerrar={setAbrir}
+                />{" "}
+              </div>
             </Grid>
+          </CardContent>
+        </CardMainPage>
+      )}
 
-            {cargando === "1" && (
-              <Grid container paddingTop={1}>
-                <Grid item xs={12}>
-                  <Box component="div" display="flex" justifyContent="center">
-                    <MoonLoader color={color} size={60} />
-                  </Box>
-                </Grid>
-              </Grid>
-            )}
-
-            {cargando === "2" && (
-              <Grid container pt={1}>
-                <ExamenesLista
-                  filas={filas}
-                  filasxpagina={filasxpagina}
-                  pagina={pagina}
-                  paginacion={paginacion}
-                  resultados={resultados}
-                  actualizarpagina={CambioPagina}
-                  actualizarfilas={CambioFPP}
-                  refrescar={Refrescar}
-                  cursada={cursada}
-                  abrir={setAbrir}
-                  mensaje={setMensaje}
-                  tipo={setTipo}
-                  parametros={parametros}
-                />
-              </Grid>
-            )}
-
-            {cargando === "3" && (
-              <Grid container paddingTop={1}>
-                <Grid item xs={12}>
-                  <Box paddingX={2}>
-                    <MensajeFeedback>
-                      {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
-                      No se encontraron resultados.
-                    </MensajeFeedback>
-                  </Box>
-                </Grid>
-              </Grid>
-            )}
-
-            {cargando === "4" && (
-              <Grid container paddingTop={1}>
-                <Grid item xs={12}>
-                  <Box paddingX={2}>
-                    <MensajeFeedback>
-                      {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
-                      Debe configurar los parámetros de los exámenes.
-                    </MensajeFeedback>
-                  </Box>
-                </Grid>
-              </Grid>
-            )}
-
-            <div>
-              <SnackMensajes
-                abrir={abrir}
-                mensaje={mensaje}
-                tipo={tipo}
-                cerrar={setAbrir}
-              />{" "}
-            </div>
+      {cargando === "4" && (
+        <Grid container>
+          <Grid item xs={12}>
+            <Box paddingX={0}>
+              <MensajeFeedback>
+                {/* <AlertTitle>La cursada no admite grupos</AlertTitle> */}
+                Debe configurar los parámetros de los exámenes.
+              </MensajeFeedback>
+            </Box>
           </Grid>
-        </CardContent>
-      </CardMainPage>
+        </Grid>
+      )}
     </>
   );
 }

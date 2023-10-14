@@ -15,7 +15,10 @@ import { peticionInscribirseEnCursada } from "../../api/alumnos/cursadasApi";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes";
 
-const InscribirseEnCursada = ({ cursada }) => {
+const InscribirseEnCursada = ({
+  cursada,
+  handleListarCursadasEnInscripcion,
+}) => {
   const [isOpen, handleOpen, handleClose] = useModal(false);
   const { enqueueSnackbar } = useSnackbar();
   const { Materia, Anio, IdCursada } = cursada;
@@ -32,6 +35,7 @@ const InscribirseEnCursada = ({ cursada }) => {
       enqueueSnackbar("Se inscribió en la cursada con exito", {
         variant: "success",
       });
+      handleListarCursadasEnInscripcion({ materia: "" });
     } catch (error) {
       //Error al inscribirse
       if (error.response && error.response.status == 460)

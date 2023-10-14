@@ -19,7 +19,7 @@ const estilosCardInscripciones = {
   },
 };
 /*** Componente  InscripcionesCard ***/
-const InscripcionesCard = ({ cursada }) => {
+const InscripcionesCard = ({ cursada, handleListarCursadasEnInscripcion }) => {
   const { Catedra, Materia, Anio, FechaInicio, IdCursada } = cursada;
 
   return (
@@ -54,7 +54,10 @@ const InscripcionesCard = ({ cursada }) => {
           <Typography textAlign="center">{FechaInicio}</Typography>
         </DivInfo>
         <Divider orientation="vertical" />
-        <InscribirseEnCursada cursada={cursada} />
+        <InscribirseEnCursada
+          cursada={cursada}
+          handleListarCursadasEnInscripcion={handleListarCursadasEnInscripcion}
+        />
       </CardActions>
     </CardMainPage>
   );

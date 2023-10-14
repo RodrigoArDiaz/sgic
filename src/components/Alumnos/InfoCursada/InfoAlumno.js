@@ -61,7 +61,7 @@ const determinarEstado = (estado) => {
 };
 
 /*** Componente const InfoAlumno ***/
-const InfoAlumno = () => {
+const InfoAlumno = ({ infoCursada }) => {
   //Recupero informacion de la cursada
   const { cursada } = useSelector((state) => state.cursada);
   //Recupero informacion de del alumno
@@ -125,7 +125,6 @@ const InfoAlumno = () => {
   useEffect(() => {
     handleBuscarMiSituacionFinal();
     handleListarIntegrantesGrupo();
-    console.log(user);
   }, []);
 
   return (
@@ -154,80 +153,82 @@ const InfoAlumno = () => {
         </CardMainPage>
       </Grid>
 
-      <Grid item xs={6}>
-        <CardMainPage visibleHeader={false}>
-          <List sx={{ paddingY: 0 }}>
-            <ListItem sx={{ paddingX: 2, flexWrap: "wrap" }}>
-              <ListItemText>
-                <Typography variant="h6" fontSize="1rem">
-                  Grupo
-                </Typography>
-              </ListItemText>
-            </ListItem>
-          </List>
-          <Divider />
-          <CardContent
-            sx={{
-              padding: 0,
-              //   "&.MuiCardContent-root:last-child": { paddingBottom: 0 },
-            }}
-          >
-            {!isLoadingGrupo && (
-              <TableContainer component={Box} sx={{ overflowX: "auto" }}>
-                <Table aria-label="Lista de Catedras" size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Apellidos</TableCell>
-                      <TableCell>Nombres</TableCell>
-                      <TableCell align="center">Email</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {grupo.map((integrante) => (
-                      <TableRowElevacion key={integrante.IdUsuario}>
-                        <TableCell1em
-                          component="th"
-                          scope="row"
-                          // sx={estilosCell}
-                        >
-                          <Box display="flex" gap={1} alignItems="center">
-                            <AvatarCustom
-                              // value={value}
-                              valueOne={integrante.Apellidos}
-                              valueTwo={integrante.Nombres}
-                              outlined={true}
-                              // defineColor={randomColor()}
-                            />
-                            {integrante.Apellidos}
-                          </Box>
-                        </TableCell1em>
+      {infoCursada.PermiteGrupos == "S" && (
+        <Grid item xs={6}>
+          <CardMainPage visibleHeader={false}>
+            <List sx={{ paddingY: 0 }}>
+              <ListItem sx={{ paddingX: 2, flexWrap: "wrap" }}>
+                <ListItemText>
+                  <Typography variant="h6" fontSize="1rem">
+                    Grupo
+                  </Typography>
+                </ListItemText>
+              </ListItem>
+            </List>
+            <Divider />
+            <CardContent
+              sx={{
+                padding: 0,
+                //   "&.MuiCardContent-root:last-child": { paddingBottom: 0 },
+              }}
+            >
+              {!isLoadingGrupo && (
+                <TableContainer component={Box} sx={{ overflowX: "auto" }}>
+                  <Table aria-label="Lista de Catedras" size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Apellidos</TableCell>
+                        <TableCell>Nombres</TableCell>
+                        <TableCell align="center">Email</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {grupo.map((integrante) => (
+                        <TableRowElevacion key={integrante.IdUsuario}>
+                          <TableCell1em
+                            component="th"
+                            scope="row"
+                            // sx={estilosCell}
+                          >
+                            <Box display="flex" gap={1} alignItems="center">
+                              <AvatarCustom
+                                // value={value}
+                                valueOne={integrante.Apellidos}
+                                valueTwo={integrante.Nombres}
+                                outlined={true}
+                                // defineColor={randomColor()}
+                              />
+                              {integrante.Apellidos}
+                            </Box>
+                          </TableCell1em>
 
-                        <TableCell1em
-                          component="th"
-                          scope="row"
-                          //  sx={estilosCell}
-                        >
-                          {/* <CopiarButton textoCopiar={contacto.Perfil} /> */}
-                          {integrante.Nombres}
-                        </TableCell1em>
-                        <TableCell1em
-                          component="th"
-                          scope="row"
-                          sx={estilosCell}
-                          align="center"
-                        >
-                          {/* <CopiarButton textoCopiar={contacto.Perfil} /> */}
-                          {integrante.Email}
-                        </TableCell1em>
-                      </TableRowElevacion>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          </CardContent>
-        </CardMainPage>
-      </Grid>
+                          <TableCell1em
+                            component="th"
+                            scope="row"
+                            //  sx={estilosCell}
+                          >
+                            {/* <CopiarButton textoCopiar={contacto.Perfil} /> */}
+                            {integrante.Nombres}
+                          </TableCell1em>
+                          <TableCell1em
+                            component="th"
+                            scope="row"
+                            sx={estilosCell}
+                            align="center"
+                          >
+                            {/* <CopiarButton textoCopiar={contacto.Perfil} /> */}
+                            {integrante.Email}
+                          </TableCell1em>
+                        </TableRowElevacion>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </CardContent>
+          </CardMainPage>
+        </Grid>
+      )}
     </Grid>
   );
 };

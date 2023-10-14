@@ -112,7 +112,7 @@ const theme = createTheme({
     icons: {
       main: "rgb(38, 38, 38)",
       secondary: "rgb(38, 38, 38)",
-      tertiary: "rgba(38, 38, 38, 0.8)",
+      tertiary: "rgba(38, 38, 38, 0.6)",
       bg: "rgb(245, 245, 245)",
       error: red[500],
       edit: blue[500],
@@ -164,11 +164,10 @@ const theme = createTheme({
     },
   },
 
-
   //Tipografria
   typography: {
-    //Font-size on the <html> element. This is used to adjust the rem value so the calculated font-size 
-    htmlFontSize: 18, 
+    //Font-size on the <html> element. This is used to adjust the rem value so the calculated font-size
+    htmlFontSize: 18,
 
     //Family
     fontFamily: ["Public Sans", "sans-serif"].join(","),

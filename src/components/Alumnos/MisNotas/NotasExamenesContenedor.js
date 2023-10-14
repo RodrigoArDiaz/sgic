@@ -7,6 +7,8 @@ import { routes } from "../../../routes";
 import { peticionListarParametrosCursada } from "../../../api/alumnos/notasApi";
 import NotasTipoExamen from "./NotasTipoExamen";
 import SpinnerMoonLoaderMedium from "../../Spinners/SpinnerMoonLoaderMedium";
+import { Box } from "@mui/material";
+import MensajeFeedback from "../../MensajeFeedback";
 
 /*** Componente NotasExamenesContenedor ***/
 const NotasExamenesContenedor = () => {
@@ -22,6 +24,8 @@ const NotasExamenesContenedor = () => {
   //Parametros
   const [parametros, setParametros] = useState([]);
 
+  const [sinResultados, setSinResultados] = useState("");
+
   const listarParametrosCursada = async () => {
     setIsLoading(true);
     //Realizo peticon
@@ -35,6 +39,11 @@ const NotasExamenesContenedor = () => {
       console.log(parametros);
       setParametros(parametros);
     } catch (error) {
+      console.log(error.response);
+      if (error.response && error.response.status == 460) {
+        setSinResultados(error.response.data.Error);
+      }
+
       if (error.response && error.response.status == 401) {
         //Sesion caducada (sin autorización)
         navegar(routes.iniciarSesion);
@@ -58,6 +67,12 @@ const NotasExamenesContenedor = () => {
           </CardMainPage>
         );
       })}
+
+      {!isLoading && sinResultados != "" && (
+        <Box marginTop={2}>
+          <MensajeFeedback>{sinResultados}</MensajeFeedback>
+        </Box>
+      )}
     </>
   );
 };

@@ -169,7 +169,12 @@ const CursadasInscripcionContenedor = () => {
           cursadas.map((cursada, indice) => {
             return (
               <Grid item xl={3} lg={4} md={6} sm={12} xs={12}>
-                <InscripcionesCard cursada={cursada} />
+                <InscripcionesCard
+                  cursada={cursada}
+                  handleListarCursadasEnInscripcion={
+                    handleListarCursadasEnInscripcion
+                  }
+                />
               </Grid>
             );
           })
